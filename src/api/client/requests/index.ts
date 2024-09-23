@@ -1,2 +1,2 @@
-export { type GetCheckRcsRequest } from "./GetCheckRcsRequest";
-export { type PostInitRequest } from "./PostInitRequest";
+export { type CheckRcsCapabilityRequest } from "./CheckRcsCapabilityRequest";
+export { type ReceiveRcsMessagesRequest } from "./ReceiveRcsMessagesRequest";

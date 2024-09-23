@@ -8,9 +8,11 @@ import * as core from "../../core";
 import { RcsMessageSent } from "./RcsMessageSent";
 import { SmsMessageSent } from "./SmsMessageSent";
 
-export const PostSendResponse: core.serialization.Schema<serializers.PostSendResponse.Raw, Pinnacle.PostSendResponse> =
-    core.serialization.undiscriminatedUnion([RcsMessageSent, SmsMessageSent]);
+export const SendAnRcsMessageResponse: core.serialization.Schema<
+    serializers.SendAnRcsMessageResponse.Raw,
+    Pinnacle.SendAnRcsMessageResponse
+> = core.serialization.undiscriminatedUnion([RcsMessageSent, SmsMessageSent]);
 
-export declare namespace PostSendResponse {
+export declare namespace SendAnRcsMessageResponse {
     type Raw = RcsMessageSent.Raw | SmsMessageSent.Raw;
 }

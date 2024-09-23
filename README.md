@@ -19,7 +19,7 @@ Instantiate and use the client with the following:
 import { PinnacleClient } from "pinnacle-sdk";
 
 const client = new PinnacleClient({ pinnacleApiKey: "YOUR_PINNACLE_API_KEY" });
-await client.enablesTheUserToReceiveRcsMessagesWithTheProvidedWebhook();
+await client.receiveRcsMessages();
 ```
 
 ## Request And Response Types
@@ -30,7 +30,7 @@ following namespace:
 ```typescript
 import { Pinnacle } from "pinnacle-sdk";
 
-const request: Pinnacle.GetCheckRcsRequest = {
+const request: Pinnacle.CheckRcsCapabilityRequest = {
     ...
 };
 ```
@@ -44,7 +44,7 @@ will be thrown.
 import { PinnacleError } from "pinnacle-sdk";
 
 try {
-    await client.enablesTheUserToReceiveRcsMessagesWithTheProvidedWebhook(...);
+    await client.receiveRcsMessages(...);
 } catch (err) {
     if (err instanceof PinnacleError) {
         console.log(err.statusCode);
@@ -71,7 +71,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.enablesTheUserToReceiveRcsMessagesWithTheProvidedWebhook(..., {
+const response = await client.receiveRcsMessages(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -81,7 +81,7 @@ const response = await client.enablesTheUserToReceiveRcsMessagesWithTheProvidedW
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.enablesTheUserToReceiveRcsMessagesWithTheProvidedWebhook(..., {
+const response = await client.receiveRcsMessages(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -92,7 +92,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.enablesTheUserToReceiveRcsMessagesWithTheProvidedWebhook(..., {
+const response = await client.receiveRcsMessages(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request

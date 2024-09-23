@@ -8,7 +8,7 @@
  *         phoneNumber: "phone_number"
  *     }
  */
-export interface GetCheckRcsRequest {
+export interface CheckRcsCapabilityRequest {
     /**
      * The phone number to check for RCS capability
      */

@@ -4,4 +4,4 @@
 
 import * as Pinnacle from "../index";
 
-export type PostSendResponse = Pinnacle.RcsMessageSent | Pinnacle.SmsMessageSent;
+export type SendAnRcsMessageRequestBody = Pinnacle.RcsMessage | Pinnacle.SmsMessage;

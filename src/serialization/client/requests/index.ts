@@ -1,1 +1,1 @@
-export { PostInitRequest } from "./PostInitRequest";
+export { ReceiveRcsMessagesRequest } from "./ReceiveRcsMessagesRequest";

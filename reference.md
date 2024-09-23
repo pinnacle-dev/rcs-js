@@ -1,6 +1,6 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">sendAnRcsMessageToASpecifiedPhoneNumberAndWithASpecifiedMessage</a>({ ...params }) -> Pinnacle.PostSendResponse</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">sendAnRcsMessage</a>({ ...params }) -> Pinnacle.SendAnRcsMessageResponse</code></summary>
 <dl>
 <dd>
 
@@ -13,7 +13,7 @@
 <dd>
 
 ```typescript
-await client.sendAnRcsMessageToASpecifiedPhoneNumberAndWithASpecifiedMessage({});
+await client.sendAnRcsMessage({});
 ```
 
 </dd>
@@ -29,7 +29,7 @@ await client.sendAnRcsMessageToASpecifiedPhoneNumberAndWithASpecifiedMessage({})
 <dl>
 <dd>
 
-**request:** `Pinnacle.PostSendRequestBody`
+**request:** `Pinnacle.SendAnRcsMessageRequestBody`
 
 </dd>
 </dl>

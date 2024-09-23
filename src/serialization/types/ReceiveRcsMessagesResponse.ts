@@ -6,14 +6,14 @@ import * as serializers from "../index";
 import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
 
-export const PostInitResponse: core.serialization.ObjectSchema<
-    serializers.PostInitResponse.Raw,
-    Pinnacle.PostInitResponse
+export const ReceiveRcsMessagesResponse: core.serialization.ObjectSchema<
+    serializers.ReceiveRcsMessagesResponse.Raw,
+    Pinnacle.ReceiveRcsMessagesResponse
 > = core.serialization.object({
     message: core.serialization.string().optional(),
 });
 
-export declare namespace PostInitResponse {
+export declare namespace ReceiveRcsMessagesResponse {
     interface Raw {
         message?: string | null;
     }

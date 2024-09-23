@@ -34,7 +34,7 @@ export class PinnacleClient {
     /**
      * Checks if a phone number is able to receive RCS
      *
-     * @param {Pinnacle.GetCheckRcsRequest} request
+     * @param {Pinnacle.CheckRcsCapabilityRequest} request
      * @param {PinnacleClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -46,9 +46,9 @@ export class PinnacleClient {
      *     })
      */
     public async checkRcsCapability(
-        request: Pinnacle.GetCheckRcsRequest,
+        request: Pinnacle.CheckRcsCapabilityRequest,
         requestOptions?: PinnacleClient.RequestOptions
-    ): Promise<Pinnacle.GetCheckRcsResponse> {
+    ): Promise<Pinnacle.CheckRcsCapabilityResponse> {
         const { phoneNumber } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
         _queryParams["phone_number"] = phoneNumber;
@@ -62,7 +62,7 @@ export class PinnacleClient {
                 "PINNACLE-API-KEY": await core.Supplier.get(this._options.pinnacleApiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "pinnacle-sdk",
-                "X-Fern-SDK-Version": "0.0.2",
+                "X-Fern-SDK-Version": "0.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
@@ -74,7 +74,7 @@ export class PinnacleClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.GetCheckRcsResponse.parseOrThrow(_response.body, {
+            return serializers.CheckRcsCapabilityResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -126,19 +126,19 @@ export class PinnacleClient {
     }
 
     /**
-     * @param {Pinnacle.PostInitRequest} request
+     * @param {Pinnacle.ReceiveRcsMessagesRequest} request
      * @param {PinnacleClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
      *
      * @example
-     *     await client.enablesTheUserToReceiveRcsMessagesWithTheProvidedWebhook()
+     *     await client.receiveRcsMessages()
      */
-    public async enablesTheUserToReceiveRcsMessagesWithTheProvidedWebhook(
-        request: Pinnacle.PostInitRequest = {},
+    public async receiveRcsMessages(
+        request: Pinnacle.ReceiveRcsMessagesRequest = {},
         requestOptions?: PinnacleClient.RequestOptions
-    ): Promise<Pinnacle.PostInitResponse> {
+    ): Promise<Pinnacle.ReceiveRcsMessagesResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
@@ -149,19 +149,19 @@ export class PinnacleClient {
                 "PINNACLE-API-KEY": await core.Supplier.get(this._options.pinnacleApiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "pinnacle-sdk",
-                "X-Fern-SDK-Version": "0.0.2",
+                "X-Fern-SDK-Version": "0.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.PostInitRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.ReceiveRcsMessagesRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.PostInitResponse.parseOrThrow(_response.body, {
+            return serializers.ReceiveRcsMessagesResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -213,19 +213,19 @@ export class PinnacleClient {
     }
 
     /**
-     * @param {Pinnacle.PostSendRequestBody} request
+     * @param {Pinnacle.SendAnRcsMessageRequestBody} request
      * @param {PinnacleClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
      *
      * @example
-     *     await client.sendAnRcsMessageToASpecifiedPhoneNumberAndWithASpecifiedMessage({})
+     *     await client.sendAnRcsMessage({})
      */
-    public async sendAnRcsMessageToASpecifiedPhoneNumberAndWithASpecifiedMessage(
-        request: Pinnacle.PostSendRequestBody,
+    public async sendAnRcsMessage(
+        request: Pinnacle.SendAnRcsMessageRequestBody,
         requestOptions?: PinnacleClient.RequestOptions
-    ): Promise<Pinnacle.PostSendResponse> {
+    ): Promise<Pinnacle.SendAnRcsMessageResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
@@ -236,19 +236,19 @@ export class PinnacleClient {
                 "PINNACLE-API-KEY": await core.Supplier.get(this._options.pinnacleApiKey),
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "pinnacle-sdk",
-                "X-Fern-SDK-Version": "0.0.2",
+                "X-Fern-SDK-Version": "0.0.4",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.PostSendRequestBody.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.SendAnRcsMessageRequestBody.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.PostSendResponse.parseOrThrow(_response.body, {
+            return serializers.SendAnRcsMessageResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,

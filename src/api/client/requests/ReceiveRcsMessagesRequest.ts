@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface PostInitRequest {
+export interface ReceiveRcsMessagesRequest {
     /** Webhook URL to receive RCS messages */
     webhookUrl?: string;
 }
