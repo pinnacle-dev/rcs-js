@@ -1,14 +1,14 @@
 # Pinnacle TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
-[![npm shield](https://img.shields.io/npm/v/)](https://www.npmjs.com/package/)
+[![npm shield](https://img.shields.io/npm/v/pinnacle-sdk)](https://www.npmjs.com/package/pinnacle-sdk)
 
 The Pinnacle TypeScript library provides convenient access to the Pinnacle API from TypeScript.
 
 ## Installation
 
 ```sh
-npm i -s
+npm i -s pinnacle-sdk
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ npm i -s
 Instantiate and use the client with the following:
 
 ```typescript
-import { PinnacleClient } from "";
+import { PinnacleClient } from "pinnacle-sdk";
 
 const client = new PinnacleClient({ pinnacleApiKey: "YOUR_PINNACLE_API_KEY" });
 await client.enablesTheUserToReceiveRcsMessagesWithTheProvidedWebhook();
@@ -28,7 +28,7 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Pinnacle } from "Pinnacle";
+import { Pinnacle } from "pinnacle-sdk";
 
 const request: Pinnacle.GetCheckRcsRequest = {
     ...
@@ -41,7 +41,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { PinnacleError } from "Pinnacle";
+import { PinnacleError } from "pinnacle-sdk";
 
 try {
     await client.enablesTheUserToReceiveRcsMessagesWithTheProvidedWebhook(...);
@@ -116,7 +116,7 @@ The SDK provides a way for your to customize the underlying HTTP client / Fetch 
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { PinnacleClient } from "Pinnacle";
+import { PinnacleClient } from "pinnacle-sdk";
 
 const client = new PinnacleClient({
     ...
