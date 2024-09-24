@@ -1,14 +1,14 @@
 # Pinnacle TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-SDK%20generated%20by%20Fern-brightgreen)](https://github.com/fern-api/fern)
-[![npm shield](https://img.shields.io/npm/v/pinnacle-sdk)](https://www.npmjs.com/package/pinnacle-sdk)
+[![npm shield](https://img.shields.io/npm/v/rcs-js)](https://www.npmjs.com/package/rcs-js)
 
 The Pinnacle TypeScript library provides convenient access to the Pinnacle API from TypeScript.
 
 ## Installation
 
 ```sh
-npm i -s pinnacle-sdk
+npm i -s rcs-js
 ```
 
 ## Usage
@@ -16,10 +16,12 @@ npm i -s pinnacle-sdk
 Instantiate and use the client with the following:
 
 ```typescript
-import { PinnacleClient } from "pinnacle-sdk";
+import { PinnacleClient } from "rcs-js";
 
-const client = new PinnacleClient({ pinnacleApiKey: "YOUR_PINNACLE_API_KEY" });
-await client.receiveRcsMessages();
+const client = new PinnacleClient({ apiKey: "YOUR_API_KEY" });
+await client.updateSettings({
+    webhookUrl: "webhook_url",
+});
 ```
 
 ## Request And Response Types
@@ -28,7 +30,7 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Pinnacle } from "pinnacle-sdk";
+import { Pinnacle } from "rcs-js";
 
 const request: Pinnacle.CheckRcsCapabilityRequest = {
     ...
@@ -41,10 +43,10 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { PinnacleError } from "pinnacle-sdk";
+import { PinnacleError } from "rcs-js";
 
 try {
-    await client.receiveRcsMessages(...);
+    await client.updateSettings(...);
 } catch (err) {
     if (err instanceof PinnacleError) {
         console.log(err.statusCode);
@@ -71,7 +73,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.receiveRcsMessages(..., {
+const response = await client.updateSettings(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -81,7 +83,7 @@ const response = await client.receiveRcsMessages(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.receiveRcsMessages(..., {
+const response = await client.updateSettings(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -92,7 +94,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.receiveRcsMessages(..., {
+const response = await client.updateSettings(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request
@@ -116,7 +118,7 @@ The SDK provides a way for your to customize the underlying HTTP client / Fetch 
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { PinnacleClient } from "pinnacle-sdk";
+import { PinnacleClient } from "rcs-js";
 
 const client = new PinnacleClient({
     ...

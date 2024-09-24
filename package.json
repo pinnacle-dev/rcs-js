@@ -1,8 +1,8 @@
 {
-    "name": "pinnacle-sdk",
-    "version": "0.0.4",
+    "name": "rcs-js",
+    "version": "0.0.1",
     "private": false,
-    "repository": "https://github.com/fern-demo/pinnacle-typescript-sdk",
+    "repository": "https://github.com/pinnacle-dev/rcs-js",
     "main": "./index.js",
     "types": "./index.d.ts",
     "scripts": {

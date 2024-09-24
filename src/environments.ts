@@ -3,7 +3,7 @@
  */
 
 export const PinnacleEnvironment = {
-    Default: "http://trypinnacle.dev/api/check_rcs",
+    Default: "https://trypinnacle.dev/api",
 } as const;
 
 export type PinnacleEnvironment = typeof PinnacleEnvironment.Default;

@@ -1,1 +1,1 @@
-export { ReceiveRcsMessagesRequest } from "./ReceiveRcsMessagesRequest";
+export { UpdateSettingsRequest } from "./UpdateSettingsRequest";

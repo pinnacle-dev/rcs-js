@@ -5,29 +5,15 @@
 import * as serializers from "../index";
 import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
-import { ActionActionType } from "./ActionActionType";
+import { Url } from "./Url";
+import { Call } from "./Call";
+import { Postback } from "./Postback";
+import { ShareLocation } from "./ShareLocation";
+import { ViewLocation } from "./ViewLocation";
 
-export const Action: core.serialization.ObjectSchema<serializers.Action.Raw, Pinnacle.Action> =
-    core.serialization.object({
-        title: core.serialization.string(),
-        actionType: core.serialization.property("action_type", ActionActionType),
-        payload: core.serialization.string().optional(),
-        execute: core.serialization.string().optional(),
-        startTime: core.serialization.property("start_time", core.serialization.string().optional()),
-        endTime: core.serialization.property("end_time", core.serialization.string().optional()),
-        eventTitle: core.serialization.property("event_title", core.serialization.string().optional()),
-        eventDescription: core.serialization.property("event_description", core.serialization.string().optional()),
-    });
+export const Action: core.serialization.Schema<serializers.Action.Raw, Pinnacle.Action> =
+    core.serialization.undiscriminatedUnion([Url, Call, Postback, ShareLocation, ViewLocation]);
 
 export declare namespace Action {
-    interface Raw {
-        title: string;
-        action_type: ActionActionType.Raw;
-        payload?: string | null;
-        execute?: string | null;
-        start_time?: string | null;
-        end_time?: string | null;
-        event_title?: string | null;
-        event_description?: string | null;
-    }
+    type Raw = Url.Raw | Call.Raw | Postback.Raw | ShareLocation.Raw | ViewLocation.Raw;
 }

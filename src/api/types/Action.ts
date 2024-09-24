@@ -4,13 +4,4 @@
 
 import * as Pinnacle from "../index";
 
-export interface Action {
-    title: string;
-    actionType: Pinnacle.ActionActionType;
-    payload?: string;
-    execute?: string;
-    startTime?: string;
-    endTime?: string;
-    eventTitle?: string;
-    eventDescription?: string;
-}
+export type Action = Pinnacle.Url | Pinnacle.Call | Pinnacle.Postback | Pinnacle.ShareLocation | Pinnacle.ViewLocation;

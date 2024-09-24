@@ -12,13 +12,11 @@ export const CheckRcsCapabilityResponse: core.serialization.ObjectSchema<
 > = core.serialization.object({
     success: core.serialization.boolean().optional(),
     rcsEnabled: core.serialization.boolean().optional(),
-    message: core.serialization.string().optional(),
 });
 
 export declare namespace CheckRcsCapabilityResponse {
     interface Raw {
         success?: boolean | null;
         rcsEnabled?: boolean | null;
-        message?: string | null;
     }
 }

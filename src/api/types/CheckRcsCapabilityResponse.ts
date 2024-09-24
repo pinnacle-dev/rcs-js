@@ -5,5 +5,4 @@
 export interface CheckRcsCapabilityResponse {
     success?: boolean;
     rcsEnabled?: boolean;
-    message?: string;
 }

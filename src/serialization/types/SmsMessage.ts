@@ -5,19 +5,16 @@
 import * as serializers from "../index";
 import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
-import { SmsMessageMessage } from "./SmsMessageMessage";
 
 export const SmsMessage: core.serialization.ObjectSchema<serializers.SmsMessage.Raw, Pinnacle.SmsMessage> =
     core.serialization.object({
-        phoneNumber: core.serialization.property("phone_number", core.serialization.string()),
-        messageType: core.serialization.property("message_type", core.serialization.stringLiteral("sms")),
-        message: SmsMessageMessage,
+        body: core.serialization.string(),
+        mediaUrl: core.serialization.string().optional(),
     });
 
 export declare namespace SmsMessage {
     interface Raw {
-        phone_number: string;
-        message_type: "sms";
-        message: SmsMessageMessage.Raw;
+        body: string;
+        mediaUrl?: string | null;
     }
 }

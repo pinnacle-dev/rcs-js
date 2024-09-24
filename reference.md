@@ -1,8 +1,23 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">sendAnRcsMessage</a>({ ...params }) -> Pinnacle.SendAnRcsMessageResponse</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">send</a>({ ...params }) -> Pinnacle.SendResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a SMS or RCS message to a phone number
+
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -13,7 +28,12 @@
 <dd>
 
 ```typescript
-await client.sendAnRcsMessage({});
+await client.send({
+    messageType: "sms",
+    message: {
+        body: "body",
+    },
+});
 ```
 
 </dd>
@@ -29,7 +49,7 @@ await client.sendAnRcsMessage({});
 <dl>
 <dd>
 
-**request:** `Pinnacle.SendAnRcsMessageRequestBody`
+**request:** `Pinnacle.SendRequest`
 
 </dd>
 </dl>
