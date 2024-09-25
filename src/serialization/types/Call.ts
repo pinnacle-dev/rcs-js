@@ -8,12 +8,14 @@ import * as core from "../../core";
 
 export const Call: core.serialization.ObjectSchema<serializers.Call.Raw, Pinnacle.Call> = core.serialization.object({
     actionType: core.serialization.property("action_type", core.serialization.stringLiteral("call")),
+    title: core.serialization.string(),
     payload: core.serialization.string(),
 });
 
 export declare namespace Call {
     interface Raw {
         action_type: "call";
+        title: string;
         payload: string;
     }
 }

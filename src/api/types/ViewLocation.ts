@@ -5,9 +5,11 @@
 import * as Pinnacle from "../index";
 
 export interface ViewLocation {
+    /** The title for the view location action. Maximum length is 25 characters. */
+    title?: string;
     /** The type of action being sent */
     actionType: "view_location";
     latLng: Pinnacle.LatLng;
     /** The name of the location */
-    label?: string;
+    label: string;
 }

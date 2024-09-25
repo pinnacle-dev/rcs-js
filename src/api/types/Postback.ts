@@ -5,8 +5,10 @@
 export interface Postback {
     /** The type of action being sent */
     actionType: "postback";
+    /** The title for the postback acti9on. Maximum length is 25 characters. */
+    title: string;
     /** The postback payload. Maximum length is 1000 characters. */
     payload: string;
-    /** The action to execute. Optional additional data sent when the button is tapped. */
+    /** The action to execute. Optional additional data sent when the action is tapped. */
     execute?: string;
 }

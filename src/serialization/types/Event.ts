@@ -7,6 +7,7 @@ import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
 
 export const Event: core.serialization.ObjectSchema<serializers.Event.Raw, Pinnacle.Event> = core.serialization.object({
+    title: core.serialization.string(),
     actionType: core.serialization.property("action_type", core.serialization.stringLiteral("calendar")),
     startTime: core.serialization.property("start_time", core.serialization.date()),
     endTime: core.serialization.property("end_time", core.serialization.date()),
@@ -16,6 +17,7 @@ export const Event: core.serialization.ObjectSchema<serializers.Event.Raw, Pinna
 
 export declare namespace Event {
     interface Raw {
+        title: string;
         action_type: "calendar";
         start_time: string;
         end_time: string;

@@ -5,6 +5,8 @@
 export interface Url {
     /** The type of action being sent */
     actionType: "weburl";
+    /** The title for the URL action. Maximum length is 25 characters. */
+    title: string;
     /** The url to open. Maximum length is 1000 characters. */
     payload: string;
 }

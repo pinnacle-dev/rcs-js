@@ -3,6 +3,8 @@
  */
 
 export interface ShareLocation {
+    /** The title for the share location action. Maximum length is 25 characters. */
+    title: string;
     /** The type of action being sent */
     actionType: "share_location";
 }

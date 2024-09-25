@@ -3,6 +3,8 @@
  */
 
 export interface Event {
+    /** The title for the event action. Maximum length is 25 characters. */
+    title: string;
     /** The type of message being sent */
     actionType: "calendar";
     /** The start time for the event. */

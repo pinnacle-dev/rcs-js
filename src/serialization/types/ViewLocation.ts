@@ -9,15 +9,17 @@ import { LatLng } from "./LatLng";
 
 export const ViewLocation: core.serialization.ObjectSchema<serializers.ViewLocation.Raw, Pinnacle.ViewLocation> =
     core.serialization.object({
+        title: core.serialization.string().optional(),
         actionType: core.serialization.property("action_type", core.serialization.stringLiteral("view_location")),
         latLng: core.serialization.property("lat_lng", LatLng),
-        label: core.serialization.string().optional(),
+        label: core.serialization.string(),
     });
 
 export declare namespace ViewLocation {
     interface Raw {
+        title?: string | null;
         action_type: "view_location";
         lat_lng: LatLng.Raw;
-        label?: string | null;
+        label: string;
     }
 }

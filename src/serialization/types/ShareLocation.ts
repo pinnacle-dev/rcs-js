@@ -8,11 +8,13 @@ import * as core from "../../core";
 
 export const ShareLocation: core.serialization.ObjectSchema<serializers.ShareLocation.Raw, Pinnacle.ShareLocation> =
     core.serialization.object({
+        title: core.serialization.string(),
         actionType: core.serialization.property("action_type", core.serialization.stringLiteral("share_location")),
     });
 
 export declare namespace ShareLocation {
     interface Raw {
+        title: string;
         action_type: "share_location";
     }
 }

@@ -8,12 +8,14 @@ import * as core from "../../core";
 
 export const Url: core.serialization.ObjectSchema<serializers.Url.Raw, Pinnacle.Url> = core.serialization.object({
     actionType: core.serialization.property("action_type", core.serialization.stringLiteral("weburl")),
+    title: core.serialization.string(),
     payload: core.serialization.string(),
 });
 
 export declare namespace Url {
     interface Raw {
         action_type: "weburl";
+        title: string;
         payload: string;
     }
 }
