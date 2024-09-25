@@ -5,15 +5,15 @@
 import * as serializers from "../index";
 import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
+import { CardRcs } from "./CardRcs";
 import { Sms } from "./Sms";
 import { BasicRcs } from "./BasicRcs";
 import { MediaRcs } from "./MediaRcs";
-import { CardRcs } from "./CardRcs";
 import { CarouselRcs } from "./CarouselRcs";
 
 export const SendRequest: core.serialization.Schema<serializers.SendRequest.Raw, Pinnacle.SendRequest> =
-    core.serialization.undiscriminatedUnion([Sms, BasicRcs, MediaRcs, CardRcs, CarouselRcs]);
+    core.serialization.undiscriminatedUnion([CardRcs, Sms, BasicRcs, MediaRcs, CarouselRcs]);
 
 export declare namespace SendRequest {
-    type Raw = Sms.Raw | BasicRcs.Raw | MediaRcs.Raw | CardRcs.Raw | CarouselRcs.Raw;
+    type Raw = CardRcs.Raw | Sms.Raw | BasicRcs.Raw | MediaRcs.Raw | CarouselRcs.Raw;
 }

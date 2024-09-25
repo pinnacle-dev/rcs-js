@@ -29,9 +29,14 @@ Send a SMS or RCS message to a phone number
 
 ```typescript
 await client.send({
-    messageType: "sms",
+    messageType: "card",
     message: {
-        body: "body",
+        cards: [
+            {
+                title: "title",
+                imageUrl: "image_url",
+            },
+        ],
     },
 });
 ```

@@ -5,8 +5,8 @@
 import * as Pinnacle from "../index";
 
 export type SendRequest =
+    | Pinnacle.CardRcs
     | Pinnacle.Sms
     | Pinnacle.BasicRcs
     | Pinnacle.MediaRcs
-    | Pinnacle.CardRcs
     | Pinnacle.CarouselRcs;

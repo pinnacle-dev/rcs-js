@@ -1,6 +1,6 @@
 {
     "name": "rcs-js",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "private": false,
     "repository": "https://github.com/pinnacle-dev/rcs-js",
     "main": "./index.js",
