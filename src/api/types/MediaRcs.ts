@@ -6,7 +6,7 @@ import * as Pinnacle from "../index";
 
 export interface MediaRcs {
     /** Phone number to send the SMS message to */
-    phoneNumber?: Pinnacle.PhoneNumber;
+    phoneNumber: Pinnacle.PhoneNumber;
     /** The type of message being sent */
     messageType: "media";
     /** The content of the message */

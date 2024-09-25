@@ -10,7 +10,7 @@ export interface Card {
     /** The subtitle of the card */
     subtitle?: string;
     /** The URL of the image to be displayed on the card */
-    imageUrl: string;
+    imageUrl?: string;
     /** Array of buttons attached to the card. Maximum of 4 buttons. */
     buttons?: Pinnacle.Action[];
     /** The style of the card */

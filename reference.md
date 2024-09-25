@@ -29,12 +29,12 @@ Send a SMS or RCS message to a phone number
 
 ```typescript
 await client.send({
+    phoneNumber: "phone_number",
     messageType: "card",
     message: {
         cards: [
             {
                 title: "title",
-                imageUrl: "image_url",
             },
         ],
     },

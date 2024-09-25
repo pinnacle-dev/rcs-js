@@ -10,14 +10,14 @@ import { CarouselRcsMessage } from "./CarouselRcsMessage";
 
 export const CarouselRcs: core.serialization.ObjectSchema<serializers.CarouselRcs.Raw, Pinnacle.CarouselRcs> =
     core.serialization.object({
-        phoneNumber: core.serialization.property("phone_number", PhoneNumber.optional()),
+        phoneNumber: core.serialization.property("phone_number", PhoneNumber),
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("carousel")),
         message: CarouselRcsMessage,
     });
 
 export declare namespace CarouselRcs {
     interface Raw {
-        phone_number?: PhoneNumber.Raw | null;
+        phone_number: PhoneNumber.Raw;
         message_type: "carousel";
         message: CarouselRcsMessage.Raw;
     }

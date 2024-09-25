@@ -6,7 +6,7 @@ import * as Pinnacle from "../index";
 
 export interface CardRcs {
     /** Phone number to send the SMS message to */
-    phoneNumber?: Pinnacle.PhoneNumber;
+    phoneNumber: Pinnacle.PhoneNumber;
     /** The type of message being sent */
     messageType: "card";
     /** The content of the message */

@@ -10,14 +10,14 @@ import { MediaRcsMessage } from "./MediaRcsMessage";
 
 export const MediaRcs: core.serialization.ObjectSchema<serializers.MediaRcs.Raw, Pinnacle.MediaRcs> =
     core.serialization.object({
-        phoneNumber: core.serialization.property("phone_number", PhoneNumber.optional()),
+        phoneNumber: core.serialization.property("phone_number", PhoneNumber),
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("media")),
         message: MediaRcsMessage,
     });
 
 export declare namespace MediaRcs {
     interface Raw {
-        phone_number?: PhoneNumber.Raw | null;
+        phone_number: PhoneNumber.Raw;
         message_type: "media";
         message: MediaRcsMessage.Raw;
     }

@@ -9,14 +9,14 @@ import { PhoneNumber } from "./PhoneNumber";
 import { SmsMessage } from "./SmsMessage";
 
 export const Sms: core.serialization.ObjectSchema<serializers.Sms.Raw, Pinnacle.Sms> = core.serialization.object({
-    phoneNumber: core.serialization.property("phone_number", PhoneNumber.optional()),
+    phoneNumber: core.serialization.property("phone_number", PhoneNumber),
     messageType: core.serialization.property("message_type", core.serialization.stringLiteral("sms")),
     message: SmsMessage,
 });
 
 export declare namespace Sms {
     interface Raw {
-        phone_number?: PhoneNumber.Raw | null;
+        phone_number: PhoneNumber.Raw;
         message_type: "sms";
         message: SmsMessage.Raw;
     }

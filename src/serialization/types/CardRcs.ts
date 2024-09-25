@@ -10,14 +10,14 @@ import { CardRcsMessage } from "./CardRcsMessage";
 
 export const CardRcs: core.serialization.ObjectSchema<serializers.CardRcs.Raw, Pinnacle.CardRcs> =
     core.serialization.object({
-        phoneNumber: core.serialization.property("phone_number", PhoneNumber.optional()),
+        phoneNumber: core.serialization.property("phone_number", PhoneNumber),
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("card")),
         message: CardRcsMessage,
     });
 
 export declare namespace CardRcs {
     interface Raw {
-        phone_number?: PhoneNumber.Raw | null;
+        phone_number: PhoneNumber.Raw;
         message_type: "card";
         message: CardRcsMessage.Raw;
     }

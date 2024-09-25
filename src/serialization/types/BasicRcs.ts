@@ -11,7 +11,7 @@ import { Action } from "./Action";
 
 export const BasicRcs: core.serialization.ObjectSchema<serializers.BasicRcs.Raw, Pinnacle.BasicRcs> =
     core.serialization.object({
-        phoneNumber: core.serialization.property("phone_number", PhoneNumber.optional()),
+        phoneNumber: core.serialization.property("phone_number", PhoneNumber),
         messageType: core.serialization.property("message_type", core.serialization.stringLiteral("basic-rcs")),
         message: BasicRcsMessage,
         quickReplies: core.serialization.property("quick_replies", core.serialization.list(Action).optional()),
@@ -19,7 +19,7 @@ export const BasicRcs: core.serialization.ObjectSchema<serializers.BasicRcs.Raw,
 
 export declare namespace BasicRcs {
     interface Raw {
-        phone_number?: PhoneNumber.Raw | null;
+        phone_number: PhoneNumber.Raw;
         message_type: "basic-rcs";
         message: BasicRcsMessage.Raw;
         quick_replies?: Action.Raw[] | null;
