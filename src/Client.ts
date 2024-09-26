@@ -59,8 +59,8 @@ export class PinnacleClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.4",
-                "User-Agent": "rcs-js/1.0.4",
+                "X-Fern-SDK-Version": "1.0.5",
+                "User-Agent": "rcs-js/1.0.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -161,8 +161,8 @@ export class PinnacleClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.4",
-                "User-Agent": "rcs-js/1.0.4",
+                "X-Fern-SDK-Version": "1.0.5",
+                "User-Agent": "rcs-js/1.0.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -258,8 +258,8 @@ export class PinnacleClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.4",
-                "User-Agent": "rcs-js/1.0.4",
+                "X-Fern-SDK-Version": "1.0.5",
+                "User-Agent": "rcs-js/1.0.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -356,8 +356,8 @@ export class PinnacleClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.4",
-                "User-Agent": "rcs-js/1.0.4",
+                "X-Fern-SDK-Version": "1.0.5",
+                "User-Agent": "rcs-js/1.0.5",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
