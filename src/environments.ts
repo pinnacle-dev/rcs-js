@@ -3,7 +3,7 @@
  */
 
 export const PinnacleEnvironment = {
-    Default: "https://trypinnacle.dev/api",
+    Default: "https://www.trypinnacle.dev/api",
 } as const;
 
 export type PinnacleEnvironment = typeof PinnacleEnvironment.Default;
