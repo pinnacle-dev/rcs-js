@@ -5,16 +5,19 @@
 import * as serializers from "../index";
 import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
+import { BadRequestErrorBodyError } from "./BadRequestErrorBodyError";
 
 export const BadRequestErrorBody: core.serialization.ObjectSchema<
     serializers.BadRequestErrorBody.Raw,
     Pinnacle.BadRequestErrorBody
 > = core.serialization.object({
-    error: core.serialization.string().optional(),
+    error: BadRequestErrorBodyError.optional(),
+    success: core.serialization.boolean().optional(),
 });
 
 export declare namespace BadRequestErrorBody {
     interface Raw {
-        error?: string | null;
+        error?: BadRequestErrorBodyError.Raw | null;
+        success?: boolean | null;
     }
 }

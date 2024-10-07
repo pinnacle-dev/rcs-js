@@ -4,7 +4,7 @@
 
 import * as Pinnacle from "../index";
 
-export interface BadRequestErrorBody {
-    error?: Pinnacle.BadRequestErrorBodyError;
+export interface UpdateCompanyResponse {
     success?: boolean;
+    brand?: Pinnacle.UpdateCompanyResponseBrand;
 }

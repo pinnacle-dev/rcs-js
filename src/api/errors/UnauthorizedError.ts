@@ -3,10 +3,9 @@
  */
 
 import * as errors from "../../errors/index";
-import * as Pinnacle from "../index";
 
 export class UnauthorizedError extends errors.PinnacleError {
-    constructor(body: Pinnacle.UnauthorizedErrorBody) {
+    constructor(body?: unknown) {
         super({
             message: "UnauthorizedError",
             statusCode: 401,

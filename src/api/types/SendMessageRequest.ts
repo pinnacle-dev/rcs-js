@@ -4,7 +4,7 @@
 
 import * as Pinnacle from "../index";
 
-export type SendRequest =
+export type SendMessageRequest =
     | Pinnacle.CardRcs
     | Pinnacle.Sms
     | Pinnacle.BasicRcs

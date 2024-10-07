@@ -6,17 +6,15 @@ import * as serializers from "../index";
 import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
 
-export const InternalServerErrorBody: core.serialization.ObjectSchema<
-    serializers.InternalServerErrorBody.Raw,
-    Pinnacle.InternalServerErrorBody
+export const NotFoundErrorBody: core.serialization.ObjectSchema<
+    serializers.NotFoundErrorBody.Raw,
+    Pinnacle.NotFoundErrorBody
 > = core.serialization.object({
-    success: core.serialization.boolean().optional(),
     error: core.serialization.string().optional(),
 });
 
-export declare namespace InternalServerErrorBody {
+export declare namespace NotFoundErrorBody {
     interface Raw {
-        success?: boolean | null;
         error?: string | null;
     }
 }

@@ -11,9 +11,11 @@ import { BasicRcs } from "./BasicRcs";
 import { MediaRcs } from "./MediaRcs";
 import { CarouselRcs } from "./CarouselRcs";
 
-export const SendRequest: core.serialization.Schema<serializers.SendRequest.Raw, Pinnacle.SendRequest> =
-    core.serialization.undiscriminatedUnion([CardRcs, Sms, BasicRcs, MediaRcs, CarouselRcs]);
+export const SendMessageRequest: core.serialization.Schema<
+    serializers.SendMessageRequest.Raw,
+    Pinnacle.SendMessageRequest
+> = core.serialization.undiscriminatedUnion([CardRcs, Sms, BasicRcs, MediaRcs, CarouselRcs]);
 
-export declare namespace SendRequest {
+export declare namespace SendMessageRequest {
     type Raw = CardRcs.Raw | Sms.Raw | BasicRcs.Raw | MediaRcs.Raw | CarouselRcs.Raw;
 }

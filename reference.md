@@ -1,6 +1,6 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">send</a>({ ...params }) -> Pinnacle.SendResponse</code></summary>
+<details><summary><code>client.<a href="/src/Client.ts">updateCompany</a>({ ...params }) -> Pinnacle.UpdateCompanyResponse</code></summary>
 <dl>
 <dd>
 
@@ -12,7 +12,7 @@
 <dl>
 <dd>
 
-Send a SMS or RCS message to a phone number
+Update a company on the Pinnacle platform
 
 </dd>
 </dl>
@@ -28,16 +28,8 @@ Send a SMS or RCS message to a phone number
 <dd>
 
 ```typescript
-await client.send({
-    phoneNumber: "phone_number",
-    messageType: "card",
-    message: {
-        cards: [
-            {
-                title: "title",
-            },
-        ],
-    },
+await client.updateCompany({
+    companyId: "companyId",
 });
 ```
 
@@ -54,7 +46,7 @@ await client.send({
 <dl>
 <dd>
 
-**request:** `Pinnacle.SendRequest`
+**request:** `Pinnacle.UpdateCompanyRequest`
 
 </dd>
 </dl>

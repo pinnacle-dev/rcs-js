@@ -3,10 +3,9 @@
  */
 
 import * as errors from "../../errors/index";
-import * as Pinnacle from "../index";
 
 export class BadRequestError extends errors.PinnacleError {
-    constructor(body: Pinnacle.BadRequestErrorBody) {
+    constructor(body?: unknown) {
         super({
             message: "BadRequestError",
             statusCode: 400,
