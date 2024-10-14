@@ -6,7 +6,7 @@
  * @example
  *     {}
  */
-export interface GetCompanyRequest {
+export interface CompanyGetRequest {
     /**
      * The unique identifier for the company
      */

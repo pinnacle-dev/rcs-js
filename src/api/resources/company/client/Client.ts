@@ -5,11 +5,11 @@
 import * as environments from "../../../../environments";
 import * as core from "../../../../core";
 import * as Pinnacle from "../../../index";
-import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
+import * as serializers from "../../../../serialization/index";
 import * as errors from "../../../../errors/index";
 
-export declare namespace Send {
+export declare namespace Company {
     interface Options {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         apiKey: core.Supplier<string>;
@@ -25,35 +25,42 @@ export declare namespace Send {
     }
 }
 
-export class Send {
-    constructor(protected readonly _options: Send.Options) {}
+export class Company {
+    constructor(protected readonly _options: Company.Options) {}
 
     /**
-     * Send an interactive RCS message with text, media, or cards. Each message can only contain either text, media, or card(s).
+     * Retrieve the company's information (i.e. approval status, company name, etc.). Search by company ID or company name.
      *
-     * Quick replies can also be added to the message.
-     *
-     * @param {Pinnacle.Rcs} request
-     * @param {Send.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Pinnacle.CompanyGetRequest} request
+     * @param {Company.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.ForbiddenError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.send.rcs({
-     *         from: "from",
-     *         to: "to"
-     *     })
+     *     await client.company.get()
      */
-    public async rcs(request: Pinnacle.Rcs, requestOptions?: Send.RequestOptions): Promise<Pinnacle.SendRcsResponse> {
+    public async get(
+        request: Pinnacle.CompanyGetRequest = {},
+        requestOptions?: Company.RequestOptions
+    ): Promise<Pinnacle.Company[]> {
+        const { companyId, companyName } = request;
+        const _queryParams: Record<string, string | string[] | object | object[]> = {};
+        if (companyId != null) {
+            _queryParams["companyId"] = companyId.toString();
+        }
+
+        if (companyName != null) {
+            _queryParams["companyName"] = companyName;
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "send/rcs"
+                "company"
             ),
-            method: "POST",
+            method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
@@ -64,14 +71,14 @@ export class Send {
                 ...(await this._getCustomAuthorizationHeaders()),
             },
             contentType: "application/json",
+            queryParameters: _queryParams,
             requestType: "json",
-            body: serializers.Rcs.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.SendRcsResponse.parseOrThrow(_response.body, {
+            return serializers.company.get.Response.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -85,8 +92,6 @@ export class Send {
                     throw new Pinnacle.BadRequestError(_response.error.body);
                 case 401:
                     throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 403:
-                    throw new Pinnacle.ForbiddenError(_response.error.body);
                 case 500:
                     throw new Pinnacle.InternalServerError(_response.error.body);
                 default:
@@ -113,31 +118,51 @@ export class Send {
     }
 
     /**
-     * Send an SMS message to a recipient.
+     * Register a company for RCS with the Pinnacle platform
      *
-     * @param {Pinnacle.SendSmsRequest} request
-     * @param {Send.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Pinnacle.CompanyRegisterRequest} request
+     * @param {Company.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.ForbiddenError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.send.sms({
-     *         to: "to",
-     *         from: "from",
-     *         text: "text"
+     *     await client.company.register({
+     *         company: {
+     *             name: "name",
+     *             address: "address",
+     *             ein: "ein",
+     *             description: "description",
+     *             brandColor: "brandColor",
+     *             logoUrl: "logoUrl",
+     *             heroUrl: "heroUrl"
+     *         },
+     *         companyContact: {
+     *             primaryWebsiteUrl: "primaryWebsiteUrl",
+     *             primaryWebsiteLabel: "primaryWebsiteLabel",
+     *             primaryPhone: "primaryPhone",
+     *             primaryPhoneLabel: "primaryPhoneLabel",
+     *             primaryEmail: "primaryEmail",
+     *             primaryEmailLabel: "primaryEmailLabel",
+     *             privacyPolicyUrl: "privacyPolicyUrl",
+     *             tosUrl: "tosUrl"
+     *         },
+     *         pointOfContact: {
+     *             pocName: "pocName",
+     *             pocTitle: "pocTitle",
+     *             pocEmail: "pocEmail"
+     *         }
      *     })
      */
-    public async sms(
-        request: Pinnacle.SendSmsRequest,
-        requestOptions?: Send.RequestOptions
-    ): Promise<Pinnacle.SendSmsResponse> {
+    public async register(
+        request: Pinnacle.CompanyRegisterRequest,
+        requestOptions?: Company.RequestOptions
+    ): Promise<Pinnacle.CompanyRegisterResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "send/sms"
+                "company/register"
             ),
             method: "POST",
             headers: {
@@ -151,13 +176,13 @@ export class Send {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.SendSmsRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.CompanyRegisterRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.SendSmsResponse.parseOrThrow(_response.body, {
+            return serializers.CompanyRegisterResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -171,8 +196,6 @@ export class Send {
                     throw new Pinnacle.BadRequestError(_response.error.body);
                 case 401:
                     throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 403:
-                    throw new Pinnacle.ForbiddenError(_response.error.body);
                 case 500:
                     throw new Pinnacle.InternalServerError(_response.error.body);
                 default:
@@ -199,32 +222,28 @@ export class Send {
     }
 
     /**
-     * Send an MMS message with media attachments.
+     * Update a company on the Pinnacle platform
      *
-     * @param {Pinnacle.SendMmsRequest} request
-     * @param {Send.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Pinnacle.CompanyUpdateRequest} request
+     * @param {Company.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.ForbiddenError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.send.mms({
-     *         to: "to",
-     *         from: "from",
-     *         text: "text",
-     *         mediaUrls: ["https://example.com/image1.jpg", "https://example.com/video.mp4"]
+     *     await client.company.update({
+     *         companyId: "companyId"
      *     })
      */
-    public async mms(
-        request: Pinnacle.SendMmsRequest,
-        requestOptions?: Send.RequestOptions
-    ): Promise<Pinnacle.SendMmsResponse> {
+    public async update(
+        request: Pinnacle.CompanyUpdateRequest,
+        requestOptions?: Company.RequestOptions
+    ): Promise<Pinnacle.CompanyUpdateResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "send/mms"
+                "company/update"
             ),
             method: "POST",
             headers: {
@@ -238,13 +257,13 @@ export class Send {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.SendMmsRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.CompanyUpdateRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.SendMmsResponse.parseOrThrow(_response.body, {
+            return serializers.CompanyUpdateResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -258,8 +277,6 @@ export class Send {
                     throw new Pinnacle.BadRequestError(_response.error.body);
                 case 401:
                     throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 403:
-                    throw new Pinnacle.ForbiddenError(_response.error.body);
                 case 500:
                     throw new Pinnacle.InternalServerError(_response.error.body);
                 default:

@@ -19,7 +19,7 @@ Instantiate and use the client with the following:
 import { PinnacleClient } from "rcs-js";
 
 const client = new PinnacleClient({ apiKey: "YOUR_API_KEY" });
-await client.registerCompany({
+await client.company.register({
     company: {
         name: "name",
         address: "address",
@@ -55,7 +55,7 @@ following namespace:
 ```typescript
 import { Pinnacle } from "rcs-js";
 
-const request: Pinnacle.Rcs = {
+const request: Pinnacle.CompanyGetRequest = {
     ...
 };
 ```
@@ -69,7 +69,7 @@ will be thrown.
 import { PinnacleError } from "rcs-js";
 
 try {
-    await client.registerCompany(...);
+    await client.company.register(...);
 } catch (err) {
     if (err instanceof PinnacleError) {
         console.log(err.statusCode);
@@ -96,7 +96,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.registerCompany(..., {
+const response = await client.company.register(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -106,7 +106,7 @@ const response = await client.registerCompany(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.registerCompany(..., {
+const response = await client.company.register(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -117,7 +117,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.registerCompany(..., {
+const response = await client.company.register(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request
