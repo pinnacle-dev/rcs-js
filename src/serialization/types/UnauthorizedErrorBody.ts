@@ -10,11 +10,11 @@ export const UnauthorizedErrorBody: core.serialization.ObjectSchema<
     serializers.UnauthorizedErrorBody.Raw,
     Pinnacle.UnauthorizedErrorBody
 > = core.serialization.object({
-    error: core.serialization.string().optional(),
+    errors: core.serialization.list(core.serialization.string()).optional(),
 });
 
 export declare namespace UnauthorizedErrorBody {
     interface Raw {
-        error?: string | null;
+        errors?: string[] | null;
     }
 }

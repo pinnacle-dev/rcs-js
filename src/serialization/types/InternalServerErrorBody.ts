@@ -10,13 +10,11 @@ export const InternalServerErrorBody: core.serialization.ObjectSchema<
     serializers.InternalServerErrorBody.Raw,
     Pinnacle.InternalServerErrorBody
 > = core.serialization.object({
-    success: core.serialization.boolean().optional(),
-    error: core.serialization.string().optional(),
+    errors: core.serialization.list(core.serialization.string()).optional(),
 });
 
 export declare namespace InternalServerErrorBody {
     interface Raw {
-        success?: boolean | null;
-        error?: string | null;
+        errors?: string[] | null;
     }
 }

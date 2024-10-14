@@ -3,6 +3,6 @@
  */
 
 export interface UpdateCompanyResponseBrand {
-    name?: string;
-    id?: number;
+    name: string;
+    id: number;
 }

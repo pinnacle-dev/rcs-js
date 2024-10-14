@@ -8,6 +8,7 @@ import * as Pinnacle from "./api/index";
 import urlJoin from "url-join";
 import * as serializers from "./serialization/index";
 import * as errors from "./errors/index";
+import { Send } from "./api/resources/send/client/Client";
 
 export declare namespace PinnacleClient {
     interface Options {
@@ -29,9 +30,9 @@ export class PinnacleClient {
     constructor(protected readonly _options: PinnacleClient.Options) {}
 
     /**
-     * Checks if a phone number is able to receive RCS
+     * Retrieve the RCS functionality of a phone number. For example checks if a phone number can receive RCS message and if it can receive RCS carousels.
      *
-     * @param {Pinnacle.CheckRcsCapabilityRequest} request
+     * @param {Pinnacle.GetRcsFunctionalityRequest} request
      * @param {PinnacleClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -39,28 +40,29 @@ export class PinnacleClient {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.checkRcsCapability({
-     *         phoneNumber: "phone_number"
-     *     })
+     *     await client.getRcsFunctionality()
      */
-    public async checkRcsCapability(
-        request: Pinnacle.CheckRcsCapabilityRequest,
+    public async getRcsFunctionality(
+        request: Pinnacle.GetRcsFunctionalityRequest = {},
         requestOptions?: PinnacleClient.RequestOptions
-    ): Promise<Pinnacle.CheckRcsCapabilityResponse> {
+    ): Promise<Pinnacle.RcsFunctionalities> {
         const { phoneNumber } = request;
         const _queryParams: Record<string, string | string[] | object | object[]> = {};
-        _queryParams["phone_number"] = phoneNumber;
+        if (phoneNumber != null) {
+            _queryParams["phoneNumber"] = phoneNumber;
+        }
+
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "check_rcs"
+                "rcs_functionality"
             ),
             method: "GET",
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.8",
-                "User-Agent": "rcs-js/1.0.8",
+                "X-Fern-SDK-Version": "1.0.9",
+                "User-Agent": "rcs-js/1.0.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -73,248 +75,7 @@ export class PinnacleClient {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.CheckRcsCapabilityResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Pinnacle.BadRequestError(_response.error.body);
-                case 401:
-                    throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 500:
-                    throw new Pinnacle.InternalServerError(_response.error.body);
-                default:
-                    throw new errors.PinnacleError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.PinnacleError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.PinnacleTimeoutError();
-            case "unknown":
-                throw new errors.PinnacleError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Initializes settings related to RCS messaging, including webhook registration.
-     *
-     * @param {Pinnacle.UpdateSettingsRequest} request
-     * @param {PinnacleClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Pinnacle.BadRequestError}
-     * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.InternalServerError}
-     *
-     * @example
-     *     await client.updateSettings({
-     *         webhookUrl: "webhook_url"
-     *     })
-     */
-    public async updateSettings(
-        request: Pinnacle.UpdateSettingsRequest,
-        requestOptions?: PinnacleClient.RequestOptions
-    ): Promise<Pinnacle.UpdateSettingsResponse> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "update_settings"
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.8",
-                "User-Agent": "rcs-js/1.0.8",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.UpdateSettingsRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.UpdateSettingsResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Pinnacle.BadRequestError(_response.error.body);
-                case 401:
-                    throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 500:
-                    throw new Pinnacle.InternalServerError(_response.error.body);
-                default:
-                    throw new errors.PinnacleError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.PinnacleError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.PinnacleTimeoutError();
-            case "unknown":
-                throw new errors.PinnacleError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Retrieve the phone number associated with the account.
-     *
-     * @param {PinnacleClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.InternalServerError}
-     *
-     * @example
-     *     await client.getAccountNumber()
-     */
-    public async getAccountNumber(
-        requestOptions?: PinnacleClient.RequestOptions
-    ): Promise<Pinnacle.GetAccountNumberResponse> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "get_account_number"
-            ),
-            method: "GET",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.8",
-                "User-Agent": "rcs-js/1.0.8",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-            },
-            contentType: "application/json",
-            requestType: "json",
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.GetAccountNumberResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 401:
-                    throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 500:
-                    throw new Pinnacle.InternalServerError(_response.error.body);
-                default:
-                    throw new errors.PinnacleError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.PinnacleError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.PinnacleTimeoutError();
-            case "unknown":
-                throw new errors.PinnacleError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Send a SMS or RCS message to a phone number
-     *
-     * @param {Pinnacle.SendMessageRequest} request
-     * @param {PinnacleClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Pinnacle.BadRequestError}
-     * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.InternalServerError}
-     *
-     * @example
-     *     await client.sendMessage({
-     *         phoneNumber: "phone_number",
-     *         messageType: "card",
-     *         message: {
-     *             cards: [{
-     *                     title: "title"
-     *                 }]
-     *         }
-     *     })
-     */
-    public async sendMessage(
-        request: Pinnacle.SendMessageRequest,
-        requestOptions?: PinnacleClient.RequestOptions
-    ): Promise<Pinnacle.SendMessageResponse> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "send"
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.8",
-                "User-Agent": "rcs-js/1.0.8",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.SendMessageRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.SendMessageResponse.parseOrThrow(_response.body, {
+            return serializers.RcsFunctionalities.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -361,7 +122,6 @@ export class PinnacleClient {
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
@@ -390,8 +150,8 @@ export class PinnacleClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.8",
-                "User-Agent": "rcs-js/1.0.8",
+                "X-Fern-SDK-Version": "1.0.9",
+                "User-Agent": "rcs-js/1.0.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -418,15 +178,6 @@ export class PinnacleClient {
                     throw new Pinnacle.BadRequestError(_response.error.body);
                 case 401:
                     throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 404:
-                    throw new Pinnacle.NotFoundError(
-                        serializers.NotFoundErrorBody.parseOrThrow(_response.error.body, {
-                            unrecognizedObjectKeys: "passthrough",
-                            allowUnrecognizedUnionMembers: true,
-                            allowUnrecognizedEnumValues: true,
-                            breadcrumbsPrefix: ["response"],
-                        })
-                    );
                 case 500:
                     throw new Pinnacle.InternalServerError(_response.error.body);
                 default:
@@ -503,8 +254,8 @@ export class PinnacleClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.8",
-                "User-Agent": "rcs-js/1.0.8",
+                "X-Fern-SDK-Version": "1.0.9",
+                "User-Agent": "rcs-js/1.0.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -584,8 +335,8 @@ export class PinnacleClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.8",
-                "User-Agent": "rcs-js/1.0.8",
+                "X-Fern-SDK-Version": "1.0.9",
+                "User-Agent": "rcs-js/1.0.9",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -635,6 +386,12 @@ export class PinnacleClient {
                     message: _response.error.errorMessage,
                 });
         }
+    }
+
+    protected _send: Send | undefined;
+
+    public get send(): Send {
+        return (this._send ??= new Send(this._options));
     }
 
     protected async _getCustomAuthorizationHeaders() {

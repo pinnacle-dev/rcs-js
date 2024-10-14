@@ -11,13 +11,11 @@ export const UpdateCompanyResponse: core.serialization.ObjectSchema<
     serializers.UpdateCompanyResponse.Raw,
     Pinnacle.UpdateCompanyResponse
 > = core.serialization.object({
-    success: core.serialization.boolean().optional(),
-    brand: UpdateCompanyResponseBrand.optional(),
+    brand: UpdateCompanyResponseBrand,
 });
 
 export declare namespace UpdateCompanyResponse {
     interface Raw {
-        success?: boolean | null;
-        brand?: UpdateCompanyResponseBrand.Raw | null;
+        brand: UpdateCompanyResponseBrand.Raw;
     }
 }

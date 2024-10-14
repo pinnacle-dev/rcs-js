@@ -3,5 +3,5 @@
  */
 
 export interface UnauthorizedErrorBody {
-    error?: string;
+    errors?: string[];
 }

@@ -66,3 +66,208 @@ await client.updateCompany({
 </details>
 
 ##
+
+## Send
+
+<details><summary><code>client.send.<a href="/src/api/resources/send/client/Client.ts">rcs</a>({ ...params }) -> Pinnacle.SendRcsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send an interactive RCS message with text, media, or cards. Each message can only contain either text, media, or card(s).
+
+Quick replies can also be added to the message.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.send.rcs({
+    from: "from",
+    to: "to",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.Rcs`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Send.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.send.<a href="/src/api/resources/send/client/Client.ts">sms</a>({ ...params }) -> Pinnacle.SendSmsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send an SMS message to a recipient.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.send.sms({
+    to: "to",
+    from: "from",
+    text: "text",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SendSmsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Send.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.send.<a href="/src/api/resources/send/client/Client.ts">mms</a>({ ...params }) -> Pinnacle.SendMmsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send an MMS message with media attachments.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.send.mms({
+    to: "to",
+    from: "from",
+    text: "text",
+    mediaUrls: ["https://example.com/image1.jpg", "https://example.com/video.mp4"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SendMmsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Send.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>

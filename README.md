@@ -19,8 +19,31 @@ Instantiate and use the client with the following:
 import { PinnacleClient } from "rcs-js";
 
 const client = new PinnacleClient({ apiKey: "YOUR_API_KEY" });
-await client.updateSettings({
-    webhookUrl: "webhook_url",
+await client.registerCompany({
+    company: {
+        name: "name",
+        address: "address",
+        ein: "ein",
+        description: "description",
+        brandColor: "brandColor",
+        logoUrl: "logoUrl",
+        heroUrl: "heroUrl",
+    },
+    companyContact: {
+        primaryWebsiteUrl: "primaryWebsiteUrl",
+        primaryWebsiteLabel: "primaryWebsiteLabel",
+        primaryPhone: "primaryPhone",
+        primaryPhoneLabel: "primaryPhoneLabel",
+        primaryEmail: "primaryEmail",
+        primaryEmailLabel: "primaryEmailLabel",
+        privacyPolicyUrl: "privacyPolicyUrl",
+        tosUrl: "tosUrl",
+    },
+    pointOfContact: {
+        pocName: "pocName",
+        pocTitle: "pocTitle",
+        pocEmail: "pocEmail",
+    },
 });
 ```
 
@@ -32,7 +55,7 @@ following namespace:
 ```typescript
 import { Pinnacle } from "rcs-js";
 
-const request: Pinnacle.CheckRcsCapabilityRequest = {
+const request: Pinnacle.Rcs = {
     ...
 };
 ```
@@ -46,7 +69,7 @@ will be thrown.
 import { PinnacleError } from "rcs-js";
 
 try {
-    await client.updateSettings(...);
+    await client.registerCompany(...);
 } catch (err) {
     if (err instanceof PinnacleError) {
         console.log(err.statusCode);
@@ -73,7 +96,7 @@ A request is deemed retriable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.updateSettings(..., {
+const response = await client.registerCompany(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -83,7 +106,7 @@ const response = await client.updateSettings(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.updateSettings(..., {
+const response = await client.registerCompany(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -94,7 +117,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.updateSettings(..., {
+const response = await client.registerCompany(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request

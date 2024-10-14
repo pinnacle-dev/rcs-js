@@ -3,6 +3,5 @@
  */
 
 export interface InternalServerErrorBody {
-    success?: boolean;
-    error?: string;
+    errors?: string[];
 }

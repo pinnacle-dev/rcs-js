@@ -5,14 +5,12 @@
 import * as Pinnacle from "../index";
 
 export interface Card {
-    /** The title of the card */
+    /** The title of the card. */
     title: string;
-    /** The subtitle of the card */
+    /** Optional subtitle for the card. */
     subtitle?: string;
-    /** The URL of the image to be displayed on the card */
-    imageUrl?: string;
-    /** Array of buttons attached to the card. Maximum of 4 buttons. */
+    /** Optional media URL displayed with the card. */
+    mediaUrl?: string;
+    /** Optional list of buttons on the card (max 4). */
     buttons?: Pinnacle.Action[];
-    /** The style of the card */
-    cardStyle?: Pinnacle.CardStyle;
 }

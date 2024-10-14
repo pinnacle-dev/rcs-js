@@ -4,4 +4,23 @@
 
 import * as Pinnacle from "../index";
 
-export type Action = Pinnacle.Url | Pinnacle.Call | Pinnacle.Postback | Pinnacle.ShareLocation | Pinnacle.ViewLocation;
+export interface Action {
+    /** Title of the action (must be less than 25 characters). */
+    title?: string;
+    /** Type of action for the button. 'openUrl' opens a URL, 'call' dials a phone number, 'trigger' sends the predefined payload to the webhook when pressed, 'requestLocation' requests the user's location, 'scheduleEvent' creates a calendar event, 'sendLocation' sends a location. */
+    type?: Pinnacle.ActionType;
+    /** Optional payload associated with the action. This payload encodes the respective fields for the action type and is required. For 'openUrl', the payload is the URL to open. For 'call', the payload is the phone number to dial. For 'trigger', the payload is the predefined payload to send to the webhook. */
+    payload?: string;
+    /** Optional metadata. This is sent alongside the payload to the webhook. */
+    metadata?: string;
+    /** Start time for events. Required for 'scheduleEvent'. */
+    eventStartTime?: string;
+    /** End time for events. Required for 'scheduleEvent'. */
+    eventEndTime?: string;
+    /** Event title. Required for 'scheduleEvent'. */
+    eventTitle?: string;
+    /** Optional event description. */
+    eventDescription?: string;
+    /** Latitude and longitude coordinates. Required for 'sendLocation'. */
+    latLong?: Pinnacle.ActionLatLong;
+}

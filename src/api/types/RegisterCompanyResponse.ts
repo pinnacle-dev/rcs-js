@@ -5,6 +5,5 @@
 import * as Pinnacle from "../index";
 
 export interface RegisterCompanyResponse {
-    success?: boolean;
-    brand?: Pinnacle.RegisterCompanyResponseBrand;
+    brand: Pinnacle.RegisterCompanyResponseBrand;
 }

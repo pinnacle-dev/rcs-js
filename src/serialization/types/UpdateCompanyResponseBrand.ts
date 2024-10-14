@@ -10,13 +10,13 @@ export const UpdateCompanyResponseBrand: core.serialization.ObjectSchema<
     serializers.UpdateCompanyResponseBrand.Raw,
     Pinnacle.UpdateCompanyResponseBrand
 > = core.serialization.object({
-    name: core.serialization.string().optional(),
-    id: core.serialization.number().optional(),
+    name: core.serialization.string(),
+    id: core.serialization.number(),
 });
 
 export declare namespace UpdateCompanyResponseBrand {
     interface Raw {
-        name?: string | null;
-        id?: number | null;
+        name: string;
+        id: number;
     }
 }

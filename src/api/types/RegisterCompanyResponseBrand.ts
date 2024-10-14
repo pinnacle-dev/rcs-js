@@ -3,6 +3,6 @@
  */
 
 export interface RegisterCompanyResponseBrand {
-    name?: string;
-    id?: number;
+    name: string;
+    id: number;
 }
