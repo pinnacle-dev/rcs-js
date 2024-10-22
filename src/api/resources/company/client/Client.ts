@@ -64,8 +64,8 @@ export class Company {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.10",
-                "User-Agent": "rcs-js/1.0.10",
+                "X-Fern-SDK-Version": "1.0.11",
+                "User-Agent": "rcs-js/1.0.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -168,8 +168,8 @@ export class Company {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.10",
-                "User-Agent": "rcs-js/1.0.10",
+                "X-Fern-SDK-Version": "1.0.11",
+                "User-Agent": "rcs-js/1.0.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -249,8 +249,8 @@ export class Company {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.10",
-                "User-Agent": "rcs-js/1.0.10",
+                "X-Fern-SDK-Version": "1.0.11",
+                "User-Agent": "rcs-js/1.0.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

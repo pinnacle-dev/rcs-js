@@ -10,7 +10,7 @@ export const SendMmsRequest: core.serialization.Schema<serializers.SendMmsReques
     core.serialization.object({
         to: core.serialization.string(),
         from: core.serialization.string(),
-        text: core.serialization.string(),
+        text: core.serialization.string().optional(),
         mediaUrls: core.serialization.list(core.serialization.string()),
     });
 
@@ -18,7 +18,7 @@ export declare namespace SendMmsRequest {
     interface Raw {
         to: string;
         from: string;
-        text: string;
+        text?: string | null;
         mediaUrls: string[];
     }
 }

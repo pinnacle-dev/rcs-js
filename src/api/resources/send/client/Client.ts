@@ -57,8 +57,8 @@ export class Send {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.10",
-                "User-Agent": "rcs-js/1.0.10",
+                "X-Fern-SDK-Version": "1.0.11",
+                "User-Agent": "rcs-js/1.0.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -143,8 +143,8 @@ export class Send {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.10",
-                "User-Agent": "rcs-js/1.0.10",
+                "X-Fern-SDK-Version": "1.0.11",
+                "User-Agent": "rcs-js/1.0.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -213,7 +213,6 @@ export class Send {
      *     await client.send.mms({
      *         to: "to",
      *         from: "from",
-     *         text: "text",
      *         mediaUrls: ["https://example.com/image1.jpg", "https://example.com/video.mp4"]
      *     })
      */
@@ -230,8 +229,8 @@ export class Send {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.10",
-                "User-Agent": "rcs-js/1.0.10",
+                "X-Fern-SDK-Version": "1.0.11",
+                "User-Agent": "rcs-js/1.0.11",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

@@ -7,7 +7,6 @@
  *     {
  *         to: "to",
  *         from: "from",
- *         text: "text",
  *         mediaUrls: ["https://example.com/image1.jpg", "https://example.com/video.mp4"]
  *     }
  */
@@ -17,7 +16,7 @@ export interface SendMmsRequest {
     /** The sender's phone number in E.164 format. Must be owned by the user. */
     from: string;
     /** The MMS message content (max 1600 characters). */
-    text: string;
+    text?: string;
     /** The URLs of media to include. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported and have a size limit of 5 MB. 500 KB limit for other types. Up to 10 media URLs can be included. */
     mediaUrls: string[];
 }

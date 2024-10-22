@@ -451,7 +451,6 @@ Send an MMS message with media attachments.
 await client.send.mms({
     to: "to",
     from: "from",
-    text: "text",
     mediaUrls: ["https://example.com/image1.jpg", "https://example.com/video.mp4"],
 });
 ```
