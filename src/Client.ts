@@ -62,8 +62,8 @@ export class PinnacleClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.11",
-                "User-Agent": "rcs-js/1.0.11",
+                "X-Fern-SDK-Version": "1.0.12",
+                "User-Agent": "rcs-js/1.0.12",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

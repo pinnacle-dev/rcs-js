@@ -12,6 +12,7 @@ export const SendMmsRequest: core.serialization.Schema<serializers.SendMmsReques
         from: core.serialization.string(),
         text: core.serialization.string().optional(),
         mediaUrls: core.serialization.list(core.serialization.string()),
+        statusCallback: core.serialization.string().optional(),
     });
 
 export declare namespace SendMmsRequest {
@@ -20,5 +21,6 @@ export declare namespace SendMmsRequest {
         from: string;
         text?: string | null;
         mediaUrls: string[];
+        statusCallback?: string | null;
     }
 }

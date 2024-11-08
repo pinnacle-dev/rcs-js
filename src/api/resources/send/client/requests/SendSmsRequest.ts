@@ -17,4 +17,6 @@ export interface SendSmsRequest {
     from: string;
     /** The SMS message content (max 1600 characters). */
     text: string;
+    /** Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses). */
+    statusCallback?: string;
 }

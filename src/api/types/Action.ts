@@ -11,11 +11,11 @@ export interface Action {
     type?: Pinnacle.ActionType;
     /** Optional payload associated with the action. This payload encodes the respective fields for the action type and is required. For 'openUrl', the payload is the URL to open. For 'call', the payload is the phone number to dial. For 'trigger', the payload is the predefined payload to send to the webhook. */
     payload?: string;
-    /** Optional metadata. This is sent alongside the payload to the webhook. */
+    /** Optional metadata. Only used for type 'trigger' ignored for other action types. When the user presses the action, the metadata is sent to the webhook alongside the payload. */
     metadata?: string;
-    /** Start time for events. Required for 'scheduleEvent'. */
+    /** Start time for events in ISO 8601 format. For example, '2022-01-01T12:00:00Z'. Required for 'scheduleEvent'. */
     eventStartTime?: string;
-    /** End time for events. Required for 'scheduleEvent'. */
+    /** End time for events in ISO 8601 format. For example, '2022-01-01T12:00:00Z'. Required for 'scheduleEvent'. */
     eventEndTime?: string;
     /** Event title. Required for 'scheduleEvent'. */
     eventTitle?: string;

@@ -7,6 +7,7 @@ import * as Pinnacle from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { Card } from "../../../../types/Card";
 import { Action } from "../../../../types/Action";
+import { RcsFallback } from "../../types/RcsFallback";
 
 export const Rcs: core.serialization.Schema<serializers.Rcs.Raw, Pinnacle.Rcs> = core.serialization.object({
     from: core.serialization.string(),
@@ -15,6 +16,8 @@ export const Rcs: core.serialization.Schema<serializers.Rcs.Raw, Pinnacle.Rcs> =
     mediaUrl: core.serialization.string().optional(),
     cards: core.serialization.list(Card).optional(),
     quickReplies: core.serialization.list(Action).optional(),
+    fallback: RcsFallback.optional(),
+    statusCallback: core.serialization.string().optional(),
 });
 
 export declare namespace Rcs {
@@ -25,5 +28,7 @@ export declare namespace Rcs {
         mediaUrl?: string | null;
         cards?: Card.Raw[] | null;
         quickReplies?: Action.Raw[] | null;
+        fallback?: RcsFallback.Raw | null;
+        statusCallback?: string | null;
     }
 }

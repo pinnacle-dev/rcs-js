@@ -11,6 +11,7 @@ export const SendSmsRequest: core.serialization.Schema<serializers.SendSmsReques
         to: core.serialization.string(),
         from: core.serialization.string(),
         text: core.serialization.string(),
+        statusCallback: core.serialization.string().optional(),
     });
 
 export declare namespace SendSmsRequest {
@@ -18,5 +19,6 @@ export declare namespace SendSmsRequest {
         to: string;
         from: string;
         text: string;
+        statusCallback?: string | null;
     }
 }

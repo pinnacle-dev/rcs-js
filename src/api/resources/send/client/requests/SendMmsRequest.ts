@@ -19,4 +19,6 @@ export interface SendMmsRequest {
     text?: string;
     /** The URLs of media to include. `jpeg`, `jpg`, `gif`, and `png` file types are fully supported and have a size limit of 5 MB. 500 KB limit for other types. Up to 10 media URLs can be included. */
     mediaUrls: string[];
+    /** Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses). */
+    statusCallback?: string;
 }

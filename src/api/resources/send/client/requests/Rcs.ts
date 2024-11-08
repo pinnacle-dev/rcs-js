@@ -10,6 +10,12 @@ import * as Pinnacle from "../../../../index";
  *         from: "from",
  *         to: "to"
  *     }
+ *
+ * @example
+ *     {
+ *         from: "from",
+ *         to: "to"
+ *     }
  */
 export interface Rcs {
     /**
@@ -42,4 +48,7 @@ export interface Rcs {
     cards?: Pinnacle.Card[];
     /** Optional list of quick reply actions (max 10). */
     quickReplies?: Pinnacle.Action[];
+    fallback?: Pinnacle.RcsFallback;
+    /** Optional URL to receive a POST request when the message status changes. Read more about status callbacks [here](/api-reference/receive-msg-statuses). */
+    statusCallback?: string;
 }
