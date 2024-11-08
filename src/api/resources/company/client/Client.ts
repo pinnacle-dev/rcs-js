@@ -64,8 +64,8 @@ export class Company {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.12",
-                "User-Agent": "rcs-js/1.0.12",
+                "X-Fern-SDK-Version": "1.0.13",
+                "User-Agent": "rcs-js/1.0.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -125,6 +125,7 @@ export class Company {
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.PaymentRequiredError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
@@ -168,8 +169,8 @@ export class Company {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.12",
-                "User-Agent": "rcs-js/1.0.12",
+                "X-Fern-SDK-Version": "1.0.13",
+                "User-Agent": "rcs-js/1.0.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -196,6 +197,8 @@ export class Company {
                     throw new Pinnacle.BadRequestError(_response.error.body);
                 case 401:
                     throw new Pinnacle.UnauthorizedError(_response.error.body);
+                case 402:
+                    throw new Pinnacle.PaymentRequiredError(_response.error.body);
                 case 500:
                     throw new Pinnacle.InternalServerError(_response.error.body);
                 default:
@@ -249,8 +252,8 @@ export class Company {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.12",
-                "User-Agent": "rcs-js/1.0.12",
+                "X-Fern-SDK-Version": "1.0.13",
+                "User-Agent": "rcs-js/1.0.13",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

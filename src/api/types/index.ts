@@ -1,6 +1,7 @@
 export * from "./BadRequestErrorBody";
 export * from "./UnauthorizedErrorBody";
 export * from "./InternalServerErrorBody";
+export * from "./PaymentRequiredErrorBody";
 export * from "./ForbiddenErrorBody";
 export * from "./RcsFunctionalities";
 export * from "./CompanyAdditionalWebsitesItem";
