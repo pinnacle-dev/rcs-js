@@ -7,8 +7,8 @@ import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
 
 export const ActionType: core.serialization.Schema<serializers.ActionType.Raw, Pinnacle.ActionType> =
-    core.serialization.enum_(["openUrl", "call", "trigger", "requestLocation", "scheduleEvent", "sendLocation"]);
+    core.serialization.enum_(["openUrl", "call", "trigger", "requestUserLocation", "scheduleEvent", "sendLocation"]);
 
 export declare namespace ActionType {
-    type Raw = "openUrl" | "call" | "trigger" | "requestLocation" | "scheduleEvent" | "sendLocation";
+    type Raw = "openUrl" | "call" | "trigger" | "requestUserLocation" | "scheduleEvent" | "sendLocation";
 }

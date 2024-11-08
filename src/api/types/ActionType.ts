@@ -3,15 +3,15 @@
  */
 
 /**
- * Type of action for the button. 'openUrl' opens a URL, 'call' dials a phone number, 'trigger' sends the predefined payload to the webhook when pressed, 'requestLocation' requests the user's location, 'scheduleEvent' creates a calendar event, 'sendLocation' sends a location.
+ * Type of action for the button. 'openUrl' opens a URL, 'call' dials a phone number, 'trigger' sends the predefined payload to the webhook when pressed, 'requestUserLocation' requests the user's location, 'scheduleEvent' creates a calendar event, 'sendLocation' sends a location.
  */
-export type ActionType = "openUrl" | "call" | "trigger" | "requestLocation" | "scheduleEvent" | "sendLocation";
+export type ActionType = "openUrl" | "call" | "trigger" | "requestUserLocation" | "scheduleEvent" | "sendLocation";
 
 export const ActionType = {
     OpenUrl: "openUrl",
     Call: "call",
     Trigger: "trigger",
-    RequestLocation: "requestLocation",
+    RequestUserLocation: "requestUserLocation",
     ScheduleEvent: "scheduleEvent",
     SendLocation: "sendLocation",
 } as const;
