@@ -11,6 +11,8 @@ export interface Company {
     createdAt?: Date;
     /** The name of the company */
     name?: string;
+    /** The category of the company */
+    category?: Pinnacle.CompanyCategory;
     /** The address of the company */
     address?: string;
     /** The Employer Identification Number (EIN) of the company */
@@ -45,6 +47,16 @@ export interface Company {
     pocTitle?: string;
     /** The email address of the point of contact */
     pocEmail?: string;
+    /** Explain how users will opt in to receive messages. */
+    optIn?: string;
+    /** Explain how users will opt out of receiving messages. */
+    optOut?: string;
+    /** Please provide the unique keywords to opt out. Each keyword should not contain spaces. */
+    optOutKeywords?: string[];
+    /** Please define what your agent will do. */
+    agentUseCase?: string;
+    /** Please provide some example messages that your agent will send. */
+    expectedAgentResponses?: string;
     /** A list of test phone numbers */
     testNumbers?: string[];
     /** The approval status of the company */

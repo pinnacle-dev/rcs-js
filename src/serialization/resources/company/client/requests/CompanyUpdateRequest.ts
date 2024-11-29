@@ -7,6 +7,7 @@ import * as Pinnacle from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { Company } from "../../../../types/Company";
 import { CompanyContact } from "../../../../types/CompanyContact";
+import { Messaging } from "../../../../types/Messaging";
 import { PointOfContact } from "../../../../types/PointOfContact";
 import { Optionals } from "../../../../types/Optionals";
 
@@ -17,6 +18,7 @@ export const CompanyUpdateRequest: core.serialization.Schema<
     companyId: core.serialization.string(),
     company: Company.optional(),
     companyContact: CompanyContact.optional(),
+    messaging: Messaging.optional(),
     pointOfContact: PointOfContact.optional(),
     optionals: Optionals.optional(),
 });
@@ -26,6 +28,7 @@ export declare namespace CompanyUpdateRequest {
         companyId: string;
         company?: Company.Raw | null;
         companyContact?: CompanyContact.Raw | null;
+        messaging?: Messaging.Raw | null;
         pointOfContact?: PointOfContact.Raw | null;
         optionals?: Optionals.Raw | null;
     }

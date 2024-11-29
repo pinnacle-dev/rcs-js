@@ -5,6 +5,7 @@
 import * as serializers from "../index";
 import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
+import { CompanyCategory } from "./CompanyCategory";
 import { CompanyAdditionalWebsitesItem } from "./CompanyAdditionalWebsitesItem";
 import { CompanyAdditionalEmailsItem } from "./CompanyAdditionalEmailsItem";
 import { CompanyAdditionalPhoneNumbersItem } from "./CompanyAdditionalPhoneNumbersItem";
@@ -14,6 +15,7 @@ export const Company: core.serialization.ObjectSchema<serializers.Company.Raw, P
         id: core.serialization.number().optional(),
         createdAt: core.serialization.date().optional(),
         name: core.serialization.string().optional(),
+        category: CompanyCategory.optional(),
         address: core.serialization.string().optional(),
         ein: core.serialization.string().optional(),
         description: core.serialization.string().optional(),
@@ -31,6 +33,11 @@ export const Company: core.serialization.ObjectSchema<serializers.Company.Raw, P
         pocName: core.serialization.string().optional(),
         pocTitle: core.serialization.string().optional(),
         pocEmail: core.serialization.string().optional(),
+        optIn: core.serialization.string().optional(),
+        optOut: core.serialization.string().optional(),
+        optOutKeywords: core.serialization.list(core.serialization.string()).optional(),
+        agentUseCase: core.serialization.string().optional(),
+        expectedAgentResponses: core.serialization.string().optional(),
         testNumbers: core.serialization.list(core.serialization.string()).optional(),
         status: core.serialization.string().optional(),
         additionalWebsites: core.serialization.list(CompanyAdditionalWebsitesItem).optional(),
@@ -43,6 +50,7 @@ export declare namespace Company {
         id?: number | null;
         createdAt?: string | null;
         name?: string | null;
+        category?: CompanyCategory.Raw | null;
         address?: string | null;
         ein?: string | null;
         description?: string | null;
@@ -60,6 +68,11 @@ export declare namespace Company {
         pocName?: string | null;
         pocTitle?: string | null;
         pocEmail?: string | null;
+        optIn?: string | null;
+        optOut?: string | null;
+        optOutKeywords?: string[] | null;
+        agentUseCase?: string | null;
+        expectedAgentResponses?: string | null;
         testNumbers?: string[] | null;
         status?: string | null;
         additionalWebsites?: CompanyAdditionalWebsitesItem.Raw[] | null;

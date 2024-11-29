@@ -14,6 +14,7 @@ export interface CompanyUpdateRequest {
     companyId: string;
     company?: Pinnacle.Company;
     companyContact?: Pinnacle.CompanyContact;
+    messaging?: Pinnacle.Messaging;
     pointOfContact?: Pinnacle.PointOfContact;
     optionals?: Pinnacle.Optionals;
 }

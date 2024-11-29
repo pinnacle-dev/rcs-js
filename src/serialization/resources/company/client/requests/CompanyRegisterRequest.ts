@@ -7,6 +7,7 @@ import * as Pinnacle from "../../../../../api/index";
 import * as core from "../../../../../core";
 import { CompanyDetails } from "../../../../types/CompanyDetails";
 import { CompanyContact } from "../../../../types/CompanyContact";
+import { Messaging } from "../../../../types/Messaging";
 import { PointOfContact } from "../../../../types/PointOfContact";
 import { Optionals } from "../../../../types/Optionals";
 
@@ -16,6 +17,7 @@ export const CompanyRegisterRequest: core.serialization.Schema<
 > = core.serialization.object({
     company: CompanyDetails,
     companyContact: CompanyContact,
+    messaging: Messaging,
     pointOfContact: PointOfContact,
     optionals: Optionals.optional(),
 });
@@ -24,6 +26,7 @@ export declare namespace CompanyRegisterRequest {
     interface Raw {
         company: CompanyDetails.Raw;
         companyContact: CompanyContact.Raw;
+        messaging: Messaging.Raw;
         pointOfContact: PointOfContact.Raw;
         optionals?: Optionals.Raw | null;
     }

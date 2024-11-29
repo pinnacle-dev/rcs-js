@@ -5,10 +5,12 @@
 import * as serializers from "../index";
 import * as Pinnacle from "../../api/index";
 import * as core from "../../core";
+import { CompanyCategory } from "./CompanyCategory";
 
 export const CompanyDetails: core.serialization.ObjectSchema<serializers.CompanyDetails.Raw, Pinnacle.CompanyDetails> =
     core.serialization.object({
         name: core.serialization.string(),
+        category: CompanyCategory,
         address: core.serialization.string(),
         ein: core.serialization.string(),
         description: core.serialization.string(),
@@ -20,6 +22,7 @@ export const CompanyDetails: core.serialization.ObjectSchema<serializers.Company
 export declare namespace CompanyDetails {
     interface Raw {
         name: string;
+        category: CompanyCategory.Raw;
         address: string;
         ein: string;
         description: string;
