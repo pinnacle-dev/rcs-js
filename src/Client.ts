@@ -10,6 +10,7 @@ import * as serializers from "./serialization/index";
 import * as errors from "./errors/index";
 import { Company } from "./api/resources/company/client/Client";
 import { Send } from "./api/resources/send/client/Client";
+import { Tools } from "./api/resources/tools/client/Client";
 
 export declare namespace PinnacleClient {
     interface Options {
@@ -62,8 +63,8 @@ export class PinnacleClient {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.15",
-                "User-Agent": "rcs-js/1.0.15",
+                "X-Fern-SDK-Version": "1.0.16",
+                "User-Agent": "rcs-js/1.0.16",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -125,6 +126,12 @@ export class PinnacleClient {
 
     public get send(): Send {
         return (this._send ??= new Send(this._options));
+    }
+
+    protected _tools: Tools | undefined;
+
+    public get tools(): Tools {
+        return (this._tools ??= new Tools(this._options));
     }
 
     protected async _getCustomAuthorizationHeaders() {

@@ -9,7 +9,7 @@ import * as serializers from "../../../../serialization/index";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index";
 
-export declare namespace Send {
+export declare namespace Tools {
     interface Options {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         apiKey: core.Supplier<string>;
@@ -25,34 +25,32 @@ export declare namespace Send {
     }
 }
 
-export class Send {
-    constructor(protected readonly _options: Send.Options) {}
+export class Tools {
+    constructor(protected readonly _options: Tools.Options) {}
 
     /**
-     * Send an interactive RCS message with text, media, or cards. Each message can only contain either text, media, or card(s).
+     * Create a shortened URL with an optional expiration date (default and max expiration is 90 days). The shortened URL will redirect to the original URL and will have the following format https://urls.p1n.io/ABCD5678.
      *
-     * Quick replies can also be added to the message.
-     *
-     * @param {Pinnacle.Rcs} request
-     * @param {Send.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Pinnacle.ToolsShortenUrlRequest} request
+     * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.PaymentRequiredError}
-     * @throws {@link Pinnacle.ForbiddenError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.send.rcs({
-     *         from: "from",
-     *         to: "to"
+     *     await client.tools.shortenUrl({
+     *         url: "https://example.com"
      *     })
      */
-    public async rcs(request: Pinnacle.Rcs, requestOptions?: Send.RequestOptions): Promise<Pinnacle.SendRcsResponse> {
+    public async shortenUrl(
+        request: Pinnacle.ToolsShortenUrlRequest,
+        requestOptions?: Tools.RequestOptions
+    ): Promise<Pinnacle.ToolsShortenUrlResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "send/rcs"
+                "tools/urls/shorten"
             ),
             method: "POST",
             headers: {
@@ -66,13 +64,13 @@ export class Send {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.Rcs.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.ToolsShortenUrlRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.SendRcsResponse.parseOrThrow(_response.body, {
+            return serializers.ToolsShortenUrlResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -86,10 +84,6 @@ export class Send {
                     throw new Pinnacle.BadRequestError(_response.error.body);
                 case 401:
                     throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 402:
-                    throw new Pinnacle.PaymentRequiredError(_response.error.body);
-                case 403:
-                    throw new Pinnacle.ForbiddenError(_response.error.body);
                 case 500:
                     throw new Pinnacle.InternalServerError(_response.error.body);
                 default:
@@ -116,32 +110,30 @@ export class Send {
     }
 
     /**
-     * Send an SMS message to a recipient.
+     * Generate signed upload (expires in 2 hours) and download URLs for a file (expires in 1 hour).
      *
-     * @param {Pinnacle.SendSmsRequest} request
-     * @param {Send.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Pinnacle.ToolsUploadUrlRequest} request
+     * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.PaymentRequiredError}
-     * @throws {@link Pinnacle.ForbiddenError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.send.sms({
-     *         to: "to",
-     *         from: "from",
-     *         text: "text"
+     *     await client.tools.uploadUrl({
+     *         contentType: "image/png",
+     *         size: 1024,
+     *         name: "example.png"
      *     })
      */
-    public async sms(
-        request: Pinnacle.SendSmsRequest,
-        requestOptions?: Send.RequestOptions
-    ): Promise<Pinnacle.SendSmsResponse> {
+    public async uploadUrl(
+        request: Pinnacle.ToolsUploadUrlRequest,
+        requestOptions?: Tools.RequestOptions
+    ): Promise<Pinnacle.ToolsUploadUrlResponse> {
         const _response = await core.fetcher({
             url: urlJoin(
                 (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "send/sms"
+                "tools/uploadUrl"
             ),
             method: "POST",
             headers: {
@@ -155,13 +147,13 @@ export class Send {
             },
             contentType: "application/json",
             requestType: "json",
-            body: serializers.SendSmsRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
+            body: serializers.ToolsUploadUrlRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return serializers.SendSmsResponse.parseOrThrow(_response.body, {
+            return serializers.ToolsUploadUrlResponse.parseOrThrow(_response.body, {
                 unrecognizedObjectKeys: "passthrough",
                 allowUnrecognizedUnionMembers: true,
                 allowUnrecognizedEnumValues: true,
@@ -175,99 +167,6 @@ export class Send {
                     throw new Pinnacle.BadRequestError(_response.error.body);
                 case 401:
                     throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 402:
-                    throw new Pinnacle.PaymentRequiredError(_response.error.body);
-                case 403:
-                    throw new Pinnacle.ForbiddenError(_response.error.body);
-                case 500:
-                    throw new Pinnacle.InternalServerError(_response.error.body);
-                default:
-                    throw new errors.PinnacleError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.PinnacleError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                });
-            case "timeout":
-                throw new errors.PinnacleTimeoutError();
-            case "unknown":
-                throw new errors.PinnacleError({
-                    message: _response.error.errorMessage,
-                });
-        }
-    }
-
-    /**
-     * Send an MMS message with media attachments.
-     *
-     * @param {Pinnacle.SendMmsRequest} request
-     * @param {Send.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Pinnacle.BadRequestError}
-     * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.PaymentRequiredError}
-     * @throws {@link Pinnacle.ForbiddenError}
-     * @throws {@link Pinnacle.InternalServerError}
-     *
-     * @example
-     *     await client.send.mms({
-     *         to: "to",
-     *         from: "from",
-     *         mediaUrls: ["https://example.com/image1.jpg", "https://example.com/video.mp4"]
-     *     })
-     */
-    public async mms(
-        request: Pinnacle.SendMmsRequest,
-        requestOptions?: Send.RequestOptions
-    ): Promise<Pinnacle.SendMmsResponse> {
-        const _response = await core.fetcher({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.environment)) ?? environments.PinnacleEnvironment.Default,
-                "send/mms"
-            ),
-            method: "POST",
-            headers: {
-                "X-Fern-Language": "JavaScript",
-                "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.16",
-                "User-Agent": "rcs-js/1.0.16",
-                "X-Fern-Runtime": core.RUNTIME.type,
-                "X-Fern-Runtime-Version": core.RUNTIME.version,
-                ...(await this._getCustomAuthorizationHeaders()),
-            },
-            contentType: "application/json",
-            requestType: "json",
-            body: serializers.SendMmsRequest.jsonOrThrow(request, { unrecognizedObjectKeys: "strip" }),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return serializers.SendMmsResponse.parseOrThrow(_response.body, {
-                unrecognizedObjectKeys: "passthrough",
-                allowUnrecognizedUnionMembers: true,
-                allowUnrecognizedEnumValues: true,
-                breadcrumbsPrefix: ["response"],
-            });
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Pinnacle.BadRequestError(_response.error.body);
-                case 401:
-                    throw new Pinnacle.UnauthorizedError(_response.error.body);
-                case 402:
-                    throw new Pinnacle.PaymentRequiredError(_response.error.body);
-                case 403:
-                    throw new Pinnacle.ForbiddenError(_response.error.body);
                 case 500:
                     throw new Pinnacle.InternalServerError(_response.error.body);
                 default:
