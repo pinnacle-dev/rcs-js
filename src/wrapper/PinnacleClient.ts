@@ -1,40 +1,31 @@
 import { PinnacleClient as FernClient } from "../Client";
-import * as path from "path";
-import * as fs from "fs";
-import * as mime from "mime-types";
 import fetch from "node-fetch";
 
 export class PinnacleClient extends FernClient {
     /**
      * Upload a file to the server and return the download URL.
      *
-     * @param {string} filePath - The path to the file to be uploaded.
+     * @param {File} file - The file to be uploaded.
      * @returns {Promise<string>} - The URL to download the uploaded file.
      *
      * @throws {Error} - If the file type cannot be determined or if the upload fails.
      *
      * @example
-     *     const downloadUrl = await client.upload("/path/to/file");
+     *     const file = new File(["content"], "example.txt", { type: "text/plain" });
+     *     const downloadUrl = await client.upload(file);
      *     console.log("File available at:", downloadUrl);
      */
-    public async upload(filePath: string): Promise<string> {
-        const fileStats = fs.statSync(filePath);
-        const fileType = mime.lookup(filePath);
+    public async upload(file: File): Promise<string> {
+        const fileType = file.type;
 
         if (!fileType) {
             throw new Error("Could not determine the file type");
         }
 
-        const localFile = {
-            name: path.basename(filePath),
-            contentType: fileType,
-            size: fileStats.size,
-        };
-
         const { upload: uploadUrl, download: downloadUrl } = await this.tools.uploadUrl({
-            name: localFile.name,
-            contentType: localFile.contentType,
-            size: localFile.size,
+            name: file.name,
+            contentType: fileType,
+            size: file.size,
         });
 
         if (!uploadUrl) {
@@ -45,14 +36,15 @@ export class PinnacleClient extends FernClient {
             throw new Error("Failed to get download url");
         }
 
-        const uploadFile = async (filePath: string, uploadUrl: string) => {
-            const fileStream = fs.createReadStream(filePath);
+        const uploadFile = async (file: File, uploadUrl: string) => {
+            const fileBuffer = await file.arrayBuffer();
             const uploadResult = await fetch(uploadUrl, {
                 method: "PUT",
                 headers: {
-                    "Content-Type": fileType,
+                    "Content-Type": file.type,
+                    "Content-Length": file.size.toString(),
                 },
-                body: fileStream,
+                body: Buffer.from(fileBuffer),
             });
 
             if (!uploadResult.ok) {
@@ -60,7 +52,7 @@ export class PinnacleClient extends FernClient {
             }
         };
 
-        await uploadFile(filePath, uploadUrl);
+        await uploadFile(file, uploadUrl);
 
         return downloadUrl;
     }
