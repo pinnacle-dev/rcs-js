@@ -6,12 +6,11 @@ import * as Pinnacle from "../../../../index";
 
 /**
  * @example
- *     {
- *         companyId: "companyId"
- *     }
+ *     {}
  */
 export interface CompanyUpdateRequest {
-    companyId: string;
+    /** Optional company ID. If provided, updates existing company. If not provided, creates a new company. */
+    companyId?: string;
     company?: Pinnacle.Company;
     companyContact?: Pinnacle.CompanyContact;
     messaging?: Pinnacle.Messaging;

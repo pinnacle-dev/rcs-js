@@ -58,8 +58,8 @@ export class Send {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.18",
-                "User-Agent": "rcs-js/1.0.18",
+                "X-Fern-SDK-Version": "1.0.19",
+                "User-Agent": "rcs-js/1.0.19",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -147,8 +147,8 @@ export class Send {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.18",
-                "User-Agent": "rcs-js/1.0.18",
+                "X-Fern-SDK-Version": "1.0.19",
+                "User-Agent": "rcs-js/1.0.19",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -236,8 +236,8 @@ export class Send {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.18",
-                "User-Agent": "rcs-js/1.0.18",
+                "X-Fern-SDK-Version": "1.0.19",
+                "User-Agent": "rcs-js/1.0.19",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

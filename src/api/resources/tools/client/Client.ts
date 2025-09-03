@@ -56,8 +56,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.18",
-                "User-Agent": "rcs-js/1.0.18",
+                "X-Fern-SDK-Version": "1.0.19",
+                "User-Agent": "rcs-js/1.0.19",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),
@@ -112,6 +112,8 @@ export class Tools {
     /**
      * Generate signed upload (expires in 2 hours) and download URLs for a file (expires in 1 hour).
      *
+     * See the [Upload](/api-reference/upload) page for native Python and Typescript SDKs.
+     *
      * @param {Pinnacle.ToolsUploadUrlRequest} request
      * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -139,8 +141,8 @@ export class Tools {
             headers: {
                 "X-Fern-Language": "JavaScript",
                 "X-Fern-SDK-Name": "rcs-js",
-                "X-Fern-SDK-Version": "1.0.18",
-                "User-Agent": "rcs-js/1.0.18",
+                "X-Fern-SDK-Version": "1.0.19",
+                "User-Agent": "rcs-js/1.0.19",
                 "X-Fern-Runtime": core.RUNTIME.type,
                 "X-Fern-Runtime-Version": core.RUNTIME.version,
                 ...(await this._getCustomAuthorizationHeaders()),

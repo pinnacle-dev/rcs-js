@@ -15,7 +15,7 @@ export const CompanyUpdateRequest: core.serialization.Schema<
     serializers.CompanyUpdateRequest.Raw,
     Pinnacle.CompanyUpdateRequest
 > = core.serialization.object({
-    companyId: core.serialization.string(),
+    companyId: core.serialization.string().optional(),
     company: Company.optional(),
     companyContact: CompanyContact.optional(),
     messaging: Messaging.optional(),
@@ -25,7 +25,7 @@ export const CompanyUpdateRequest: core.serialization.Schema<
 
 export declare namespace CompanyUpdateRequest {
     interface Raw {
-        companyId: string;
+        companyId?: string | null;
         company?: Company.Raw | null;
         companyContact?: CompanyContact.Raw | null;
         messaging?: Messaging.Raw | null;
