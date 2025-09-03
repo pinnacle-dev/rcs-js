@@ -1,5 +1,4 @@
 import { PinnacleClient as FernClient } from "../Client";
-import fetch from "node-fetch";
 
 export class PinnacleClient extends FernClient {
     /**
