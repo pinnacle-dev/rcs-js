@@ -1,2 +1,2 @@
-export { type CompanyGetRequest } from "./CompanyGetRequest";
-export { type CompanyUpdateRequest } from "./CompanyUpdateRequest";
+export { type CompanyGetRequest } from "./CompanyGetRequest.js";
+export { type CompanyUpdateRequest } from "./CompanyUpdateRequest.js";

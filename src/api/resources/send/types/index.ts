@@ -1,4 +1,3 @@
-export * from "./RcsFallback";
-export * from "./SendRcsResponse";
-export * from "./SendSmsResponse";
-export * from "./SendMmsResponse";
+export * from "./SendRcsResponse.js";
+export * from "./SendSmsResponse.js";
+export * from "./SendMmsResponse.js";

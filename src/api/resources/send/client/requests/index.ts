@@ -1,3 +1,3 @@
-export { type Rcs } from "./Rcs";
-export { type SendSmsRequest } from "./SendSmsRequest";
-export { type SendMmsRequest } from "./SendMmsRequest";
+export { type Rcs } from "./Rcs.js";
+export { type SendSmsRequest } from "./SendSmsRequest.js";
+export { type SendMmsRequest } from "./SendMmsRequest.js";

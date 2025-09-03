@@ -17,7 +17,6 @@ export type CompanyCategory =
     | "Sports"
     | "Travel"
     | "Utilities";
-
 export const CompanyCategory = {
     Entertainment: "Entertainment",
     Finance: "Finance",

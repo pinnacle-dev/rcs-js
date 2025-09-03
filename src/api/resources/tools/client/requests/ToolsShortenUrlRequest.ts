@@ -12,5 +12,5 @@ export interface ToolsShortenUrlRequest {
     /** The URL to be shortened. Must be a valid URL with either http or https protocol. */
     url: string;
     /** Optional expiration date for the shortened URL in ISO 8601 format. Default and max expiration is 90 days. */
-    expiresAt?: Date;
+    expiresAt?: string;
 }

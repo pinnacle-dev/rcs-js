@@ -207,7 +207,7 @@ await client.company.register({
 <dl>
 <dd>
 
-Update a company on the Pinnacle platform
+Upsert a company on the Pinnacle platform
 
 </dd>
 </dl>

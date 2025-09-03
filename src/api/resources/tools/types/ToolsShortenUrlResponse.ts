@@ -6,5 +6,5 @@ export interface ToolsShortenUrlResponse {
     /** The shortened URL. */
     shortenedUrl?: string;
     /** The expiration date of the shortened URL, if provided. */
-    expiresAt?: Date;
+    expiresAt?: string;
 }

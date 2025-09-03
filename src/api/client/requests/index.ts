@@ -1,1 +1,1 @@
-export { type GetRcsFunctionalityRequest } from "./GetRcsFunctionalityRequest";
+export { type GetRcsFunctionalityRequest } from "./GetRcsFunctionalityRequest.js";

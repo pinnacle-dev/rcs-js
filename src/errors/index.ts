@@ -1,2 +1,2 @@
-export { PinnacleError } from "./PinnacleError";
-export { PinnacleTimeoutError } from "./PinnacleTimeoutError";
+export { PinnacleError } from "./PinnacleError.js";
+export { PinnacleTimeoutError } from "./PinnacleTimeoutError.js";

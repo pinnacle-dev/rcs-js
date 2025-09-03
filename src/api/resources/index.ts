@@ -1,9 +1,9 @@
-export * as company from "./company";
-export * from "./company/types";
-export * as send from "./send";
-export * from "./send/types";
-export * as tools from "./tools";
-export * from "./tools/types";
-export * from "./company/client/requests";
-export * from "./send/client/requests";
-export * from "./tools/client/requests";
+export * as company from "./company/index.js";
+export * from "./company/types/index.js";
+export * as send from "./send/index.js";
+export * from "./send/types/index.js";
+export * as tools from "./tools/index.js";
+export * from "./tools/types/index.js";
+export * from "./company/client/requests/index.js";
+export * from "./send/client/requests/index.js";
+export * from "./tools/client/requests/index.js";

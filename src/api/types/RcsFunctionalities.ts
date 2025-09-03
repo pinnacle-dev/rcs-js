@@ -4,19 +4,19 @@
 
 export interface RcsFunctionalities {
     /** Indicates if RCS is enabled. */
-    isEnabled: boolean;
+    is_enabled: boolean;
     /** Indicates if standalone rich cards are supported. */
-    standaloneRichCard: boolean;
+    standalone_rich_card: boolean;
     /** Indicates if carousel rich cards are supported. */
-    carouselRichCard: boolean;
+    carousel_rich_card: boolean;
     /** Indicates if buttons to create a calendar event are supported. */
-    createCalendarEventAction: boolean;
+    create_calendar_event_action: boolean;
     /** Indicates if dial buttons are supported. */
-    dialAction: boolean;
+    dial_action: boolean;
     /** Indicates if open URL buttons are supported. */
-    openUrlAction: boolean;
+    open_url_action: boolean;
     /** Indicates if share location buttons are supported. */
-    shareLocationAction: boolean;
+    share_location_action: boolean;
     /** Indicates if view location buttons are supported. */
-    viewLocationAction: boolean;
+    view_location_action: boolean;
 }
