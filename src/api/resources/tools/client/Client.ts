@@ -4,9 +4,9 @@
 
 import * as environments from "../../../../environments.js";
 import * as core from "../../../../core/index.js";
-import * as Pinnacle from "../../../index.js";
-import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
-import * as errors from "../../../../errors/index.js";
+import { Url } from "../resources/url/client/Client.js";
+import { File_ } from "../resources/file/client/Client.js";
+import { ContactCard } from "../resources/contactCard/client/Client.js";
 
 export declare namespace Tools {
     export interface Options {
@@ -17,200 +17,27 @@ export declare namespace Tools {
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
-
-    export interface RequestOptions {
-        /** The maximum time to wait for a response in seconds. */
-        timeoutInSeconds?: number;
-        /** The number of times to retry the request. Defaults to 2. */
-        maxRetries?: number;
-        /** A hook to abort the request. */
-        abortSignal?: AbortSignal;
-        /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
-    }
 }
 
 export class Tools {
     protected readonly _options: Tools.Options;
+    protected _url: Url | undefined;
+    protected _file: File_ | undefined;
+    protected _contactCard: ContactCard | undefined;
 
     constructor(_options: Tools.Options) {
         this._options = _options;
     }
 
-    /**
-     * Create a shortened URL with an optional expiration date (default and max expiration is 90 days). The shortened URL will redirect to the original URL and will have the following format https://urls.p1n.io/ABCD5678.
-     *
-     * @param {Pinnacle.ToolsShortenUrlRequest} request
-     * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Pinnacle.BadRequestError}
-     * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.InternalServerError}
-     *
-     * @example
-     *     await client.tools.shortenUrl({
-     *         url: "https://example.com"
-     *     })
-     */
-    public shortenUrl(
-        request: Pinnacle.ToolsShortenUrlRequest,
-        requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.ToolsShortenUrlResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__shortenUrl(request, requestOptions));
+    public get url(): Url {
+        return (this._url ??= new Url(this._options));
     }
 
-    private async __shortenUrl(
-        request: Pinnacle.ToolsShortenUrlRequest,
-        requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.ToolsShortenUrlResponse>> {
-        const _response = await core.fetcher({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.PinnacleEnvironment.Default,
-                "tools/urls/shorten",
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            requestType: "json",
-            body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Pinnacle.ToolsShortenUrlResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new Pinnacle.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new Pinnacle.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.PinnacleError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.PinnacleError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /tools/urls/shorten.");
-            case "unknown":
-                throw new errors.PinnacleError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
+    public get file(): File_ {
+        return (this._file ??= new File_(this._options));
     }
 
-    /**
-     * Generate signed upload (expires in 2 hours) and download URLs for a file (expires in 1 hour).
-     *
-     * See the [Upload](/api-reference/upload) page for native Python and Typescript SDKs.
-     *
-     * @param {Pinnacle.ToolsUploadUrlRequest} request
-     * @param {Tools.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Pinnacle.BadRequestError}
-     * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.InternalServerError}
-     *
-     * @example
-     *     await client.tools.uploadUrl({
-     *         contentType: "image/png",
-     *         size: 1024,
-     *         name: "example.png"
-     *     })
-     */
-    public uploadUrl(
-        request: Pinnacle.ToolsUploadUrlRequest,
-        requestOptions?: Tools.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.ToolsUploadUrlResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__uploadUrl(request, requestOptions));
-    }
-
-    private async __uploadUrl(
-        request: Pinnacle.ToolsUploadUrlRequest,
-        requestOptions?: Tools.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.ToolsUploadUrlResponse>> {
-        const _response = await core.fetcher({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.PinnacleEnvironment.Default,
-                "tools/uploadUrl",
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            requestType: "json",
-            body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Pinnacle.ToolsUploadUrlResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new Pinnacle.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new Pinnacle.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.PinnacleError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.PinnacleError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /tools/uploadUrl.");
-            case "unknown":
-                throw new errors.PinnacleError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    protected async _getCustomAuthorizationHeaders() {
-        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
-        return { "PINNACLE-API-Key": apiKeyValue };
+    public get contactCard(): ContactCard {
+        return (this._contactCard ??= new ContactCard(this._options));
     }
 }

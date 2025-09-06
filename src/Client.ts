@@ -4,11 +4,14 @@
 
 import * as environments from "./environments.js";
 import * as core from "./core/index.js";
-import { mergeHeaders, mergeOnlyDefinedHeaders } from "./core/headers.js";
-import * as Pinnacle from "./api/index.js";
-import * as errors from "./errors/index.js";
-import { Company } from "./api/resources/company/client/Client.js";
-import { Send } from "./api/resources/send/client/Client.js";
+import { mergeHeaders } from "./core/headers.js";
+import { Brands } from "./api/resources/brands/client/Client.js";
+import { Contacts } from "./api/resources/contacts/client/Client.js";
+import { Conversations } from "./api/resources/conversations/client/Client.js";
+import { Messages } from "./api/resources/messages/client/Client.js";
+import { PhoneNumbers } from "./api/resources/phoneNumbers/client/Client.js";
+import { Webhooks } from "./api/resources/webhooks/client/Client.js";
+import { Campaigns } from "./api/resources/campaigns/client/Client.js";
 import { Tools } from "./api/resources/tools/client/Client.js";
 
 export declare namespace PinnacleClient {
@@ -28,6 +31,8 @@ export declare namespace PinnacleClient {
         maxRetries?: number;
         /** A hook to abort the request. */
         abortSignal?: AbortSignal;
+        /** Additional query string parameters to include in the request. */
+        queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
         headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
     }
@@ -35,8 +40,13 @@ export declare namespace PinnacleClient {
 
 export class PinnacleClient {
     protected readonly _options: PinnacleClient.Options;
-    protected _company: Company | undefined;
-    protected _send: Send | undefined;
+    protected _brands: Brands | undefined;
+    protected _contacts: Contacts | undefined;
+    protected _conversations: Conversations | undefined;
+    protected _messages: Messages | undefined;
+    protected _phoneNumbers: PhoneNumbers | undefined;
+    protected _webhooks: Webhooks | undefined;
+    protected _campaigns: Campaigns | undefined;
     protected _tools: Tools | undefined;
 
     constructor(_options: PinnacleClient.Options) {
@@ -45,9 +55,8 @@ export class PinnacleClient {
             headers: mergeHeaders(
                 {
                     "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "rcs-js",
-                    "X-Fern-SDK-Version": "1.0.22",
-                    "User-Agent": "rcs-js/1.0.22",
+                    "X-Fern-SDK-Name": "",
+                    "X-Fern-SDK-Version": "0.0.193",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -56,106 +65,35 @@ export class PinnacleClient {
         };
     }
 
-    public get company(): Company {
-        return (this._company ??= new Company(this._options));
+    public get brands(): Brands {
+        return (this._brands ??= new Brands(this._options));
     }
 
-    public get send(): Send {
-        return (this._send ??= new Send(this._options));
+    public get contacts(): Contacts {
+        return (this._contacts ??= new Contacts(this._options));
+    }
+
+    public get conversations(): Conversations {
+        return (this._conversations ??= new Conversations(this._options));
+    }
+
+    public get messages(): Messages {
+        return (this._messages ??= new Messages(this._options));
+    }
+
+    public get phoneNumbers(): PhoneNumbers {
+        return (this._phoneNumbers ??= new PhoneNumbers(this._options));
+    }
+
+    public get webhooks(): Webhooks {
+        return (this._webhooks ??= new Webhooks(this._options));
+    }
+
+    public get campaigns(): Campaigns {
+        return (this._campaigns ??= new Campaigns(this._options));
     }
 
     public get tools(): Tools {
         return (this._tools ??= new Tools(this._options));
-    }
-
-    /**
-     * Retrieve the RCS functionality of a phone number. For example checks if a phone number can receive RCS message and if it can receive RCS carousels.
-     *
-     * @param {Pinnacle.GetRcsFunctionalityRequest} request
-     * @param {PinnacleClient.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Pinnacle.BadRequestError}
-     * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.InternalServerError}
-     *
-     * @example
-     *     await client.getRcsFunctionality()
-     */
-    public getRcsFunctionality(
-        request: Pinnacle.GetRcsFunctionalityRequest = {},
-        requestOptions?: PinnacleClient.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.RcsFunctionalities> {
-        return core.HttpResponsePromise.fromPromise(this.__getRcsFunctionality(request, requestOptions));
-    }
-
-    private async __getRcsFunctionality(
-        request: Pinnacle.GetRcsFunctionalityRequest = {},
-        requestOptions?: PinnacleClient.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.RcsFunctionalities>> {
-        const { phoneNumber } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (phoneNumber != null) {
-            _queryParams["phoneNumber"] = phoneNumber;
-        }
-
-        const _response = await core.fetcher({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.PinnacleEnvironment.Default,
-                "rcs_functionality",
-            ),
-            method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-                requestOptions?.headers,
-            ),
-            queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Pinnacle.RcsFunctionalities, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new Pinnacle.UnauthorizedError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new Pinnacle.InternalServerError(_response.error.body as unknown, _response.rawResponse);
-                default:
-                    throw new errors.PinnacleError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.PinnacleError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling GET /rcs_functionality.");
-            case "unknown":
-                throw new errors.PinnacleError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    protected async _getCustomAuthorizationHeaders() {
-        const apiKeyValue = await core.Supplier.get(this._options.apiKey);
-        return { "PINNACLE-API-Key": apiKeyValue };
     }
 }

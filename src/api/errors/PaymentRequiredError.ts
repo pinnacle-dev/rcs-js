@@ -3,10 +3,11 @@
  */
 
 import * as errors from "../../errors/index.js";
+import * as Pinnacle from "../index.js";
 import * as core from "../../core/index.js";
 
 export class PaymentRequiredError extends errors.PinnacleError {
-    constructor(body?: unknown, rawResponse?: core.RawResponse) {
+    constructor(body: Pinnacle.Error_, rawResponse?: core.RawResponse) {
         super({
             message: "PaymentRequiredError",
             statusCode: 402,

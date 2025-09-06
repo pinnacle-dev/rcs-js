@@ -1,6 +1,8 @@
 # Reference
 
-<details><summary><code>client.<a href="/src/Client.ts">getRcsFunctionality</a>({ ...params }) -> Pinnacle.RcsFunctionalities</code></summary>
+## Brands
+
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">autofill</a>({ ...params }) -> Pinnacle.OptionalBrandSchema</code></summary>
 <dl>
 <dd>
 
@@ -12,7 +14,7 @@
 <dl>
 <dd>
 
-Retrieve the RCS functionality of a phone number. For example checks if a phone number can receive RCS message and if it can receive RCS carousels.
+Automatically populate brand information based on partial input data you provide.
 
 </dd>
 </dl>
@@ -28,138 +30,13 @@ Retrieve the RCS functionality of a phone number. For example checks if a phone 
 <dd>
 
 ```typescript
-await client.getRcsFunctionality();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.GetRcsFunctionalityRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `PinnacleClient.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-##
-
-## Company
-
-<details><summary><code>client.company.<a href="/src/api/resources/company/client/Client.ts">get</a>({ ...params }) -> Pinnacle.Company[]</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve the company's information (i.e. approval status, company name, etc.). Search by company ID or company name.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.company.get();
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.CompanyGetRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Company.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.company.<a href="/src/api/resources/company/client/Client.ts">register</a>({ ...params }) -> Pinnacle.CompanyRegisterResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Register a company for RCS with the Pinnacle platform
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.company.register({
-    companyId: "companyId",
+await client.brands.autofill({
+    additional_info: "A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
+    name: "Pinnacle",
+    options: {
+        forceReload: true,
+    },
+    website: "https://www.pinnacle.sh",
 });
 ```
 
@@ -176,7 +53,7 @@ await client.company.register({
 <dl>
 <dd>
 
-**request:** `Pinnacle.CompanyRegisterRequest`
+**request:** `Pinnacle.AutofillBrandSchema`
 
 </dd>
 </dl>
@@ -184,7 +61,7 @@ await client.company.register({
 <dl>
 <dd>
 
-**requestOptions:** `Company.RequestOptions`
+**requestOptions:** `Brands.RequestOptions`
 
 </dd>
 </dl>
@@ -195,7 +72,7 @@ await client.company.register({
 </dl>
 </details>
 
-<details><summary><code>client.company.<a href="/src/api/resources/company/client/Client.ts">update</a>({ ...params }) -> Pinnacle.CompanyUpdateResponse</code></summary>
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.ExtendedBrand</code></summary>
 <dl>
 <dd>
 
@@ -207,7 +84,7 @@ await client.company.register({
 <dl>
 <dd>
 
-Upsert a company on the Pinnacle platform
+Create a new brand or update an existing brand by with the provided information.
 
 </dd>
 </dl>
@@ -223,7 +100,24 @@ Upsert a company on the Pinnacle platform
 <dd>
 
 ```typescript
-await client.company.update();
+await client.brands.upsert({
+    address: "500 Folsom St, San Francisco, CA 94105",
+    contact: {
+        email: "michael.chen@trypinnacle.app",
+        name: "Michael Chen",
+        phone: "+14155551234",
+        title: "Customer Support Representative",
+    },
+    dba: "Pinnacle RCS",
+    description: "A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
+    ein: "88-1234567",
+    email: "founders@trypinnacle.app",
+    id: 1,
+    name: "Pinnacle",
+    sector: "TECHNOLOGY",
+    type: "PRIVATE_PROFIT",
+    website: "https://www.pinnacle.sh",
+});
 ```
 
 </dd>
@@ -239,7 +133,7 @@ await client.company.update();
 <dl>
 <dd>
 
-**request:** `Pinnacle.CompanyUpdateRequest`
+**request:** `Pinnacle.UpsertBrandSchema`
 
 </dd>
 </dl>
@@ -247,7 +141,7 @@ await client.company.update();
 <dl>
 <dd>
 
-**requestOptions:** `Company.RequestOptions`
+**requestOptions:** `Brands.RequestOptions`
 
 </dd>
 </dl>
@@ -258,9 +152,7 @@ await client.company.update();
 </dl>
 </details>
 
-## Send
-
-<details><summary><code>client.send.<a href="/src/api/resources/send/client/Client.ts">rcs</a>({ ...params }) -> Pinnacle.SendRcsResponse</code></summary>
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">get</a>(id, { ...params }) -> Pinnacle.ExtendedBrandWithVetting</code></summary>
 <dl>
 <dd>
 
@@ -272,9 +164,7 @@ await client.company.update();
 <dl>
 <dd>
 
-Send an interactive RCS message with text, media, or cards. Each message can only contain either text, media, or card(s).
-
-Quick replies can also be added to the message.
+Retrieve detailed information for a specific brand in your account by ID.
 
 </dd>
 </dl>
@@ -290,9 +180,2282 @@ Quick replies can also be added to the message.
 <dd>
 
 ```typescript
-await client.send.rcs({
-    from: "from",
-    to: "to",
+await client.brands.get(1);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `number` — ID of an existing brand in your account that you want to retrieve.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.BrandsGetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Brands.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">submit</a>(brandId) -> Pinnacle.BrandSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit your brand for review and approval by the compliance team.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.brands.submit(1);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**brandId:** `number`
+
+The unique identifier of the brand you want to submit for review. <br>
+Must correspond to an existing brand in your account that is ready for subm
+ission.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Brands.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.BrandValidateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validate your brand information for compliance and correctness before submission or storage.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.brands.validate({});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ValidateBrandSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Brands.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">vet</a>(brandId, { ...params }) -> Pinnacle.VettingResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit a brand for external vetting verification to enhance your brand's trust score and improved message delivery rates.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.brands.vet(1, {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**brandId:** `number`
+
+The unique identifier of the brand to vet. <br>
+
+The brand must be already registered before it can be vetted.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.VettingOptions`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Brands.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Contacts
+
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">get</a>({ ...params }) -> Pinnacle.Contact</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve stored contact information for a given number.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.contacts.get();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ContactsGetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Contacts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">create</a>({ ...params }) -> Pinnacle.CreateContactResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new contact for a given phone number.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.contacts.create({
+    description: "Friend from work",
+    email: "alvaroope@example.com",
+    name: "Alva Roope",
+    phoneNumber: "+14154537890",
+    tags: ["friend", "work"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.CreateContactRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Contacts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">update</a>({ ...params }) -> Pinnacle.UpdateContactResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing contact.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.contacts.update({
+    description: "Retired",
+    email: "alvaroopedtech@example.com",
+    id: 137,
+    name: "Retired Bestie",
+    tags: ["friend"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.UpdateContactRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Contacts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Conversations
+
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">get</a>({ ...params }) -> Pinnacle.Conversation</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch a specific conversation using either its unique identifier or by matching sender and recipient details.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conversations.get({
+    id: 1,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.GetConversationRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Conversations.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListConversationsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves conversations by page with optional filtering based off provided parameters.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conversations.list({
+    brandId: 101,
+    campaignId: 136,
+    campaignType: {
+        id: "136",
+        type: "TOLL_FREE",
+    },
+    pageIndex: 0,
+    pageSize: 20,
+    receiver: "+16509231662",
+    sender: "+18445551234",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ListConversationsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Conversations.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">update</a>({ ...params }) -> Pinnacle.SuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the notes associated with a specific conversation.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conversations.update({
+    id: 123,
+    notes: "Follow-up completed. Customer satisfied with resolution.",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.UpdateConversationRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Conversations.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Messages
+
+<details><summary><code>client.messages.<a href="/src/api/resources/messages/client/Client.ts">get</a>(id) -> Pinnacle.Message</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a previously sent message.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.get(1240);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `number` — Unique identifier of the message.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## PhoneNumbers
+
+<details><summary><code>client.phoneNumbers.<a href="/src/api/resources/phoneNumbers/client/Client.ts">search</a>({ ...params }) -> Pinnacle.PhoneNumber[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Search for available phone numbers that match your exact criteria.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.phoneNumbers.search({
+    features: ["SMS", "MMS"],
+    location: {
+        city: "New York",
+        nationalDestinationCode: "212",
+    },
+    number: {
+        contains: "514",
+        startsWith: "45",
+    },
+    options: {
+        limit: 4,
+    },
+    type: ["LOCAL"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SearchSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PhoneNumbers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.phoneNumbers.<a href="/src/api/resources/phoneNumbers/client/Client.ts">buy</a>({ ...params }) -> Pinnacle.BuyResponse[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Purchase one or more phone numbers found through the [search endpoint](./search). <br>
+
+Billing uses your account credits and the numbers are ready for immediate use.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.phoneNumbers.buy({
+    numbers: ["+18559491727"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.BuySchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PhoneNumbers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.phoneNumbers.<a href="/src/api/resources/phoneNumbers/client/Client.ts">get</a>({ ...params }) -> Pinnacle.PhoneNumbersGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve information about any phone number.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.phoneNumbers.get({
+    phone: "+11234567890",
+    level: "advanced",
+    options: {
+        risk: true,
+        enhanced_contact_info: {
+            context: "This is my friend from JZ. He has done a lot in the crypto space.",
+        },
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.PhoneDetailsSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PhoneNumbers.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Webhooks
+
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">get</a>({ ...params }) -> Pinnacle.WebhooksResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all webhook that are set up to receive events for specific URLs or phone numbers.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.webhooks.get({
+    identifiers: [
+        "https://www.pinnacle.sh/payment",
+        "+14155678901",
+        "https://www.pinnacle.sh/sms-callback",
+        "+14153456659",
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.GetWebhooksRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Webhooks.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Campaigns Dlc
+
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">autofill</a>({ ...params }) -> Pinnacle.AutofillDlcResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generate campaign details based off existing campaign and the brand it's connected to.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.dlc.autofill({
+    additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
+    campaignId: 161,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.AutofillCampaignSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Dlc.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">get</a>(campaignId) -> Pinnacle.GetDlcResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve DLC campaign.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.dlc.get(28);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**campaignId:** `number` — Unique identifier of the DLC campaign.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Dlc.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">submit</a>(campaignId) -> Pinnacle.CampaignSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit your DLC campaign for approval and activation with carriers.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.dlc.submit(161);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**campaignId:** `number` — Unique identifier of the DLC campaign to submit.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Dlc.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.UpsertDlcResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new DLC campaign or updates an existing one. <br>
+
+Omit campaignId to create a campaign.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.dlc.upsert({
+    autoRenew: true,
+    brand: 1,
+    campaignId: 161,
+    keywords: {
+        HELP: {
+            message: "Reply HELP for assistance, STOP to opt-out",
+            values: ["HELP", "INFO", "SUPPORT"],
+        },
+        OPT_IN: {
+            message: "Welcome! You're now subscribed to Pinnacle.",
+            values: ["JOIN", "START", "SUBSCRIBE"],
+        },
+        OPT_OUT: {
+            message: "You've been unsubscribed. Reply START to rejoin.",
+            values: ["STOP", "QUIT", "UNSUBSCRIBE"],
+        },
+    },
+    links: {
+        privacyPolicy: "https://www.pinnacle.sh/privacy",
+        termsOfService: "https://www.pinnacle.sh/terms",
+    },
+    messageFlow: "Customer initiates -> Automated response -> Agent follow-up if needed",
+    name: "Account Notifications",
+    options: {
+        affiliateMarketing: false,
+        ageGated: false,
+        directLending: false,
+        embeddedLink: "https://www.pinnacle.sh/example",
+        embeddedPhone: false,
+        numberPooling: false,
+    },
+    sampleMessages: ["Security alert: Unusual login detected from new device."],
+    useCase: {
+        sub: ["FRAUD_ALERT"],
+        value: "ACCOUNT_NOTIFICATION",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.campaigns.UpsertDlcSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Dlc.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.CampaignValidationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validate your DLC campaign configuration against carrier requirements and compliance rules.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.dlc.validate({
+    additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
+    campaignId: 161,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ValidateCampaignSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Dlc.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Campaigns TollFree
+
+<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">autofill</a>({ ...params }) -> Pinnacle.TollFreeAutofillResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generate campaign details based off existing campaign and the brand it's connected to.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.tollFree.autofill({
+    additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
+    campaignId: 161,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.AutofillCampaignSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TollFree.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">get</a>(campaignId) -> Pinnacle.GetTollFreeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve Toll-Free campaign.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.tollFree.get(161);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**campaignId:** `number` — Unique identifier of toll-free campaign.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TollFree.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">submit</a>(campaignId) -> Pinnacle.CampaignSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit your toll-free campaign for approval and activation with carriers.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.tollFree.submit(161);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**campaignId:** `number` — Unique identifier of the toll-free campaign to submit.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TollFree.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.UpsertTollFreeResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new toll-free campaign or updates an existing one.<br>
+
+Omit campaignId to create a campaign.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.tollFree.upsert({
+    brand: 2,
+    campaignId: 161,
+    monthlyVolume: "1,000",
+    name: "Pinnacle",
+    optIn: {
+        method: "DIGITAL",
+        url: "https://www.pinnacle.sh/",
+        workflowDescription: "Visit https://www.pinnacle.sh/",
+    },
+    productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
+    useCase: {
+        summary: "Alerts clients about any Pinnacle hosted workshops.",
+        value: "WORKSHOP_ALERTS",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.campaigns.UpsertTollFreeSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TollFree.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.CampaignValidationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validate your toll-free campaign configuration against carrier requirements and compliance rules.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.tollFree.validate({
+    additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
+    campaignId: 161,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ValidateCampaignSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TollFree.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Campaigns Rcs
+
+<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">autofill</a>({ ...params }) -> Pinnacle.RcsAutofillResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generate campaign details based off existing campaign and the brand it's connected to.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.rcs.autofill({
+    additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
+    campaignId: 161,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.AutofillCampaignSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">get</a>(campaignId) -> Pinnacle.RcsCampaignSchemaExtra</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve RCS campaign.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.rcs.get(161);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**campaignId:** `number` — Unique identifier of the RCS campaign.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">submit</a>(campaignId) -> Pinnacle.CampaignSubmission</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Submit your RCS campaign for approval and activation with carriers.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.rcs.submit(161);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**campaignId:** `number` — Unique identifier of the RCS campaign to retrieve.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.RcsCampaignSchemaExtra</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new RCS campaign or updates an existing one. <br>
+
+Omit campaignId to create a campaign.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.rcs.upsert({
+    agent: {
+        color: "#000000",
+        description:
+            "Engaging campaigns with RBM \u2013 next-gen SMS marketing with rich content and better analytics.",
+        emails: [
+            {
+                email: "founders@trypinnacle.app",
+                label: "Email Us",
+            },
+        ],
+        heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
+        iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
+        name: "Pinnacle Software Development",
+        phones: [
+            {
+                label: "Contact us directly",
+                phone: "+14154467821",
+            },
+        ],
+        websites: [
+            {
+                label: "Get started with Pinnacle",
+                url: "https://www.trypinnacle.app/",
+            },
+        ],
+    },
+    brand: 2,
+    expectedAgentResponse: [
+        "Here are the things I can help you with.",
+        "I can assist you with booking an appointment, or you may choose to book manually.",
+        "Here are the available times to connect with a representative tomorrow.",
+        "Your appointment has been scheduled.",
+    ],
+    links: {
+        privacyPolicy: "https://www.trypinnacle.app/privacy",
+        termsOfService: "https://www.trypinnacle.app/terms",
+    },
+    optIn: {
+        method: "WEBSITE",
+        termsAndConditions: "Would you like to subscribe to Pinnacle?",
+    },
+    optOut: {
+        description: "Reply STOP to opt-out anytime.",
+        keywords: ["STOP", "UNSUBSCRIBE", "END"],
+    },
+    useCase: {
+        behavior: "Acts as a customer service representative.",
+        value: "OTHER",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.campaigns.UpsertRcsSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.CampaignValidationResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validate your RCS campaign configuration against carrier requirements and compliance rules.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.campaigns.rcs.validate({
+    additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
+    campaignId: 161,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ValidateCampaignSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Messages Sms
+
+<details><summary><code>client.messages.sms.<a href="/src/api/resources/messages/resources/sms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.SmsSendResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a SMS message immediately or schedule it for future delivery.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.sms.send({
+    from: "+14155164736",
+    text: "Hey! \uD83D\uDE02",
+    to: "+14154746461",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SendSms`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Messages Mms
+
+<details><summary><code>client.messages.mms.<a href="/src/api/resources/messages/resources/mms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.MmsSendResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a MMS immediately or schedule it for future delivery.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.mms.send({
+    from: "+14155164736",
+    mediaUrls: ["https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"],
+    options: {
+        multiple_messages: true,
+        validate: true,
+    },
+    text: "Check out this image!",
+    to: "+14154746461",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SendMms`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Mms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Messages Rcs
+
+<details><summary><code>client.messages.rcs.<a href="/src/api/resources/messages/resources/rcs/client/Client.ts">send</a>({ ...params }) -> Pinnacle.RcsSendResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a RCS message immediately or schedule it for future delivery. <br>
+
+Requires an active RCS agent and recipient devices that support RCS Business Messaging.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.rcs.send({
+    quickReplies: [
+        {
+            type: "openUrl",
+            payload: "payload",
+            title: "title",
+        },
+    ],
+    text: "Check out our website for more information!",
+    from: "agent_pinnacle",
+    to: "+14154746461",
 });
 ```
 
@@ -317,7 +2480,7 @@ await client.send.rcs({
 <dl>
 <dd>
 
-**requestOptions:** `Send.RequestOptions`
+**requestOptions:** `Rcs.RequestOptions`
 
 </dd>
 </dl>
@@ -328,7 +2491,9 @@ await client.send.rcs({
 </dl>
 </details>
 
-<details><summary><code>client.send.<a href="/src/api/resources/send/client/Client.ts">sms</a>({ ...params }) -> Pinnacle.SendSmsResponse</code></summary>
+## PhoneNumbers Webhook
+
+<details><summary><code>client.phoneNumbers.webhook.<a href="/src/api/resources/phoneNumbers/resources/webhook/client/Client.ts">attach</a>(phone, { ...params }) -> Pinnacle.AttachWebhookResponse</code></summary>
 <dl>
 <dd>
 
@@ -340,7 +2505,7 @@ await client.send.rcs({
 <dl>
 <dd>
 
-Send an SMS message to a recipient.
+Connect a webhook to your phone number to receive real-time notifications for incoming messages, delivery status updates, and other communication events.
 
 </dd>
 </dl>
@@ -356,10 +2521,8 @@ Send an SMS message to a recipient.
 <dd>
 
 ```typescript
-await client.send.sms({
-    to: "to",
-    from: "from",
-    text: "text",
+await client.phoneNumbers.webhook.attach("%2B14155551234", {
+    webhookId: 1,
 });
 ```
 
@@ -376,7 +2539,11 @@ await client.send.sms({
 <dl>
 <dd>
 
-**request:** `Pinnacle.SendSmsRequest`
+**phone:** `string`
+
+The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
+
+Must be a phone number that you own and have already [purchased](./buy) through the API.
 
 </dd>
 </dl>
@@ -384,7 +2551,15 @@ await client.send.sms({
 <dl>
 <dd>
 
-**requestOptions:** `Send.RequestOptions`
+**request:** `Pinnacle.AttachWebhookSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Webhook.RequestOptions`
 
 </dd>
 </dl>
@@ -395,7 +2570,7 @@ await client.send.sms({
 </dl>
 </details>
 
-<details><summary><code>client.send.<a href="/src/api/resources/send/client/Client.ts">mms</a>({ ...params }) -> Pinnacle.SendMmsResponse</code></summary>
+<details><summary><code>client.phoneNumbers.webhook.<a href="/src/api/resources/phoneNumbers/resources/webhook/client/Client.ts">detach</a>(phone, webhookId) -> Pinnacle.DetachWebhookResponse</code></summary>
 <dl>
 <dd>
 
@@ -407,7 +2582,9 @@ await client.send.sms({
 <dl>
 <dd>
 
-Send an MMS message with media attachments.
+Disconnect a webhook from your phone number to stop receiving event notifications for that specific number. <br>
+
+The webhook configuration itself remains intact and available for use with other phone numbers.
 
 </dd>
 </dl>
@@ -423,10 +2600,91 @@ Send an MMS message with media attachments.
 <dd>
 
 ```typescript
-await client.send.mms({
-    to: "to",
-    from: "from",
-    mediaUrls: ["https://example.com/image1.jpg", "https://example.com/video.mp4"],
+await client.phoneNumbers.webhook.detach("+14155551234", 123);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**phone:** `string`
+
+The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
+
+Must be a phone number that you own and currently has the specified webhook attached.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**webhookId:** `number`
+
+The unique identifier of the webhook you want to detach from the phone number. <br>
+
+This must be a valid webhook ID that is currently attached to the specified phone number.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Webhook.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## PhoneNumbers Campaign
+
+<details><summary><code>client.phoneNumbers.campaign.<a href="/src/api/resources/phoneNumbers/resources/campaign/client/Client.ts">attach</a>({ ...params }) -> Pinnacle.PhoneNumberCampaignAttach</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Link a phone number to a specific campaign.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.phoneNumbers.campaign.attach({
+    phones: ["+14155550123", "+14155559876", "+14155550111"],
+    campaignType: "TOLL_FREE",
+    campaignId: 101,
 });
 ```
 
@@ -443,7 +2701,7 @@ await client.send.mms({
 <dl>
 <dd>
 
-**request:** `Pinnacle.SendMmsRequest`
+**request:** `Pinnacle.phoneNumbers.AttachCampaignSchema`
 
 </dd>
 </dl>
@@ -451,7 +2709,7 @@ await client.send.mms({
 <dl>
 <dd>
 
-**requestOptions:** `Send.RequestOptions`
+**requestOptions:** `Campaign.RequestOptions`
 
 </dd>
 </dl>
@@ -462,9 +2720,7 @@ await client.send.mms({
 </dl>
 </details>
 
-## Tools
-
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">shortenUrl</a>({ ...params }) -> Pinnacle.ToolsShortenUrlResponse</code></summary>
+<details><summary><code>client.phoneNumbers.campaign.<a href="/src/api/resources/phoneNumbers/resources/campaign/client/Client.ts">detach</a>({ ...params }) -> Pinnacle.PhoneNumberCampaignDetach</code></summary>
 <dl>
 <dd>
 
@@ -476,7 +2732,7 @@ await client.send.mms({
 <dl>
 <dd>
 
-Create a shortened URL with an optional expiration date (default and max expiration is 90 days). The shortened URL will redirect to the original URL and will have the following format https://urls.p1n.io/ABCD5678.
+Remove the association between a phone number and its attached campaign.
 
 </dd>
 </dl>
@@ -492,8 +2748,8 @@ Create a shortened URL with an optional expiration date (default and max expirat
 <dd>
 
 ```typescript
-await client.tools.shortenUrl({
-    url: "https://example.com",
+await client.phoneNumbers.campaign.detach({
+    phones: ["+14155559876", "14155550111"],
 });
 ```
 
@@ -510,7 +2766,7 @@ await client.tools.shortenUrl({
 <dl>
 <dd>
 
-**request:** `Pinnacle.ToolsShortenUrlRequest`
+**request:** `Pinnacle.phoneNumbers.DetachCampaignSchema`
 
 </dd>
 </dl>
@@ -518,7 +2774,7 @@ await client.tools.shortenUrl({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions`
+**requestOptions:** `Campaign.RequestOptions`
 
 </dd>
 </dl>
@@ -529,7 +2785,9 @@ await client.tools.shortenUrl({
 </dl>
 </details>
 
-<details><summary><code>client.tools.<a href="/src/api/resources/tools/client/Client.ts">uploadUrl</a>({ ...params }) -> Pinnacle.ToolsUploadUrlResponse</code></summary>
+## Tools Url
+
+<details><summary><code>client.tools.url.<a href="/src/api/resources/tools/resources/url/client/Client.ts">create</a>({ ...params }) -> Pinnacle.PinnacleUrl</code></summary>
 <dl>
 <dd>
 
@@ -541,9 +2799,7 @@ await client.tools.shortenUrl({
 <dl>
 <dd>
 
-Generate signed upload (expires in 2 hours) and download URLs for a file (expires in 1 hour).
-
-See the [Upload](/api-reference/upload) page for native Python and Typescript SDKs.
+Create a shortened URL that redirects visitors to your provided destination URL.
 
 </dd>
 </dl>
@@ -559,10 +2815,229 @@ See the [Upload](/api-reference/upload) page for native Python and Typescript SD
 <dd>
 
 ```typescript
-await client.tools.uploadUrl({
-    contentType: "image/png",
+await client.tools.url.create({
+    url: "https://www.pinnacle.sh/",
+    options: {
+        expiresAt: "2025-06-23T16:18:25.000Z",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.tools.UrlSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Url.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.url.<a href="/src/api/resources/tools/resources/url/client/Client.ts">get</a>(linkId) -> Pinnacle.PinnacleUrlWithClicks</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve configuration and details for your shortened URL using its unique identifier.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.url.get("ePzVxILF");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**linkId:** `string`
+
+Unique identifier from your shortened URL. For example, for `https://pncl.to/ePzVxILF`, the `linkId` is `ePzVxILF`. <br>
+
+See the response of [Create Shortened URL](./create-url) for more information.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Url.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.url.<a href="/src/api/resources/tools/resources/url/client/Client.ts">update</a>(linkId, { ...params }) -> Pinnacle.PinnacleUrl</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update the destination or configuration of an existing shortened URL.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.url.update("ePzVxILF", {
+    url: "https://www.pinnacle.sh/",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**linkId:** `string`
+
+Unique identifier from your shortened URL. For example, for `https://pncl.to/ePzVxILF`, the `linkId` is `ePzVxILF`. <br>
+
+See the response of [Create Shortened URL](./create-url) for more information.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.tools.UpdateUrlSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Url.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Tools File
+
+<details><summary><code>client.tools.file.<a href="/src/api/resources/tools/resources/file/client/Client.ts">upload</a>({ ...params }) -> Pinnacle.PinnacleFileUpload</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generate presigned URLs that let you upload files directly to our storage and allow your users to download them securely.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.file.upload({
+    contentType: "image/jpeg",
     size: 1024,
-    name: "example.png",
+    name: "test.jpg",
+    options: {
+        download: {
+            expiresAt: "2025-06-30T12:00:00.000Z",
+        },
+    },
 });
 ```
 
@@ -579,7 +3054,7 @@ await client.tools.uploadUrl({
 <dl>
 <dd>
 
-**request:** `Pinnacle.ToolsUploadUrlRequest`
+**request:** `Pinnacle.tools.FileUploadSchema`
 
 </dd>
 </dl>
@@ -587,7 +3062,188 @@ await client.tools.uploadUrl({
 <dl>
 <dd>
 
-**requestOptions:** `Tools.RequestOptions`
+**requestOptions:** `File_.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Tools ContactCard
+
+<details><summary><code>client.tools.contactCard.<a href="/src/api/resources/tools/resources/contactCard/client/Client.ts">get</a>({ ...params }) -> Pinnacle.VCardData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve contact information as a vCard and get a presigned URL to download the file.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.contactCard.get({
+    id: 33,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.tools.GetVCardSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ContactCard.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.contactCard.<a href="/src/api/resources/tools/resources/contactCard/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.VCardResourceData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new contact card or updates an existing one with full vCard data.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.contactCard.upsert({
+    id: 34,
+    formattedName: "Jane Smith",
+    name: {
+        familyName: "Smith",
+        givenName: "Jane",
+        additionalNames: ["A."],
+        honorificPrefixes: ["Dr."],
+        honorificSuffixes: ["PhD"],
+    },
+    nickname: ["Janie"],
+    birthday: "1990-02-15",
+    addresses: [
+        {
+            countryName: "USA",
+            extendedAddress: "Apt. 4B",
+            locality: "Anytown",
+            postalCode: "90210",
+            postOfficeBox: "PO Box 123",
+            region: "CA",
+            streetAddress: "123 Main St",
+            type: ["HOME", "PREF"],
+        },
+    ],
+    url: "https://app.pinnacle.sh",
+    phones: [
+        {
+            type: ["CELL"],
+            value: "+15551234567",
+        },
+    ],
+    emails: [
+        {
+            type: ["INTERNET"],
+            value: "jane.smith@example.com",
+        },
+    ],
+    timezone: "America/Los_Angeles",
+    geo: {
+        latitude: 34.0522,
+        longitude: -118.2437,
+    },
+    title: "Engineer",
+    role: "Developer",
+    organization: {
+        name: "Acme Co",
+        units: ["Engineering", "R&D"],
+    },
+    categories: ["Friend", "Colleague"],
+    note: "Test contact entry",
+    photo: "https://fastly.picsum.photos/id/853/200/200.jpg?hmac=f4LF-tVBBnJb9PQAVEO8GCTGWgLUnxQLw44rUofE6mQ",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.tools.VCardSchema`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ContactCard.RequestOptions`
 
 </dd>
 </dl>

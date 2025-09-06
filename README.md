@@ -1,14 +1,14 @@
 # Pinnacle TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fpinnacle-dev%2Frcs-js)
-[![npm shield](https://img.shields.io/npm/v/rcs-js)](https://www.npmjs.com/package/rcs-js)
+[![npm shield](https://img.shields.io/npm/v/)](https://www.npmjs.com/package/)
 
 The Pinnacle TypeScript library provides convenient access to the Pinnacle APIs from TypeScript.
 
 ## Installation
 
 ```sh
-npm i -s rcs-js
+npm i -s
 ```
 
 ## Usage
@@ -16,11 +16,16 @@ npm i -s rcs-js
 Instantiate and use the client with the following:
 
 ```typescript
-import { PinnacleClient } from "rcs-js";
+import { PinnacleClient } from "";
 
 const client = new PinnacleClient({ apiKey: "YOUR_API_KEY" });
-await client.company.register({
-    companyId: "companyId",
+await client.brands.autofill({
+    additional_info: "A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
+    name: "Pinnacle",
+    options: {
+        forceReload: true,
+    },
+    website: "https://www.pinnacle.sh",
 });
 ```
 
@@ -30,9 +35,9 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Pinnacle } from "rcs-js";
+import { Pinnacle } from "Pinnacle";
 
-const request: Pinnacle.CompanyGetRequest = {
+const request: Pinnacle.AutofillBrandSchema = {
     ...
 };
 ```
@@ -43,10 +48,10 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { PinnacleError } from "rcs-js";
+import { PinnacleError } from "Pinnacle";
 
 try {
-    await client.company.register(...);
+    await client.brands.autofill(...);
 } catch (err) {
     if (err instanceof PinnacleError) {
         console.log(err.statusCode);
@@ -64,9 +69,21 @@ try {
 If you would like to send additional headers as part of the request, use the `headers` request option.
 
 ```typescript
-const response = await client.company.register(..., {
+const response = await client.brands.autofill(..., {
     headers: {
         'X-Custom-Header': 'custom value'
+    }
+});
+```
+
+### Additional Query String Parameters
+
+If you would like to send additional query string parameters as part of the request, use the `queryParams` request option.
+
+```typescript
+const response = await client.brands.autofill(..., {
+    queryParams: {
+        'customQueryParamKey': 'custom query param value'
     }
 });
 ```
@@ -86,7 +103,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.company.register(..., {
+const response = await client.brands.autofill(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -96,7 +113,7 @@ const response = await client.company.register(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.company.register(..., {
+const response = await client.brands.autofill(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -107,7 +124,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.company.register(..., {
+const response = await client.brands.autofill(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request
@@ -119,7 +136,7 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property.
 
 ```typescript
-const { data, rawResponse } = await client.company.register(...).withRawResponse();
+const { data, rawResponse } = await client.brands.autofill(...).withRawResponse();
 
 console.log(data);
 console.log(rawResponse.headers['X-My-Header']);
@@ -127,8 +144,7 @@ console.log(rawResponse.headers['X-My-Header']);
 
 ### Runtime Compatibility
 
-The SDK defaults to `node-fetch` but will use the global fetch client if present. The SDK works in the following
-runtimes:
+The SDK works in the following runtimes:
 
 - Node.js 18+
 - Vercel
@@ -143,7 +159,7 @@ The SDK provides a way for you to customize the underlying HTTP client / Fetch f
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { PinnacleClient } from "rcs-js";
+import { PinnacleClient } from "Pinnacle";
 
 const client = new PinnacleClient({
     ...
