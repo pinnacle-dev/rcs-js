@@ -7,7 +7,7 @@ import * as core from "../../../../core/index.js";
 import * as Pinnacle from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as errors from "../../../../errors/index.js";
-import { Sms } from "../resources/sms/client/Client.js";
+import { Send } from "../resources/send/client/Client.js";
 import { Mms } from "../resources/mms/client/Client.js";
 import { Rcs } from "../resources/rcs/client/Client.js";
 
@@ -18,7 +18,7 @@ export declare namespace Messages {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -31,13 +31,13 @@ export declare namespace Messages {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
 export class Messages {
     protected readonly _options: Messages.Options;
-    protected _sms: Sms | undefined;
+    protected _send: Send | undefined;
     protected _mms: Mms | undefined;
     protected _rcs: Rcs | undefined;
 
@@ -45,8 +45,8 @@ export class Messages {
         this._options = _options;
     }
 
-    public get sms(): Sms {
-        return (this._sms ??= new Sms(this._options));
+    public get send(): Send {
+        return (this._send ??= new Send(this._options));
     }
 
     public get mms(): Mms {
@@ -136,6 +136,99 @@ export class Messages {
                 });
             case "timeout":
                 throw new errors.PinnacleTimeoutError("Timeout exceeded when calling GET /messages/{id}.");
+            case "unknown":
+                throw new errors.PinnacleError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Add or remove an emoji reaction to a previously sent message.
+     *
+     * @param {Pinnacle.ReactMessageParams} request
+     * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Pinnacle.BadRequestError}
+     * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.NotFoundError}
+     *
+     * @example
+     *     await client.messages.react({
+     *         messageId: 1410,
+     *         options: {
+     *             force: true
+     *         },
+     *         reaction: "\uD83D\uDC4D"
+     *     })
+     */
+    public react(
+        request: Pinnacle.ReactMessageParams,
+        requestOptions?: Messages.RequestOptions,
+    ): core.HttpResponsePromise<Pinnacle.ReactionResult> {
+        return core.HttpResponsePromise.fromPromise(this.__react(request, requestOptions));
+    }
+
+    private async __react(
+        request: Pinnacle.ReactMessageParams,
+        requestOptions?: Messages.RequestOptions,
+    ): Promise<core.WithRawResponse<Pinnacle.ReactionResult>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.PinnacleEnvironment.Default,
+                "messages/react",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Pinnacle.ReactionResult, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new Pinnacle.UnauthorizedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Pinnacle.NotFoundError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
+                default:
+                    throw new errors.PinnacleError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.PinnacleError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/react.");
             case "unknown":
                 throw new errors.PinnacleError({
                     message: _response.error.errorMessage,

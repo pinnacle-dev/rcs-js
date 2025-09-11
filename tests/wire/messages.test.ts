@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../mock-server/MockServerPool";
 import { PinnacleClient } from "../../src/Client";
+import * as Pinnacle from "../../src/api/index";
 
 describe("Messages", () => {
-    test("get", async () => {
+    test("get (SMS Response)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -43,5 +44,381 @@ describe("Messages", () => {
             status: "PENDING",
             type: "SMS",
         });
+    });
+
+    test("get (MMS Response)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            content: {
+                mediaUrls: ["https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3"],
+                text: "Check out our website for more information!",
+            },
+            cost: 30,
+            deliveredAt: "deliveredAt",
+            error: '{"message": "Error: Timeout occurred"}',
+            id: 1240,
+            method: "SDK",
+            numSegments: 1,
+            receiver: "+1415654321",
+            sender: "+1415567890",
+            sentAt: "2025-08-08T22:05:23.291",
+            status: "PENDING",
+            type: "MMS",
+        };
+        server.mockEndpoint().get("/messages/1240").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.messages.get(1240);
+        expect(response).toEqual({
+            content: {
+                mediaUrls: ["https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3"],
+                text: "Check out our website for more information!",
+            },
+            cost: 30,
+            deliveredAt: "deliveredAt",
+            error: '{"message": "Error: Timeout occurred"}',
+            id: 1240,
+            method: "SDK",
+            numSegments: 1,
+            receiver: "+1415654321",
+            sender: "+1415567890",
+            sentAt: "2025-08-08T22:05:23.291",
+            status: "PENDING",
+            type: "MMS",
+        });
+    });
+
+    test("get (RCS Response)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            content: {
+                cards: [
+                    {
+                        buttons: [
+                            { payload: "payload", title: "title", type: "openUrl" },
+                            { payload: "payload", title: "title", type: "call" },
+                            {
+                                eventEndTime: "eventEndTime",
+                                eventStartTime: "eventStartTime",
+                                eventTitle: "eventTitle",
+                                title: "title",
+                                type: "scheduleEvent",
+                            },
+                        ],
+                        media: {
+                            fullPath: "vault/sample-image.webp",
+                            mimeType: "image/webp",
+                            url: "https://example.com/media/sample-image.webp",
+                        },
+                        subtitle: "OpenUrl",
+                        title: "See Website",
+                    },
+                ],
+                quickReplies: [
+                    { payload: "payload", title: "title", type: "openUrl" },
+                    { payload: "payload", title: "title", type: "call" },
+                    {
+                        eventEndTime: "eventEndTime",
+                        eventStartTime: "eventStartTime",
+                        eventTitle: "eventTitle",
+                        title: "title",
+                        type: "scheduleEvent",
+                    },
+                ],
+            },
+            cost: 30,
+            deliveredAt: "2025-08-05T18:51:00.591",
+            error: '{"message": "Error: Timeout occurred"}',
+            id: 1240,
+            method: "OTHER",
+            numSegments: 1,
+            receiver: "+1415654321",
+            sender: "+1415567890",
+            sentAt: "2025-08-05T18:50:55.912",
+            status: "DELIVERED",
+            type: "RCS",
+        };
+        server.mockEndpoint().get("/messages/1240").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.messages.get(1240);
+        expect(response).toEqual({
+            content: {
+                cards: [
+                    {
+                        buttons: [
+                            {
+                                type: "openUrl",
+                                payload: "payload",
+                                title: "title",
+                            },
+                            {
+                                type: "call",
+                                payload: "payload",
+                                title: "title",
+                            },
+                            {
+                                type: "scheduleEvent",
+                                eventEndTime: "eventEndTime",
+                                eventStartTime: "eventStartTime",
+                                eventTitle: "eventTitle",
+                                title: "title",
+                            },
+                        ],
+                        media: {
+                            fullPath: "vault/sample-image.webp",
+                            mimeType: "image/webp",
+                            url: "https://example.com/media/sample-image.webp",
+                        },
+                        subtitle: "OpenUrl",
+                        title: "See Website",
+                    },
+                ],
+                quickReplies: [
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "call",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "scheduleEvent",
+                        eventEndTime: "eventEndTime",
+                        eventStartTime: "eventStartTime",
+                        eventTitle: "eventTitle",
+                        title: "title",
+                    },
+                ],
+            },
+            cost: 30,
+            deliveredAt: "2025-08-05T18:51:00.591",
+            error: '{"message": "Error: Timeout occurred"}',
+            id: 1240,
+            method: "OTHER",
+            numSegments: 1,
+            receiver: "+1415654321",
+            sender: "+1415567890",
+            sentAt: "2025-08-05T18:50:55.912",
+            status: "DELIVERED",
+            type: "RCS",
+        });
+    });
+
+    test("get (Inbound Response)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            content: { button: "Visit US", data: "clicked" },
+            cost: 30,
+            deliveredAt: "2025-08-05T18:51:00.591",
+            error: '{"value":[]}',
+            id: 1240,
+            method: "OTHER",
+            numSegments: 1,
+            receiver: "+1415654321",
+            sender: "+1415567890",
+            sentAt: "2025-08-05T18:50:55.912",
+            status: "DELIVERED",
+            type: "RCS",
+        };
+        server.mockEndpoint().get("/messages/1240").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.messages.get(1240);
+        expect(response).toEqual({
+            content: {
+                button: "Visit US",
+                data: "clicked",
+            },
+            cost: 30,
+            deliveredAt: "2025-08-05T18:51:00.591",
+            error: '{"value":[]}',
+            id: 1240,
+            method: "OTHER",
+            numSegments: 1,
+            receiver: "+1415654321",
+            sender: "+1415567890",
+            sentAt: "2025-08-05T18:50:55.912",
+            status: "DELIVERED",
+            type: "RCS",
+        });
+    });
+
+    test("get (32234f9a)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/messages/1").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.messages.get(1);
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("get (89fabbf4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/messages/1").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.messages.get(1);
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (7b3e5110)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/messages/1").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.messages.get(1);
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (55266d68)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/messages/1").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.messages.get(1);
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("react (5a70926f)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { messageId: 1410, options: { force: true }, reaction: "👍" };
+        const rawResponseBody = { messageId: 1410, reactionMessageId: 1868 };
+        server
+            .mockEndpoint()
+            .post("/messages/react")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.messages.react({
+            messageId: 1410,
+            options: {
+                force: true,
+            },
+            reaction: "\uD83D\uDC4D",
+        });
+        expect(response).toEqual({
+            messageId: 1410,
+            reactionMessageId: 1868,
+        });
+    });
+
+    test("react (9423444a)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/messages/react")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.react({
+                messageId: 1,
+                options: undefined,
+                reaction: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("react (a205b744)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/react")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.react({
+                messageId: 1,
+                options: undefined,
+                reaction: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("react (5d6d8e20)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/react")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.react({
+                messageId: 1,
+                options: undefined,
+                reaction: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
     });
 });

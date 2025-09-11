@@ -1,14 +1,14 @@
 # Pinnacle TypeScript Library
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2Fpinnacle-dev%2Frcs-js)
-[![npm shield](https://img.shields.io/npm/v/)](https://www.npmjs.com/package/)
+[![npm shield](https://img.shields.io/npm/v/rcs-js)](https://www.npmjs.com/package/rcs-js)
 
 The Pinnacle TypeScript library provides convenient access to the Pinnacle APIs from TypeScript.
 
 ## Installation
 
 ```sh
-npm i -s
+npm i -s rcs-js
 ```
 
 ## Usage
@@ -16,7 +16,7 @@ npm i -s
 Instantiate and use the client with the following:
 
 ```typescript
-import { PinnacleClient } from "";
+import { PinnacleClient } from "rcs-js";
 
 const client = new PinnacleClient({ apiKey: "YOUR_API_KEY" });
 await client.brands.autofill({
@@ -35,9 +35,9 @@ The SDK exports all request and response types as TypeScript interfaces. Simply 
 following namespace:
 
 ```typescript
-import { Pinnacle } from "Pinnacle";
+import { Pinnacle } from "rcs-js";
 
-const request: Pinnacle.AutofillBrandSchema = {
+const request: Pinnacle.AutofillBrandParams = {
     ...
 };
 ```
@@ -48,7 +48,7 @@ When the API returns a non-success status code (4xx or 5xx response), a subclass
 will be thrown.
 
 ```typescript
-import { PinnacleError } from "Pinnacle";
+import { PinnacleError } from "rcs-js";
 
 try {
     await client.brands.autofill(...);
@@ -159,7 +159,7 @@ The SDK provides a way for you to customize the underlying HTTP client / Fetch f
 unsupported environment, this provides a way for you to break glass and ensure the SDK works.
 
 ```typescript
-import { PinnacleClient } from "Pinnacle";
+import { PinnacleClient } from "rcs-js";
 
 const client = new PinnacleClient({
     ...

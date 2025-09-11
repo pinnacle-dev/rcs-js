@@ -12,7 +12,7 @@ export interface BasicPhoneInformation {
     /** Indicates whether the phone number is valid and capable of receiving communications. */
     isValid: boolean;
     /** Classification of the phone number. */
-    type: Pinnacle.PhoneTypes;
+    type: Pinnacle.PhoneNumberEnum;
     /** Different standardized ways the phone number can be formatted for display. */
     formats: Pinnacle.NumberFormat;
     /** Geographic and political details where the phone number is registered. */

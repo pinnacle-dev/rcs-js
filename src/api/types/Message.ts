@@ -5,7 +5,7 @@
 import * as Pinnacle from "../index.js";
 
 export interface Message {
-    content: Pinnacle.MessageContentType;
+    content: Pinnacle.MessageContent;
     /**
      * Total cost charged for sending the message. <br>
      *
@@ -26,7 +26,7 @@ export interface Message {
     error?: string | null;
     /** Unique identifier of the message. */
     id: number;
-    method: Pinnacle.MessageMethod;
+    method: Pinnacle.MessageMethodEnum;
     /** Number of segments the message was split into for delivery. */
     numSegments: number;
     /** Phone number that received the message in E.164 format. */
@@ -39,6 +39,6 @@ export interface Message {
      * Null indicates the message is still in the queue.
      */
     sentAt?: string | null;
-    status: Pinnacle.MessageStatus;
-    type: Pinnacle.MessageType;
+    status: Pinnacle.MessageStatusEnum;
+    type: Pinnacle.MessageProtocolEnum;
 }

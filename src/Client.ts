@@ -12,6 +12,8 @@ import { Messages } from "./api/resources/messages/client/Client.js";
 import { PhoneNumbers } from "./api/resources/phoneNumbers/client/Client.js";
 import { Webhooks } from "./api/resources/webhooks/client/Client.js";
 import { Campaigns } from "./api/resources/campaigns/client/Client.js";
+import { Message } from "./api/resources/message/client/Client.js";
+import { Status } from "./api/resources/status/client/Client.js";
 import { Tools } from "./api/resources/tools/client/Client.js";
 
 export declare namespace PinnacleClient {
@@ -21,7 +23,7 @@ export declare namespace PinnacleClient {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -34,7 +36,7 @@ export declare namespace PinnacleClient {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -47,6 +49,8 @@ export class PinnacleClient {
     protected _phoneNumbers: PhoneNumbers | undefined;
     protected _webhooks: Webhooks | undefined;
     protected _campaigns: Campaigns | undefined;
+    protected _message: Message | undefined;
+    protected _status: Status | undefined;
     protected _tools: Tools | undefined;
 
     constructor(_options: PinnacleClient.Options) {
@@ -55,8 +59,9 @@ export class PinnacleClient {
             headers: mergeHeaders(
                 {
                     "X-Fern-Language": "JavaScript",
-                    "X-Fern-SDK-Name": "",
-                    "X-Fern-SDK-Version": "0.0.193",
+                    "X-Fern-SDK-Name": "rcs-js",
+                    "X-Fern-SDK-Version": "2.0.0-rc.1",
+                    "User-Agent": "rcs-js/2.0.0-rc.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -91,6 +96,14 @@ export class PinnacleClient {
 
     public get campaigns(): Campaigns {
         return (this._campaigns ??= new Campaigns(this._options));
+    }
+
+    public get message(): Message {
+        return (this._message ??= new Message(this._options));
+    }
+
+    public get status(): Status {
+        return (this._status ??= new Status(this._options));
     }
 
     public get tools(): Tools {

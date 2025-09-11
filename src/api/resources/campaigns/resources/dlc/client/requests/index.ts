@@ -1,1 +1,1 @@
-export { type UpsertDlcSchema } from "./UpsertDlcSchema.js";
+export { type UpsertDlcCampaignParams } from "./UpsertDlcCampaignParams.js";

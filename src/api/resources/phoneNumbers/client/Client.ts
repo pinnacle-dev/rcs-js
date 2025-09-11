@@ -17,7 +17,7 @@ export declare namespace PhoneNumbers {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -30,7 +30,7 @@ export declare namespace PhoneNumbers {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -54,7 +54,7 @@ export class PhoneNumbers {
     /**
      * Search for available phone numbers that match your exact criteria.
      *
-     * @param {Pinnacle.SearchSchema} request
+     * @param {Pinnacle.SearchPhoneNumberParams} request
      * @param {PhoneNumbers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -79,16 +79,16 @@ export class PhoneNumbers {
      *     })
      */
     public search(
-        request: Pinnacle.SearchSchema,
+        request: Pinnacle.SearchPhoneNumberParams,
         requestOptions?: PhoneNumbers.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.PhoneNumber[]> {
+    ): core.HttpResponsePromise<Pinnacle.PhoneNumberDetails[]> {
         return core.HttpResponsePromise.fromPromise(this.__search(request, requestOptions));
     }
 
     private async __search(
-        request: Pinnacle.SearchSchema,
+        request: Pinnacle.SearchPhoneNumberParams,
         requestOptions?: PhoneNumbers.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.PhoneNumber[]>> {
+    ): Promise<core.WithRawResponse<Pinnacle.PhoneNumberDetails[]>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -112,7 +112,7 @@ export class PhoneNumbers {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.PhoneNumber[], rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.PhoneNumberDetails[], rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -160,7 +160,7 @@ export class PhoneNumbers {
      *
      * Billing uses your account credits and the numbers are ready for immediate use.
      *
-     * @param {Pinnacle.BuySchema} request
+     * @param {Pinnacle.BuyPhoneNumberParams} request
      * @param {PhoneNumbers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -175,16 +175,16 @@ export class PhoneNumbers {
      *     })
      */
     public buy(
-        request: Pinnacle.BuySchema,
+        request: Pinnacle.BuyPhoneNumberParams,
         requestOptions?: PhoneNumbers.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.BuyResponse[]> {
+    ): core.HttpResponsePromise<Pinnacle.PurchasedNumber[]> {
         return core.HttpResponsePromise.fromPromise(this.__buy(request, requestOptions));
     }
 
     private async __buy(
-        request: Pinnacle.BuySchema,
+        request: Pinnacle.BuyPhoneNumberParams,
         requestOptions?: PhoneNumbers.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.BuyResponse[]>> {
+    ): Promise<core.WithRawResponse<Pinnacle.PurchasedNumber[]>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -208,7 +208,7 @@ export class PhoneNumbers {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.BuyResponse[], rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.PurchasedNumber[], rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -261,7 +261,7 @@ export class PhoneNumbers {
     /**
      * Retrieve information about any phone number.
      *
-     * @param {Pinnacle.PhoneDetailsSchema} request
+     * @param {Pinnacle.RetrievePhoneNumberDetailsParams} request
      * @param {PhoneNumbers.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -283,14 +283,14 @@ export class PhoneNumbers {
      *     })
      */
     public get(
-        request: Pinnacle.PhoneDetailsSchema,
+        request: Pinnacle.RetrievePhoneNumberDetailsParams,
         requestOptions?: PhoneNumbers.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.PhoneNumbersGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.PhoneDetailsSchema,
+        request: Pinnacle.RetrievePhoneNumberDetailsParams,
         requestOptions?: PhoneNumbers.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.PhoneNumbersGetResponse>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(

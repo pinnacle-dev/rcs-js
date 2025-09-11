@@ -4,24 +4,24 @@
 
 export interface VettingHistory {
     /** The vetting provider used. */
-    provider?: "AEGIS";
+    provider: "AEGIS";
     /** The vetting class level. */
-    vettingClass?: "STANDARD";
+    vettingClass: "STANDARD";
     /** ISO 8601 formatted timestamp of when the vetting was initiated. */
-    vettingDate?: string;
+    vettingDate: string;
     /** Vetting score if available. */
     vettingScore?: number;
     /** Current status of the vetting process. */
-    vettingStatus?: VettingHistory.VettingStatus;
+    vettingStatus: VettingHistory.VettingStatus;
 }
 
 export namespace VettingHistory {
     /**
      * Current status of the vetting process.
      */
-    export type VettingStatus = "COMPLETED" | "FAILED" | "IN_PROGRESS" | "PENDING";
+    export type VettingStatus = "ACTIVE" | "FAILED" | "IN_PROGRESS" | "PENDING";
     export const VettingStatus = {
-        Completed: "COMPLETED",
+        Active: "ACTIVE",
         Failed: "FAILED",
         InProgress: "IN_PROGRESS",
         Pending: "PENDING",

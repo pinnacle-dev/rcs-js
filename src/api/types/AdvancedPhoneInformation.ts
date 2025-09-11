@@ -33,7 +33,7 @@ export namespace AdvancedPhoneInformation {
      */
     export interface Type {
         /** Technical classification derived from carrier intelligence systems. */
-        value: Pinnacle.TelesignPhoneType;
+        value: Pinnacle.DetailedPhoneNumberEnum;
         /** Explanation of the phone number type and service */
         description: string;
         /**
@@ -89,7 +89,7 @@ export namespace AdvancedPhoneInformation {
         /** County or secondary administrative division name. */
         county?: string | null;
         /** Coordinates provide the precise latitude and longitude values for the phone number’s registered location. */
-        coordinates?: Location.Coordinates;
+        coordinates: Location.Coordinates;
         /** IANA timezone identifier for the number’s location. */
         timeZone?: string | null;
     }

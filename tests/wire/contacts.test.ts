@@ -4,15 +4,16 @@
 
 import { mockServerPool } from "../mock-server/MockServerPool";
 import { PinnacleClient } from "../../src/Client";
+import * as Pinnacle from "../../src/api/index";
 
 describe("Contacts", () => {
-    test("get", async () => {
+    test("get (28c97ac8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             description: "Friend from work",
-            email: "alvaroope@example.com",
+            email: "alvaroope@pinnacle.sh",
             id: 137,
             name: "Alva Roope",
             phoneNumber: "+14154537890",
@@ -23,7 +24,7 @@ describe("Contacts", () => {
         const response = await client.contacts.get();
         expect(response).toEqual({
             description: "Friend from work",
-            email: "alvaroope@example.com",
+            email: "alvaroope@pinnacle.sh",
             id: 137,
             name: "Alva Roope",
             phoneNumber: "+14154537890",
@@ -31,16 +32,74 @@ describe("Contacts", () => {
         });
     });
 
-    test("create", async () => {
+    test("get (2f418b2d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            description: "Friend from work",
-            email: "alvaroope@example.com",
-            name: "Alva Roope",
-            phoneNumber: "+14154537890",
-            tags: ["friend", "work"],
-        };
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/contacts").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.contacts.get();
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("get (9df82f6d)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/contacts").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.contacts.get();
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (97b643d9)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/contacts").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.contacts.get();
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (ec913059)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/contacts").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.contacts.get();
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("create (3c4d64cf)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phoneNumber: "phoneNumber" };
         const rawResponseBody = { id: 137 };
         server
             .mockEndpoint()
@@ -52,26 +111,127 @@ describe("Contacts", () => {
             .build();
 
         const response = await client.contacts.create({
-            description: "Friend from work",
-            email: "alvaroope@example.com",
-            name: "Alva Roope",
-            phoneNumber: "+14154537890",
-            tags: ["friend", "work"],
+            phoneNumber: "phoneNumber",
         });
         expect(response).toEqual({
             id: 137,
         });
     });
 
-    test("update", async () => {
+    test("create (554e8ce)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            phoneNumber: "phoneNumber",
+            description: undefined,
+            email: undefined,
+            name: undefined,
+            tags: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/contacts")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contacts.create({
+                phoneNumber: "phoneNumber",
+                description: undefined,
+                email: undefined,
+                name: undefined,
+                tags: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("create (5964dae0)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            phoneNumber: "phoneNumber",
+            description: undefined,
+            email: undefined,
+            name: undefined,
+            tags: undefined,
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/contacts")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contacts.create({
+                phoneNumber: "phoneNumber",
+                description: undefined,
+                email: undefined,
+                name: undefined,
+                tags: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("create (fdb42a74)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            phoneNumber: "phoneNumber",
+            description: undefined,
+            email: undefined,
+            name: undefined,
+            tags: undefined,
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/contacts")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contacts.create({
+                phoneNumber: "phoneNumber",
+                description: undefined,
+                email: undefined,
+                name: undefined,
+                tags: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("update (c19e83b1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             description: "Retired",
-            email: "alvaroopedtech@example.com",
-            id: 137,
+            email: "alvaroopedtech@pinnacle.sh",
             name: "Retired Bestie",
             tags: ["friend"],
+            id: 137,
         };
         const rawResponseBody = { id: 137 };
         server
@@ -85,13 +245,129 @@ describe("Contacts", () => {
 
         const response = await client.contacts.update({
             description: "Retired",
-            email: "alvaroopedtech@example.com",
-            id: 137,
+            email: "alvaroopedtech@pinnacle.sh",
             name: "Retired Bestie",
             tags: ["friend"],
+            id: 137,
         });
         expect(response).toEqual({
             id: 137,
         });
+    });
+
+    test("update (5f627549)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, description: undefined, email: undefined, name: undefined, tags: undefined };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/contacts")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contacts.update({
+                id: 1,
+                description: undefined,
+                email: undefined,
+                name: undefined,
+                tags: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("update (25a0a911)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, description: undefined, email: undefined, name: undefined, tags: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .put("/contacts")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contacts.update({
+                id: 1,
+                description: undefined,
+                email: undefined,
+                name: undefined,
+                tags: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("update (c83dfe7d)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, description: undefined, email: undefined, name: undefined, tags: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .put("/contacts")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contacts.update({
+                id: 1,
+                description: undefined,
+                email: undefined,
+                name: undefined,
+                tags: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("update (1346589d)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, description: undefined, email: undefined, name: undefined, tags: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .put("/contacts")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.contacts.update({
+                id: 1,
+                description: undefined,
+                email: undefined,
+                name: undefined,
+                tags: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
     });
 });

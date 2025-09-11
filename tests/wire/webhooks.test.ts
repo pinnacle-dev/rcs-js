@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../mock-server/MockServerPool";
 import { PinnacleClient } from "../../src/Client";
+import * as Pinnacle from "../../src/api/index";
 
 describe("Webhooks", () => {
-    test("get", async () => {
+    test("get (d647dfdf)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -62,5 +63,80 @@ describe("Webhooks", () => {
                 },
             ],
         });
+    });
+
+    test("get (7b8a2bb1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { identifiers: ["identifiers", "identifiers"] };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/webhooks")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.webhooks.get({
+                identifiers: ["identifiers", "identifiers"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("get (1b616239)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { identifiers: ["identifiers", "identifiers"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/webhooks")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.webhooks.get({
+                identifiers: ["identifiers", "identifiers"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (5a49fce5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { identifiers: ["identifiers", "identifiers"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/webhooks")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.webhooks.get({
+                identifiers: ["identifiers", "identifiers"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
     });
 });

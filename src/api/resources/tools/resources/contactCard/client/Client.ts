@@ -15,7 +15,7 @@ export declare namespace ContactCard {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace ContactCard {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -42,7 +42,7 @@ export class ContactCard {
     /**
      * Retrieve contact information as a vCard and get a presigned URL to download the file.
      *
-     * @param {Pinnacle.tools.GetVCardSchema} request
+     * @param {Pinnacle.tools.GetVcardParams} request
      * @param {ContactCard.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -55,14 +55,14 @@ export class ContactCard {
      *     })
      */
     public get(
-        request: Pinnacle.tools.GetVCardSchema,
+        request: Pinnacle.tools.GetVcardParams,
         requestOptions?: ContactCard.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.VCardData> {
         return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.tools.GetVCardSchema,
+        request: Pinnacle.tools.GetVcardParams,
         requestOptions?: ContactCard.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.VCardData>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -134,7 +134,7 @@ export class ContactCard {
     /**
      * Create a new contact card or updates an existing one with full vCard data.
      *
-     * @param {Pinnacle.tools.VCardSchema} request
+     * @param {Pinnacle.tools.UpsertVcardParams} request
      * @param {ContactCard.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -190,16 +190,16 @@ export class ContactCard {
      *     })
      */
     public upsert(
-        request: Pinnacle.tools.VCardSchema = {},
+        request: Pinnacle.tools.UpsertVcardParams = {},
         requestOptions?: ContactCard.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.VCardResourceData> {
+    ): core.HttpResponsePromise<Pinnacle.VcardResource> {
         return core.HttpResponsePromise.fromPromise(this.__upsert(request, requestOptions));
     }
 
     private async __upsert(
-        request: Pinnacle.tools.VCardSchema = {},
+        request: Pinnacle.tools.UpsertVcardParams = {},
         requestOptions?: ContactCard.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.VCardResourceData>> {
+    ): Promise<core.WithRawResponse<Pinnacle.VcardResource>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -223,7 +223,7 @@ export class ContactCard {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.VCardResourceData, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.VcardResource, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../../mock-server/MockServerPool";
 import { PinnacleClient } from "../../../src/Client";
+import * as Pinnacle from "../../../src/api/index";
 
 describe("Url", () => {
-    test("create", async () => {
+    test("create (839dd45f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: "https://www.pinnacle.sh/", options: { expiresAt: "2025-06-23T16:18:25.000Z" } };
@@ -38,7 +39,85 @@ describe("Url", () => {
         });
     });
 
-    test("get", async () => {
+    test("create (7368b4a6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { url: "url", options: undefined };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/url")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.url.create({
+                url: "url",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("create (58d1ef18)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { url: "url", options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/url")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.url.create({
+                url: "url",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("create (3dff7cac)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { url: "url", options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/url")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.url.create({
+                url: "url",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (f260a60f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -94,7 +173,55 @@ describe("Url", () => {
         });
     });
 
-    test("update", async () => {
+    test("get (21e2f20b)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/tools/url/linkId").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.tools.url.get("linkId");
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("get (fad302cb)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/tools/url/linkId").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.tools.url.get("linkId");
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (91d40cb7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/tools/url/linkId").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.tools.url.get("linkId");
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("update (7f57c7b6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: "https://www.pinnacle.sh/" };
@@ -121,5 +248,83 @@ describe("Url", () => {
                 expiresAt: "2025-06-23T16:18:25+00:00",
             },
         });
+    });
+
+    test("update (94cb9bfc)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { url: undefined, options: undefined };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .put("/tools/url/linkId")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.url.update("linkId", {
+                url: undefined,
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("update (d93b3976)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { url: undefined, options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .put("/tools/url/linkId")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.url.update("linkId", {
+                url: undefined,
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("update (9e5421ba)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { url: undefined, options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .put("/tools/url/linkId")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.url.update("linkId", {
+                url: undefined,
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
     });
 });

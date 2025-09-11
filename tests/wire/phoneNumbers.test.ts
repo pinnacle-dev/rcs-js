@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../mock-server/MockServerPool";
 import { PinnacleClient } from "../../src/Client";
+import * as Pinnacle from "../../src/api/index";
 
 describe("PhoneNumbers", () => {
-    test("search", async () => {
+    test("search (14c0f78f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -69,7 +70,112 @@ describe("PhoneNumbers", () => {
         ]);
     });
 
-    test("buy", async () => {
+    test("search (6d41163d)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            features: undefined,
+            location: undefined,
+            number: undefined,
+            options: undefined,
+            type: ["LOCAL", "LOCAL"],
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/search")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.search({
+                features: undefined,
+                location: undefined,
+                number: undefined,
+                options: undefined,
+                type: ["LOCAL", "LOCAL"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("search (280af19d)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            features: undefined,
+            location: undefined,
+            number: undefined,
+            options: undefined,
+            type: ["LOCAL", "LOCAL"],
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/search")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.search({
+                features: undefined,
+                location: undefined,
+                number: undefined,
+                options: undefined,
+                type: ["LOCAL", "LOCAL"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("search (35d4cf89)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            features: undefined,
+            location: undefined,
+            number: undefined,
+            options: undefined,
+            type: ["LOCAL", "LOCAL"],
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/search")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.search({
+                features: undefined,
+                location: undefined,
+                number: undefined,
+                options: undefined,
+                type: ["LOCAL", "LOCAL"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("buy (7974fbda)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { numbers: ["+18559491727"] };
@@ -98,7 +204,132 @@ describe("PhoneNumbers", () => {
         ]);
     });
 
-    test("get", async () => {
+    test("buy (6641e0d7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { numbers: ["numbers", "numbers"] };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/buy")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.buy({
+                numbers: ["numbers", "numbers"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("buy (e0efda8f)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { numbers: ["numbers", "numbers"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/buy")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.buy({
+                numbers: ["numbers", "numbers"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("buy (591458f)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { numbers: ["numbers", "numbers"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/buy")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(402)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.buy({
+                numbers: ["numbers", "numbers"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.PaymentRequiredError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("buy (560be67b)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { numbers: ["numbers", "numbers"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/buy")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.buy({
+                numbers: ["numbers", "numbers"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("buy (458b9feb)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { numbers: ["numbers", "numbers"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/buy")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.buy({
+                numbers: ["numbers", "numbers"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (Successful Basic Response)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -157,5 +388,201 @@ describe("PhoneNumbers", () => {
                 name: "name",
             },
         });
+    });
+
+    test("get (Successful Advanced Response)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            phone: "+11234567890",
+            level: "advanced",
+            options: {
+                risk: true,
+                enhanced_contact_info: { context: "This is my friend from JZ. He has done a lot in the crypto space." },
+            },
+        };
+        const rawResponseBody = {
+            isValid: true,
+            type: "LANDLINE",
+            formats: { international: "international", national: "national", raw: "raw" },
+            location: { country: { code: "code", name: "name", prefix: "prefix" }, place: "place" },
+            carrier: "carrier",
+            contact: { name: "name" },
+        };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/details")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.phoneNumbers.get({
+            phone: "+11234567890",
+            level: "advanced",
+            options: {
+                risk: true,
+                enhanced_contact_info: {
+                    context: "This is my friend from JZ. He has done a lot in the crypto space.",
+                },
+            },
+        });
+        expect(response).toEqual({
+            isValid: true,
+            type: "LANDLINE",
+            formats: {
+                international: "international",
+                national: "national",
+                raw: "raw",
+            },
+            location: {
+                country: {
+                    code: "code",
+                    name: "name",
+                    prefix: "prefix",
+                },
+                place: "place",
+            },
+            carrier: "carrier",
+            contact: {
+                name: "name",
+            },
+        });
+    });
+
+    test("get (1e6f2d8f)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/details")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.get({
+                phone: "phone",
+                level: "basic",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("get (9cbae0a7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/details")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.get({
+                phone: "phone",
+                level: "basic",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (b7c99867)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/details")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(402)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.get({
+                phone: "phone",
+                level: "basic",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.PaymentRequiredError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (64a38393)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/details")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.get({
+                phone: "phone",
+                level: "basic",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (ff96cb23)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/details")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.get({
+                phone: "phone",
+                level: "basic",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
     });
 });

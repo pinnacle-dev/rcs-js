@@ -15,7 +15,7 @@ export declare namespace Webhook {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Webhook {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -45,7 +45,7 @@ export class Webhook {
      * @param {string} phone - The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
      *
      *                         Must be a phone number that you own and have already [purchased](./buy) through the API.
-     * @param {Pinnacle.AttachWebhookSchema} request
+     * @param {Pinnacle.AttachWebhookParams} request
      * @param {Webhook.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -61,17 +61,17 @@ export class Webhook {
      */
     public attach(
         phone: string,
-        request: Pinnacle.AttachWebhookSchema,
+        request: Pinnacle.AttachWebhookParams,
         requestOptions?: Webhook.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.AttachWebhookResponse> {
+    ): core.HttpResponsePromise<Pinnacle.ConfiguredWebhook> {
         return core.HttpResponsePromise.fromPromise(this.__attach(phone, request, requestOptions));
     }
 
     private async __attach(
         phone: string,
-        request: Pinnacle.AttachWebhookSchema,
+        request: Pinnacle.AttachWebhookParams,
         requestOptions?: Webhook.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.AttachWebhookResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.ConfiguredWebhook>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -95,7 +95,7 @@ export class Webhook {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.AttachWebhookResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.ConfiguredWebhook, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -172,7 +172,7 @@ export class Webhook {
         phone: string,
         webhookId: number,
         requestOptions?: Webhook.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.DetachWebhookResponse> {
+    ): core.HttpResponsePromise<Pinnacle.DetachedWebhookInfo> {
         return core.HttpResponsePromise.fromPromise(this.__detach(phone, webhookId, requestOptions));
     }
 
@@ -180,7 +180,7 @@ export class Webhook {
         phone: string,
         webhookId: number,
         requestOptions?: Webhook.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.DetachWebhookResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.DetachedWebhookInfo>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -201,7 +201,7 @@ export class Webhook {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.DetachWebhookResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.DetachedWebhookInfo, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

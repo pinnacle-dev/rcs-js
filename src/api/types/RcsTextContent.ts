@@ -9,7 +9,7 @@ import * as Pinnacle from "../index.js";
  */
 export interface RcsTextContent {
     /** List of interactive quick reply buttons in the message. */
-    quickReplies: Pinnacle.RcsButtonSchema[];
+    quickReplies: Pinnacle.RcsButtonContent[];
     /** Text content of the RCS message. */
     text: string;
 }

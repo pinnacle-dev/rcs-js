@@ -3,12 +3,22 @@
  */
 
 export interface LocationShareAction {
-    /** Address corresponding to the shared location. */
-    address: string;
-    /** Latitude of the shared location. */
-    latitude: number;
-    /** Longitude of the shared location. */
-    longitude: number;
-    /** Text message sent with the button. */
-    text?: string;
+    /** Location data shared by the user. */
+    data: LocationShareAction.Data;
+}
+
+export namespace LocationShareAction {
+    /**
+     * Location data shared by the user.
+     */
+    export interface Data {
+        /** Address corresponding to the shared location. */
+        address: string;
+        /** Latitude of the shared location. */
+        latitude: number;
+        /** Longitude of the shared location. */
+        longitude: number;
+        /** Text message sent with the location. */
+        text?: string;
+    }
 }

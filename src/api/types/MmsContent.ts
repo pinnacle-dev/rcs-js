@@ -3,12 +3,14 @@
  */
 
 /**
- * Message with text and/or media files from a phone number. <br>
- *
- * See [supported media types](https://app.pinnacle.sh/supported-file-types?type=MMS).
+ * Message with text and/or media files from a phone number.
  */
 export interface MmsContent {
-    /** URLs of media files in this message. */
+    /**
+     * URLs of media files in this message. <br>
+     *
+     * See [supported media types](https://app.pinnacle.sh/supported-file-types?type=MMS).
+     */
     mediaUrls: string[];
     /** Text content that accompanies the media files. */
     text?: string;

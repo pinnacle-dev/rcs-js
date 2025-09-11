@@ -2,7 +2,7 @@
 
 ## Brands
 
-<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">autofill</a>({ ...params }) -> Pinnacle.OptionalBrandSchema</code></summary>
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">autofill</a>({ ...params }) -> Pinnacle.OptionalBrandInfo</code></summary>
 <dl>
 <dd>
 
@@ -53,7 +53,7 @@ await client.brands.autofill({
 <dl>
 <dd>
 
-**request:** `Pinnacle.AutofillBrandSchema`
+**request:** `Pinnacle.AutofillBrandParams`
 
 </dd>
 </dl>
@@ -133,7 +133,7 @@ await client.brands.upsert({
 <dl>
 <dd>
 
-**request:** `Pinnacle.UpsertBrandSchema`
+**request:** `Pinnacle.UpsertBrandParams`
 
 </dd>
 </dl>
@@ -223,7 +223,7 @@ await client.brands.get(1);
 </dl>
 </details>
 
-<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">submit</a>(brandId) -> Pinnacle.BrandSubmission</code></summary>
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">submit</a>(brandId) -> Pinnacle.SubmissionResults</code></summary>
 <dl>
 <dd>
 
@@ -270,8 +270,8 @@ await client.brands.submit(1);
 **brandId:** `number`
 
 The unique identifier of the brand you want to submit for review. <br>
-Must correspond to an existing brand in your account that is ready for subm
-ission.
+
+Must correspond to an existing brand in your account that is ready for submission.
 
 </dd>
 </dl>
@@ -290,7 +290,7 @@ ission.
 </dl>
 </details>
 
-<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.BrandValidateResponse</code></summary>
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.ValidationResults</code></summary>
 <dl>
 <dd>
 
@@ -318,7 +318,23 @@ Validate your brand information for compliance and correctness before submission
 <dd>
 
 ```typescript
-await client.brands.validate({});
+await client.brands.validate({
+    address: "500 Folsom St, San Francisco, CA 94105",
+    contact: {
+        email: "michael.chen@trypinnacle.app",
+        name: "Michael Chen",
+        phone: "+14155551234",
+        title: "Customer Support Representative",
+    },
+    dba: "Pinnacle Messaging",
+    description: "Pinnacle is an SMS, MMS, and RCS API for scaling conversations with customers you value.",
+    ein: "88-1234567",
+    email: "founders@trypinnacle.app",
+    name: "Pinnacle",
+    sector: "TECHNOLOGY",
+    type: "PRIVATE_PROFIT",
+    website: "https://www.pinnacle.sh",
+});
 ```
 
 </dd>
@@ -334,7 +350,7 @@ await client.brands.validate({});
 <dl>
 <dd>
 
-**request:** `Pinnacle.ValidateBrandSchema`
+**request:** `Pinnacle.ValidateBrandParams`
 
 </dd>
 </dl>
@@ -353,7 +369,7 @@ await client.brands.validate({});
 </dl>
 </details>
 
-<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">vet</a>(brandId, { ...params }) -> Pinnacle.VettingResponse</code></summary>
+<details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">vet</a>(brandId, { ...params }) -> Pinnacle.VettingResults</code></summary>
 <dl>
 <dd>
 
@@ -409,7 +425,7 @@ The brand must be already registered before it can be vetted.
 <dl>
 <dd>
 
-**request:** `Pinnacle.VettingOptions`
+**request:** `Pinnacle.VetBrandParams`
 
 </dd>
 </dl>
@@ -442,7 +458,7 @@ The brand must be already registered before it can be vetted.
 <dl>
 <dd>
 
-Retrieve stored contact information for a given number.
+Retrieve contact information for a given number.
 
 </dd>
 </dl>
@@ -493,7 +509,7 @@ await client.contacts.get();
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">create</a>({ ...params }) -> Pinnacle.CreateContactResponse</code></summary>
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">create</a>({ ...params }) -> Pinnacle.ContactId</code></summary>
 <dl>
 <dd>
 
@@ -522,11 +538,7 @@ Create a new contact for a given phone number.
 
 ```typescript
 await client.contacts.create({
-    description: "Friend from work",
-    email: "alvaroope@example.com",
-    name: "Alva Roope",
-    phoneNumber: "+14154537890",
-    tags: ["friend", "work"],
+    phoneNumber: "phoneNumber",
 });
 ```
 
@@ -543,7 +555,7 @@ await client.contacts.create({
 <dl>
 <dd>
 
-**request:** `Pinnacle.CreateContactRequest`
+**request:** `Pinnacle.CreateContactParams`
 
 </dd>
 </dl>
@@ -562,7 +574,7 @@ await client.contacts.create({
 </dl>
 </details>
 
-<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">update</a>({ ...params }) -> Pinnacle.UpdateContactResponse</code></summary>
+<details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">update</a>({ ...params }) -> Pinnacle.UpdatedContactId</code></summary>
 <dl>
 <dd>
 
@@ -592,10 +604,10 @@ Update an existing contact.
 ```typescript
 await client.contacts.update({
     description: "Retired",
-    email: "alvaroopedtech@example.com",
-    id: 137,
+    email: "alvaroopedtech@pinnacle.sh",
     name: "Retired Bestie",
     tags: ["friend"],
+    id: 137,
 });
 ```
 
@@ -612,7 +624,7 @@ await client.contacts.update({
 <dl>
 <dd>
 
-**request:** `Pinnacle.UpdateContactRequest`
+**request:** `Pinnacle.UpdateContactParams`
 
 </dd>
 </dl>
@@ -633,7 +645,7 @@ await client.contacts.update({
 
 ## Conversations
 
-<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">get</a>({ ...params }) -> Pinnacle.Conversation</code></summary>
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">get</a>({ ...params }) -> (Pinnacle.Conversation | null) | undefined</code></summary>
 <dl>
 <dd>
 
@@ -679,7 +691,7 @@ await client.conversations.get({
 <dl>
 <dd>
 
-**request:** `Pinnacle.GetConversationRequest`
+**request:** `Pinnacle.GetConversationParams`
 
 </dd>
 </dl>
@@ -698,7 +710,7 @@ await client.conversations.get({
 </dl>
 </details>
 
-<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListConversationsResponse</code></summary>
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ConversationList</code></summary>
 <dl>
 <dd>
 
@@ -729,10 +741,7 @@ Retrieves conversations by page with optional filtering based off provided param
 await client.conversations.list({
     brandId: 101,
     campaignId: 136,
-    campaignType: {
-        id: "136",
-        type: "TOLL_FREE",
-    },
+    campaignType: "TOLL_FREE",
     pageIndex: 0,
     pageSize: 20,
     receiver: "+16509231662",
@@ -753,7 +762,7 @@ await client.conversations.list({
 <dl>
 <dd>
 
-**request:** `Pinnacle.ListConversationsRequest`
+**request:** `Pinnacle.ListConversationsParams`
 
 </dd>
 </dl>
@@ -772,7 +781,7 @@ await client.conversations.list({
 </dl>
 </details>
 
-<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">update</a>({ ...params }) -> Pinnacle.SuccessResponse</code></summary>
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">update</a>({ ...params }) -> Pinnacle.SuccessfulConversationUpdate</code></summary>
 <dl>
 <dd>
 
@@ -819,7 +828,7 @@ await client.conversations.update({
 <dl>
 <dd>
 
-**request:** `Pinnacle.UpdateConversationRequest`
+**request:** `Pinnacle.UpdateConversationParams`
 
 </dd>
 </dl>
@@ -903,9 +912,78 @@ await client.messages.get(1240);
 </dl>
 </details>
 
+<details><summary><code>client.messages.<a href="/src/api/resources/messages/client/Client.ts">react</a>({ ...params }) -> Pinnacle.ReactionResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add or remove an emoji reaction to a previously sent message.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.react({
+    messageId: 1410,
+    options: {
+        force: true,
+    },
+    reaction: "\uD83D\uDC4D",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ReactMessageParams`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Messages.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## PhoneNumbers
 
-<details><summary><code>client.phoneNumbers.<a href="/src/api/resources/phoneNumbers/client/Client.ts">search</a>({ ...params }) -> Pinnacle.PhoneNumber[]</code></summary>
+<details><summary><code>client.phoneNumbers.<a href="/src/api/resources/phoneNumbers/client/Client.ts">search</a>({ ...params }) -> Pinnacle.PhoneNumberDetails[]</code></summary>
 <dl>
 <dd>
 
@@ -963,7 +1041,7 @@ await client.phoneNumbers.search({
 <dl>
 <dd>
 
-**request:** `Pinnacle.SearchSchema`
+**request:** `Pinnacle.SearchPhoneNumberParams`
 
 </dd>
 </dl>
@@ -982,7 +1060,7 @@ await client.phoneNumbers.search({
 </dl>
 </details>
 
-<details><summary><code>client.phoneNumbers.<a href="/src/api/resources/phoneNumbers/client/Client.ts">buy</a>({ ...params }) -> Pinnacle.BuyResponse[]</code></summary>
+<details><summary><code>client.phoneNumbers.<a href="/src/api/resources/phoneNumbers/client/Client.ts">buy</a>({ ...params }) -> Pinnacle.PurchasedNumber[]</code></summary>
 <dl>
 <dd>
 
@@ -1030,7 +1108,7 @@ await client.phoneNumbers.buy({
 <dl>
 <dd>
 
-**request:** `Pinnacle.BuySchema`
+**request:** `Pinnacle.BuyPhoneNumberParams`
 
 </dd>
 </dl>
@@ -1102,7 +1180,7 @@ await client.phoneNumbers.get({
 <dl>
 <dd>
 
-**request:** `Pinnacle.PhoneDetailsSchema`
+**request:** `Pinnacle.RetrievePhoneNumberDetailsParams`
 
 </dd>
 </dl>
@@ -1123,7 +1201,7 @@ await client.phoneNumbers.get({
 
 ## Webhooks
 
-<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">get</a>({ ...params }) -> Pinnacle.WebhooksResponse</code></summary>
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">get</a>({ ...params }) -> Pinnacle.WebhookResult</code></summary>
 <dl>
 <dd>
 
@@ -1174,7 +1252,7 @@ await client.webhooks.get({
 <dl>
 <dd>
 
-**request:** `Pinnacle.GetWebhooksRequest`
+**request:** `Pinnacle.GetWebhookParams`
 
 </dd>
 </dl>
@@ -1195,7 +1273,7 @@ await client.webhooks.get({
 
 ## Campaigns Dlc
 
-<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">autofill</a>({ ...params }) -> Pinnacle.AutofillDlcResponse</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">autofill</a>({ ...params }) -> Pinnacle.AutofillDlcCampaignResponse</code></summary>
 <dl>
 <dd>
 
@@ -1242,7 +1320,7 @@ await client.campaigns.dlc.autofill({
 <dl>
 <dd>
 
-**request:** `Pinnacle.AutofillCampaignSchema`
+**request:** `Pinnacle.AutofillCampaignParams`
 
 </dd>
 </dl>
@@ -1261,7 +1339,7 @@ await client.campaigns.dlc.autofill({
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">get</a>(campaignId) -> Pinnacle.GetDlcResponse</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">get</a>(campaignId) -> Pinnacle.DlcCampaignWithExtendedBrandAndStatus</code></summary>
 <dl>
 <dd>
 
@@ -1324,7 +1402,7 @@ await client.campaigns.dlc.get(28);
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">submit</a>(campaignId) -> Pinnacle.CampaignSubmission</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">submit</a>(campaignId) -> Pinnacle.CampaignSubmissionResult</code></summary>
 <dl>
 <dd>
 
@@ -1387,7 +1465,7 @@ await client.campaigns.dlc.submit(161);
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.UpsertDlcResponse</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.DlcCampaignWithExtendedBrandAndStatus</code></summary>
 <dl>
 <dd>
 
@@ -1470,7 +1548,7 @@ await client.campaigns.dlc.upsert({
 <dl>
 <dd>
 
-**request:** `Pinnacle.campaigns.UpsertDlcSchema`
+**request:** `Pinnacle.campaigns.UpsertDlcCampaignParams`
 
 </dd>
 </dl>
@@ -1489,7 +1567,7 @@ await client.campaigns.dlc.upsert({
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.CampaignValidationResponse</code></summary>
+<details><summary><code>client.campaigns.dlc.<a href="/src/api/resources/campaigns/resources/dlc/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.CampaignValidationResult</code></summary>
 <dl>
 <dd>
 
@@ -1536,7 +1614,7 @@ await client.campaigns.dlc.validate({
 <dl>
 <dd>
 
-**request:** `Pinnacle.ValidateCampaignSchema`
+**request:** `Pinnacle.ValidateCampaignParams`
 
 </dd>
 </dl>
@@ -1604,7 +1682,7 @@ await client.campaigns.tollFree.autofill({
 <dl>
 <dd>
 
-**request:** `Pinnacle.AutofillCampaignSchema`
+**request:** `Pinnacle.AutofillCampaignParams`
 
 </dd>
 </dl>
@@ -1623,7 +1701,7 @@ await client.campaigns.tollFree.autofill({
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">get</a>(campaignId) -> Pinnacle.GetTollFreeResponse</code></summary>
+<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">get</a>(campaignId) -> Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus</code></summary>
 <dl>
 <dd>
 
@@ -1686,7 +1764,7 @@ await client.campaigns.tollFree.get(161);
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">submit</a>(campaignId) -> Pinnacle.CampaignSubmission</code></summary>
+<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">submit</a>(campaignId) -> Pinnacle.CampaignSubmissionResult</code></summary>
 <dl>
 <dd>
 
@@ -1749,7 +1827,7 @@ await client.campaigns.tollFree.submit(161);
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.UpsertTollFreeResponse</code></summary>
+<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus</code></summary>
 <dl>
 <dd>
 
@@ -1810,7 +1888,7 @@ await client.campaigns.tollFree.upsert({
 <dl>
 <dd>
 
-**request:** `Pinnacle.campaigns.UpsertTollFreeSchema`
+**request:** `Pinnacle.campaigns.UpsertTollFreeCampaignParams`
 
 </dd>
 </dl>
@@ -1829,7 +1907,7 @@ await client.campaigns.tollFree.upsert({
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.CampaignValidationResponse</code></summary>
+<details><summary><code>client.campaigns.tollFree.<a href="/src/api/resources/campaigns/resources/tollFree/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.CampaignValidationResult</code></summary>
 <dl>
 <dd>
 
@@ -1876,7 +1954,7 @@ await client.campaigns.tollFree.validate({
 <dl>
 <dd>
 
-**request:** `Pinnacle.ValidateCampaignSchema`
+**request:** `Pinnacle.ValidateCampaignParams`
 
 </dd>
 </dl>
@@ -1944,7 +2022,7 @@ await client.campaigns.rcs.autofill({
 <dl>
 <dd>
 
-**request:** `Pinnacle.AutofillCampaignSchema`
+**request:** `Pinnacle.AutofillCampaignParams`
 
 </dd>
 </dl>
@@ -1963,7 +2041,7 @@ await client.campaigns.rcs.autofill({
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">get</a>(campaignId) -> Pinnacle.RcsCampaignSchemaExtra</code></summary>
+<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">get</a>(campaignId) -> Pinnacle.ExtendedRcsCampaign</code></summary>
 <dl>
 <dd>
 
@@ -2026,7 +2104,7 @@ await client.campaigns.rcs.get(161);
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">submit</a>(campaignId) -> Pinnacle.CampaignSubmission</code></summary>
+<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">submit</a>(campaignId) -> Pinnacle.CampaignSubmissionResult</code></summary>
 <dl>
 <dd>
 
@@ -2089,7 +2167,7 @@ await client.campaigns.rcs.submit(161);
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.RcsCampaignSchemaExtra</code></summary>
+<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.ExtendedRcsCampaign</code></summary>
 <dl>
 <dd>
 
@@ -2147,7 +2225,7 @@ await client.campaigns.rcs.upsert({
         ],
     },
     brand: 2,
-    expectedAgentResponse: [
+    expectedAgentResponses: [
         "Here are the things I can help you with.",
         "I can assist you with booking an appointment, or you may choose to book manually.",
         "Here are the available times to connect with a representative tomorrow.",
@@ -2185,7 +2263,7 @@ await client.campaigns.rcs.upsert({
 <dl>
 <dd>
 
-**request:** `Pinnacle.campaigns.UpsertRcsSchema`
+**request:** `Pinnacle.campaigns.UpsertRcsCampaignParams`
 
 </dd>
 </dl>
@@ -2204,7 +2282,7 @@ await client.campaigns.rcs.upsert({
 </dl>
 </details>
 
-<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.CampaignValidationResponse</code></summary>
+<details><summary><code>client.campaigns.rcs.<a href="/src/api/resources/campaigns/resources/rcs/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.CampaignValidationResult</code></summary>
 <dl>
 <dd>
 
@@ -2251,7 +2329,7 @@ await client.campaigns.rcs.validate({
 <dl>
 <dd>
 
-**request:** `Pinnacle.ValidateCampaignSchema`
+**request:** `Pinnacle.ValidateCampaignParams`
 
 </dd>
 </dl>
@@ -2270,9 +2348,76 @@ await client.campaigns.rcs.validate({
 </dl>
 </details>
 
-## Messages Sms
+## Message Sms
 
-<details><summary><code>client.messages.sms.<a href="/src/api/resources/messages/resources/sms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.SmsSendResponse</code></summary>
+<details><summary><code>client.message.sms.<a href="/src/api/resources/message/resources/sms/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.SmsValidationResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validate SMS message content without sending it.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.message.sms.validate({
+    text: "Hello from Pinnacle",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SmsContent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Messages Send
+
+<details><summary><code>client.messages.send.<a href="/src/api/resources/messages/resources/send/client/Client.ts">sms</a>({ ...params }) -> Pinnacle.SendSmsResponse</code></summary>
 <dl>
 <dd>
 
@@ -2300,7 +2445,7 @@ Send a SMS message immediately or schedule it for future delivery.
 <dd>
 
 ```typescript
-await client.messages.sms.send({
+await client.messages.send.sms({
     from: "+14155164736",
     text: "Hey! \uD83D\uDE02",
     to: "+14154746461",
@@ -2320,7 +2465,7 @@ await client.messages.sms.send({
 <dl>
 <dd>
 
-**request:** `Pinnacle.SendSms`
+**request:** `Pinnacle.messages.Sms`
 
 </dd>
 </dl>
@@ -2328,7 +2473,7 @@ await client.messages.sms.send({
 <dl>
 <dd>
 
-**requestOptions:** `Sms.RequestOptions`
+**requestOptions:** `Send.RequestOptions`
 
 </dd>
 </dl>
@@ -2339,9 +2484,7 @@ await client.messages.sms.send({
 </dl>
 </details>
 
-## Messages Mms
-
-<details><summary><code>client.messages.mms.<a href="/src/api/resources/messages/resources/mms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.MmsSendResponse</code></summary>
+<details><summary><code>client.messages.send.<a href="/src/api/resources/messages/resources/send/client/Client.ts">mms</a>({ ...params }) -> Pinnacle.SendMmsResponse</code></summary>
 <dl>
 <dd>
 
@@ -2369,7 +2512,7 @@ Send a MMS immediately or schedule it for future delivery.
 <dd>
 
 ```typescript
-await client.messages.mms.send({
+await client.messages.send.mms({
     from: "+14155164736",
     mediaUrls: ["https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"],
     options: {
@@ -2394,7 +2537,7 @@ await client.messages.mms.send({
 <dl>
 <dd>
 
-**request:** `Pinnacle.SendMms`
+**request:** `Pinnacle.messages.Mms`
 
 </dd>
 </dl>
@@ -2402,7 +2545,7 @@ await client.messages.mms.send({
 <dl>
 <dd>
 
-**requestOptions:** `Mms.RequestOptions`
+**requestOptions:** `Send.RequestOptions`
 
 </dd>
 </dl>
@@ -2413,9 +2556,7 @@ await client.messages.mms.send({
 </dl>
 </details>
 
-## Messages Rcs
-
-<details><summary><code>client.messages.rcs.<a href="/src/api/resources/messages/resources/rcs/client/Client.ts">send</a>({ ...params }) -> Pinnacle.RcsSendResponse</code></summary>
+<details><summary><code>client.messages.send.<a href="/src/api/resources/messages/resources/send/client/Client.ts">rcs</a>({ ...params }) -> Pinnacle.SendRcsResponse</code></summary>
 <dl>
 <dd>
 
@@ -2445,7 +2586,7 @@ Requires an active RCS agent and recipient devices that support RCS Business Mes
 <dd>
 
 ```typescript
-await client.messages.rcs.send({
+await client.messages.send.rcs({
     quickReplies: [
         {
             type: "openUrl",
@@ -2453,9 +2594,9 @@ await client.messages.rcs.send({
             title: "title",
         },
     ],
-    text: "Check out our website for more information!",
-    from: "agent_pinnacle",
-    to: "+14154746461",
+    text: "text",
+    from: "from",
+    to: "to",
 });
 ```
 
@@ -2480,6 +2621,152 @@ await client.messages.rcs.send({
 <dl>
 <dd>
 
+**requestOptions:** `Send.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Messages Mms
+
+<details><summary><code>client.messages.mms.<a href="/src/api/resources/messages/resources/mms/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.MmsValidationResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validate MMS message content without sending it.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.mms.validate({
+    mediaUrls: [
+        "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg",
+        "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w",
+        "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg",
+    ],
+    text: "Check out these images!",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.MmsContent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Mms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Messages Rcs
+
+<details><summary><code>client.messages.rcs.<a href="/src/api/resources/messages/resources/rcs/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.RcsValidationResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Validate RCS message content without sending it.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.rcs.validate({
+    quickReplies: [
+        {
+            type: "openUrl",
+            payload: "payload",
+            title: "title",
+        },
+    ],
+    text: "text",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.RcsValidateContent`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **requestOptions:** `Rcs.RequestOptions`
 
 </dd>
@@ -2493,7 +2780,7 @@ await client.messages.rcs.send({
 
 ## PhoneNumbers Webhook
 
-<details><summary><code>client.phoneNumbers.webhook.<a href="/src/api/resources/phoneNumbers/resources/webhook/client/Client.ts">attach</a>(phone, { ...params }) -> Pinnacle.AttachWebhookResponse</code></summary>
+<details><summary><code>client.phoneNumbers.webhook.<a href="/src/api/resources/phoneNumbers/resources/webhook/client/Client.ts">attach</a>(phone, { ...params }) -> Pinnacle.ConfiguredWebhook</code></summary>
 <dl>
 <dd>
 
@@ -2551,7 +2838,7 @@ Must be a phone number that you own and have already [purchased](./buy) through 
 <dl>
 <dd>
 
-**request:** `Pinnacle.AttachWebhookSchema`
+**request:** `Pinnacle.AttachWebhookParams`
 
 </dd>
 </dl>
@@ -2570,7 +2857,7 @@ Must be a phone number that you own and have already [purchased](./buy) through 
 </dl>
 </details>
 
-<details><summary><code>client.phoneNumbers.webhook.<a href="/src/api/resources/phoneNumbers/resources/webhook/client/Client.ts">detach</a>(phone, webhookId) -> Pinnacle.DetachWebhookResponse</code></summary>
+<details><summary><code>client.phoneNumbers.webhook.<a href="/src/api/resources/phoneNumbers/resources/webhook/client/Client.ts">detach</a>(phone, webhookId) -> Pinnacle.DetachedWebhookInfo</code></summary>
 <dl>
 <dd>
 
@@ -2653,7 +2940,7 @@ This must be a valid webhook ID that is currently attached to the specified phon
 
 ## PhoneNumbers Campaign
 
-<details><summary><code>client.phoneNumbers.campaign.<a href="/src/api/resources/phoneNumbers/resources/campaign/client/Client.ts">attach</a>({ ...params }) -> Pinnacle.PhoneNumberCampaignAttach</code></summary>
+<details><summary><code>client.phoneNumbers.campaign.<a href="/src/api/resources/phoneNumbers/resources/campaign/client/Client.ts">attach</a>({ ...params }) -> Pinnacle.AttachedPhoneNumberResult</code></summary>
 <dl>
 <dd>
 
@@ -2701,7 +2988,7 @@ await client.phoneNumbers.campaign.attach({
 <dl>
 <dd>
 
-**request:** `Pinnacle.phoneNumbers.AttachCampaignSchema`
+**request:** `Pinnacle.phoneNumbers.AttachCampaignParams`
 
 </dd>
 </dl>
@@ -2720,7 +3007,7 @@ await client.phoneNumbers.campaign.attach({
 </dl>
 </details>
 
-<details><summary><code>client.phoneNumbers.campaign.<a href="/src/api/resources/phoneNumbers/resources/campaign/client/Client.ts">detach</a>({ ...params }) -> Pinnacle.PhoneNumberCampaignDetach</code></summary>
+<details><summary><code>client.phoneNumbers.campaign.<a href="/src/api/resources/phoneNumbers/resources/campaign/client/Client.ts">detach</a>({ ...params }) -> Pinnacle.DetachedPhoneNumberResult</code></summary>
 <dl>
 <dd>
 
@@ -2766,7 +3053,7 @@ await client.phoneNumbers.campaign.detach({
 <dl>
 <dd>
 
-**request:** `Pinnacle.phoneNumbers.DetachCampaignSchema`
+**request:** `Pinnacle.phoneNumbers.DetachCampaignParams`
 
 </dd>
 </dl>
@@ -2785,9 +3072,9 @@ await client.phoneNumbers.campaign.detach({
 </dl>
 </details>
 
-## Tools Url
+## Status Get
 
-<details><summary><code>client.tools.url.<a href="/src/api/resources/tools/resources/url/client/Client.ts">create</a>({ ...params }) -> Pinnacle.PinnacleUrl</code></summary>
+<details><summary><code>client.status.get.<a href="/src/api/resources/status/resources/get/client/Client.ts">brand</a>(brandId) -> Pinnacle.BrandStatus</code></summary>
 <dl>
 <dd>
 
@@ -2799,7 +3086,326 @@ await client.phoneNumbers.campaign.detach({
 <dl>
 <dd>
 
-Create a shortened URL that redirects visitors to your provided destination URL.
+Retrieve a brand's status.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.status.get.brand(28);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**brandId:** `number` — ID of the brand.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Get.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.status.get.<a href="/src/api/resources/status/resources/get/client/Client.ts">tollFree</a>(campaignId) -> Pinnacle.TollFreeCampaignStatus</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a toll-free campaign's status.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.status.get.tollFree(28);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**campaignId:** `number` — ID of the toll-free campaign.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Get.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.status.get.<a href="/src/api/resources/status/resources/get/client/Client.ts">dlc</a>(campaignId) -> Pinnacle.DlcCampaignStatus</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a DLC campaign's status.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.status.get.dlc(28);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**campaignId:** `number` — ID of the DLC campaign.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Get.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.status.get.<a href="/src/api/resources/status/resources/get/client/Client.ts">rcs</a>(campaignId) -> Pinnacle.RcsCampaignStatus</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a RCS campaign's status.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.status.get.rcs(28);
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**campaignId:** `number` — ID of the campaign.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Get.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.status.get.<a href="/src/api/resources/status/resources/get/client/Client.ts">phoneNumber</a>(phoneNumber) -> Pinnacle.PhoneNumberStatus</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a phone number's order status and campaign attachment status. <br>
+
+Check if a number is active and ready to send messages.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.status.get.phoneNumber("+14151234567");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**phoneNumber:** `string` — Phone number in E164 format that is in review.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Get.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Tools Url
+
+<details><summary><code>client.tools.url.<a href="/src/api/resources/tools/resources/url/client/Client.ts">create</a>({ ...params }) -> Pinnacle.ShortenedUrl</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a shortened URL that redirects visitors to the provided destination URL.
 
 </dd>
 </dl>
@@ -2836,7 +3442,7 @@ await client.tools.url.create({
 <dl>
 <dd>
 
-**request:** `Pinnacle.tools.UrlSchema`
+**request:** `Pinnacle.tools.CreateUrlParams`
 
 </dd>
 </dl>
@@ -2855,7 +3461,7 @@ await client.tools.url.create({
 </dl>
 </details>
 
-<details><summary><code>client.tools.url.<a href="/src/api/resources/tools/resources/url/client/Client.ts">get</a>(linkId) -> Pinnacle.PinnacleUrlWithClicks</code></summary>
+<details><summary><code>client.tools.url.<a href="/src/api/resources/tools/resources/url/client/Client.ts">get</a>(linkId) -> Pinnacle.ShortenedUrlWithClickData</code></summary>
 <dl>
 <dd>
 
@@ -2922,7 +3528,7 @@ See the response of [Create Shortened URL](./create-url) for more information.
 </dl>
 </details>
 
-<details><summary><code>client.tools.url.<a href="/src/api/resources/tools/resources/url/client/Client.ts">update</a>(linkId, { ...params }) -> Pinnacle.PinnacleUrl</code></summary>
+<details><summary><code>client.tools.url.<a href="/src/api/resources/tools/resources/url/client/Client.ts">update</a>(linkId, { ...params }) -> Pinnacle.ShortenedUrl</code></summary>
 <dl>
 <dd>
 
@@ -2980,7 +3586,7 @@ See the response of [Create Shortened URL](./create-url) for more information.
 <dl>
 <dd>
 
-**request:** `Pinnacle.tools.UpdateUrlSchema`
+**request:** `Pinnacle.tools.UpdateUrlParams`
 
 </dd>
 </dl>
@@ -3001,7 +3607,7 @@ See the response of [Create Shortened URL](./create-url) for more information.
 
 ## Tools File
 
-<details><summary><code>client.tools.file.<a href="/src/api/resources/tools/resources/file/client/Client.ts">upload</a>({ ...params }) -> Pinnacle.PinnacleFileUpload</code></summary>
+<details><summary><code>client.tools.file.<a href="/src/api/resources/tools/resources/file/client/Client.ts">upload</a>({ ...params }) -> Pinnacle.UploadResults</code></summary>
 <dl>
 <dd>
 
@@ -3054,7 +3660,7 @@ await client.tools.file.upload({
 <dl>
 <dd>
 
-**request:** `Pinnacle.tools.FileUploadSchema`
+**request:** `Pinnacle.tools.UploadFileParams`
 
 </dd>
 </dl>
@@ -3121,7 +3727,7 @@ await client.tools.contactCard.get({
 <dl>
 <dd>
 
-**request:** `Pinnacle.tools.GetVCardSchema`
+**request:** `Pinnacle.tools.GetVcardParams`
 
 </dd>
 </dl>
@@ -3140,7 +3746,7 @@ await client.tools.contactCard.get({
 </dl>
 </details>
 
-<details><summary><code>client.tools.contactCard.<a href="/src/api/resources/tools/resources/contactCard/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.VCardResourceData</code></summary>
+<details><summary><code>client.tools.contactCard.<a href="/src/api/resources/tools/resources/contactCard/client/Client.ts">upsert</a>({ ...params }) -> Pinnacle.VcardResource</code></summary>
 <dl>
 <dd>
 
@@ -3235,7 +3841,7 @@ await client.tools.contactCard.upsert({
 <dl>
 <dd>
 
-**request:** `Pinnacle.tools.VCardSchema`
+**request:** `Pinnacle.tools.UpsertVcardParams`
 
 </dd>
 </dl>

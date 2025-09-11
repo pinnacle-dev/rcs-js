@@ -5,13 +5,13 @@
 import * as Pinnacle from "../index.js";
 
 /**
- * A conversation thread between a sender and a contact.
+ * Conversation that was found.
  */
 export interface Conversation {
     /** Identifier for the brand associated with this conversation. */
     brandId?: number | null;
     /** Campaign information if this conversation is part of a marketing campaign. */
-    campaign?: Pinnacle.CampaignTypes | null;
+    campaign?: Pinnacle.CampaignQuery | null;
     /** Contact information for the recipient in a conversation. */
     contact: Conversation.Contact;
     /** ISO 8601 timestamp when the conversation was created. */
@@ -20,7 +20,13 @@ export interface Conversation {
     id: number;
     /** Free-form notes or comments about the conversation. */
     notes: string;
-    sender: Pinnacle.ConversationSender;
+    /**
+     * The sender of messages in this conversation. Can be:
+     * - A phone number with its capabilities and metadata
+     * - An RCS agent with ID and name
+     * - `null` if no sender is associated
+     */
+    sender?: Conversation.Sender | null;
     /** ISO 8601 timestamp when the conversation was last updated. */
     updatedAt: string;
 }
@@ -35,4 +41,27 @@ export namespace Conversation {
         /** The contact's phone number in E.164 format. */
         phoneNumber: string;
     }
+
+    /**
+     * The sender of messages in this conversation. Can be:
+     * - A phone number with its capabilities and metadata
+     * - An RCS agent with ID and name
+     * - `null` if no sender is associated
+     */
+    export type Sender =
+        /**
+         * Information about a phone number sender in a conversation. */
+        | {
+              capabilities: Pinnacle.PhoneCapabilities;
+              createdAt: string;
+              isSandbox: boolean;
+              phoneNumber: string;
+              updatedAt: string;
+          }
+        /**
+         * Information about an RCS agent sender in a conversation. */
+        | {
+              agentId: string;
+              agentName: string;
+          };
 }

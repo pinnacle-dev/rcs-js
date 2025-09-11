@@ -1,2 +1,2 @@
-export { type AttachCampaignSchema } from "./AttachCampaignSchema.js";
-export { type DetachCampaignSchema } from "./DetachCampaignSchema.js";
+export { type AttachCampaignParams } from "./AttachCampaignParams.js";
+export { type DetachCampaignParams } from "./DetachCampaignParams.js";

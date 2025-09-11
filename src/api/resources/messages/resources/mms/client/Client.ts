@@ -15,7 +15,7 @@ export declare namespace Mms {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Mms {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -40,40 +40,32 @@ export class Mms {
     }
 
     /**
-     * Send a MMS immediately or schedule it for future delivery.
+     * Validate MMS message content without sending it.
      *
-     * @param {Pinnacle.SendMms} request
+     * @param {Pinnacle.MmsContent} request
      * @param {Mms.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.PaymentRequiredError}
-     * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.messages.mms.send({
-     *         from: "+14155164736",
-     *         mediaUrls: ["https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"],
-     *         options: {
-     *             multiple_messages: true,
-     *             validate: true
-     *         },
-     *         text: "Check out this image!",
-     *         to: "+14154746461"
+     *     await client.messages.mms.validate({
+     *         mediaUrls: ["https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg", "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w", "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg"],
+     *         text: "Check out these images!"
      *     })
      */
-    public send(
-        request: Pinnacle.SendMms,
+    public validate(
+        request: Pinnacle.MmsContent,
         requestOptions?: Mms.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.messages.MmsSendResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__send(request, requestOptions));
+    ): core.HttpResponsePromise<Pinnacle.MmsValidationResult> {
+        return core.HttpResponsePromise.fromPromise(this.__validate(request, requestOptions));
     }
 
-    private async __send(
-        request: Pinnacle.SendMms,
+    private async __validate(
+        request: Pinnacle.MmsContent,
         requestOptions?: Mms.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.messages.MmsSendResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.MmsValidationResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -84,7 +76,7 @@ export class Mms {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.PinnacleEnvironment.Default,
-                "messages/send/mms",
+                "messages/validate/mms",
             ),
             method: "POST",
             headers: _headers,
@@ -97,7 +89,7 @@ export class Mms {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.messages.MmsSendResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.MmsValidationResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -109,13 +101,6 @@ export class Mms {
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );
-                case 402:
-                    throw new Pinnacle.PaymentRequiredError(
-                        _response.error.body as Pinnacle.Error_,
-                        _response.rawResponse,
-                    );
-                case 404:
-                    throw new Pinnacle.NotFoundError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
                 case 500:
                     throw new Pinnacle.InternalServerError(
                         _response.error.body as Pinnacle.Error_,
@@ -138,7 +123,7 @@ export class Mms {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/send/mms.");
+                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/validate/mms.");
             case "unknown":
                 throw new errors.PinnacleError({
                     message: _response.error.errorMessage,

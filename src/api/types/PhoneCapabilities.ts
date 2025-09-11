@@ -7,9 +7,9 @@
  */
 export interface PhoneCapabilities {
     /** Whether the phone number supports MMS (multimedia messaging). */
-    MMS: boolean;
+    mms: boolean;
     /** Whether the phone number supports SMS messaging. */
-    SMS: boolean;
+    sms: boolean;
     /** Whether the phone number supports voice calls. */
     voice: boolean;
 }

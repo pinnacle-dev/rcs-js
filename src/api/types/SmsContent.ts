@@ -6,6 +6,6 @@
  * SMS message containing plain text only.
  */
 export interface SmsContent {
-    /** Text content of the SMS message. */
+    /** Message content. */
     text: string;
 }

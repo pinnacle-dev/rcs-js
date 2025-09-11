@@ -7,10 +7,10 @@ import * as Pinnacle from "../index.js";
 export interface RcsBase {
     /** Your RCS agent ID which must be prefixed with 'agent_'. */
     from: string;
-    /** Recipient's phone number in E.164 format. */
-    to: string;
     /** Configure how your RCS message is sent and tracked. */
     options?: RcsBase.Options;
+    /** Recipient's phone number in E.164 format. */
+    to: string;
 }
 
 export namespace RcsBase {
@@ -18,12 +18,13 @@ export namespace RcsBase {
      * Configure how your RCS message is sent and tracked.
      */
     export interface Options {
-        schedule?: Pinnacle.ScheduleSchema;
+        schedule?: Pinnacle.MessageSchedule;
         /** Send via the test agent to whitelisted test devices. Useful for development and debugging. */
         test_mode?: boolean;
         tracking?: Pinnacle.Tracking;
         /**
          * Validate your message for any unsupported files. <br>
+         *
          * If failed, errors will be thrown and the message will not send.
          */
         validate?: boolean;

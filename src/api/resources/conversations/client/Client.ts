@@ -15,7 +15,7 @@ export declare namespace Conversations {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Conversations {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -42,7 +42,7 @@ export class Conversations {
     /**
      * Fetch a specific conversation using either its unique identifier or by matching sender and recipient details.
      *
-     * @param {Pinnacle.GetConversationRequest} request
+     * @param {Pinnacle.GetConversationParams} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -55,16 +55,16 @@ export class Conversations {
      *     })
      */
     public get(
-        request: Pinnacle.GetConversationRequest,
+        request: Pinnacle.GetConversationParams,
         requestOptions?: Conversations.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.Conversation> {
+    ): core.HttpResponsePromise<(Pinnacle.Conversation | null) | undefined> {
         return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.GetConversationRequest,
+        request: Pinnacle.GetConversationParams,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.Conversation>> {
+    ): Promise<core.WithRawResponse<(Pinnacle.Conversation | null) | undefined>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -88,7 +88,10 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.Conversation, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as (Pinnacle.Conversation | null) | undefined,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -134,7 +137,7 @@ export class Conversations {
     /**
      * Retrieves conversations by page with optional filtering based off provided parameters.
      *
-     * @param {Pinnacle.ListConversationsRequest} request
+     * @param {Pinnacle.ListConversationsParams} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -145,10 +148,7 @@ export class Conversations {
      *     await client.conversations.list({
      *         brandId: 101,
      *         campaignId: 136,
-     *         campaignType: {
-     *             id: "136",
-     *             type: "TOLL_FREE"
-     *         },
+     *         campaignType: "TOLL_FREE",
      *         pageIndex: 0,
      *         pageSize: 20,
      *         receiver: "+16509231662",
@@ -156,16 +156,16 @@ export class Conversations {
      *     })
      */
     public list(
-        request: Pinnacle.ListConversationsRequest,
+        request: Pinnacle.ListConversationsParams,
         requestOptions?: Conversations.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.ListConversationsResponse> {
+    ): core.HttpResponsePromise<Pinnacle.ConversationList> {
         return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
     }
 
     private async __list(
-        request: Pinnacle.ListConversationsRequest,
+        request: Pinnacle.ListConversationsParams,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.ListConversationsResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.ConversationList>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -189,7 +189,7 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.ListConversationsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.ConversationList, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -235,7 +235,7 @@ export class Conversations {
     /**
      * Update the notes associated with a specific conversation.
      *
-     * @param {Pinnacle.UpdateConversationRequest} request
+     * @param {Pinnacle.UpdateConversationParams} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -249,16 +249,16 @@ export class Conversations {
      *     })
      */
     public update(
-        request: Pinnacle.UpdateConversationRequest,
+        request: Pinnacle.UpdateConversationParams,
         requestOptions?: Conversations.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.SuccessResponse> {
+    ): core.HttpResponsePromise<Pinnacle.SuccessfulConversationUpdate> {
         return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
-        request: Pinnacle.UpdateConversationRequest,
+        request: Pinnacle.UpdateConversationParams,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.SuccessResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.SuccessfulConversationUpdate>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -282,7 +282,10 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.SuccessResponse, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Pinnacle.SuccessfulConversationUpdate,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {

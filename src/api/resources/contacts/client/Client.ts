@@ -15,7 +15,7 @@ export declare namespace Contacts {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Contacts {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -40,7 +40,7 @@ export class Contacts {
     }
 
     /**
-     * Retrieve stored contact information for a given number.
+     * Retrieve contact information for a given number.
      *
      * @param {Pinnacle.ContactsGetRequest} request
      * @param {Contacts.RequestOptions} requestOptions - Request-specific configuration.
@@ -142,7 +142,7 @@ export class Contacts {
     /**
      * Create a new contact for a given phone number.
      *
-     * @param {Pinnacle.CreateContactRequest} request
+     * @param {Pinnacle.CreateContactParams} request
      * @param {Contacts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -151,24 +151,20 @@ export class Contacts {
      *
      * @example
      *     await client.contacts.create({
-     *         description: "Friend from work",
-     *         email: "alvaroope@example.com",
-     *         name: "Alva Roope",
-     *         phoneNumber: "+14154537890",
-     *         tags: ["friend", "work"]
+     *         phoneNumber: "phoneNumber"
      *     })
      */
     public create(
-        request: Pinnacle.CreateContactRequest,
+        request: Pinnacle.CreateContactParams,
         requestOptions?: Contacts.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.CreateContactResponse> {
+    ): core.HttpResponsePromise<Pinnacle.ContactId> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Pinnacle.CreateContactRequest,
+        request: Pinnacle.CreateContactParams,
         requestOptions?: Contacts.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.CreateContactResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.ContactId>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -192,7 +188,7 @@ export class Contacts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.CreateContactResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.ContactId, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -238,7 +234,7 @@ export class Contacts {
     /**
      * Update an existing contact.
      *
-     * @param {Pinnacle.UpdateContactRequest} request
+     * @param {Pinnacle.UpdateContactParams} request
      * @param {Contacts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -249,23 +245,23 @@ export class Contacts {
      * @example
      *     await client.contacts.update({
      *         description: "Retired",
-     *         email: "alvaroopedtech@example.com",
-     *         id: 137,
+     *         email: "alvaroopedtech@pinnacle.sh",
      *         name: "Retired Bestie",
-     *         tags: ["friend"]
+     *         tags: ["friend"],
+     *         id: 137
      *     })
      */
     public update(
-        request: Pinnacle.UpdateContactRequest,
+        request: Pinnacle.UpdateContactParams,
         requestOptions?: Contacts.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.UpdateContactResponse> {
+    ): core.HttpResponsePromise<Pinnacle.UpdatedContactId> {
         return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
     }
 
     private async __update(
-        request: Pinnacle.UpdateContactRequest,
+        request: Pinnacle.UpdateContactParams,
         requestOptions?: Contacts.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.UpdateContactResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.UpdatedContactId>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -289,7 +285,7 @@ export class Contacts {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.UpdateContactResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.UpdatedContactId, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

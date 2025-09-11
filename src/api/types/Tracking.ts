@@ -3,7 +3,7 @@
  */
 
 /**
- * Enable tracking on sent messages to better detect reactions. If not provided, messages are not tracked. <br>
+ * Enable tracking on sent messages. If not provided, messages are not tracked. You will not be able to react to these messages unless you provide the [options.force](./react#request.body.options.force) field.
  *
  * `ID` - Append an explicit ID at the end of the message for tracking. Users will see this ID. <br>
  *

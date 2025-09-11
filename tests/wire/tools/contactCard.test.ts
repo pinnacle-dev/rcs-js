@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../../mock-server/MockServerPool";
 import { PinnacleClient } from "../../../src/Client";
+import * as Pinnacle from "../../../src/api/index";
 
 describe("ContactCard", () => {
-    test("get", async () => {
+    test("get (b04dc098)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: 33 };
@@ -121,7 +122,85 @@ describe("ContactCard", () => {
         });
     });
 
-    test("upsert", async () => {
+    test("get (aeebb1eb)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, options: undefined };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/contact-card")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.contactCard.get({
+                id: 1,
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("get (82f82a6b)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/contact-card")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.contactCard.get({
+                id: 1,
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (c0f0aad7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/contact-card")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.contactCard.get({
+                id: 1,
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("upsert (27b0e9d2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -226,5 +305,182 @@ describe("ContactCard", () => {
             id: 789,
             downloadUrl: "https://files.short.ly/vcard/def456.vcf",
         });
+    });
+
+    test("upsert (78f00906)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            photo: undefined,
+            id: undefined,
+            formattedName: undefined,
+            name: undefined,
+            nickname: undefined,
+            birthday: undefined,
+            addresses: undefined,
+            url: undefined,
+            phones: undefined,
+            emails: undefined,
+            timezone: undefined,
+            geo: undefined,
+            title: undefined,
+            role: undefined,
+            organization: undefined,
+            categories: undefined,
+            note: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/contact-card/upsert")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.contactCard.upsert({
+                photo: undefined,
+                id: undefined,
+                formattedName: undefined,
+                name: undefined,
+                nickname: undefined,
+                birthday: undefined,
+                addresses: undefined,
+                url: undefined,
+                phones: undefined,
+                emails: undefined,
+                timezone: undefined,
+                geo: undefined,
+                title: undefined,
+                role: undefined,
+                organization: undefined,
+                categories: undefined,
+                note: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("upsert (8b2f2f38)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            photo: undefined,
+            id: undefined,
+            formattedName: undefined,
+            name: undefined,
+            nickname: undefined,
+            birthday: undefined,
+            addresses: undefined,
+            url: undefined,
+            phones: undefined,
+            emails: undefined,
+            timezone: undefined,
+            geo: undefined,
+            title: undefined,
+            role: undefined,
+            organization: undefined,
+            categories: undefined,
+            note: undefined,
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/contact-card/upsert")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.contactCard.upsert({
+                photo: undefined,
+                id: undefined,
+                formattedName: undefined,
+                name: undefined,
+                nickname: undefined,
+                birthday: undefined,
+                addresses: undefined,
+                url: undefined,
+                phones: undefined,
+                emails: undefined,
+                timezone: undefined,
+                geo: undefined,
+                title: undefined,
+                role: undefined,
+                organization: undefined,
+                categories: undefined,
+                note: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("upsert (f526f6cc)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            photo: undefined,
+            id: undefined,
+            formattedName: undefined,
+            name: undefined,
+            nickname: undefined,
+            birthday: undefined,
+            addresses: undefined,
+            url: undefined,
+            phones: undefined,
+            emails: undefined,
+            timezone: undefined,
+            geo: undefined,
+            title: undefined,
+            role: undefined,
+            organization: undefined,
+            categories: undefined,
+            note: undefined,
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/contact-card/upsert")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.contactCard.upsert({
+                photo: undefined,
+                id: undefined,
+                formattedName: undefined,
+                name: undefined,
+                nickname: undefined,
+                birthday: undefined,
+                addresses: undefined,
+                url: undefined,
+                phones: undefined,
+                emails: undefined,
+                timezone: undefined,
+                geo: undefined,
+                title: undefined,
+                role: undefined,
+                organization: undefined,
+                categories: undefined,
+                note: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
     });
 });

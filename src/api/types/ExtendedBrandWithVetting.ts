@@ -8,7 +8,7 @@ export interface ExtendedBrandWithVetting extends Pinnacle.ExtendedBrand {
     /** ISO 8601 formatted timestamp of the last TCR vetting. */
     lastTcrVettingDate?: string | null;
     /** Feedback from The Campaign Registry if TCR vetting was performed. */
-    tcrFeedback?: Pinnacle.TcrFeedback[] | null;
+    tcrFeedback?: Pinnacle.VettingFeedback[] | null;
     /** History of all external vetting attempts for this brand. */
-    vettingHistory?: Pinnacle.VettingHistory[];
+    vettingHistory: Pinnacle.VettingHistory[];
 }

@@ -13,7 +13,7 @@ export interface RcsCardsContent {
     /** Collection of cards attached to the message. */
     cards: RcsCardsContent.Cards.Item[];
     /** List of interactive quick reply buttons in the message. */
-    quickReplies: Pinnacle.RcsButtonSchema[];
+    quickReplies: Pinnacle.RcsButtonContent[];
 }
 
 export namespace RcsCardsContent {
@@ -25,7 +25,7 @@ export namespace RcsCardsContent {
          */
         export interface Item {
             /** Action buttons attached to the card. */
-            buttons: Pinnacle.RcsButtonSchema[];
+            buttons: Pinnacle.RcsButtonContent[];
             media?: Pinnacle.RcsMediaDetailsContent;
             /** Secondary text displayed below the title for additional context. */
             subtitle?: string;

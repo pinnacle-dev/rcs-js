@@ -4,9 +4,10 @@
 
 import { mockServerPool } from "../mock-server/MockServerPool";
 import { PinnacleClient } from "../../src/Client";
+import * as Pinnacle from "../../src/api/index";
 
 describe("Conversations", () => {
-    test("get", async () => {
+    test("get (820583fc)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: 1 };
@@ -14,17 +15,17 @@ describe("Conversations", () => {
             brandId: 119,
             campaign: { id: "136", type: "TOLL_FREE" },
             contact: { id: 70, phoneNumber: "+16509231662" },
-            createdAt: "2024-09-11T00:05:29Z",
+            createdAt: "2024-09-11T00:05:29.434",
             id: 1,
             notes: "Customer inquired about product availability",
             sender: {
-                capabilities: { MMS: true, SMS: true, voice: true },
+                capabilities: { mms: true, sms: true, voice: true },
                 createdAt: "2024-01-15T09:30:00Z",
                 isSandbox: false,
                 phoneNumber: "+18445551234",
                 updatedAt: "2024-01-15T09:30:00Z",
             },
-            updatedAt: "2024-08-14T14:19:40Z",
+            updatedAt: "2024-08-14T14:19:40.237",
         };
         server
             .mockEndpoint()
@@ -48,13 +49,13 @@ describe("Conversations", () => {
                 id: 70,
                 phoneNumber: "+16509231662",
             },
-            createdAt: "2024-09-11T00:05:29Z",
+            createdAt: "2024-09-11T00:05:29.434",
             id: 1,
             notes: "Customer inquired about product availability",
             sender: {
                 capabilities: {
-                    MMS: true,
-                    SMS: true,
+                    mms: true,
+                    sms: true,
                     voice: true,
                 },
                 createdAt: "2024-01-15T09:30:00Z",
@@ -62,17 +63,92 @@ describe("Conversations", () => {
                 phoneNumber: "+18445551234",
                 updatedAt: "2024-01-15T09:30:00Z",
             },
-            updatedAt: "2024-08-14T14:19:40Z",
+            updatedAt: "2024-08-14T14:19:40.237",
         });
     });
 
-    test("list", async () => {
+    test("get (f671d110)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1 };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/conversations/get")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.get({
+                id: 1,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("get (a70c1082)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1 };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/get")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.get({
+                id: 1,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("get (dbce0db6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1 };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/get")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.get({
+                id: 1,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("list (a0abc8ad)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             brandId: 101,
             campaignId: 136,
-            campaignType: { id: "136", type: "TOLL_FREE" },
+            campaignType: "TOLL_FREE",
             pageIndex: 0,
             pageSize: 20,
             receiver: "+16509231662",
@@ -85,17 +161,17 @@ describe("Conversations", () => {
                     brandId: 119,
                     campaign: { id: "245", type: "10DLC" },
                     contact: { id: 70, phoneNumber: "+16509231662" },
-                    createdAt: "2024-09-11T00:05:29Z",
+                    createdAt: "2024-09-11T00:05:29.434",
                     id: 1,
                     notes: "VIP customer",
                     sender: {
-                        capabilities: { MMS: true, SMS: true, voice: false },
+                        capabilities: { mms: true, sms: true, voice: false },
                         createdAt: "2024-01-15T09:30:00Z",
                         isSandbox: false,
                         phoneNumber: "+18445551234",
                         updatedAt: "2024-01-15T09:30:00Z",
                     },
-                    updatedAt: "2024-08-14T14:19:40Z",
+                    updatedAt: "2024-08-14T14:19:40.237",
                 },
             ],
             hasMore: true,
@@ -112,10 +188,7 @@ describe("Conversations", () => {
         const response = await client.conversations.list({
             brandId: 101,
             campaignId: 136,
-            campaignType: {
-                id: "136",
-                type: "TOLL_FREE",
-            },
+            campaignType: "TOLL_FREE",
             pageIndex: 0,
             pageSize: 20,
             receiver: "+16509231662",
@@ -134,13 +207,13 @@ describe("Conversations", () => {
                         id: 70,
                         phoneNumber: "+16509231662",
                     },
-                    createdAt: "2024-09-11T00:05:29Z",
+                    createdAt: "2024-09-11T00:05:29.434",
                     id: 1,
                     notes: "VIP customer",
                     sender: {
                         capabilities: {
-                            MMS: true,
-                            SMS: true,
+                            mms: true,
+                            sms: true,
                             voice: false,
                         },
                         createdAt: "2024-01-15T09:30:00Z",
@@ -148,14 +221,131 @@ describe("Conversations", () => {
                         phoneNumber: "+18445551234",
                         updatedAt: "2024-01-15T09:30:00Z",
                     },
-                    updatedAt: "2024-08-14T14:19:40Z",
+                    updatedAt: "2024-08-14T14:19:40.237",
                 },
             ],
             hasMore: true,
         });
     });
 
-    test("update", async () => {
+    test("list (563ee83b)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            brandId: undefined,
+            campaignId: undefined,
+            campaignType: undefined,
+            pageIndex: 1,
+            pageSize: undefined,
+            receiver: undefined,
+            sender: undefined,
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/conversations/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.list({
+                brandId: undefined,
+                campaignId: undefined,
+                campaignType: undefined,
+                pageIndex: 1,
+                pageSize: undefined,
+                receiver: undefined,
+                sender: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("list (4bb2519b)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            brandId: undefined,
+            campaignId: undefined,
+            campaignType: undefined,
+            pageIndex: 1,
+            pageSize: undefined,
+            receiver: undefined,
+            sender: undefined,
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.list({
+                brandId: undefined,
+                campaignId: undefined,
+                campaignType: undefined,
+                pageIndex: 1,
+                pageSize: undefined,
+                receiver: undefined,
+                sender: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("list (def0d447)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            brandId: undefined,
+            campaignId: undefined,
+            campaignType: undefined,
+            pageIndex: 1,
+            pageSize: undefined,
+            receiver: undefined,
+            sender: undefined,
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.list({
+                brandId: undefined,
+                campaignId: undefined,
+                campaignType: undefined,
+                pageIndex: 1,
+                pageSize: undefined,
+                receiver: undefined,
+                sender: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("update (5aa8565c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: 123, notes: "Follow-up completed. Customer satisfied with resolution." };
@@ -176,5 +366,83 @@ describe("Conversations", () => {
         expect(response).toEqual({
             success: true,
         });
+    });
+
+    test("update (837c67e7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, notes: "x" };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/conversations/update")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.update({
+                id: 1,
+                notes: "x",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("update (f6e530ff)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, notes: "x" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/update")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.update({
+                id: 1,
+                notes: "x",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("update (c778dcdb)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: 1, notes: "x" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/update")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.update({
+                id: 1,
+                notes: "x",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
     });
 });

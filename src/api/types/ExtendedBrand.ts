@@ -4,13 +4,22 @@
 
 import * as Pinnacle from "../index.js";
 
-export interface ExtendedBrand extends Pinnacle.OptionalBrandSchema {
+export interface ExtendedBrand extends Pinnacle.OptionalBrandInfo {
     /** ISO 8601 formatted timestamp of when this brand was added to our system. */
-    createdAt?: string;
+    createdAt: string;
     /** The brand's ID. */
-    id?: number;
+    id: number;
     /** Indicates if this brand is archived. */
-    isArchived?: boolean;
+    isArchived: boolean;
+    /**
+     * Current review status of the campaign.<br>
+     *
+     * `INCOMPLETE`: Not submitted.<br>
+     * `IN REVIEW`: Being reviewed by carriers.<br>
+     * `VERIFIED`: Approved and ready to send messages.<br>
+     * `FAILED`: Issues and errors related to the campaign's details.
+     */
+    status: Pinnacle.BrandStatusEnum;
     /** ISO 8601 formatted timestamp of when this brand was last updated. */
-    updatedAt?: string;
+    updatedAt: string;
 }

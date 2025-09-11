@@ -15,7 +15,7 @@ export declare namespace Campaign {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Campaign {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -42,7 +42,7 @@ export class Campaign {
     /**
      * Link a phone number to a specific campaign.
      *
-     * @param {Pinnacle.phoneNumbers.AttachCampaignSchema} request
+     * @param {Pinnacle.phoneNumbers.AttachCampaignParams} request
      * @param {Campaign.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -58,16 +58,16 @@ export class Campaign {
      *     })
      */
     public attach(
-        request: Pinnacle.phoneNumbers.AttachCampaignSchema,
+        request: Pinnacle.phoneNumbers.AttachCampaignParams,
         requestOptions?: Campaign.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.PhoneNumberCampaignAttach> {
+    ): core.HttpResponsePromise<Pinnacle.AttachedPhoneNumberResult> {
         return core.HttpResponsePromise.fromPromise(this.__attach(request, requestOptions));
     }
 
     private async __attach(
-        request: Pinnacle.phoneNumbers.AttachCampaignSchema,
+        request: Pinnacle.phoneNumbers.AttachCampaignParams,
         requestOptions?: Campaign.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.PhoneNumberCampaignAttach>> {
+    ): Promise<core.WithRawResponse<Pinnacle.AttachedPhoneNumberResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -91,7 +91,7 @@ export class Campaign {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.PhoneNumberCampaignAttach, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.AttachedPhoneNumberResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -141,7 +141,7 @@ export class Campaign {
     /**
      * Remove the association between a phone number and its attached campaign.
      *
-     * @param {Pinnacle.phoneNumbers.DetachCampaignSchema} request
+     * @param {Pinnacle.phoneNumbers.DetachCampaignParams} request
      * @param {Campaign.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -155,16 +155,16 @@ export class Campaign {
      *     })
      */
     public detach(
-        request: Pinnacle.phoneNumbers.DetachCampaignSchema = {},
+        request: Pinnacle.phoneNumbers.DetachCampaignParams,
         requestOptions?: Campaign.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.PhoneNumberCampaignDetach> {
+    ): core.HttpResponsePromise<Pinnacle.DetachedPhoneNumberResult> {
         return core.HttpResponsePromise.fromPromise(this.__detach(request, requestOptions));
     }
 
     private async __detach(
-        request: Pinnacle.phoneNumbers.DetachCampaignSchema = {},
+        request: Pinnacle.phoneNumbers.DetachCampaignParams,
         requestOptions?: Campaign.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.PhoneNumberCampaignDetach>> {
+    ): Promise<core.WithRawResponse<Pinnacle.DetachedPhoneNumberResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -188,7 +188,7 @@ export class Campaign {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.PhoneNumberCampaignDetach, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.DetachedPhoneNumberResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

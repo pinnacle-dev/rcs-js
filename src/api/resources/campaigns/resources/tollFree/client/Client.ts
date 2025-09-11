@@ -15,7 +15,7 @@ export declare namespace TollFree {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace TollFree {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -42,7 +42,7 @@ export class TollFree {
     /**
      * Generate campaign details based off existing campaign and the brand it's connected to.
      *
-     * @param {Pinnacle.AutofillCampaignSchema} request
+     * @param {Pinnacle.AutofillCampaignParams} request
      * @param {TollFree.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -56,14 +56,14 @@ export class TollFree {
      *     })
      */
     public autofill(
-        request: Pinnacle.AutofillCampaignSchema,
+        request: Pinnacle.AutofillCampaignParams,
         requestOptions?: TollFree.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.campaigns.TollFreeAutofillResponse> {
         return core.HttpResponsePromise.fromPromise(this.__autofill(request, requestOptions));
     }
 
     private async __autofill(
-        request: Pinnacle.AutofillCampaignSchema,
+        request: Pinnacle.AutofillCampaignParams,
         requestOptions?: TollFree.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.campaigns.TollFreeAutofillResponse>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -154,14 +154,14 @@ export class TollFree {
     public get(
         campaignId: number,
         requestOptions?: TollFree.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.GetTollFreeResponse> {
+    ): core.HttpResponsePromise<Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus> {
         return core.HttpResponsePromise.fromPromise(this.__get(campaignId, requestOptions));
     }
 
     private async __get(
         campaignId: number,
         requestOptions?: TollFree.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.GetTollFreeResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -182,7 +182,10 @@ export class TollFree {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.GetTollFreeResponse, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -246,14 +249,14 @@ export class TollFree {
     public submit(
         campaignId: number,
         requestOptions?: TollFree.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.CampaignSubmission> {
+    ): core.HttpResponsePromise<Pinnacle.CampaignSubmissionResult> {
         return core.HttpResponsePromise.fromPromise(this.__submit(campaignId, requestOptions));
     }
 
     private async __submit(
         campaignId: number,
         requestOptions?: TollFree.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmission>> {
+    ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmissionResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -274,7 +277,7 @@ export class TollFree {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.CampaignSubmission, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.CampaignSubmissionResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -326,7 +329,7 @@ export class TollFree {
      *
      * Omit campaignId to create a campaign.
      *
-     * @param {Pinnacle.campaigns.UpsertTollFreeSchema} request
+     * @param {Pinnacle.campaigns.UpsertTollFreeCampaignParams} request
      * @param {TollFree.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -353,16 +356,16 @@ export class TollFree {
      *     })
      */
     public upsert(
-        request: Pinnacle.campaigns.UpsertTollFreeSchema = {},
+        request: Pinnacle.campaigns.UpsertTollFreeCampaignParams = {},
         requestOptions?: TollFree.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.UpsertTollFreeResponse> {
+    ): core.HttpResponsePromise<Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus> {
         return core.HttpResponsePromise.fromPromise(this.__upsert(request, requestOptions));
     }
 
     private async __upsert(
-        request: Pinnacle.campaigns.UpsertTollFreeSchema = {},
+        request: Pinnacle.campaigns.UpsertTollFreeCampaignParams = {},
         requestOptions?: TollFree.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.UpsertTollFreeResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -386,7 +389,10 @@ export class TollFree {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.UpsertTollFreeResponse, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -434,7 +440,7 @@ export class TollFree {
     /**
      * Validate your toll-free campaign configuration against carrier requirements and compliance rules.
      *
-     * @param {Pinnacle.ValidateCampaignSchema} request
+     * @param {Pinnacle.ValidateCampaignParams} request
      * @param {TollFree.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -448,16 +454,16 @@ export class TollFree {
      *     })
      */
     public validate(
-        request: Pinnacle.ValidateCampaignSchema,
+        request: Pinnacle.ValidateCampaignParams,
         requestOptions?: TollFree.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.CampaignValidationResponse> {
+    ): core.HttpResponsePromise<Pinnacle.CampaignValidationResult> {
         return core.HttpResponsePromise.fromPromise(this.__validate(request, requestOptions));
     }
 
     private async __validate(
-        request: Pinnacle.ValidateCampaignSchema,
+        request: Pinnacle.ValidateCampaignParams,
         requestOptions?: TollFree.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.CampaignValidationResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.CampaignValidationResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -481,7 +487,7 @@ export class TollFree {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.CampaignValidationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.CampaignValidationResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

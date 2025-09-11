@@ -1,1 +1,1 @@
-export { type UpsertRcsSchema } from "./UpsertRcsSchema.js";
+export { type UpsertRcsCampaignParams } from "./UpsertRcsCampaignParams.js";

@@ -1,1 +1,1 @@
-export { type UpsertTollFreeSchema } from "./UpsertTollFreeSchema.js";
+export { type UpsertTollFreeCampaignParams } from "./UpsertTollFreeCampaignParams.js";

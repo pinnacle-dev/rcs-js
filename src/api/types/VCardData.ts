@@ -4,7 +4,7 @@
 
 import * as Pinnacle from "../index.js";
 
-export interface VCardData extends Pinnacle.VCardRes {
+export interface VCardData extends Pinnacle.VcardContent {
     /** File associated to the contact. */
     file: VCardData.File_;
 }

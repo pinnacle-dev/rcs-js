@@ -4,15 +4,15 @@
 
 export interface Contact {
     /** Additional information about the contact. */
-    description?: string | null;
+    description?: string;
     /** Contact's email address, if available. */
-    email?: string | null;
+    email?: string;
     /** Unique ID of the contact. */
     id: number;
     /** Full name of the contact, if available. */
-    name?: string | null;
+    name?: string;
     /** Contact's phone number in E.164 format. */
     phoneNumber: string;
     /** List of tags associated with the contact. */
-    tags?: string[] | null;
+    tags?: string[];
 }

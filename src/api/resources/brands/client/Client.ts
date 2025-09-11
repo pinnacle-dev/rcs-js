@@ -15,7 +15,7 @@ export declare namespace Brands {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Brands {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -42,7 +42,7 @@ export class Brands {
     /**
      * Automatically populate brand information based on partial input data you provide.
      *
-     * @param {Pinnacle.AutofillBrandSchema} request
+     * @param {Pinnacle.AutofillBrandParams} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -60,16 +60,16 @@ export class Brands {
      *     })
      */
     public autofill(
-        request: Pinnacle.AutofillBrandSchema,
+        request: Pinnacle.AutofillBrandParams = {},
         requestOptions?: Brands.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.OptionalBrandSchema> {
+    ): core.HttpResponsePromise<Pinnacle.OptionalBrandInfo> {
         return core.HttpResponsePromise.fromPromise(this.__autofill(request, requestOptions));
     }
 
     private async __autofill(
-        request: Pinnacle.AutofillBrandSchema,
+        request: Pinnacle.AutofillBrandParams = {},
         requestOptions?: Brands.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.OptionalBrandSchema>> {
+    ): Promise<core.WithRawResponse<Pinnacle.OptionalBrandInfo>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -93,7 +93,7 @@ export class Brands {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.OptionalBrandSchema, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.OptionalBrandInfo, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -139,7 +139,7 @@ export class Brands {
     /**
      * Create a new brand or update an existing brand by with the provided information.
      *
-     * @param {Pinnacle.UpsertBrandSchema} request
+     * @param {Pinnacle.UpsertBrandParams} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -167,14 +167,14 @@ export class Brands {
      *     })
      */
     public upsert(
-        request: Pinnacle.UpsertBrandSchema = {},
+        request: Pinnacle.UpsertBrandParams = {},
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ExtendedBrand> {
         return core.HttpResponsePromise.fromPromise(this.__upsert(request, requestOptions));
     }
 
     private async __upsert(
-        request: Pinnacle.UpsertBrandSchema = {},
+        request: Pinnacle.UpsertBrandParams = {},
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ExtendedBrand>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -346,8 +346,8 @@ export class Brands {
      * Submit your brand for review and approval by the compliance team.
      *
      * @param {number} brandId - The unique identifier of the brand you want to submit for review. <br>
-     *                           Must correspond to an existing brand in your account that is ready for subm
-     *                           ission.
+     *
+     *                           Must correspond to an existing brand in your account that is ready for submission.
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -362,14 +362,14 @@ export class Brands {
     public submit(
         brandId: number,
         requestOptions?: Brands.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.BrandSubmission> {
+    ): core.HttpResponsePromise<Pinnacle.SubmissionResults> {
         return core.HttpResponsePromise.fromPromise(this.__submit(brandId, requestOptions));
     }
 
     private async __submit(
         brandId: number,
         requestOptions?: Brands.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.BrandSubmission>> {
+    ): Promise<core.WithRawResponse<Pinnacle.SubmissionResults>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -390,7 +390,7 @@ export class Brands {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.BrandSubmission, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.SubmissionResults, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -446,7 +446,7 @@ export class Brands {
     /**
      * Validate your brand information for compliance and correctness before submission or storage.
      *
-     * @param {Pinnacle.ValidateBrandSchema} request
+     * @param {Pinnacle.ValidateBrandParams} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -454,19 +454,35 @@ export class Brands {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.brands.validate({})
+     *     await client.brands.validate({
+     *         address: "500 Folsom St, San Francisco, CA 94105",
+     *         contact: {
+     *             email: "michael.chen@trypinnacle.app",
+     *             name: "Michael Chen",
+     *             phone: "+14155551234",
+     *             title: "Customer Support Representative"
+     *         },
+     *         dba: "Pinnacle Messaging",
+     *         description: "Pinnacle is an SMS, MMS, and RCS API for scaling conversations with customers you value.",
+     *         ein: "88-1234567",
+     *         email: "founders@trypinnacle.app",
+     *         name: "Pinnacle",
+     *         sector: "TECHNOLOGY",
+     *         type: "PRIVATE_PROFIT",
+     *         website: "https://www.pinnacle.sh"
+     *     })
      */
     public validate(
-        request: Pinnacle.ValidateBrandSchema,
+        request: Pinnacle.ValidateBrandParams,
         requestOptions?: Brands.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.BrandValidateResponse> {
+    ): core.HttpResponsePromise<Pinnacle.ValidationResults> {
         return core.HttpResponsePromise.fromPromise(this.__validate(request, requestOptions));
     }
 
     private async __validate(
-        request: Pinnacle.ValidateBrandSchema,
+        request: Pinnacle.ValidateBrandParams,
         requestOptions?: Brands.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.BrandValidateResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.ValidationResults>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -490,7 +506,7 @@ export class Brands {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.BrandValidateResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.ValidationResults, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -539,7 +555,7 @@ export class Brands {
      * @param {number} brandId - The unique identifier of the brand to vet. <br>
      *
      *                           The brand must be already registered before it can be vetted.
-     * @param {Pinnacle.VettingOptions} request
+     * @param {Pinnacle.VetBrandParams} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -553,17 +569,17 @@ export class Brands {
      */
     public vet(
         brandId: number,
-        request: Pinnacle.VettingOptions,
+        request: Pinnacle.VetBrandParams,
         requestOptions?: Brands.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.VettingResponse> {
+    ): core.HttpResponsePromise<Pinnacle.VettingResults> {
         return core.HttpResponsePromise.fromPromise(this.__vet(brandId, request, requestOptions));
     }
 
     private async __vet(
         brandId: number,
-        request: Pinnacle.VettingOptions,
+        request: Pinnacle.VetBrandParams,
         requestOptions?: Brands.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.VettingResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.VettingResults>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -581,13 +597,13 @@ export class Brands {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: { ...request, type: "EXTERNAL" },
+            body: { ...request, type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" },
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.VettingResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.VettingResults, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

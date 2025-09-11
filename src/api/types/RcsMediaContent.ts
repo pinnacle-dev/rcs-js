@@ -12,5 +12,5 @@ import * as Pinnacle from "../index.js";
 export interface RcsMediaContent {
     media: Pinnacle.RcsMediaDetailsContent;
     /** List of interactive quick reply buttons in the message. */
-    quickReplies: Pinnacle.RcsButtonSchema[];
+    quickReplies: Pinnacle.RcsButtonContent[];
 }

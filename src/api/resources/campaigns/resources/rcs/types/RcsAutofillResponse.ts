@@ -4,6 +4,6 @@
 
 import * as Pinnacle from "../../../../../index.js";
 
-export interface RcsAutofillResponse extends Pinnacle.RcsCampaignSchema {
+export interface RcsAutofillResponse extends Pinnacle.RcsCampaign {
     brand?: number;
 }

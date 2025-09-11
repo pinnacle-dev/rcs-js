@@ -10,7 +10,7 @@ export interface ContactsGetRequest {
     /**
      * Unique identifier of a specific contact you want to retrieve. <br>
      *
-     * Either this parameter or phoneNumber must be provided, but not both.
+     * Either this parameter or `phoneNumber` must be provided, but not both.
      */
     id?: number | null;
     /** Phone number you want to look up contact information for, provided in URL-encoded E.164 format with %2B prefix instead of +. */

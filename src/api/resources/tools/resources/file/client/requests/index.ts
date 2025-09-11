@@ -1,1 +1,1 @@
-export { type FileUploadSchema } from "./FileUploadSchema.js";
+export { type UploadFileParams } from "./UploadFileParams.js";

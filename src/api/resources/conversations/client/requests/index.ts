@@ -1,2 +1,2 @@
-export { type ListConversationsRequest } from "./ListConversationsRequest.js";
-export { type UpdateConversationRequest } from "./UpdateConversationRequest.js";
+export { type ListConversationsParams } from "./ListConversationsParams.js";
+export { type UpdateConversationParams } from "./UpdateConversationParams.js";

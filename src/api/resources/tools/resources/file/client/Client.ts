@@ -15,7 +15,7 @@ export declare namespace File_ {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace File_ {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -42,7 +42,7 @@ export class File_ {
     /**
      * Generate presigned URLs that let you upload files directly to our storage and allow your users to download them securely.
      *
-     * @param {Pinnacle.tools.FileUploadSchema} request
+     * @param {Pinnacle.tools.UploadFileParams} request
      * @param {File_.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -62,16 +62,16 @@ export class File_ {
      *     })
      */
     public upload(
-        request: Pinnacle.tools.FileUploadSchema,
+        request: Pinnacle.tools.UploadFileParams,
         requestOptions?: File_.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.PinnacleFileUpload> {
+    ): core.HttpResponsePromise<Pinnacle.UploadResults> {
         return core.HttpResponsePromise.fromPromise(this.__upload(request, requestOptions));
     }
 
     private async __upload(
-        request: Pinnacle.tools.FileUploadSchema,
+        request: Pinnacle.tools.UploadFileParams,
         requestOptions?: File_.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.PinnacleFileUpload>> {
+    ): Promise<core.WithRawResponse<Pinnacle.UploadResults>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -95,7 +95,7 @@ export class File_ {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.PinnacleFileUpload, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.UploadResults, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

@@ -15,7 +15,7 @@ export declare namespace Webhooks {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Webhooks {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -42,7 +42,7 @@ export class Webhooks {
     /**
      * Retrieve all webhook that are set up to receive events for specific URLs or phone numbers.
      *
-     * @param {Pinnacle.GetWebhooksRequest} request
+     * @param {Pinnacle.GetWebhookParams} request
      * @param {Webhooks.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -55,16 +55,16 @@ export class Webhooks {
      *     })
      */
     public get(
-        request: Pinnacle.GetWebhooksRequest,
+        request: Pinnacle.GetWebhookParams,
         requestOptions?: Webhooks.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.WebhooksResponse> {
+    ): core.HttpResponsePromise<Pinnacle.WebhookResult> {
         return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.GetWebhooksRequest,
+        request: Pinnacle.GetWebhookParams,
         requestOptions?: Webhooks.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.WebhooksResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.WebhookResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -88,7 +88,7 @@ export class Webhooks {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.WebhooksResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.WebhookResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

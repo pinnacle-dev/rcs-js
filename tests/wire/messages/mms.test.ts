@@ -4,56 +4,154 @@
 
 import { mockServerPool } from "../../mock-server/MockServerPool";
 import { PinnacleClient } from "../../../src/Client";
+import * as Pinnacle from "../../../src/api/index";
 
 describe("Mms", () => {
-    test("send", async () => {
+    test("validate (78eba654)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
-            from: "+14155164736",
             mediaUrls: [
-                "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0",
+                "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg",
+                "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w",
+                "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg",
             ],
-            options: { multiple_messages: true, validate: true },
-            text: "Check out this image!",
-            to: "+14154746461",
+            text: "Check out these images!",
         };
         const rawResponseBody = {
-            messageIds: [101, 102],
-            segments: 3,
-            totalCost: 0.09,
-            sender: "+14155164736",
-            recipient: "+14154746461",
-            status: "queued",
+            segments: {
+                count: 1,
+                unsupportedFiles: [
+                    "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg",
+                ],
+                value: [
+                    {
+                        files: [
+                            "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg",
+                            "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w",
+                        ],
+                        size: 1234,
+                        text: "Check out these images!",
+                    },
+                ],
+            },
+            total: 0.03,
+            unit: 0.03,
         };
         server
             .mockEndpoint()
-            .post("/messages/send/mms")
+            .post("/messages/validate/mms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.messages.mms.send({
-            from: "+14155164736",
+        const response = await client.messages.mms.validate({
             mediaUrls: [
-                "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0",
+                "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg",
+                "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w",
+                "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg",
             ],
-            options: {
-                multiple_messages: true,
-                validate: true,
-            },
-            text: "Check out this image!",
-            to: "+14154746461",
+            text: "Check out these images!",
         });
         expect(response).toEqual({
-            messageIds: [101, 102],
-            segments: 3,
-            totalCost: 0.09,
-            sender: "+14155164736",
-            recipient: "+14154746461",
-            status: "queued",
+            segments: {
+                count: 1,
+                unsupportedFiles: [
+                    "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg",
+                ],
+                value: [
+                    {
+                        files: [
+                            "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg",
+                            "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w",
+                        ],
+                        size: 1234,
+                        text: "Check out these images!",
+                    },
+                ],
+            },
+            total: 0.03,
+            unit: 0.03,
         });
+    });
+
+    test("validate (2ab1d2ba)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { mediaUrls: ["mediaUrls", "mediaUrls"], text: undefined };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/messages/validate/mms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.mms.validate({
+                mediaUrls: ["mediaUrls", "mediaUrls"],
+                text: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("validate (40e99bd4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { mediaUrls: ["mediaUrls", "mediaUrls"], text: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/validate/mms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.mms.validate({
+                mediaUrls: ["mediaUrls", "mediaUrls"],
+                text: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("validate (35a739c8)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { mediaUrls: ["mediaUrls", "mediaUrls"], text: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/validate/mms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.mms.validate({
+                mediaUrls: ["mediaUrls", "mediaUrls"],
+                text: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
     });
 });

@@ -15,7 +15,7 @@ export declare namespace Rcs {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Rcs {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -42,7 +42,7 @@ export class Rcs {
     /**
      * Generate campaign details based off existing campaign and the brand it's connected to.
      *
-     * @param {Pinnacle.AutofillCampaignSchema} request
+     * @param {Pinnacle.AutofillCampaignParams} request
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -56,14 +56,14 @@ export class Rcs {
      *     })
      */
     public autofill(
-        request: Pinnacle.AutofillCampaignSchema,
+        request: Pinnacle.AutofillCampaignParams,
         requestOptions?: Rcs.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.campaigns.RcsAutofillResponse> {
         return core.HttpResponsePromise.fromPromise(this.__autofill(request, requestOptions));
     }
 
     private async __autofill(
-        request: Pinnacle.AutofillCampaignSchema,
+        request: Pinnacle.AutofillCampaignParams,
         requestOptions?: Rcs.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.campaigns.RcsAutofillResponse>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -152,14 +152,14 @@ export class Rcs {
     public get(
         campaignId: number,
         requestOptions?: Rcs.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.RcsCampaignSchemaExtra> {
+    ): core.HttpResponsePromise<Pinnacle.ExtendedRcsCampaign> {
         return core.HttpResponsePromise.fromPromise(this.__get(campaignId, requestOptions));
     }
 
     private async __get(
         campaignId: number,
         requestOptions?: Rcs.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.RcsCampaignSchemaExtra>> {
+    ): Promise<core.WithRawResponse<Pinnacle.ExtendedRcsCampaign>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -180,7 +180,7 @@ export class Rcs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.RcsCampaignSchemaExtra, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.ExtendedRcsCampaign, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -242,14 +242,14 @@ export class Rcs {
     public submit(
         campaignId: number,
         requestOptions?: Rcs.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.CampaignSubmission> {
+    ): core.HttpResponsePromise<Pinnacle.CampaignSubmissionResult> {
         return core.HttpResponsePromise.fromPromise(this.__submit(campaignId, requestOptions));
     }
 
     private async __submit(
         campaignId: number,
         requestOptions?: Rcs.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmission>> {
+    ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmissionResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -270,7 +270,7 @@ export class Rcs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.CampaignSubmission, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.CampaignSubmissionResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -322,7 +322,7 @@ export class Rcs {
      *
      * Omit campaignId to create a campaign.
      *
-     * @param {Pinnacle.campaigns.UpsertRcsSchema} request
+     * @param {Pinnacle.campaigns.UpsertRcsCampaignParams} request
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -352,7 +352,7 @@ export class Rcs {
      *                 }]
      *         },
      *         brand: 2,
-     *         expectedAgentResponse: ["Here are the things I can help you with.", "I can assist you with booking an appointment, or you may choose to book manually.", "Here are the available times to connect with a representative tomorrow.", "Your appointment has been scheduled."],
+     *         expectedAgentResponses: ["Here are the things I can help you with.", "I can assist you with booking an appointment, or you may choose to book manually.", "Here are the available times to connect with a representative tomorrow.", "Your appointment has been scheduled."],
      *         links: {
      *             privacyPolicy: "https://www.trypinnacle.app/privacy",
      *             termsOfService: "https://www.trypinnacle.app/terms"
@@ -372,16 +372,16 @@ export class Rcs {
      *     })
      */
     public upsert(
-        request: Pinnacle.campaigns.UpsertRcsSchema = {},
+        request: Pinnacle.campaigns.UpsertRcsCampaignParams = {},
         requestOptions?: Rcs.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.RcsCampaignSchemaExtra> {
+    ): core.HttpResponsePromise<Pinnacle.ExtendedRcsCampaign> {
         return core.HttpResponsePromise.fromPromise(this.__upsert(request, requestOptions));
     }
 
     private async __upsert(
-        request: Pinnacle.campaigns.UpsertRcsSchema = {},
+        request: Pinnacle.campaigns.UpsertRcsCampaignParams = {},
         requestOptions?: Rcs.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.RcsCampaignSchemaExtra>> {
+    ): Promise<core.WithRawResponse<Pinnacle.ExtendedRcsCampaign>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -405,7 +405,7 @@ export class Rcs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.RcsCampaignSchemaExtra, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.ExtendedRcsCampaign, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -453,7 +453,7 @@ export class Rcs {
     /**
      * Validate your RCS campaign configuration against carrier requirements and compliance rules.
      *
-     * @param {Pinnacle.ValidateCampaignSchema} request
+     * @param {Pinnacle.ValidateCampaignParams} request
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -467,16 +467,16 @@ export class Rcs {
      *     })
      */
     public validate(
-        request: Pinnacle.ValidateCampaignSchema,
+        request: Pinnacle.ValidateCampaignParams,
         requestOptions?: Rcs.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.CampaignValidationResponse> {
+    ): core.HttpResponsePromise<Pinnacle.CampaignValidationResult> {
         return core.HttpResponsePromise.fromPromise(this.__validate(request, requestOptions));
     }
 
     private async __validate(
-        request: Pinnacle.ValidateCampaignSchema,
+        request: Pinnacle.ValidateCampaignParams,
         requestOptions?: Rcs.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.CampaignValidationResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.CampaignValidationResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -500,7 +500,7 @@ export class Rcs {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.CampaignValidationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.CampaignValidationResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

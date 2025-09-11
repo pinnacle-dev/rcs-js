@@ -1,2 +1,2 @@
-export { type UrlSchema } from "./UrlSchema.js";
-export { type UpdateUrlSchema } from "./UpdateUrlSchema.js";
+export { type CreateUrlParams } from "./CreateUrlParams.js";
+export { type UpdateUrlParams } from "./UpdateUrlParams.js";

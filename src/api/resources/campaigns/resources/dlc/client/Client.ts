@@ -15,7 +15,7 @@ export declare namespace Dlc {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Dlc {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -42,7 +42,7 @@ export class Dlc {
     /**
      * Generate campaign details based off existing campaign and the brand it's connected to.
      *
-     * @param {Pinnacle.AutofillCampaignSchema} request
+     * @param {Pinnacle.AutofillCampaignParams} request
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -56,16 +56,16 @@ export class Dlc {
      *     })
      */
     public autofill(
-        request: Pinnacle.AutofillCampaignSchema,
+        request: Pinnacle.AutofillCampaignParams,
         requestOptions?: Dlc.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.AutofillDlcResponse> {
+    ): core.HttpResponsePromise<Pinnacle.AutofillDlcCampaignResponse> {
         return core.HttpResponsePromise.fromPromise(this.__autofill(request, requestOptions));
     }
 
     private async __autofill(
-        request: Pinnacle.AutofillCampaignSchema,
+        request: Pinnacle.AutofillCampaignParams,
         requestOptions?: Dlc.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.AutofillDlcResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.AutofillDlcCampaignResponse>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -89,7 +89,7 @@ export class Dlc {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.AutofillDlcResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.AutofillDlcCampaignResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -149,14 +149,14 @@ export class Dlc {
     public get(
         campaignId: number,
         requestOptions?: Dlc.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.GetDlcResponse> {
+    ): core.HttpResponsePromise<Pinnacle.DlcCampaignWithExtendedBrandAndStatus> {
         return core.HttpResponsePromise.fromPromise(this.__get(campaignId, requestOptions));
     }
 
     private async __get(
         campaignId: number,
         requestOptions?: Dlc.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.GetDlcResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.DlcCampaignWithExtendedBrandAndStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -177,7 +177,10 @@ export class Dlc {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.GetDlcResponse, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Pinnacle.DlcCampaignWithExtendedBrandAndStatus,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -239,14 +242,14 @@ export class Dlc {
     public submit(
         campaignId: number,
         requestOptions?: Dlc.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.CampaignSubmission> {
+    ): core.HttpResponsePromise<Pinnacle.CampaignSubmissionResult> {
         return core.HttpResponsePromise.fromPromise(this.__submit(campaignId, requestOptions));
     }
 
     private async __submit(
         campaignId: number,
         requestOptions?: Dlc.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmission>> {
+    ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmissionResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -267,7 +270,7 @@ export class Dlc {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.CampaignSubmission, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.CampaignSubmissionResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -319,7 +322,7 @@ export class Dlc {
      *
      * Omit campaignId to create a campaign.
      *
-     * @param {Pinnacle.campaigns.UpsertDlcSchema} request
+     * @param {Pinnacle.campaigns.UpsertDlcCampaignParams} request
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -368,16 +371,16 @@ export class Dlc {
      *     })
      */
     public upsert(
-        request: Pinnacle.campaigns.UpsertDlcSchema = {},
+        request: Pinnacle.campaigns.UpsertDlcCampaignParams = {},
         requestOptions?: Dlc.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.UpsertDlcResponse> {
+    ): core.HttpResponsePromise<Pinnacle.DlcCampaignWithExtendedBrandAndStatus> {
         return core.HttpResponsePromise.fromPromise(this.__upsert(request, requestOptions));
     }
 
     private async __upsert(
-        request: Pinnacle.campaigns.UpsertDlcSchema = {},
+        request: Pinnacle.campaigns.UpsertDlcCampaignParams = {},
         requestOptions?: Dlc.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.UpsertDlcResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.DlcCampaignWithExtendedBrandAndStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -401,7 +404,10 @@ export class Dlc {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.UpsertDlcResponse, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Pinnacle.DlcCampaignWithExtendedBrandAndStatus,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {
@@ -449,7 +455,7 @@ export class Dlc {
     /**
      * Validate your DLC campaign configuration against carrier requirements and compliance rules.
      *
-     * @param {Pinnacle.ValidateCampaignSchema} request
+     * @param {Pinnacle.ValidateCampaignParams} request
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -463,16 +469,16 @@ export class Dlc {
      *     })
      */
     public validate(
-        request: Pinnacle.ValidateCampaignSchema,
+        request: Pinnacle.ValidateCampaignParams,
         requestOptions?: Dlc.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.CampaignValidationResponse> {
+    ): core.HttpResponsePromise<Pinnacle.CampaignValidationResult> {
         return core.HttpResponsePromise.fromPromise(this.__validate(request, requestOptions));
     }
 
     private async __validate(
-        request: Pinnacle.ValidateCampaignSchema,
+        request: Pinnacle.ValidateCampaignParams,
         requestOptions?: Dlc.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.CampaignValidationResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.CampaignValidationResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -496,7 +502,7 @@ export class Dlc {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.CampaignValidationResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.CampaignValidationResult, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

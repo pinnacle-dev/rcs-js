@@ -15,7 +15,7 @@ export declare namespace Url {
         baseUrl?: core.Supplier<string>;
         apiKey: core.Supplier<string>;
         /** Additional headers to include in requests. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 
     export interface RequestOptions {
@@ -28,7 +28,7 @@ export declare namespace Url {
         /** Additional query string parameters to include in the request. */
         queryParams?: Record<string, unknown>;
         /** Additional headers to include in the request. */
-        headers?: Record<string, string | core.Supplier<string | undefined> | undefined>;
+        headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
 }
 
@@ -40,9 +40,9 @@ export class Url {
     }
 
     /**
-     * Create a shortened URL that redirects visitors to your provided destination URL.
+     * Create a shortened URL that redirects visitors to the provided destination URL.
      *
-     * @param {Pinnacle.tools.UrlSchema} request
+     * @param {Pinnacle.tools.CreateUrlParams} request
      * @param {Url.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -58,16 +58,16 @@ export class Url {
      *     })
      */
     public create(
-        request: Pinnacle.tools.UrlSchema,
+        request: Pinnacle.tools.CreateUrlParams,
         requestOptions?: Url.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.PinnacleUrl> {
+    ): core.HttpResponsePromise<Pinnacle.ShortenedUrl> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
-        request: Pinnacle.tools.UrlSchema,
+        request: Pinnacle.tools.CreateUrlParams,
         requestOptions?: Url.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.PinnacleUrl>> {
+    ): Promise<core.WithRawResponse<Pinnacle.ShortenedUrl>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -91,7 +91,7 @@ export class Url {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.PinnacleUrl, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.ShortenedUrl, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -152,14 +152,14 @@ export class Url {
     public get(
         linkId: string,
         requestOptions?: Url.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.PinnacleUrlWithClicks> {
+    ): core.HttpResponsePromise<Pinnacle.ShortenedUrlWithClickData> {
         return core.HttpResponsePromise.fromPromise(this.__get(linkId, requestOptions));
     }
 
     private async __get(
         linkId: string,
         requestOptions?: Url.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.PinnacleUrlWithClicks>> {
+    ): Promise<core.WithRawResponse<Pinnacle.ShortenedUrlWithClickData>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -180,7 +180,7 @@ export class Url {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.PinnacleUrlWithClicks, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.ShortenedUrlWithClickData, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -229,7 +229,7 @@ export class Url {
      * @param {string} linkId - Unique identifier from your shortened URL. For example, for `https://pncl.to/ePzVxILF`, the `linkId` is `ePzVxILF`. <br>
      *
      *                          See the response of [Create Shortened URL](./create-url) for more information.
-     * @param {Pinnacle.tools.UpdateUrlSchema} request
+     * @param {Pinnacle.tools.UpdateUrlParams} request
      * @param {Url.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -243,17 +243,17 @@ export class Url {
      */
     public update(
         linkId: string,
-        request: Pinnacle.tools.UpdateUrlSchema = {},
+        request: Pinnacle.tools.UpdateUrlParams = {},
         requestOptions?: Url.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.PinnacleUrl> {
+    ): core.HttpResponsePromise<Pinnacle.ShortenedUrl> {
         return core.HttpResponsePromise.fromPromise(this.__update(linkId, request, requestOptions));
     }
 
     private async __update(
         linkId: string,
-        request: Pinnacle.tools.UpdateUrlSchema = {},
+        request: Pinnacle.tools.UpdateUrlParams = {},
         requestOptions?: Url.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.PinnacleUrl>> {
+    ): Promise<core.WithRawResponse<Pinnacle.ShortenedUrl>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -277,7 +277,7 @@ export class Url {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.PinnacleUrl, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.ShortenedUrl, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
