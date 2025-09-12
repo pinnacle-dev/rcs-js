@@ -44,16 +44,14 @@ jobs:
         run: yarn build
 
       - name: Publish to npm
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          if [[ ${GITHUB_REF} == *"alpha"* ]]; then
+          if [[ ${GITHUB_REF} == *alpha* ]]; then
             npm publish --access public --tag alpha
-          elif [[ ${GITHUB_REF} == *"beta"* ]]; then
+          elif [[ ${GITHUB_REF} == *beta* ]]; then
             npm publish --access public --tag beta
-          elif [[ ${GITHUB_REF} == *"rc"* ]]; then
-            npm publish --access public --tag next
           else
             npm publish --access public
           fi
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
