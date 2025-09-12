@@ -48,31 +48,7 @@ async function updateFileContents(file) {
     const content = await fs.readFile(file, "utf8");
 
     let newContent = content;
-
-    // First, add .mjs extension to imports without any extension
-    // Handle static imports/exports without extensions
-    const staticNoExtRegex = /(import|export)(.+from\s+['"])(\.\.?\/[^'"]+?)(?<!\.mjs)(?<!\.d\.mts)(['"])/g;
-    newContent = newContent.replace(staticNoExtRegex, (match, p1, p2, p3, p4) => {
-        // Skip if it already has an extension
-        if (p3.match(/\.\w+$/)) {
-            return match;
-        }
-        // Add .mjs for .mjs files
-        const newExt = file.endsWith(".d.mts") ? ".mjs" : ".mjs";
-        return `${p1}${p2}${p3}${newExt}${p4}`;
-    });
-
-    // Handle dynamic imports without extensions
-    const dynamicNoExtRegex =
-        /(yield\s+import|await\s+import|import)\s*\(\s*['"](\.\.\?\/[^'"]+?)(?<!\.mjs)(?<!\.d\.mts)['"]\s*\)/g;
-    newContent = newContent.replace(dynamicNoExtRegex, (match, p1, p2) => {
-        // Skip if it already has an extension
-        if (p2.match(/\.\w+$/)) {
-            return match;
-        }
-        return `${p1}("${p2}.mjs")`;
-    });
-
+    // Update each extension type defined in the map
     for (const [oldExt, newExt] of Object.entries(extensionMap)) {
         // Handle static imports/exports
         const staticRegex = new RegExp(`(import|export)(.+from\\s+['"])(\\.\\.?\\/[^'"]+)(\\${oldExt})(['"])`, "g");
