@@ -51,7 +51,7 @@ describe("File_", () => {
         });
     });
 
-    test("upload (c9ae1277)", async () => {
+    test("upload (32ec6e09)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -79,7 +79,7 @@ describe("File_", () => {
         );
     });
 
-    test("upload (bb96e26f)", async () => {
+    test("upload (a862d451)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -107,7 +107,7 @@ describe("File_", () => {
         );
     });
 
-    test("upload (852ead4b)", async () => {
+    test("upload (9895dd)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };

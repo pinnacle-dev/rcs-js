@@ -12,7 +12,6 @@ import { Messages } from "./api/resources/messages/client/Client.js";
 import { PhoneNumbers } from "./api/resources/phoneNumbers/client/Client.js";
 import { Webhooks } from "./api/resources/webhooks/client/Client.js";
 import { Campaigns } from "./api/resources/campaigns/client/Client.js";
-import { Message } from "./api/resources/message/client/Client.js";
 import { Status } from "./api/resources/status/client/Client.js";
 import { Tools } from "./api/resources/tools/client/Client.js";
 
@@ -49,7 +48,6 @@ export class PinnacleClient {
     protected _phoneNumbers: PhoneNumbers | undefined;
     protected _webhooks: Webhooks | undefined;
     protected _campaigns: Campaigns | undefined;
-    protected _message: Message | undefined;
     protected _status: Status | undefined;
     protected _tools: Tools | undefined;
 
@@ -96,10 +94,6 @@ export class PinnacleClient {
 
     public get campaigns(): Campaigns {
         return (this._campaigns ??= new Campaigns(this._options));
-    }
-
-    public get message(): Message {
-        return (this._message ??= new Message(this._options));
     }
 
     public get status(): Status {

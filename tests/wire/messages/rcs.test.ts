@@ -7,6 +7,349 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("Rcs", () => {
+    test("send (Send RCS Response)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            quickReplies: [{ payload: "payload", title: "title", type: "openUrl" }],
+            text: "text",
+            from: "from",
+            to: "to",
+        };
+        const rawResponseBody = {
+            messageIds: 1.1,
+            segments: 1,
+            totalCost: 1.1,
+            sender: "sender",
+            recipient: "recipient",
+            status: "queued",
+        };
+        server
+            .mockEndpoint()
+            .post("/messages/send/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.messages.rcs.send({
+            quickReplies: [
+                {
+                    type: "openUrl",
+                    payload: "payload",
+                    title: "title",
+                },
+            ],
+            text: "text",
+            from: "from",
+            to: "to",
+        });
+        expect(response).toEqual({
+            messageIds: 1.1,
+            segments: 1,
+            totalCost: 1.1,
+            sender: "sender",
+            recipient: "recipient",
+            status: "queued",
+        });
+    });
+
+    test("send (Scheduled Response)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            quickReplies: [{ payload: "payload", title: "title", type: "openUrl" }],
+            text: "text",
+            from: "from",
+            to: "to",
+        };
+        const rawResponseBody = {
+            scheduleId: 987654321,
+            config: {
+                sendAt: "2024-08-01T09:00:00",
+                recurrence: "cron(0 9 * * MON-FRI *)",
+                timezone: "UTC",
+                endDate: "endDate",
+            },
+        };
+        server
+            .mockEndpoint()
+            .post("/messages/send/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.messages.rcs.send({
+            quickReplies: [
+                {
+                    type: "openUrl",
+                    payload: "payload",
+                    title: "title",
+                },
+            ],
+            text: "text",
+            from: "from",
+            to: "to",
+        });
+        expect(response).toEqual({
+            scheduleId: 987654321,
+            config: {
+                sendAt: "2024-08-01T09:00:00",
+                recurrence: "cron(0 9 * * MON-FRI *)",
+                timezone: "UTC",
+                endDate: "endDate",
+            },
+        });
+    });
+
+    test("send (39cdcf5f)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            from: "from",
+            options: undefined,
+            to: "to",
+            quickReplies: [
+                { type: "openUrl", payload: "payload", title: "title" },
+                { type: "openUrl", payload: "payload", title: "title" },
+            ],
+            text: "text",
+        };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.send({
+                from: "from",
+                options: undefined,
+                to: "to",
+                quickReplies: [
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                ],
+                text: "text",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("send (80ba1357)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            from: "from",
+            options: undefined,
+            to: "to",
+            quickReplies: [
+                { type: "openUrl", payload: "payload", title: "title" },
+                { type: "openUrl", payload: "payload", title: "title" },
+            ],
+            text: "text",
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.send({
+                from: "from",
+                options: undefined,
+                to: "to",
+                quickReplies: [
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                ],
+                text: "text",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("send (c87edd57)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            from: "from",
+            options: undefined,
+            to: "to",
+            quickReplies: [
+                { type: "openUrl", payload: "payload", title: "title" },
+                { type: "openUrl", payload: "payload", title: "title" },
+            ],
+            text: "text",
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(402)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.send({
+                from: "from",
+                options: undefined,
+                to: "to",
+                quickReplies: [
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                ],
+                text: "text",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.PaymentRequiredError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("send (3b4ea883)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            from: "from",
+            options: undefined,
+            to: "to",
+            quickReplies: [
+                { type: "openUrl", payload: "payload", title: "title" },
+                { type: "openUrl", payload: "payload", title: "title" },
+            ],
+            text: "text",
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.send({
+                from: "from",
+                options: undefined,
+                to: "to",
+                quickReplies: [
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                ],
+                text: "text",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("send (a47be353)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            from: "from",
+            options: undefined,
+            to: "to",
+            quickReplies: [
+                { type: "openUrl", payload: "payload", title: "title" },
+                { type: "openUrl", payload: "payload", title: "title" },
+            ],
+            text: "text",
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.send({
+                from: "from",
+                options: undefined,
+                to: "to",
+                quickReplies: [
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                ],
+                text: "text",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
     test("validate (2433179f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
@@ -41,7 +384,7 @@ describe("Rcs", () => {
         });
     });
 
-    test("validate (c23cd60b)", async () => {
+    test("validate (c7e6ecbd)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -84,7 +427,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("validate (dfde0ecb)", async () => {
+    test("validate (b362911d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -127,7 +470,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("validate (80ef98b7)", async () => {
+    test("validate (a133bf09)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {

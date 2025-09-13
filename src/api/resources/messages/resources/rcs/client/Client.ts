@@ -40,6 +40,116 @@ export class Rcs {
     }
 
     /**
+     * Send a RCS message immediately or schedule it for future delivery. <br>
+     *
+     * Requires an active RCS agent and recipient devices that support RCS Business Messaging.
+     *
+     * @param {Pinnacle.Rcs} request
+     * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Pinnacle.BadRequestError}
+     * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.PaymentRequiredError}
+     * @throws {@link Pinnacle.NotFoundError}
+     * @throws {@link Pinnacle.InternalServerError}
+     *
+     * @example
+     *     await client.messages.rcs.send({
+     *         quickReplies: [{
+     *                 type: "openUrl",
+     *                 payload: "payload",
+     *                 title: "title"
+     *             }],
+     *         text: "text",
+     *         from: "from",
+     *         to: "to"
+     *     })
+     */
+    public send(
+        request: Pinnacle.Rcs,
+        requestOptions?: Rcs.RequestOptions,
+    ): core.HttpResponsePromise<Pinnacle.messages.RcsSendResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__send(request, requestOptions));
+    }
+
+    private async __send(
+        request: Pinnacle.Rcs,
+        requestOptions?: Rcs.RequestOptions,
+    ): Promise<core.WithRawResponse<Pinnacle.messages.RcsSendResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.PinnacleEnvironment.Default,
+                "messages/send/rcs",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Pinnacle.messages.RcsSendResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new Pinnacle.UnauthorizedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 402:
+                    throw new Pinnacle.PaymentRequiredError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Pinnacle.NotFoundError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
+                case 500:
+                    throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.PinnacleError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.PinnacleError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/send/rcs.");
+            case "unknown":
+                throw new errors.PinnacleError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Validate RCS message content without sending it.
      *
      * @param {Pinnacle.RcsValidateContent} request

@@ -2348,9 +2348,76 @@ await client.campaigns.rcs.validate({
 </dl>
 </details>
 
-## Message Sms
+## Messages Sms
 
-<details><summary><code>client.message.sms.<a href="/src/api/resources/message/resources/sms/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.SmsValidationResult</code></summary>
+<details><summary><code>client.messages.sms.<a href="/src/api/resources/messages/resources/sms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.SmsSendResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a SMS message immediately or schedule it for future delivery.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.sms.send({
+    from: "+14155164736",
+    text: "Hey! \uD83D\uDE02",
+    to: "+14154746461",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.messages.Sms`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sms.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.sms.<a href="/src/api/resources/messages/resources/sms/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.SmsValidationResult</code></summary>
 <dl>
 <dd>
 
@@ -2378,7 +2445,7 @@ Validate SMS message content without sending it.
 <dd>
 
 ```typescript
-await client.message.sms.validate({
+await client.messages.sms.validate({
     text: "Hello from Pinnacle",
 });
 ```
@@ -2415,76 +2482,9 @@ await client.message.sms.validate({
 </dl>
 </details>
 
-## Messages Send
+## Messages Mms
 
-<details><summary><code>client.messages.send.<a href="/src/api/resources/messages/resources/send/client/Client.ts">sms</a>({ ...params }) -> Pinnacle.SendSmsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Send a SMS message immediately or schedule it for future delivery.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.messages.send.sms({
-    from: "+14155164736",
-    text: "Hey! \uD83D\uDE02",
-    to: "+14154746461",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.messages.Sms`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Send.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.messages.send.<a href="/src/api/resources/messages/resources/send/client/Client.ts">mms</a>({ ...params }) -> Pinnacle.SendMmsResponse</code></summary>
+<details><summary><code>client.messages.mms.<a href="/src/api/resources/messages/resources/mms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.MmsSendResponse</code></summary>
 <dl>
 <dd>
 
@@ -2512,7 +2512,7 @@ Send a MMS immediately or schedule it for future delivery.
 <dd>
 
 ```typescript
-await client.messages.send.mms({
+await client.messages.mms.send({
     from: "+14155164736",
     mediaUrls: ["https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"],
     options: {
@@ -2545,7 +2545,7 @@ await client.messages.send.mms({
 <dl>
 <dd>
 
-**requestOptions:** `Send.RequestOptions`
+**requestOptions:** `Mms.RequestOptions`
 
 </dd>
 </dl>
@@ -2555,84 +2555,6 @@ await client.messages.send.mms({
 </dd>
 </dl>
 </details>
-
-<details><summary><code>client.messages.send.<a href="/src/api/resources/messages/resources/send/client/Client.ts">rcs</a>({ ...params }) -> Pinnacle.SendRcsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Send a RCS message immediately or schedule it for future delivery. <br>
-
-Requires an active RCS agent and recipient devices that support RCS Business Messaging.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.messages.send.rcs({
-    quickReplies: [
-        {
-            type: "openUrl",
-            payload: "payload",
-            title: "title",
-        },
-    ],
-    text: "text",
-    from: "from",
-    to: "to",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.Rcs`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Send.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## Messages Mms
 
 <details><summary><code>client.messages.mms.<a href="/src/api/resources/messages/resources/mms/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.MmsValidationResult</code></summary>
 <dl>
@@ -2705,6 +2627,82 @@ await client.messages.mms.validate({
 </details>
 
 ## Messages Rcs
+
+<details><summary><code>client.messages.rcs.<a href="/src/api/resources/messages/resources/rcs/client/Client.ts">send</a>({ ...params }) -> Pinnacle.RcsSendResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a RCS message immediately or schedule it for future delivery. <br>
+
+Requires an active RCS agent and recipient devices that support RCS Business Messaging.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.rcs.send({
+    quickReplies: [
+        {
+            type: "openUrl",
+            payload: "payload",
+            title: "title",
+        },
+    ],
+    text: "text",
+    from: "from",
+    to: "to",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.Rcs`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
 
 <details><summary><code>client.messages.rcs.<a href="/src/api/resources/messages/resources/rcs/client/Client.ts">validate</a>({ ...params }) -> Pinnacle.RcsValidationResult</code></summary>
 <dl>

@@ -6,7 +6,6 @@ export * as brands from "./brands/index.js";
 export * as contacts from "./contacts/index.js";
 export * as conversations from "./conversations/index.js";
 export * as webhooks from "./webhooks/index.js";
-export * as message from "./message/index.js";
 export * as status from "./status/index.js";
 export * as tools from "./tools/index.js";
 export * from "./brands/client/requests/index.js";

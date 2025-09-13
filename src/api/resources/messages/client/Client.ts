@@ -7,7 +7,7 @@ import * as core from "../../../../core/index.js";
 import * as Pinnacle from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import * as errors from "../../../../errors/index.js";
-import { Send } from "../resources/send/client/Client.js";
+import { Sms } from "../resources/sms/client/Client.js";
 import { Mms } from "../resources/mms/client/Client.js";
 import { Rcs } from "../resources/rcs/client/Client.js";
 
@@ -37,7 +37,7 @@ export declare namespace Messages {
 
 export class Messages {
     protected readonly _options: Messages.Options;
-    protected _send: Send | undefined;
+    protected _sms: Sms | undefined;
     protected _mms: Mms | undefined;
     protected _rcs: Rcs | undefined;
 
@@ -45,8 +45,8 @@ export class Messages {
         this._options = _options;
     }
 
-    public get send(): Send {
-        return (this._send ??= new Send(this._options));
+    public get sms(): Sms {
+        return (this._sms ??= new Sms(this._options));
     }
 
     public get mms(): Mms {

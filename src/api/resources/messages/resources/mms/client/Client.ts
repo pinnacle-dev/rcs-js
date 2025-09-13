@@ -40,6 +40,114 @@ export class Mms {
     }
 
     /**
+     * Send a MMS immediately or schedule it for future delivery.
+     *
+     * @param {Pinnacle.messages.Mms} request
+     * @param {Mms.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Pinnacle.BadRequestError}
+     * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.PaymentRequiredError}
+     * @throws {@link Pinnacle.NotFoundError}
+     * @throws {@link Pinnacle.InternalServerError}
+     *
+     * @example
+     *     await client.messages.mms.send({
+     *         from: "+14155164736",
+     *         mediaUrls: ["https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0"],
+     *         options: {
+     *             multiple_messages: true,
+     *             validate: true
+     *         },
+     *         text: "Check out this image!",
+     *         to: "+14154746461"
+     *     })
+     */
+    public send(
+        request: Pinnacle.messages.Mms,
+        requestOptions?: Mms.RequestOptions,
+    ): core.HttpResponsePromise<Pinnacle.messages.MmsSendResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__send(request, requestOptions));
+    }
+
+    private async __send(
+        request: Pinnacle.messages.Mms,
+        requestOptions?: Mms.RequestOptions,
+    ): Promise<core.WithRawResponse<Pinnacle.messages.MmsSendResponse>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.PinnacleEnvironment.Default,
+                "messages/send/mms",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Pinnacle.messages.MmsSendResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new Pinnacle.UnauthorizedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 402:
+                    throw new Pinnacle.PaymentRequiredError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Pinnacle.NotFoundError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
+                case 500:
+                    throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.PinnacleError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.PinnacleError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/send/mms.");
+            case "unknown":
+                throw new errors.PinnacleError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Validate MMS message content without sending it.
      *
      * @param {Pinnacle.MmsContent} request

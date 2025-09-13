@@ -45,7 +45,7 @@ describe("Webhook", () => {
         });
     });
 
-    test("attach (20667a04)", async () => {
+    test("attach (1886036)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { webhookId: 1, event: undefined };
@@ -71,7 +71,7 @@ describe("Webhook", () => {
         );
     });
 
-    test("attach (cb030ffe)", async () => {
+    test("attach (c1087a48)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { webhookId: 1, event: undefined };
@@ -97,7 +97,7 @@ describe("Webhook", () => {
         );
     });
 
-    test("attach (4616f2da)", async () => {
+    test("attach (e6fb1e14)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { webhookId: 1, event: undefined };
@@ -123,7 +123,7 @@ describe("Webhook", () => {
         );
     });
 
-    test("attach (c2a94be2)", async () => {
+    test("attach (ee5dc3dc)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { webhookId: 1, event: undefined };
@@ -149,7 +149,7 @@ describe("Webhook", () => {
         );
     });
 
-    test("attach (e0f018e2)", async () => {
+    test("attach (9d1a68ec)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { webhookId: 1, event: undefined };
@@ -200,7 +200,7 @@ describe("Webhook", () => {
         });
     });
 
-    test("detach (f35efb42)", async () => {
+    test("detach (498eecc0)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -222,7 +222,7 @@ describe("Webhook", () => {
         );
     });
 
-    test("detach (1952203c)", async () => {
+    test("detach (ae8d292)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -244,7 +244,7 @@ describe("Webhook", () => {
         );
     });
 
-    test("detach (825427b8)", async () => {
+    test("detach (829aa76e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -266,7 +266,7 @@ describe("Webhook", () => {
         );
     });
 
-    test("detach (b88cf430)", async () => {
+    test("detach (4be43ac6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 

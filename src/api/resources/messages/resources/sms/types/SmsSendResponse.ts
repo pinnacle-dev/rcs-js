@@ -4,4 +4,4 @@
 
 import * as Pinnacle from "../../../../../index.js";
 
-export type SendMmsResponse = Pinnacle.SentMmsDetails | Pinnacle.ScheduledMessaage;
+export type SmsSendResponse = Pinnacle.SentSmsDetails | Pinnacle.ScheduledMessaage;

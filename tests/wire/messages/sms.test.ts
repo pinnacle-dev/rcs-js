@@ -6,52 +6,40 @@ import { mockServerPool } from "../../mock-server/MockServerPool";
 import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
-describe("Mms", () => {
-    test("send (Send MMS Response)", async () => {
+describe("Sms", () => {
+    test("send (Send SMS Response)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "+14155164736",
-            mediaUrls: [
-                "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0",
-            ],
-            options: { multiple_messages: true, validate: true },
-            text: "Check out this image!",
-            to: "+14154746461",
-        };
+        const rawRequestBody = { from: "+14155164736", text: "Hey! 😂", to: "+14154746461" };
         const rawResponseBody = {
-            messageIds: [101, 102],
-            segments: 3,
-            totalCost: 0.09,
+            messageId: 123,
+            segments: { count: 1, encoding: "gsm7" },
+            totalCost: 10,
             sender: "+14155164736",
             recipient: "+14154746461",
             status: "queued",
         };
         server
             .mockEndpoint()
-            .post("/messages/send/mms")
+            .post("/messages/send/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.messages.mms.send({
+        const response = await client.messages.sms.send({
             from: "+14155164736",
-            mediaUrls: [
-                "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0",
-            ],
-            options: {
-                multiple_messages: true,
-                validate: true,
-            },
-            text: "Check out this image!",
+            text: "Hey! \uD83D\uDE02",
             to: "+14154746461",
         });
         expect(response).toEqual({
-            messageIds: [101, 102],
-            segments: 3,
-            totalCost: 0.09,
+            messageId: 123,
+            segments: {
+                count: 1,
+                encoding: "gsm7",
+            },
+            totalCost: 10,
             sender: "+14155164736",
             recipient: "+14154746461",
             status: "queued",
@@ -61,15 +49,7 @@ describe("Mms", () => {
     test("send (Scheduled Response)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "+14155164736",
-            mediaUrls: [
-                "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0",
-            ],
-            options: { multiple_messages: true, validate: true },
-            text: "Check out this image!",
-            to: "+14154746461",
-        };
+        const rawRequestBody = { from: "+14155164736", text: "Hey! 😂", to: "+14154746461" };
         const rawResponseBody = {
             scheduleId: 987654321,
             config: {
@@ -81,23 +61,16 @@ describe("Mms", () => {
         };
         server
             .mockEndpoint()
-            .post("/messages/send/mms")
+            .post("/messages/send/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.messages.mms.send({
+        const response = await client.messages.sms.send({
             from: "+14155164736",
-            mediaUrls: [
-                "https://fastly.picsum.photos/id/941/300/300.jpg?hmac=mDxM9PWSqRDjecwSCEpzU4bj35gqnG7yA25OL29uNv0",
-            ],
-            options: {
-                multiple_messages: true,
-                validate: true,
-            },
-            text: "Check out this image!",
+            text: "Hey! \uD83D\uDE02",
             to: "+14154746461",
         });
         expect(response).toEqual({
@@ -111,20 +84,14 @@ describe("Mms", () => {
         });
     });
 
-    test("send (6ec0ebc2)", async () => {
+    test("send (b408a1a2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            mediaUrls: ["mediaUrls", "mediaUrls"],
-            options: undefined,
-            text: "text",
-            to: "to",
-        };
+        const rawRequestBody = { from: "from", options: undefined, text: "text", to: "to" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/messages/send/mms")
+            .post("/messages/send/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -132,9 +99,8 @@ describe("Mms", () => {
             .build();
 
         await expect(async () => {
-            return await client.messages.mms.send({
+            return await client.messages.sms.send({
                 from: "from",
-                mediaUrls: ["mediaUrls", "mediaUrls"],
                 options: undefined,
                 text: "text",
                 to: "to",
@@ -146,20 +112,14 @@ describe("Mms", () => {
         );
     });
 
-    test("send (5ae87dbc)", async () => {
+    test("send (e4953adc)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            mediaUrls: ["mediaUrls", "mediaUrls"],
-            options: undefined,
-            text: "text",
-            to: "to",
-        };
+        const rawRequestBody = { from: "from", options: undefined, text: "text", to: "to" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/messages/send/mms")
+            .post("/messages/send/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -167,9 +127,8 @@ describe("Mms", () => {
             .build();
 
         await expect(async () => {
-            return await client.messages.mms.send({
+            return await client.messages.sms.send({
                 from: "from",
-                mediaUrls: ["mediaUrls", "mediaUrls"],
                 options: undefined,
                 text: "text",
                 to: "to",
@@ -181,20 +140,14 @@ describe("Mms", () => {
         );
     });
 
-    test("send (76cca63c)", async () => {
+    test("send (266b405c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            mediaUrls: ["mediaUrls", "mediaUrls"],
-            options: undefined,
-            text: "text",
-            to: "to",
-        };
+        const rawRequestBody = { from: "from", options: undefined, text: "text", to: "to" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/messages/send/mms")
+            .post("/messages/send/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(402)
@@ -202,9 +155,8 @@ describe("Mms", () => {
             .build();
 
         await expect(async () => {
-            return await client.messages.mms.send({
+            return await client.messages.sms.send({
                 from: "from",
-                mediaUrls: ["mediaUrls", "mediaUrls"],
                 options: undefined,
                 text: "text",
                 to: "to",
@@ -216,20 +168,14 @@ describe("Mms", () => {
         );
     });
 
-    test("send (e106ed38)", async () => {
+    test("send (20fe6458)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            mediaUrls: ["mediaUrls", "mediaUrls"],
-            options: undefined,
-            text: "text",
-            to: "to",
-        };
+        const rawRequestBody = { from: "from", options: undefined, text: "text", to: "to" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/messages/send/mms")
+            .post("/messages/send/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -237,9 +183,8 @@ describe("Mms", () => {
             .build();
 
         await expect(async () => {
-            return await client.messages.mms.send({
+            return await client.messages.sms.send({
                 from: "from",
-                mediaUrls: ["mediaUrls", "mediaUrls"],
                 options: undefined,
                 text: "text",
                 to: "to",
@@ -251,20 +196,14 @@ describe("Mms", () => {
         );
     });
 
-    test("send (489fe1b0)", async () => {
+    test("send (712eb4d0)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            mediaUrls: ["mediaUrls", "mediaUrls"],
-            options: undefined,
-            text: "text",
-            to: "to",
-        };
+        const rawRequestBody = { from: "from", options: undefined, text: "text", to: "to" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/messages/send/mms")
+            .post("/messages/send/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -272,9 +211,8 @@ describe("Mms", () => {
             .build();
 
         await expect(async () => {
-            return await client.messages.mms.send({
+            return await client.messages.sms.send({
                 from: "from",
-                mediaUrls: ["mediaUrls", "mediaUrls"],
                 options: undefined,
                 text: "text",
                 to: "to",
@@ -286,84 +224,60 @@ describe("Mms", () => {
         );
     });
 
-    test("validate (78eba654)", async () => {
+    test("validate (6c2227e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            mediaUrls: [
-                "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg",
-                "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w",
-                "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg",
-            ],
-            text: "Check out these images!",
-        };
+        const rawRequestBody = { text: "Hello from Pinnacle" };
         const rawResponseBody = {
+            isOverSegmentLimit: false,
             segments: {
-                count: 1,
-                unsupportedFiles: [
-                    "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg",
-                ],
-                value: [
-                    {
-                        files: [
-                            "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg",
-                            "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w",
-                        ],
-                        size: 1234,
-                        text: "Check out these images!",
-                    },
-                ],
+                gsm7: { totalBytes: 11, unsupported: ["unsupported"], value: ["Hello from Pinnacle"] },
+                utf16: { totalBytes: 24, value: ["Hello from Pinnacle"] },
             },
-            total: 0.03,
-            unit: 0.03,
+            total: { gsm7: 0.01, utf16: 0.01 },
+            unit: 0.01,
         };
         server
             .mockEndpoint()
-            .post("/messages/validate/mms")
+            .post("/messages/validate/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.messages.mms.validate({
-            mediaUrls: [
-                "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg",
-                "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w",
-                "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg",
-            ],
-            text: "Check out these images!",
+        const response = await client.messages.sms.validate({
+            text: "Hello from Pinnacle",
         });
         expect(response).toEqual({
+            isOverSegmentLimit: false,
             segments: {
-                count: 1,
-                unsupportedFiles: [
-                    "https://file-examples.com/storage/fefdd7ab126835e7993bb1a/2017/10/file_example_JPG_500kB.jpg",
-                ],
-                value: [
-                    {
-                        files: [
-                            "https://upload.wikimedia.org/wikipedia/commons/b/b9/Pizigani_1367_Chart_1MB.jpg",
-                            "https://fastly.picsum.photos/id/528/1000/1000.jpg?hmac=aTG0xNif9KbNryFN0ZNZ_nFK6aEpZxqUGCZF1KjOT8w",
-                        ],
-                        size: 1234,
-                        text: "Check out these images!",
-                    },
-                ],
+                gsm7: {
+                    totalBytes: 11,
+                    unsupported: ["unsupported"],
+                    value: ["Hello from Pinnacle"],
+                },
+                utf16: {
+                    totalBytes: 24,
+                    value: ["Hello from Pinnacle"],
+                },
             },
-            total: 0.03,
-            unit: 0.03,
+            total: {
+                gsm7: 0.01,
+                utf16: 0.01,
+            },
+            unit: 0.01,
         });
     });
 
-    test("validate (661ff108)", async () => {
+    test("validate (44042734)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { mediaUrls: ["mediaUrls", "mediaUrls"], text: undefined };
+        const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/messages/validate/mms")
+            .post("/messages/validate/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -371,9 +285,8 @@ describe("Mms", () => {
             .build();
 
         await expect(async () => {
-            return await client.messages.mms.validate({
-                mediaUrls: ["mediaUrls", "mediaUrls"],
-                text: undefined,
+            return await client.messages.sms.validate({
+                text: "text",
             });
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
@@ -382,14 +295,14 @@ describe("Mms", () => {
         );
     });
 
-    test("validate (302fd5ba)", async () => {
+    test("validate (6095a68e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { mediaUrls: ["mediaUrls", "mediaUrls"], text: undefined };
+        const rawRequestBody = { text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/messages/validate/mms")
+            .post("/messages/validate/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -397,9 +310,8 @@ describe("Mms", () => {
             .build();
 
         await expect(async () => {
-            return await client.messages.mms.validate({
-                mediaUrls: ["mediaUrls", "mediaUrls"],
-                text: undefined,
+            return await client.messages.sms.validate({
+                text: "text",
             });
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
@@ -408,14 +320,14 @@ describe("Mms", () => {
         );
     });
 
-    test("validate (53c65c0e)", async () => {
+    test("validate (3094dd32)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { mediaUrls: ["mediaUrls", "mediaUrls"], text: undefined };
+        const rawRequestBody = { text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/messages/validate/mms")
+            .post("/messages/validate/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -423,9 +335,8 @@ describe("Mms", () => {
             .build();
 
         await expect(async () => {
-            return await client.messages.mms.validate({
-                mediaUrls: ["mediaUrls", "mediaUrls"],
-                text: undefined,
+            return await client.messages.sms.validate({
+                text: "text",
             });
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({

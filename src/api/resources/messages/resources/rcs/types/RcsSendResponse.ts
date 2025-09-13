@@ -4,4 +4,4 @@
 
 import * as Pinnacle from "../../../../../index.js";
 
-export type SendRcsResponse = Pinnacle.SentRcsDetails | Pinnacle.ScheduledMessaage;
+export type RcsSendResponse = Pinnacle.SentRcsDetails | Pinnacle.ScheduledMessaage;
