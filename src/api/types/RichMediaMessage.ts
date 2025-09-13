@@ -4,7 +4,7 @@
 
 import * as Pinnacle from "../index.js";
 
-export interface RcsMedia extends Pinnacle.RcsBase {
+export interface RichMediaMessage extends Pinnacle.RcsBase {
     /**
      * Media file URLs to send. <br>
      *
@@ -12,5 +12,5 @@ export interface RcsMedia extends Pinnacle.RcsBase {
      */
     media: string;
     /** List of interactive quick reply buttons in the message. */
-    quickReplies: Pinnacle.RcsButtonContent[];
+    quickReplies: Pinnacle.RichButton[];
 }

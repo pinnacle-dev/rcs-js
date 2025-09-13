@@ -29,7 +29,7 @@ export interface UpsertBrandParams {
     /** Primary brand address where the company is located. */
     address?: string | null;
     /** Contact information for the brand. */
-    contact?: Pinnacle.NullableContact | null;
+    contact?: Pinnacle.UpsertContact | null;
     /** "Doing Business As" name - the public name the brand operates under. */
     dba?: string | null;
     /** Brief description of what the brand does. */

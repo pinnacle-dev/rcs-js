@@ -70,7 +70,7 @@ describe("PhoneNumbers", () => {
         ]);
     });
 
-    test("search (6796ff8b)", async () => {
+    test("search (36915e97)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -105,7 +105,7 @@ describe("PhoneNumbers", () => {
         );
     });
 
-    test("search (54866f4b)", async () => {
+    test("search (560b8ccf)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -140,7 +140,7 @@ describe("PhoneNumbers", () => {
         );
     });
 
-    test("search (1590a937)", async () => {
+    test("search (de4a982b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -451,7 +451,7 @@ describe("PhoneNumbers", () => {
         });
     });
 
-    test("get (b8a9d7f1)", async () => {
+    test("get (bd01695)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
@@ -478,7 +478,7 @@ describe("PhoneNumbers", () => {
         );
     });
 
-    test("get (f97a46f9)", async () => {
+    test("get (61b5ec95)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
@@ -505,7 +505,7 @@ describe("PhoneNumbers", () => {
         );
     });
 
-    test("get (ece4eee9)", async () => {
+    test("get (c5e09ee5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
@@ -532,7 +532,7 @@ describe("PhoneNumbers", () => {
         );
     });
 
-    test("get (e1450be5)", async () => {
+    test("get (235bece1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
@@ -559,7 +559,7 @@ describe("PhoneNumbers", () => {
         );
     });
 
-    test("get (ae53c9a5)", async () => {
+    test("get (ac1f06a1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phone: "phone", level: "basic", options: undefined };

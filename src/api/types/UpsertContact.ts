@@ -5,7 +5,7 @@
 /**
  * Contact information for the brand.
  */
-export interface NullableContact {
+export interface UpsertContact {
     /** Email address of the contact person. */
     email?: string | null;
     /** Full name of the contact person. */

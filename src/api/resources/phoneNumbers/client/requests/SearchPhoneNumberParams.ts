@@ -31,7 +31,7 @@ export interface SearchPhoneNumberParams {
      */
     location?: SearchPhoneNumberParams.Location;
     /** Filter your search by digit pattern. */
-    number?: SearchPhoneNumberParams.PhoneNumberDigitFilters;
+    number?: SearchPhoneNumberParams.Number;
     /** Extra search settings to control how many results you get. */
     options?: SearchPhoneNumberParams.Options;
     /** Types of phone numbers to return in your search. */
@@ -62,7 +62,7 @@ export namespace SearchPhoneNumberParams {
     /**
      * Filter your search by digit pattern.
      */
-    export interface PhoneNumberDigitFilters {
+    export interface Number {
         /** Your search will return only numbers that contain this digit sequence anywhere within them. */
         contains?: string;
         /** Your search will return only numbers that end with these digits. */

@@ -2380,7 +2380,7 @@ Send a SMS message immediately or schedule it for future delivery.
 ```typescript
 await client.messages.sms.send({
     from: "+14155164736",
-    text: "Hey! \uD83D\uDE02",
+    text: "Hey!",
     to: "+14154746461",
 });
 ```

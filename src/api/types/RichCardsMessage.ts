@@ -4,4 +4,4 @@
 
 import * as Pinnacle from "../index.js";
 
-export interface RcsCard extends Pinnacle.RcsBase, Pinnacle.RcsCards {}
+export interface RichCardsMessage extends Pinnacle.RcsBase, Pinnacle.RcsCards {}

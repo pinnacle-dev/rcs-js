@@ -8,14 +8,14 @@ import * as Pinnacle from "../../../../../../index.js";
  * @example
  *     {
  *         from: "+14155164736",
- *         text: "Hey! \uD83D\uDE02",
+ *         text: "Hey!",
  *         to: "+14154746461"
  *     }
  *
  * @example
  *     {
  *         from: "+14155164736",
- *         text: "Hey! \uD83D\uDE02",
+ *         text: "Hey!",
  *         to: "+14154746461"
  *     }
  */

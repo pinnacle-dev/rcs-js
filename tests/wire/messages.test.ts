@@ -341,7 +341,7 @@ describe("Messages", () => {
         });
     });
 
-    test("react (a8a8d598)", async () => {
+    test("react (a253d06c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
@@ -368,7 +368,7 @@ describe("Messages", () => {
         );
     });
 
-    test("react (fd618cea)", async () => {
+    test("react (e56ec446)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
@@ -395,7 +395,7 @@ describe("Messages", () => {
         );
     });
 
-    test("react (f00da066)", async () => {
+    test("react (5a7db842)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };

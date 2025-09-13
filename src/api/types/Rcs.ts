@@ -7,10 +7,10 @@ import * as Pinnacle from "../index.js";
 export type Rcs =
     /**
      * Send a text RCS message with optional quick reply buttons. */
-    | Pinnacle.RcsText
+    | Pinnacle.RichTextMessage
     /**
      * Send a media RCS message with optional quick reply buttons. */
-    | Pinnacle.RcsMedia
+    | Pinnacle.RichMediaMessage
     /**
      * Send a cards RCS message with optional quick reply buttons. */
-    | Pinnacle.RcsCard;
+    | Pinnacle.RichCardsMessage;

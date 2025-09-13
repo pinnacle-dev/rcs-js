@@ -4,15 +4,15 @@
 
 import * as Pinnacle from "../index.js";
 
-export type RcsButtonContent =
-    | Pinnacle.RcsButtonContent.OpenUrl
-    | Pinnacle.RcsButtonContent.Call
-    | Pinnacle.RcsButtonContent.Trigger
-    | Pinnacle.RcsButtonContent.RequestUserLocation
-    | Pinnacle.RcsButtonContent.ScheduleEvent
-    | Pinnacle.RcsButtonContent.SendLocation;
+export type RichButton =
+    | Pinnacle.RichButton.OpenUrl
+    | Pinnacle.RichButton.Call
+    | Pinnacle.RichButton.Trigger
+    | Pinnacle.RichButton.RequestUserLocation
+    | Pinnacle.RichButton.ScheduleEvent
+    | Pinnacle.RichButton.SendLocation;
 
-export namespace RcsButtonContent {
+export namespace RichButton {
     export interface OpenUrl extends Pinnacle.RcsButtonOpenUrl {
         type: "openUrl";
     }
