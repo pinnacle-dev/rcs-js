@@ -351,6 +351,7 @@ export class Rcs {
      *                     url: "https://www.trypinnacle.app/"
      *                 }]
      *         },
+     *         brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
      *         brand: 2,
      *         expectedAgentResponses: ["Here are the things I can help you with.", "I can assist you with booking an appointment, or you may choose to book manually.", "Here are the available times to connect with a representative tomorrow.", "Your appointment has been scheduled."],
      *         links: {

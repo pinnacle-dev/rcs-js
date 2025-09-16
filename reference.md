@@ -2224,6 +2224,7 @@ await client.campaigns.rcs.upsert({
             },
         ],
     },
+    brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
     brand: 2,
     expectedAgentResponses: [
         "Here are the things I can help you with.",

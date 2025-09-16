@@ -7,7 +7,7 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("Rcs", () => {
-    test("autofill (c30a1cf1)", async () => {
+    test("autofill (9549091d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -17,7 +17,6 @@ describe("Rcs", () => {
         const rawResponseBody = {
             agent: {
                 name: "Pinnacle Software Development",
-                brandVerificationUrl: "brandVerificationUrl",
                 description:
                     "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                 color: "#000000",
@@ -28,6 +27,7 @@ describe("Rcs", () => {
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
             },
             campaignId: 161,
+            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -59,7 +59,6 @@ describe("Rcs", () => {
         expect(response).toEqual({
             agent: {
                 name: "Pinnacle Software Development",
-                brandVerificationUrl: "brandVerificationUrl",
                 description:
                     "Engaging campaigns with RBM \u2013 next-gen SMS marketing with rich content and better analytics.",
                 color: "#000000",
@@ -85,6 +84,7 @@ describe("Rcs", () => {
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
             },
             campaignId: 161,
+            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -189,7 +189,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("get (15d9d6cc)", async () => {
+    test("get (ebbf5c12)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -199,7 +199,6 @@ describe("Rcs", () => {
                 description:
                     "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                 emails: [{ email: "founders@trypinnacle.app", label: "Email Us" }],
-                brandVerificationUrl: "brandVerificationUrl",
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name: "Pinnacle Software Development",
@@ -229,6 +228,7 @@ describe("Rcs", () => {
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
+            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brandAttestation: true,
             campaignId: 161,
             expectedAgentResponses: [
@@ -259,7 +259,6 @@ describe("Rcs", () => {
                         label: "Email Us",
                     },
                 ],
-                brandVerificationUrl: "brandVerificationUrl",
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name: "Pinnacle Software Development",
@@ -299,6 +298,7 @@ describe("Rcs", () => {
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
+            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brandAttestation: true,
             campaignId: 161,
             expectedAgentResponses: [
@@ -497,7 +497,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (5bd9afe1)", async () => {
+    test("upsert (9be0e8a5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -512,6 +512,7 @@ describe("Rcs", () => {
                 phones: [{ label: "Contact us directly", phone: "+14154467821" }],
                 websites: [{ label: "Get started with Pinnacle", url: "https://www.trypinnacle.app/" }],
             },
+            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brand: 2,
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
@@ -533,7 +534,6 @@ describe("Rcs", () => {
                 description:
                     "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                 emails: [{ email: "founders@trypinnacle.app", label: "Email Us" }],
-                brandVerificationUrl: "brandVerificationUrl",
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name: "Pinnacle Software Development",
@@ -563,6 +563,7 @@ describe("Rcs", () => {
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
+            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brandAttestation: true,
             campaignId: 161,
             expectedAgentResponses: [
@@ -615,6 +616,7 @@ describe("Rcs", () => {
                     },
                 ],
             },
+            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brand: 2,
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
@@ -650,7 +652,6 @@ describe("Rcs", () => {
                         label: "Email Us",
                     },
                 ],
-                brandVerificationUrl: "brandVerificationUrl",
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name: "Pinnacle Software Development",
@@ -690,6 +691,7 @@ describe("Rcs", () => {
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
+            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brandAttestation: true,
             campaignId: 161,
             expectedAgentResponses: [
@@ -717,11 +719,12 @@ describe("Rcs", () => {
         });
     });
 
-    test("upsert (1a7bac53)", async () => {
+    test("upsert (5a5b09c6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             agent: undefined,
+            brandVerificationUrl: undefined,
             brand: undefined,
             campaignId: undefined,
             expectedAgentResponses: undefined,
@@ -743,6 +746,7 @@ describe("Rcs", () => {
         await expect(async () => {
             return await client.campaigns.rcs.upsert({
                 agent: undefined,
+                brandVerificationUrl: undefined,
                 brand: undefined,
                 campaignId: undefined,
                 expectedAgentResponses: undefined,
@@ -758,11 +762,12 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (185df193)", async () => {
+    test("upsert (464678)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             agent: undefined,
+            brandVerificationUrl: undefined,
             brand: undefined,
             campaignId: undefined,
             expectedAgentResponses: undefined,
@@ -784,6 +789,7 @@ describe("Rcs", () => {
         await expect(async () => {
             return await client.campaigns.rcs.upsert({
                 agent: undefined,
+                brandVerificationUrl: undefined,
                 brand: undefined,
                 campaignId: undefined,
                 expectedAgentResponses: undefined,
@@ -799,11 +805,12 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (63aa0d2f)", async () => {
+    test("upsert (b7fff444)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             agent: undefined,
+            brandVerificationUrl: undefined,
             brand: undefined,
             campaignId: undefined,
             expectedAgentResponses: undefined,
@@ -825,6 +832,7 @@ describe("Rcs", () => {
         await expect(async () => {
             return await client.campaigns.rcs.upsert({
                 agent: undefined,
+                brandVerificationUrl: undefined,
                 brand: undefined,
                 campaignId: undefined,
                 expectedAgentResponses: undefined,
@@ -840,11 +848,12 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (a0f30c5f)", async () => {
+    test("upsert (55bdf70c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             agent: undefined,
+            brandVerificationUrl: undefined,
             brand: undefined,
             campaignId: undefined,
             expectedAgentResponses: undefined,
@@ -866,6 +875,7 @@ describe("Rcs", () => {
         await expect(async () => {
             return await client.campaigns.rcs.upsert({
                 agent: undefined,
+                brandVerificationUrl: undefined,
                 brand: undefined,
                 campaignId: undefined,
                 expectedAgentResponses: undefined,

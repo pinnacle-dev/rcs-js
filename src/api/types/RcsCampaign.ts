@@ -9,6 +9,8 @@ export interface RcsCampaign {
     agent?: RcsCampaign.Agent;
     /** Unique identifier for the campaign. */
     campaignId?: number;
+    /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
+    brandVerificationUrl?: string;
     /** List of what the agent might say to users. */
     expectedAgentResponses?: string[];
     /** Legal documentation links. */
@@ -28,8 +30,6 @@ export namespace RcsCampaign {
     export interface Agent {
         /** Name of the agent. */
         name?: string;
-        /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
-        brandVerificationUrl?: string;
         /** Description of the agent. */
         description?: string;
         /** Color of the agent's buttons. */

@@ -26,6 +26,7 @@ import * as Pinnacle from "../../../../../../index.js";
  *                     url: "https://www.trypinnacle.app/"
  *                 }]
  *         },
+ *         brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
  *         brand: 2,
  *         expectedAgentResponses: ["Here are the things I can help you with.", "I can assist you with booking an appointment, or you may choose to book manually.", "Here are the available times to connect with a representative tomorrow.", "Your appointment has been scheduled."],
  *         links: {
@@ -49,6 +50,8 @@ import * as Pinnacle from "../../../../../../index.js";
 export interface UpsertRcsCampaignParams {
     /** Create an agent for the campaign. */
     agent?: UpsertRcsCampaignParams.Agent;
+    /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
+    brandVerificationUrl?: string;
     /** Unique identifier for the brand. */
     brand?: number;
     /** Unique identifier for the campaign. */
@@ -70,8 +73,6 @@ export namespace UpsertRcsCampaignParams {
      * Create an agent for the campaign.
      */
     export interface Agent {
-        /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
-        brandVerificationUrl?: string;
         /**
          * Color of the agent's buttons. <br>
          *
