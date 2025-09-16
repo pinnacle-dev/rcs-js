@@ -38,6 +38,8 @@ export namespace ExtendedRcsCampaign {
         description?: string;
         /** List of emails. */
         emails?: Agent.Emails.Item[];
+        /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
+        brandVerificationUrl?: string;
         /** Link to the agent's hero. */
         heroUrl?: string;
         /** Link to the agent's icon. */

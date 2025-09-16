@@ -70,6 +70,8 @@ export namespace UpsertRcsCampaignParams {
      * Create an agent for the campaign.
      */
     export interface Agent {
+        /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
+        brandVerificationUrl?: string;
         /**
          * Color of the agent's buttons. <br>
          *

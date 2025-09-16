@@ -7,7 +7,7 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("Rcs", () => {
-    test("autofill (6efd3c99)", async () => {
+    test("autofill (c30a1cf1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -17,6 +17,7 @@ describe("Rcs", () => {
         const rawResponseBody = {
             agent: {
                 name: "Pinnacle Software Development",
+                brandVerificationUrl: "brandVerificationUrl",
                 description:
                     "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                 color: "#000000",
@@ -58,6 +59,7 @@ describe("Rcs", () => {
         expect(response).toEqual({
             agent: {
                 name: "Pinnacle Software Development",
+                brandVerificationUrl: "brandVerificationUrl",
                 description:
                     "Engaging campaigns with RBM \u2013 next-gen SMS marketing with rich content and better analytics.",
                 color: "#000000",
@@ -187,7 +189,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("get (7139be34)", async () => {
+    test("get (15d9d6cc)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -197,6 +199,7 @@ describe("Rcs", () => {
                 description:
                     "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                 emails: [{ email: "founders@trypinnacle.app", label: "Email Us" }],
+                brandVerificationUrl: "brandVerificationUrl",
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name: "Pinnacle Software Development",
@@ -256,6 +259,7 @@ describe("Rcs", () => {
                         label: "Email Us",
                     },
                 ],
+                brandVerificationUrl: "brandVerificationUrl",
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name: "Pinnacle Software Development",
@@ -493,7 +497,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (604618e9)", async () => {
+    test("upsert (5bd9afe1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -529,6 +533,7 @@ describe("Rcs", () => {
                 description:
                     "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
                 emails: [{ email: "founders@trypinnacle.app", label: "Email Us" }],
+                brandVerificationUrl: "brandVerificationUrl",
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name: "Pinnacle Software Development",
@@ -645,6 +650,7 @@ describe("Rcs", () => {
                         label: "Email Us",
                     },
                 ],
+                brandVerificationUrl: "brandVerificationUrl",
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
                 name: "Pinnacle Software Development",
