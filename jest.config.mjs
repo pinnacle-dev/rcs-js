@@ -33,9 +33,6 @@ export default {
             moduleNameMapper: {
                 "^(\.{1,2}/.*)\.js$": "$1",
             },
-            transformIgnorePatterns: [
-                "node_modules/(?!(until-async)/)"
-            ],
             roots: ["<rootDir>/tests/wire"],
             setupFilesAfterEnv: ["<rootDir>/tests/mock-server/setup.ts"],
         },
