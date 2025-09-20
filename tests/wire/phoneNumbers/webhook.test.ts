@@ -287,4 +287,26 @@ describe("Webhook", () => {
             }),
         );
     });
+
+    test("detach (695c5b66)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .delete("/phone-numbers/phone/detach-webhook/1")
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.webhook.detach("phone", 1);
+        }).rejects.toThrow(
+            new Pinnacle.NotImplementedError({
+                error: "error",
+            }),
+        );
+    });
 });

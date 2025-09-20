@@ -10,6 +10,7 @@ import { Contacts } from "./api/resources/contacts/client/Client.js";
 import { Conversations } from "./api/resources/conversations/client/Client.js";
 import { Messages } from "./api/resources/messages/client/Client.js";
 import { PhoneNumbers } from "./api/resources/phoneNumbers/client/Client.js";
+import { Rcs } from "./api/resources/rcs/client/Client.js";
 import { Webhooks } from "./api/resources/webhooks/client/Client.js";
 import { Campaigns } from "./api/resources/campaigns/client/Client.js";
 import { Status } from "./api/resources/status/client/Client.js";
@@ -46,6 +47,7 @@ export class PinnacleClient {
     protected _conversations: Conversations | undefined;
     protected _messages: Messages | undefined;
     protected _phoneNumbers: PhoneNumbers | undefined;
+    protected _rcs: Rcs | undefined;
     protected _webhooks: Webhooks | undefined;
     protected _campaigns: Campaigns | undefined;
     protected _status: Status | undefined;
@@ -86,6 +88,10 @@ export class PinnacleClient {
 
     public get phoneNumbers(): PhoneNumbers {
         return (this._phoneNumbers ??= new PhoneNumbers(this._options));
+    }
+
+    public get rcs(): Rcs {
+        return (this._rcs ??= new Rcs(this._options));
     }
 
     public get webhooks(): Webhooks {

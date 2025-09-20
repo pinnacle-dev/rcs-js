@@ -164,6 +164,7 @@ export class Webhook {
      * @throws {@link Pinnacle.UnauthorizedError}
      * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
+     * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
      *     await client.phoneNumbers.webhook.detach("+14155551234", 123)
@@ -217,6 +218,11 @@ export class Webhook {
                     throw new Pinnacle.NotFoundError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
                 case 500:
                     throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 501:
+                    throw new Pinnacle.NotImplementedError(
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );

@@ -286,6 +286,41 @@ describe("Mms", () => {
         );
     });
 
+    test("send (6dc6b3c0)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            from: "from",
+            mediaUrls: ["mediaUrls", "mediaUrls"],
+            options: undefined,
+            text: "text",
+            to: "to",
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/mms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.mms.send({
+                from: "from",
+                mediaUrls: ["mediaUrls", "mediaUrls"],
+                options: undefined,
+                text: "text",
+                to: "to",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotImplementedError({
+                error: "error",
+            }),
+        );
+    });
+
     test("validate (78eba654)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });

@@ -224,6 +224,34 @@ describe("Sms", () => {
         );
     });
 
+    test("send (32a3a01c)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { from: "from", options: undefined, text: "text", to: "to" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/sms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.sms.send({
+                from: "from",
+                options: undefined,
+                text: "text",
+                to: "to",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotImplementedError({
+                error: "error",
+            }),
+        );
+    });
+
     test("validate (6c2227e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });

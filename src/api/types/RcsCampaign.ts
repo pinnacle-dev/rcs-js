@@ -40,9 +40,9 @@ export namespace RcsCampaign {
         phones?: Agent.Phones.Item[];
         /** List of urls. */
         websites?: Agent.Websites.Item[];
-        /** Link to the agent's hero. */
+        /** Link to the agent's hero. Hero must be an image file with dimensions 1440x448px. */
         heroUrl?: string;
-        /** Link to the agent's icon. */
+        /** Link to the agent's icon. Icon must be an image file with dimensions 224x224px. */
         iconUrl?: string;
     }
 

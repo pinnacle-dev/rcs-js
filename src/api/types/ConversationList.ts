@@ -7,10 +7,12 @@ import * as Pinnacle from "../index.js";
 /**
  * Response for list conversation.
  */
-export interface ConversationList {
-    /** Total number of conversations matching the filter. */
-    count: number;
-    conversations: Pinnacle.Conversation[];
-    /** Indicates if more conversations are available beyond the current page. */
-    hasMore: boolean;
-}
+export type ConversationList =
+    | {
+          error?: string | undefined;
+      }
+    | {
+          count: number;
+          conversations: Pinnacle.Conversation[];
+          hasMore: boolean;
+      };

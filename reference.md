@@ -1199,6 +1199,235 @@ await client.phoneNumbers.get({
 </dl>
 </details>
 
+## RCS
+
+<details><summary><code>client.rcs.<a href="/src/api/resources/rcs/client/Client.ts">getCapabilities</a>({ ...params }) -> Pinnacle.RcsCapabilitiesResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Check RCS capabilities for one or more phone numbers.
+
+This endpoint allows you to verify which RCS features (cards, buttons, etc.) are supported
+on specific phone numbers before sending RCS messages to them.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.rcs.getCapabilities({
+    phoneNumbers: ["+12345678901", "+19876543210"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.RcsCapabilitiesQuery`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.rcs.<a href="/src/api/resources/rcs/client/Client.ts">whitelist</a>({ ...params }) -> Pinnacle.RcsWhitelistResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Whitelist a phone number for testing with your test RCS agent.
+
+## Overview
+
+During development and testing, RCS agents can only send messages to whitelisted phone numbers.
+Use this endpoint to add test devices to your agent's whitelist before sending test messages.
+
+## Verification Process
+
+After whitelisting a number, you'll need to complete verification:
+
+1. Check the test device for an "RBM Tester Management" request
+2. Accept the request on the device
+3. Enter the 4-digit verification code in the Pinnacle dashboard at:
+    ```
+    https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
+    ```
+
+> **Important Notes**
+>
+> - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number
+> - **AT&T limitation:** Whitelisting may currently fail for AT&T numbers
+> - **Verification required:** The whitelist request isn't complete until you verify the device.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.rcs.whitelist({
+    agentId: "agent_XXXXXXXXXXXX",
+    phoneNumber: "+12345678901",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.RcsWhitelistRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.rcs.<a href="/src/api/resources/rcs/client/Client.ts">getLink</a>({ ...params }) -> Pinnacle.RcsLinkResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Generate a link for initiating an RCS conversation with your agent.
+
+Users can click these links to start conversations with your RCS agent directly
+from websites, emails, or other applications.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.rcs.getLink({
+    agentId: "agent_XXXXXXXXXXXX",
+    testMode: false,
+    phoneNumber: "+12345678901",
+    body: "Hello, I need help with my order",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.RcsLinkRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Webhooks
 
 <details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">get</a>({ ...params }) -> Pinnacle.WebhookResult</code></summary>
@@ -1351,7 +1580,7 @@ await client.campaigns.dlc.autofill({
 <dl>
 <dd>
 
-Retrieve DLC campaign.
+Retrieve 10DLC campaign.
 
 </dd>
 </dl>
@@ -1383,7 +1612,7 @@ await client.campaigns.dlc.get(28);
 <dl>
 <dd>
 
-**campaignId:** `number` — Unique identifier of the DLC campaign.
+**campaignId:** `number` — Unique identifier of the 10DLC campaign.
 
 </dd>
 </dl>
@@ -1414,7 +1643,7 @@ await client.campaigns.dlc.get(28);
 <dl>
 <dd>
 
-Submit your DLC campaign for approval and activation with carriers.
+Submit your 10DLC campaign for approval and activation with carriers.
 
 </dd>
 </dl>
@@ -1446,7 +1675,7 @@ await client.campaigns.dlc.submit(161);
 <dl>
 <dd>
 
-**campaignId:** `number` — Unique identifier of the DLC campaign to submit.
+**campaignId:** `number` — Unique identifier of the 10DLC campaign to submit.
 
 </dd>
 </dl>
@@ -1477,7 +1706,7 @@ await client.campaigns.dlc.submit(161);
 <dl>
 <dd>
 
-Create a new DLC campaign or updates an existing one. <br>
+Create a new 10DLC campaign or updates an existing one. <br>
 
 Omit campaignId to create a campaign.
 
@@ -1579,7 +1808,7 @@ await client.campaigns.dlc.upsert({
 <dl>
 <dd>
 
-Validate your DLC campaign configuration against carrier requirements and compliance rules.
+Validate your 10DLC campaign configuration against carrier requirements and compliance rules.
 
 </dd>
 </dl>
@@ -3211,7 +3440,7 @@ await client.status.get.tollFree(28);
 <dl>
 <dd>
 
-Retrieve a DLC campaign's status.
+Retrieve a 10DLC campaign's status.
 
 </dd>
 </dl>
@@ -3243,7 +3472,7 @@ await client.status.get.dlc(28);
 <dl>
 <dd>
 
-**campaignId:** `number` — ID of the DLC campaign.
+**campaignId:** `number` — ID of the 10DLC campaign.
 
 </dd>
 </dl>

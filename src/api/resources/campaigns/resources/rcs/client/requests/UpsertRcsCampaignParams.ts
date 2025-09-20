@@ -83,9 +83,9 @@ export namespace UpsertRcsCampaignParams {
         description?: string;
         /** List of emails (1-3 required). */
         emails?: Agent.Emails.Item[];
-        /** Link to the agent's hero. */
+        /** Link to the agent's hero. Hero must be an image file with dimensions 1440x448px. */
         heroUrl?: string;
-        /** Link to the agent's icon. */
+        /** Link to the agent's icon. Icon must be an image file with dimensions 224x224px. */
         iconUrl?: string;
         /** Name of the agent. */
         name?: string;

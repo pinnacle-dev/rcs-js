@@ -350,6 +350,55 @@ describe("Rcs", () => {
         );
     });
 
+    test("send (f9643047)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            from: "from",
+            options: undefined,
+            to: "to",
+            quickReplies: [
+                { type: "openUrl", payload: "payload", title: "title" },
+                { type: "openUrl", payload: "payload", title: "title" },
+            ],
+            text: "text",
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.send({
+                from: "from",
+                options: undefined,
+                to: "to",
+                quickReplies: [
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                ],
+                text: "text",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotImplementedError({
+                error: "error",
+            }),
+        );
+    });
+
     test("validate (2433179f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });

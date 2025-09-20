@@ -601,6 +601,22 @@ describe("Brands", () => {
         );
     });
 
+    test("submit (935cace5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().post("/brands/1/submit").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.brands.submit(1);
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
+    });
+
     test("submit (773c5aa5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
@@ -929,6 +945,29 @@ describe("Brands", () => {
             return await client.brands.vet(1, {});
         }).rejects.toThrow(
             new Pinnacle.PaymentRequiredError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("vet (78119d36)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/brands/1/vet")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.brands.vet(1, {});
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
                 error: "error",
             }),
         );

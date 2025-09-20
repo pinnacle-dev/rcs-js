@@ -395,6 +395,33 @@ describe("Messages", () => {
         );
     });
 
+    test("react (7e6cfef6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/react")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(402)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.react({
+                messageId: 1,
+                options: undefined,
+                reaction: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.PaymentRequiredError({
+                error: "error",
+            }),
+        );
+    });
+
     test("react (5a7db842)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
@@ -417,6 +444,60 @@ describe("Messages", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("react (60bb884a)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/react")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.react({
+                messageId: 1,
+                options: undefined,
+                reaction: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("react (83491d0a)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/react")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.react({
+                messageId: 1,
+                options: undefined,
+                reaction: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotImplementedError({
                 error: "error",
             }),
         );

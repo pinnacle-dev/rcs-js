@@ -49,6 +49,7 @@ export class Campaign {
      * @throws {@link Pinnacle.UnauthorizedError}
      * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
+     * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
      *     await client.phoneNumbers.campaign.attach({
@@ -110,6 +111,11 @@ export class Campaign {
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );
+                case 501:
+                    throw new Pinnacle.NotImplementedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.PinnacleError({
                         statusCode: _response.error.statusCode,
@@ -148,6 +154,7 @@ export class Campaign {
      * @throws {@link Pinnacle.UnauthorizedError}
      * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
+     * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
      *     await client.phoneNumbers.campaign.detach({
@@ -204,6 +211,11 @@ export class Campaign {
                     throw new Pinnacle.NotFoundError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
                 case 500:
                     throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 501:
+                    throw new Pinnacle.NotImplementedError(
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );

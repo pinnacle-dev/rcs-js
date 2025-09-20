@@ -177,6 +177,33 @@ describe("Campaign", () => {
         );
     });
 
+    test("attach (afbba9a3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: 1 };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/attach-campaign")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.campaign.attach({
+                phones: ["phones", "phones"],
+                campaignType: "TOLL_FREE",
+                campaignId: 1,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotImplementedError({
+                error: "error",
+            }),
+        );
+    });
+
     test("detach (58f74df8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
@@ -319,6 +346,31 @@ describe("Campaign", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("detach (46b8db48)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phones: ["phones", "phones"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .delete("/phone-numbers/detach-campaign")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.campaign.detach({
+                phones: ["phones", "phones"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotImplementedError({
                 error: "error",
             }),
         );

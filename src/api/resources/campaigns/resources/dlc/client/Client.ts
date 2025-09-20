@@ -133,9 +133,9 @@ export class Dlc {
     }
 
     /**
-     * Retrieve DLC campaign.
+     * Retrieve 10DLC campaign.
      *
-     * @param {number} campaignId - Unique identifier of the DLC campaign.
+     * @param {number} campaignId - Unique identifier of the 10DLC campaign.
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -226,9 +226,9 @@ export class Dlc {
     }
 
     /**
-     * Submit your DLC campaign for approval and activation with carriers.
+     * Submit your 10DLC campaign for approval and activation with carriers.
      *
-     * @param {number} campaignId - Unique identifier of the DLC campaign to submit.
+     * @param {number} campaignId - Unique identifier of the 10DLC campaign to submit.
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -318,7 +318,7 @@ export class Dlc {
     }
 
     /**
-     * Create a new DLC campaign or updates an existing one. <br>
+     * Create a new 10DLC campaign or updates an existing one. <br>
      *
      * Omit campaignId to create a campaign.
      *
@@ -453,7 +453,7 @@ export class Dlc {
     }
 
     /**
-     * Validate your DLC campaign configuration against carrier requirements and compliance rules.
+     * Validate your 10DLC campaign configuration against carrier requirements and compliance rules.
      *
      * @param {Pinnacle.ValidateCampaignParams} request
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.

@@ -26,7 +26,7 @@ export interface DlcCampaignStatus {
      */
     status: Pinnacle.ProfileStatusEnum;
     /**
-     * Status of toll free numbers that are being attached to this campaign. <br>
+     * Status of local long code numbers that are being attached to this campaign. <br>
      *
      * Note that phone numbers can only be attached to `VERIFIED` campaigns via the [attach campaign endpoint](../phone-numbers/attach-campaign).
      */
@@ -35,7 +35,7 @@ export interface DlcCampaignStatus {
 
 export namespace DlcCampaignStatus {
     /**
-     * Status of toll free numbers that are being attached to this campaign. <br>
+     * Status of local long code numbers that are being attached to this campaign. <br>
      *
      * Note that phone numbers can only be attached to `VERIFIED` campaigns via the [attach campaign endpoint](../phone-numbers/attach-campaign).
      */

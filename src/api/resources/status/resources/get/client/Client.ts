@@ -231,9 +231,9 @@ export class Get {
     }
 
     /**
-     * Retrieve a DLC campaign's status.
+     * Retrieve a 10DLC campaign's status.
      *
-     * @param {number} campaignId - ID of the DLC campaign.
+     * @param {number} campaignId - ID of the 10DLC campaign.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}

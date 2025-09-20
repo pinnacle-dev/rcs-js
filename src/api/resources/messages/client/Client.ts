@@ -152,7 +152,10 @@ export class Messages {
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.PaymentRequiredError}
      * @throws {@link Pinnacle.NotFoundError}
+     * @throws {@link Pinnacle.InternalServerError}
+     * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
      *     await client.messages.react({
@@ -209,8 +212,23 @@ export class Messages {
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );
+                case 402:
+                    throw new Pinnacle.PaymentRequiredError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
                 case 404:
                     throw new Pinnacle.NotFoundError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
+                case 500:
+                    throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 501:
+                    throw new Pinnacle.NotImplementedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
                 default:
                     throw new errors.PinnacleError({
                         statusCode: _response.error.statusCode,
