@@ -35,11 +35,11 @@ export namespace AutofillDlcCampaignResponse {
      */
     export interface Keywords {
         /** Help keyword settings. */
-        HELP?: Keywords.Help;
+        HELP: Keywords.Help;
         /** Opt-in keyword settings. */
-        OPT_IN?: Keywords.OptIn;
+        OPT_IN: Keywords.OptIn;
         /** Opt-out keyword settings. */
-        OPT_OUT?: Keywords.OptOut;
+        OPT_OUT: Keywords.OptOut;
     }
 
     export namespace Keywords {
@@ -50,7 +50,7 @@ export namespace AutofillDlcCampaignResponse {
             /** Response message for help keywords. */
             message?: string;
             /** Keywords that trigger help response. */
-            values?: string[];
+            values: string[];
         }
 
         /**
@@ -58,7 +58,7 @@ export namespace AutofillDlcCampaignResponse {
          */
         export interface OptIn {
             /** Response message for opt-in keywords. */
-            message: string;
+            message?: string;
             /** Keywords that trigger opt-in. */
             values: string[];
         }
@@ -70,7 +70,7 @@ export namespace AutofillDlcCampaignResponse {
             /** Response message for opt-out keywords. */
             message?: string;
             /** Keywords that trigger opt-out. */
-            values?: string[];
+            values: string[];
         }
     }
 
@@ -89,17 +89,17 @@ export namespace AutofillDlcCampaignResponse {
      */
     export interface Options {
         /** Whether the campaign uses affiliate marketing. */
-        affiliateMarketing?: boolean;
+        affiliateMarketing: boolean;
         /** Whether the campaign is age-gated. */
-        ageGated?: boolean;
+        ageGated: boolean;
         /** Whether the campaign involves direct lending. */
-        directLending?: boolean;
+        directLending: boolean;
         /** Link embedded in campaign message. */
         embeddedLink?: string;
         /** Whether messages include phone numbers. */
-        embeddedPhone?: boolean;
+        embeddedPhone: boolean;
         /** Whether the campaign uses number pooling. */
-        numberPooling?: boolean;
+        numberPooling: boolean;
     }
 
     /**

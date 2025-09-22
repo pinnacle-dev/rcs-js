@@ -38,6 +38,9 @@
         "test:browser": "jest --selectProjects browser",
         "test:wire": "jest --selectProjects wire"
     },
+    "dependencies": {
+        "mime-types": "^3.0.1"
+    },
     "devDependencies": {
         "webpack": "^5.97.1",
         "ts-loader": "^9.5.1",
@@ -49,7 +52,8 @@
         "msw": "^2.8.4",
         "@types/node": "^18.19.70",
         "prettier": "^3.4.2",
-        "typescript": "~5.7.2"
+        "typescript": "~5.7.2",
+        "@types/mime-types": "^3.0.1"
     },
     "browser": {
         "fs": false,

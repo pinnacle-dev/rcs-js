@@ -4,7 +4,7 @@
 
 import * as Pinnacle from "../index.js";
 
-export type Rcs =
+export type RichMessage =
     /**
      * Send a text RCS message with optional quick reply buttons. */
     | Pinnacle.RichTextMessage

@@ -44,7 +44,7 @@ export class Rcs {
      *
      * Requires an active RCS agent and recipient devices that support RCS Business Messaging.
      *
-     * @param {Pinnacle.Rcs} request
+     * @param {Pinnacle.RichMessage} request
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -67,14 +67,14 @@ export class Rcs {
      *     })
      */
     public send(
-        request: Pinnacle.Rcs,
+        request: Pinnacle.RichMessage,
         requestOptions?: Rcs.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.messages.RcsSendResponse> {
         return core.HttpResponsePromise.fromPromise(this.__send(request, requestOptions));
     }
 
     private async __send(
-        request: Pinnacle.Rcs,
+        request: Pinnacle.RichMessage,
         requestOptions?: Rcs.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.messages.RcsSendResponse>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(

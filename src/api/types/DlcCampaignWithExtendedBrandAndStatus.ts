@@ -17,7 +17,7 @@ export interface DlcCampaignWithExtendedBrandAndStatus {
     /** Description of the campaign. */
     description?: string;
     /** Keyword response configuration. */
-    keywords?: DlcCampaignWithExtendedBrandAndStatus.Keywords;
+    keywords: DlcCampaignWithExtendedBrandAndStatus.Keywords;
     /** Legal documentation links. */
     links?: DlcCampaignWithExtendedBrandAndStatus.Links;
     /** Describe the flow of how users will opt in to this campaign. */
@@ -25,16 +25,19 @@ export interface DlcCampaignWithExtendedBrandAndStatus {
     /** Display name of the campaign. */
     name?: string;
     /** Campaign configuration options. */
-    options?: DlcCampaignWithExtendedBrandAndStatus.Options;
+    options: DlcCampaignWithExtendedBrandAndStatus.Options;
     /** Example messages for the campaign. */
     sampleMessages?: string[];
     /**
-     * Current review status of the campaign.<br>
+     * Current review status of the campaign. <br>
      *
-     * `INCOMPLETE`: Not submitted.<br>
-     * `IN REVIEW`: Being reviewed by carriers.<br>
-     * `VERIFIED`: Approved and ready to send messages.<br>
-     * `FAILED`: Issues and errors related to the campaign's details.<br>
+     * `INCOMPLETE`: Not submitted. <br>
+     *
+     * `IN REVIEW`: Being reviewed by carriers. <br>
+     *
+     * `VERIFIED`: Approved and ready to send messages. <br>
+     *
+     * `FAILED`: Issues and errors related to the campaign's details.
      */
     status: Pinnacle.ProfileStatusEnum;
     /** Use case for the campaign. */
@@ -62,7 +65,7 @@ export namespace DlcCampaignWithExtendedBrandAndStatus {
             /** Response message for help keywords. */
             message?: string;
             /** Keywords that trigger help response. */
-            values?: string[];
+            values: string[];
         }
 
         /**
@@ -70,7 +73,7 @@ export namespace DlcCampaignWithExtendedBrandAndStatus {
          */
         export interface OptIn {
             /** Response message for opt-in keywords. */
-            message: string;
+            message?: string;
             /** Keywords that trigger opt-in. */
             values: string[];
         }
@@ -80,7 +83,7 @@ export namespace DlcCampaignWithExtendedBrandAndStatus {
          */
         export interface OptOut {
             /** Response message for opt-out keywords. */
-            message: string;
+            message?: string;
             /** Keywords that trigger opt-out. */
             values: string[];
         }

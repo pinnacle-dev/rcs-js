@@ -233,6 +233,7 @@ export class Rcs {
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.PaymentRequiredError}
      * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
      *
@@ -279,6 +280,11 @@ export class Rcs {
                     throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
                     throw new Pinnacle.UnauthorizedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 402:
+                    throw new Pinnacle.PaymentRequiredError(
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );

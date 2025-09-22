@@ -3,11 +3,14 @@
  */
 
 /**
- * Current review status of the campaign.
+ * Current review status of the campaign. <br>
  *
- * `INCOMPLETE`: Not submitted.
- * `IN REVIEW`: Being reviewed by carriers.
- * `VERIFIED`: Approved and ready to send messages.
+ * `INCOMPLETE`: Not submitted. <br>
+ *
+ * `IN REVIEW`: Being reviewed by carriers. <br>
+ *
+ * `VERIFIED`: Approved and ready to send messages.<br>
+ *
  * `FAILED`: Issues and errors related to the campaign's details.
  */
 export type ProfileStatusEnum = "INCOMPLETE" | "IN REVIEW" | "VERIFIED" | "FAILED";

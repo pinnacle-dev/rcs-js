@@ -22,6 +22,8 @@ export namespace RcsBase {
         /** Send via the test agent to whitelisted test devices. Useful for development and debugging. */
         test_mode?: boolean;
         tracking?: Pinnacle.Tracking;
+        /** Media files and card media will be transcoded to a supported RCS format. This adds a small delay to sending the message. Ignored for rich text messages. */
+        transcode?: boolean;
         /**
          * Validate your message for any unsupported files. <br>
          *

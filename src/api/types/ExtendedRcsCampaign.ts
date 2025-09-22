@@ -16,17 +16,18 @@ export interface ExtendedRcsCampaign {
     /** Indicates whether the brand has provided an attestation. */
     brandAttestation: boolean;
     /** Unique identifier for the campaign. */
-    campaignId: number;
+    campaignId?: number;
     /** List of what the agent might say to users. */
     expectedAgentResponses?: string[];
     /** Legal documentation links. */
-    links: ExtendedRcsCampaign.Links;
+    links?: ExtendedRcsCampaign.Links;
+    status: Pinnacle.ProfileStatusEnum;
     /** Opt-in configuration. */
-    optIn: ExtendedRcsCampaign.OptIn;
+    optIn?: ExtendedRcsCampaign.OptIn;
     /** Opt-out configuration. */
-    optOut: ExtendedRcsCampaign.OptOut;
+    optOut?: ExtendedRcsCampaign.OptOut;
     /** Use case classification for the campaign. */
-    useCase: ExtendedRcsCampaign.UseCase;
+    useCase?: ExtendedRcsCampaign.UseCase;
 }
 
 export namespace ExtendedRcsCampaign {
@@ -39,7 +40,7 @@ export namespace ExtendedRcsCampaign {
         /** Description of the agent. */
         description?: string;
         /** List of emails. */
-        emails?: Agent.Emails.Item[];
+        emails: Agent.Emails.Item[];
         /** Link to the agent's hero. Hero must be an image file with dimensions 1440x448px. */
         heroUrl?: string;
         /** Link to the agent's icon. Icon must be an image file with dimensions 224x224px. */
@@ -47,9 +48,9 @@ export namespace ExtendedRcsCampaign {
         /** Name of the agent. */
         name?: string;
         /** List of phone numbers. */
-        phones?: Agent.Phones.Item[];
+        phones: Agent.Phones.Item[];
         /** List of urls. */
-        websites?: Agent.Websites.Item[];
+        websites: Agent.Websites.Item[];
     }
 
     export namespace Agent {

@@ -2915,7 +2915,7 @@ await client.messages.rcs.send({
 <dl>
 <dd>
 
-**request:** `Pinnacle.Rcs`
+**request:** `Pinnacle.RichMessage`
 
 </dd>
 </dl>

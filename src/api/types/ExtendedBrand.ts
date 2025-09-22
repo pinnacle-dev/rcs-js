@@ -12,11 +12,14 @@ export interface ExtendedBrand extends Pinnacle.OptionalBrandInfo {
     /** Indicates if this brand is archived. */
     isArchived: boolean;
     /**
-     * Current review status of the campaign.<br>
+     * Current review status of the campaign. <br>
      *
-     * `INCOMPLETE`: Not submitted.<br>
-     * `IN REVIEW`: Being reviewed by carriers.<br>
-     * `VERIFIED`: Approved and ready to send messages.<br>
+     * `INCOMPLETE`: Not submitted. <br>
+     *
+     * `IN REVIEW`: Being reviewed by carriers. <br>
+     *
+     * `VERIFIED`: Approved and ready to send messages. <br>
+     *
      * `FAILED`: Issues and errors related to the campaign's details.
      */
     status: Pinnacle.BrandStatusEnum;

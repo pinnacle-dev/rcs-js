@@ -189,7 +189,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("get (ebbf5c12)", async () => {
+    test("get (c9182f32)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -241,6 +241,7 @@ describe("Rcs", () => {
                 privacyPolicy: "https://www.trypinnacle.app/privacy",
                 termsOfService: "https://www.trypinnacle.app/terms",
             },
+            status: "VERIFIED",
             optIn: { method: "WEBSITE", termsAndConditions: "Would you like to subscribe to Pinnacle?" },
             optOut: { description: "Reply STOP to opt-out anytime.", keywords: ["STOP", "UNSUBSCRIBE", "END"] },
             useCase: { behavior: "Acts as a customer service representative.", value: "OTHER" },
@@ -311,6 +312,7 @@ describe("Rcs", () => {
                 privacyPolicy: "https://www.trypinnacle.app/privacy",
                 termsOfService: "https://www.trypinnacle.app/terms",
             },
+            status: "VERIFIED",
             optIn: {
                 method: "WEBSITE",
                 termsAndConditions: "Would you like to subscribe to Pinnacle?",
@@ -453,6 +455,28 @@ describe("Rcs", () => {
         );
     });
 
+    test("submit (159f142c)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/rcs/submit/1")
+            .respondWith()
+            .statusCode(402)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.rcs.submit(1);
+        }).rejects.toThrow(
+            new Pinnacle.PaymentRequiredError({
+                error: "error",
+            }),
+        );
+    });
+
     test("submit (dc858a68)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
@@ -497,7 +521,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (9be0e8a5)", async () => {
+    test("upsert (e8f3c2f5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -576,6 +600,7 @@ describe("Rcs", () => {
                 privacyPolicy: "https://www.trypinnacle.app/privacy",
                 termsOfService: "https://www.trypinnacle.app/terms",
             },
+            status: "VERIFIED",
             optIn: { method: "WEBSITE", termsAndConditions: "Would you like to subscribe to Pinnacle?" },
             optOut: { description: "Reply STOP to opt-out anytime.", keywords: ["STOP", "UNSUBSCRIBE", "END"] },
             useCase: { behavior: "Acts as a customer service representative.", value: "OTHER" },
@@ -704,6 +729,7 @@ describe("Rcs", () => {
                 privacyPolicy: "https://www.trypinnacle.app/privacy",
                 termsOfService: "https://www.trypinnacle.app/terms",
             },
+            status: "VERIFIED",
             optIn: {
                 method: "WEBSITE",
                 termsAndConditions: "Would you like to subscribe to Pinnacle?",
