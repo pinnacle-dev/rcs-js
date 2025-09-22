@@ -1,5 +1,6 @@
 import { Messages } from "../../api/resources/messages/client/Client.js";
 import * as Pinnacle from "../../api/index.js";
+import { UnauthorizedError } from "../../api/errors/UnauthorizedError.js";
 
 // # TODO
 
@@ -9,11 +10,20 @@ export interface MessageHandler {
     onError?: (error: Error) => Promise<void> | void;
 }
 
-Pinnacle.MessageEvent;
-
 export class MessageProcessor extends Messages {
     private handlers: MessageHandler[] = [];
     private isProcessing: boolean = false;
+    constructor(options: Messages.Options) {
+        super(options);
+        const headerSecret = options.headers?.['pinnacle-signed-secret'];
+        const secret = headerSecret ? headerSecret : process.env.PINNACLE_WEBHOOK_SECRET;
+
+        if (!secret) {
+            throw new UnauthorizedError(
+                { error: "Missing webhook signed secret. Provide it in headers or set PINNACLE_WEBHOOK_SECRET environment variable." }
+            );
+        }
+    }
 
     public registerHandler(handler: MessageHandler): void {
         this.handlers.push(handler);
