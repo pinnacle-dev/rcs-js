@@ -4,6 +4,7 @@ import * as mime from 'mime-types';
 import { File_ } from '../../api/resources/tools/resources/file/client/Client.js';
 import { UploadFileParams } from '../../api/resources/tools/resources/file/client/requests/index.js';
 import * as Pinnacle from '../../api/index.js';
+import { BadRequestError, NotFoundError, InternalServerError } from '../../api/errors/index.js';
 
 export class FileUploader extends File_ {
     public async uploadFromPath(
@@ -11,11 +12,27 @@ export class FileUploader extends File_ {
         options?: Partial<UploadFileParams>,
         requestOptions?: File_.RequestOptions
     ): Promise<Pinnacle.UploadResults> {
-        const stats = await fs.promises.stat(filePath);
+        // validate file exists and get metadata
+        let stats: fs.Stats;
+        try {
+            stats = await fs.promises.stat(filePath);
+        } catch (error: any) {
+            // file or directory doesn't exist
+            if (error.code === 'ENOENT') {
+                throw new NotFoundError({ error: `File not found: ${filePath}` });
+            }
+            // handle other filesystem errors (permissions, disk errors, etc.)
+            throw new InternalServerError({ error: `Failed to access file: ${error.message}` });
+        }
+
+        if (stats.isDirectory()) {
+            throw new BadRequestError({ message: `Path is a directory, not a file: ${filePath}` });
+        }
+
         const size = stats.size;
 
         const fileName = path.basename(filePath);
-
+        
         const contentType = options?.contentType || this.getMimeType(filePath);
 
         const uploadParams: UploadFileParams = {
