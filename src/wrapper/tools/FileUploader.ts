@@ -9,8 +9,10 @@ import { BadRequestError, NotFoundError, InternalServerError } from '../../api/e
 export class FileUploader extends File_ {
     public async uploadFromPath(
         filePath: string,
-        options?: Partial<UploadFileParams>,
-        requestOptions?: File_.RequestOptions
+        options?: {
+            name?: string;
+            options?: UploadFileParams.Options;
+        }
     ): Promise<Pinnacle.UploadResults> {
         // validate file exists and get metadata
         let stats: fs.Stats;
@@ -31,19 +33,18 @@ export class FileUploader extends File_ {
 
         const size = stats.size;
 
-        const fileName = path.basename(filePath);
-        
-        const contentType = options?.contentType || this.getMimeType(filePath);
+        const fileName = options?.name || path.basename(filePath);
+
+        const contentType = this.getMimeType(filePath);
 
         const uploadParams: UploadFileParams = {
             contentType,
             size,
-            name: options?.name || fileName,
+            name: fileName,
             options: options?.options
         };
 
-        const uploadResultPromise = this.upload(uploadParams, requestOptions);
-        const uploadResult = await uploadResultPromise;
+        const uploadResult = await this.upload(uploadParams);
 
         if (uploadResult.uploadUrl) {
             const fileBuffer = await fs.promises.readFile(filePath);

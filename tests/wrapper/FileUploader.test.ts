@@ -83,8 +83,7 @@ describe("FileUploader", () => {
                         size: 1024,
                         name: "file.jpg",
                         options: undefined,
-                    },
-                    undefined
+                    }
                 );
                 expect(fs.promises.readFile).toHaveBeenCalledWith(mockFilePath);
                 expect(global.fetch).toHaveBeenCalledWith(
@@ -102,7 +101,6 @@ describe("FileUploader", () => {
 
             it("should upload a file with custom options", async () => {
                 const customOptions = {
-                    contentType: "image/png",
                     name: "custom-name.png",
                     options: {
                         download: {
@@ -115,7 +113,7 @@ describe("FileUploader", () => {
 
                 expect(fileUploader.upload).toHaveBeenCalledWith(
                     {
-                        contentType: "image/png",
+                        contentType: "image/jpeg",
                         size: 1024,
                         name: "custom-name.png",
                         options: {
@@ -123,14 +121,13 @@ describe("FileUploader", () => {
                                 expiresAt: "2025-06-30T12:00:00.000Z",
                             },
                         },
-                    },
-                    undefined
+                    }
                 );
                 expect(global.fetch).toHaveBeenCalledWith(
                     mockUploadResult.uploadUrl,
                     expect.objectContaining({
                         headers: {
-                            "Content-Type": "image/png",
+                            "Content-Type": "image/jpeg",
                         },
                     })
                 );
@@ -148,16 +145,6 @@ describe("FileUploader", () => {
                 expect(result).toEqual(resultWithoutUrl);
             });
 
-            it("should pass through request options", async () => {
-                const requestOptions = { timeoutInSeconds: 5 };
-
-                await fileUploader.uploadFromPath(mockFilePath, {}, requestOptions);
-
-                expect(fileUploader.upload).toHaveBeenCalledWith(
-                    expect.any(Object),
-                    requestOptions
-                );
-            });
         });
 
         describe("MIME type handling", () => {
@@ -183,8 +170,7 @@ describe("FileUploader", () => {
                     await fileUploader.uploadFromPath(mockFilePath);
 
                     expect(fileUploader.upload).toHaveBeenCalledWith(
-                        expect.objectContaining({ contentType: mimeType }),
-                        undefined
+                        expect.objectContaining({ contentType: mimeType })
                     );
                 }
             });
@@ -199,8 +185,7 @@ describe("FileUploader", () => {
                     "MIME type audio/x-custom may not be fully supported. Proceeding anyway."
                 );
                 expect(fileUploader.upload).toHaveBeenCalledWith(
-                    expect.objectContaining({ contentType: "audio/x-custom" }),
-                    undefined
+                    expect.objectContaining({ contentType: "audio/x-custom" })
                 );
 
                 consoleWarnSpy.mockRestore();
@@ -212,8 +197,7 @@ describe("FileUploader", () => {
                 await fileUploader.uploadFromPath(mockFilePath);
 
                 expect(fileUploader.upload).toHaveBeenCalledWith(
-                    expect.objectContaining({ contentType: "application/octet-stream" }),
-                    undefined
+                    expect.objectContaining({ contentType: "application/octet-stream" })
                 );
             });
 
@@ -223,8 +207,7 @@ describe("FileUploader", () => {
                 await fileUploader.uploadFromPath(mockFilePath);
 
                 expect(fileUploader.upload).toHaveBeenCalledWith(
-                    expect.objectContaining({ contentType: "application/octet-stream" }),
-                    undefined
+                    expect.objectContaining({ contentType: "application/octet-stream" })
                 );
             });
         });
@@ -328,8 +311,7 @@ describe("FileUploader", () => {
                     expect.objectContaining({
                         name: "file",
                         contentType: "application/octet-stream",
-                    }),
-                    undefined
+                    })
                 );
             });
 
@@ -342,8 +324,7 @@ describe("FileUploader", () => {
                 expect(fileUploader.upload).toHaveBeenCalledWith(
                     expect.objectContaining({
                         name: "file.test.backup.jpg",
-                    }),
-                    undefined
+                    })
                 );
             });
 
@@ -359,8 +340,7 @@ describe("FileUploader", () => {
                 await fileUploader.uploadFromPath(mockFilePath);
 
                 expect(fileUploader.upload).toHaveBeenCalledWith(
-                    expect.objectContaining({ size: 0 }),
-                    undefined
+                    expect.objectContaining({ size: 0 })
                 );
             });
 
@@ -377,8 +357,7 @@ describe("FileUploader", () => {
                 await fileUploader.uploadFromPath(mockFilePath);
 
                 expect(fileUploader.upload).toHaveBeenCalledWith(
-                    expect.objectContaining({ size: 5 * 1024 * 1024 * 1024 }),
-                    undefined
+                    expect.objectContaining({ size: 5 * 1024 * 1024 * 1024 })
                 );
             });
 
@@ -392,8 +371,7 @@ describe("FileUploader", () => {
                 expect(fileUploader.upload).toHaveBeenCalledWith(
                     expect.objectContaining({
                         name: "file with spaces & special@chars!.jpg",
-                    }),
-                    undefined
+                    })
                 );
             });
 
@@ -411,8 +389,7 @@ describe("FileUploader", () => {
 
                 // Should still work as long as it's not a directory
                 expect(fileUploader.upload).toHaveBeenCalledWith(
-                    expect.objectContaining({ size: 1024 }),
-                    undefined
+                    expect.objectContaining({ size: 1024 })
                 );
             });
         });
