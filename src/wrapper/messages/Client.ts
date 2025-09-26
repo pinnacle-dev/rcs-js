@@ -15,6 +15,4 @@ export class EnhancedMessages extends MessageProcessor {
     public get rcs(): Rcs {
         return (this._rcs ??= new Rcs(this._options));
     }
-
-    public process = this.processInbound.bind(this);
 }

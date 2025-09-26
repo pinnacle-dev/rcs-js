@@ -1,29 +1,15 @@
 import { Messages } from "../../api/resources/messages/client/Client.js";
 import * as Pinnacle from "../../api/index.js";
-import { UnauthorizedError } from "../../api/errors/UnauthorizedError.js";
-
-// # TODO
+import { UnauthorizedError, BadRequestError } from "../../api/errors";
 
 export interface MessageHandler {
-    onMessage?: (message: Pinnacle.Message) => Promise<void> | void;
+    onMessage?: (message: Pinnacle.MessageEvent) => Promise<void> | void;
     onStatusUpdate?: (messageId: number, status: string) => Promise<void> | void;
     onError?: (error: Error) => Promise<void> | void;
 }
 
 export class MessageProcessor extends Messages {
     private handlers: MessageHandler[] = [];
-    private isProcessing: boolean = false;
-    constructor(options: Messages.Options) {
-        super(options);
-        const headerSecret = options.headers?.['pinnacle-signed-secret'];
-        const secret = headerSecret ? headerSecret : process.env.PINNACLE_WEBHOOK_SECRET;
-
-        if (!secret) {
-            throw new UnauthorizedError(
-                { error: "Missing webhook signed secret. Provide it in headers or set PINNACLE_WEBHOOK_SECRET environment variable." }
-            );
-        }
-    }
 
     public registerHandler(handler: MessageHandler): void {
         this.handlers.push(handler);
@@ -36,45 +22,34 @@ export class MessageProcessor extends Messages {
         }
     }
 
-    public async processInbound(data: any): Promise<void> {
-        if (this.isProcessing) {
-            return;
-        }
+    public async process(req: any): Promise<Pinnacle.MessageEvent> {
+        await this.checkWebhookSecret(req);
 
-        this.isProcessing = true;
+        const body = req.body;
 
-        try {
-            if (this.isInboundMessage(data)) {
-                await this.handleInboundMessage(data);
-            } else if (this.isStatusUpdate(data)) {
-                await this.handleStatusUpdate(data);
-            }
-        } catch (error) {
-            await this.handleError(error as Error);
-        } finally {
-            this.isProcessing = false;
-        }
+        // Validate the raw body first - this will throw with specific error if invalid
+        this.isValidMessageEvent(body);
+
+        return body;
     }
 
-    public async handle(data: any): Promise<void> {
-        return this.processInbound(data);
-    }
-
-    private isInboundMessage(data: any): boolean {
-        return data && typeof data === "object" && ("message" in data || "text" in data || "media" in data);
+    private async checkWebhookSecret(req: any): Promise<void> {
+        const headerSecret = req.headers?.['PINNACLE_SIGNING_SECRET'];
+        const envSecret = process.env.PINNACLE_SIGNING_SECRET;
+        if (!(envSecret || headerSecret)) {
+            throw new UnauthorizedError({ error: "Missing webhook signature" });
+        }
     }
 
     private isStatusUpdate(data: any): boolean {
         return data && typeof data === "object" && "messageId" in data && "status" in data;
     }
 
-    private async handleInboundMessage(data: any): Promise<void> {
-        const message = this.normalizeMessage(data);
-
+    private async handleInboundMessage(data: Pinnacle.MessageEvent): Promise<void> {
         for (const handler of this.handlers) {
             if (handler.onMessage) {
                 try {
-                    await Promise.resolve(handler.onMessage(message));
+                    await Promise.resolve(handler.onMessage(data));
                 } catch (error) {
                     console.error("Error in message handler:", error);
                     if (handler.onError) {
@@ -119,10 +94,6 @@ export class MessageProcessor extends Messages {
             return data.message as Pinnacle.Message;
         }
 
-        if (this.isValidMessage(data)) {
-            return data as Pinnacle.Message;
-        }
-
         const defaultMessage: Pinnacle.Message = {
             id: data.id || Date.now(),
             sender: data.from || data.sender || "unknown",
@@ -138,18 +109,25 @@ export class MessageProcessor extends Messages {
         return defaultMessage;
     }
 
-    private isValidMessage(data: any): data is Pinnacle.Message {
-        return (
-            data &&
-            typeof data === "object" &&
-            "id" in data &&
-            "sender" in data &&
-            "receiver" in data &&
-            "content" in data &&
-            "method" in data &&
-            "numSegments" in data &&
-            "status" in data &&
-            "type" in data
-        );
+    private isValidMessageEvent(data: unknown): data is Pinnacle.MessageEvent {
+        // Make sure data is an object (not null or array)
+        if (!data || typeof data !== 'object' || Array.isArray(data)){
+            throw new BadRequestError({error: "The request body is not an object."});
+        }
+
+        // Check required fields exist
+        if (!(
+            'type' in data && typeof data.type === "string" &&
+            'conversation' in data && typeof data.conversation === "object" && data.conversation !== null && !Array.isArray(data.conversation) &&
+            'status' in data && typeof data.status === "string" &&
+            'direction' in data && typeof data.direction === "string" &&
+            'segments' in data && typeof data.segments === "number" &&
+            'sentAt' in data && typeof data.sentAt === "string" &&
+            'message' in data && typeof data.message === "object" && data.message !== null && !Array.isArray(data.message)
+        )) {
+            throw new BadRequestError({error: "The request body is missing required fields."});
+        }
+
+        return true;
     }
 }
