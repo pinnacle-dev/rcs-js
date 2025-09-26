@@ -1,18 +1,50 @@
-import { MessageProcessor } from "./MessageProcessor.js";
-import { Sms } from "../../api/resources/messages/resources/sms/client/Client.js";
-import { Mms } from "../../api/resources/messages/resources/mms/client/Client.js";
-import { Rcs } from "../../api/resources/messages/resources/rcs/client/Client.js";
+import { Messages } from "../../api/resources/messages/client/Client.js";
+import { UnauthorizedError } from "../../api/errors/index.js";
+import * as Pinnacle from "../../api/index.js";
 
-export class EnhancedMessages extends MessageProcessor {
-    public get sms(): Sms {
-        return (this._sms ??= new Sms(this._options));
-    }
+interface ExpressLikeRequest {
+    headers: Record<string, string | string[] | undefined>;
+    body?: any;
+    get?: (name: string) => string | undefined;
+    protocol?: string;
+    originalUrl?: string;
+}
 
-    public get mms(): Mms {
-        return (this._mms ??= new Mms(this._options));
-    }
+export class EnhancedMessages extends Messages {
+    public async process(req: Request, secret?: string): Promise<Pinnacle.MessageEvent>;
 
-    public get rcs(): Rcs {
-        return (this._rcs ??= new Rcs(this._options));
+    public async process(req: ExpressLikeRequest, secret?: string): Promise<Pinnacle.MessageEvent>;
+
+    public async process(req: Request | ExpressLikeRequest, secret?: string): Promise<Pinnacle.MessageEvent> {
+        const signingSecret = secret || process.env.PINNACLE_SIGNING_SECRET;
+
+        let headerSecret: string | undefined;
+        let body: any;
+
+        if (req instanceof Request) {
+            headerSecret =
+                req.headers?.get("PINNACLE-SIGNING-SECRET") || req.headers?.get("pinnacle-signing-secret") || undefined;
+            body = await req.json();
+        } else {
+            const headers = req.headers;
+            headerSecret = headers["pinnacle-signing-secret"] as string | undefined;
+            body = req.body;
+        }
+
+        if (!signingSecret) {
+            throw new UnauthorizedError({
+                error: "Make sure to set the PINNACLE-SIGNING-SECRET environment variable or pass the secret as an argument to the process method",
+            });
+        }
+        if (!headerSecret) {
+            throw new UnauthorizedError({
+                error: "Failed to get the PINNACLE-SIGNING-SECRET header from request",
+            });
+        }
+        if (headerSecret !== signingSecret) {
+            throw new UnauthorizedError({ error: "Invalid webhook signature" });
+        }
+
+        return body as Pinnacle.MessageEvent;
     }
 }
