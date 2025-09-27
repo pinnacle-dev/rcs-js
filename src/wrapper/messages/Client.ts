@@ -11,10 +11,6 @@ interface ExpressLikeRequest {
 }
 
 export class EnhancedMessages extends Messages {
-    public async process(req: Request, secret?: string): Promise<Pinnacle.MessageEvent>;
-
-    public async process(req: ExpressLikeRequest, secret?: string): Promise<Pinnacle.MessageEvent>;
-
     public async process(req: Request | ExpressLikeRequest, secret?: string): Promise<Pinnacle.MessageEvent> {
         const signingSecret = secret || process.env.PINNACLE_SIGNING_SECRET;
 
