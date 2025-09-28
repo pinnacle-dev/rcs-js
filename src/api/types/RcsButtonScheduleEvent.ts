@@ -14,6 +14,8 @@ export interface RcsButtonScheduleEvent {
     eventStartTime: string;
     /** Title of the event. */
     eventTitle: string;
+    /** Optional additional data to attach to this button. */
+    metadata?: string;
     /** Display text for the button. */
     title: string;
 }

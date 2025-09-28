@@ -215,7 +215,7 @@ describe("Messages", () => {
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            content: { button: "Visit US", data: "clicked" },
+            content: { data: { address: "address", latitude: 1.1, longitude: 1.1, text: "text" } },
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",
             error: '{"value":[]}',
@@ -233,8 +233,12 @@ describe("Messages", () => {
         const response = await client.messages.get(1240);
         expect(response).toEqual({
             content: {
-                button: "Visit US",
-                data: "clicked",
+                data: {
+                    address: "address",
+                    latitude: 1.1,
+                    longitude: 1.1,
+                    text: "text",
+                },
             },
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",

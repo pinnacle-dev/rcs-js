@@ -6,6 +6,8 @@
  * Button that prompts the recipient to share their current location.
  */
 export interface RcsButtonRequestUserLocation {
+    /** Optional additional data to attach to this button. */
+    metadata?: string;
     /** Display text for the button. */
     title: string;
 }

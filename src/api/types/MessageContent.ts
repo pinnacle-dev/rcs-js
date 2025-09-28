@@ -20,5 +20,5 @@ export type MessageContent =
      * Message that contains richer content (longer text, higher quality media, cards, buttons, and quick replies) from an RCS agent. */
     | Pinnacle.RcsContent
     /**
-     * Message that represents when a user clicks on a RCS button or quick reply that was previously sent. */
-    | Pinnacle.InboundButton;
+     * Message that represents when a user clicks on a RCS button or quick reply. */
+    | Pinnacle.ButtonClicked;

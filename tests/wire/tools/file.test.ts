@@ -134,4 +134,149 @@ describe("File_", () => {
             }),
         );
     });
+
+    test("refresh (d6f979a9)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            uris: [
+                "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
+                "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
+                "icons/3/test.jpg",
+                "invalid/url",
+                "https://google.com",
+            ],
+        };
+        const rawResponseBody = [
+            {
+                original: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
+                refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=newtoken",
+            },
+            {
+                original: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
+                refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=newtoken2",
+            },
+            {
+                original: "icons/3/test.jpg",
+                refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/icons/3/138/129?token=newtoken3",
+            },
+            { original: "invalid/url", refreshed: "invalid/url" },
+            { original: "https://google.com", refreshed: "https://google.com" },
+        ];
+        server
+            .mockEndpoint()
+            .post("/tools/files/refresh")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.tools.file.refresh({
+            uris: [
+                "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
+                "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
+                "icons/3/test.jpg",
+                "invalid/url",
+                "https://google.com",
+            ],
+        });
+        expect(response).toEqual([
+            {
+                original: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
+                refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=newtoken",
+            },
+            {
+                original: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
+                refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=newtoken2",
+            },
+            {
+                original: "icons/3/test.jpg",
+                refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/icons/3/138/129?token=newtoken3",
+            },
+            {
+                original: "invalid/url",
+                refreshed: "invalid/url",
+            },
+            {
+                original: "https://google.com",
+                refreshed: "https://google.com",
+            },
+        ]);
+    });
+
+    test("refresh (680ba3b8)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { uris: ["uris", "uris"] };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/tools/files/refresh")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.file.refresh({
+                uris: ["uris", "uris"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("refresh (bf329aca)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { uris: ["uris", "uris"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/files/refresh")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.file.refresh({
+                uris: ["uris", "uris"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("refresh (99de069e)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { uris: ["uris", "uris"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/files/refresh")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.file.refresh({
+                uris: ["uris", "uris"],
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
 });

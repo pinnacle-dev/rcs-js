@@ -6,8 +6,8 @@
  * Button that sends custom data back to your application when tapped by the recipient.
  */
 export interface RcsButtonTrigger {
-    /** Additional data attached to the button interaction. */
-    metadata: string;
+    /** Optional additional data to attach to this button. */
+    metadata?: string;
     /** Custom data sent to your webhook when the button is tapped. Use this to identify the user's choice. */
     payload: string;
     /** Display text for the button. */

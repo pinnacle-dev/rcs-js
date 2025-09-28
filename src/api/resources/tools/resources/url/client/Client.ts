@@ -224,7 +224,7 @@ export class Url {
     }
 
     /**
-     * Update the destination or configuration of an existing shortened URL.
+     * Update the destination or expiration date of an existing shortened URL. Expiring links cannot be updated into a permalink.
      *
      * @param {string} linkId - Unique identifier from your shortened URL. For example, for `https://pncl.to/ePzVxILF`, the `linkId` is `ePzVxILF`. <br>
      *
