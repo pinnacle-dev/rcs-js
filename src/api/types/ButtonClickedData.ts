@@ -32,6 +32,8 @@ export namespace ButtonClickedData {
         payload?: string | null;
         /** Additional metadata attached to the button's `metadata` field, if provided. */
         metadata?: string | null;
+        /** Number of times the button has been clicked. */
+        clicks: number;
     }
 
     export namespace Button {
