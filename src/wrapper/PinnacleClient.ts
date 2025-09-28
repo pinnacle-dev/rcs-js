@@ -1,4 +1,4 @@
-import { PinnacleClient as FernClient } from "../Client";
+import { PinnacleClient as FernClient } from "../Client.js";
 import { EnhancedTools } from "./tools/Client.js";
 import { EnhancedMessages } from "./messages/Client.js";
 
