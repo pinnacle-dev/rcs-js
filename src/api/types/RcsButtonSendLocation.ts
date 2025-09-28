@@ -8,6 +8,8 @@
 export interface RcsButtonSendLocation {
     /** Geographic coordinates of the location to share. */
     latLong: RcsButtonSendLocation.LatLong;
+    /** Optional additional data to attach to this button. */
+    metadata?: string;
     /** Display text for the button. */
     title: string;
 }

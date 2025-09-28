@@ -3768,7 +3768,7 @@ See the response of [Create Shortened URL](./create-url) for more information.
 <dl>
 <dd>
 
-Update the destination or configuration of an existing shortened URL.
+Update the destination or expiration date of an existing shortened URL. Expiring links cannot be updated into a permalink.
 
 </dd>
 </dl>
@@ -3889,6 +3889,80 @@ await client.tools.file.upload({
 <dd>
 
 **request:** `Pinnacle.tools.UploadFileParams`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `File_.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.tools.file.<a href="/src/api/resources/tools/resources/file/client/Client.ts">refresh</a>({ ...params }) -> Pinnacle.RefreshedFile[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access time.
+
+<Callout type="info">
+  This only works for presigned download URLs. At this moment, you cannot refresh a presigned upload URL, generate a new one instead.
+</Callout>  
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.tools.file.refresh({
+    uris: [
+        "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
+        "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
+        "icons/3/test.jpg",
+        "invalid/url",
+        "https://google.com",
+    ],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.tools.RefreshFileParams`
 
 </dd>
 </dl>

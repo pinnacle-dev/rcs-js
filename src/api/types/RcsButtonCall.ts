@@ -6,6 +6,8 @@
  * Button that initiates a phone call when tapped by the recipient.
  */
 export interface RcsButtonCall {
+    /** Optional additional data to attach to this button. */
+    metadata?: string;
     /** Phone number to call in E.164 format */
     payload: string;
     /** Display text for the button. */

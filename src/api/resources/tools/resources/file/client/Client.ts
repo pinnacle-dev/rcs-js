@@ -138,6 +138,102 @@ export class File_ {
         }
     }
 
+    /**
+     * Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access time.
+     *
+     * <Callout type="info">
+     *   This only works for presigned download URLs. At this moment, you cannot refresh a presigned upload URL, generate a new one instead.
+     * </Callout>
+     *
+     * @param {Pinnacle.tools.RefreshFileParams} request
+     * @param {File_.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Pinnacle.BadRequestError}
+     * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.InternalServerError}
+     *
+     * @example
+     *     await client.tools.file.refresh({
+     *         uris: ["https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken", "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2", "icons/3/test.jpg", "invalid/url", "https://google.com"]
+     *     })
+     */
+    public refresh(
+        request: Pinnacle.tools.RefreshFileParams,
+        requestOptions?: File_.RequestOptions,
+    ): core.HttpResponsePromise<Pinnacle.RefreshedFile[]> {
+        return core.HttpResponsePromise.fromPromise(this.__refresh(request, requestOptions));
+    }
+
+    private async __refresh(
+        request: Pinnacle.tools.RefreshFileParams,
+        requestOptions?: File_.RequestOptions,
+    ): Promise<core.WithRawResponse<Pinnacle.RefreshedFile[]>> {
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.PinnacleEnvironment.Default,
+                "tools/files/refresh",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Pinnacle.RefreshedFile[], rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new Pinnacle.UnauthorizedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.PinnacleError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.PinnacleError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /tools/files/refresh.");
+            case "unknown":
+                throw new errors.PinnacleError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getCustomAuthorizationHeaders() {
         const apiKeyValue = await core.Supplier.get(this._options.apiKey);
         return { "PINNACLE-API-KEY": apiKeyValue };
