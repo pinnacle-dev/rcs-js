@@ -29,7 +29,7 @@ export class EnhancedMessages extends Messages {
 
         if (!signingSecret) {
             throw new UnauthorizedError({
-                error: "Make sure to set the PINNACLE-SIGNING-SECRET environment variable or pass the secret as an argument to the process method",
+                error: "Make sure to set the PINNACLE_SIGNING_SECRET environment variable or pass the secret as an argument to the process method",
             });
         }
         if (!headerSecret) {
