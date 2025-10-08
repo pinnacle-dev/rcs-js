@@ -19,7 +19,7 @@ export interface EnhancedContactItem {
      * LinkedIn profile URL if available and publicly accessible.
      * Null if no LinkedIn profile is found or accessible.
      */
-    linkedin?: string | null;
+    linkedin: string | null;
     /** Full name of the contact person associated with this profile. */
     name: string;
 }

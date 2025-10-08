@@ -13,7 +13,7 @@ export declare namespace Campaigns {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -25,7 +25,7 @@ export class Campaigns {
     protected _tollFree: TollFree | undefined;
     protected _rcs: Rcs | undefined;
 
-    constructor(_options: Campaigns.Options) {
+    constructor(_options: Campaigns.Options = {}) {
         this._options = _options;
     }
 

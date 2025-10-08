@@ -29,7 +29,7 @@ export interface UpsertBrandParams {
     /** Primary brand address where the company is located. */
     address?: string | null;
     /** Contact information for the brand. */
-    contact?: Pinnacle.UpsertContact | null;
+    contact: Pinnacle.UpsertContact | null;
     /** "Doing Business As" name - the public name the brand operates under. */
     dba?: string | null;
     /** Brief description of what the brand does. */
@@ -43,9 +43,9 @@ export interface UpsertBrandParams {
     /** Legal name of the brand as registered. */
     name?: string | null;
     /** Industry the brand operates in. */
-    sector?: Pinnacle.CompanySectorEnum | null;
+    sector: Pinnacle.CompanySectorEnum | null;
     /** Legal structure of the brand. */
-    type?: Pinnacle.CompanyTypeEnum | null;
+    type: Pinnacle.CompanyTypeEnum | null;
     /** Brand website URL. */
     website?: string | null;
 }

@@ -13,7 +13,7 @@ export declare namespace Webhook {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace Webhook {
 export class Webhook {
     protected readonly _options: Webhook.Options;
 
-    constructor(_options: Webhook.Options) {
+    constructor(_options: Webhook.Options = {}) {
         this._options = _options;
     }
 
@@ -44,7 +44,7 @@ export class Webhook {
      *
      * @param {string} phone - The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
      *
-     *                         Must be a phone number that you own and have already [purchased](./buy) through the API.
+     *                         Must be a phone number that you own and have already [purchased](./buy) through the API. A phone number can have multiple webhooks attached to it.
      * @param {Pinnacle.AttachWebhookParams} request
      * @param {Webhook.RequestOptions} requestOptions - Request-specific configuration.
      *

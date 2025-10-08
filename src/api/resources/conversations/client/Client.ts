@@ -13,7 +13,7 @@ export declare namespace Conversations {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace Conversations {
 export class Conversations {
     protected readonly _options: Conversations.Options;
 
-    constructor(_options: Conversations.Options) {
+    constructor(_options: Conversations.Options = {}) {
         this._options = _options;
     }
 
@@ -57,14 +57,14 @@ export class Conversations {
     public get(
         request: Pinnacle.GetConversationParams,
         requestOptions?: Conversations.RequestOptions,
-    ): core.HttpResponsePromise<(Pinnacle.Conversation | null) | undefined> {
+    ): core.HttpResponsePromise<Pinnacle.Conversation | null> {
         return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
         request: Pinnacle.GetConversationParams,
         requestOptions?: Conversations.RequestOptions,
-    ): Promise<core.WithRawResponse<(Pinnacle.Conversation | null) | undefined>> {
+    ): Promise<core.WithRawResponse<Pinnacle.Conversation | null>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -88,10 +88,7 @@ export class Conversations {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return {
-                data: _response.body as (Pinnacle.Conversation | null) | undefined,
-                rawResponse: _response.rawResponse,
-            };
+            return { data: _response.body as Pinnacle.Conversation | null, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

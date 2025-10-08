@@ -13,7 +13,7 @@ export declare namespace Contacts {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace Contacts {
 export class Contacts {
     protected readonly _options: Contacts.Options;
 
-    constructor(_options: Contacts.Options) {
+    constructor(_options: Contacts.Options = {}) {
         this._options = _options;
     }
 
@@ -66,11 +66,11 @@ export class Contacts {
     ): Promise<core.WithRawResponse<Pinnacle.Contact>> {
         const { id, phoneNumber } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (id !== undefined) {
-            _queryParams["id"] = id?.toString() ?? null;
+        if (id != null) {
+            _queryParams["id"] = id.toString();
         }
 
-        if (phoneNumber !== undefined) {
+        if (phoneNumber != null) {
             _queryParams["phoneNumber"] = phoneNumber;
         }
 

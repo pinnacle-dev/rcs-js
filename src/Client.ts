@@ -21,7 +21,7 @@ export declare namespace PinnacleClient {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -53,15 +53,15 @@ export class PinnacleClient {
     protected _status: Status | undefined;
     protected _tools: Tools | undefined;
 
-    constructor(_options: PinnacleClient.Options) {
+    constructor(_options: PinnacleClient.Options = {}) {
         this._options = {
             ..._options,
             headers: mergeHeaders(
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "rcs-js",
-                    "X-Fern-SDK-Version": "2.0.0-rc.14",
-                    "User-Agent": "rcs-js/2.0.0-rc.14",
+                    "X-Fern-SDK-Version": "2.0.0-rc.15",
+                    "User-Agent": "rcs-js/2.0.0-rc.15",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

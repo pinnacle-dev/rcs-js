@@ -30,7 +30,7 @@ export namespace VCardData {
              *
              * Null indicates that it is permanent.
              */
-            expiresAt?: string | null;
+            expiresAt: string | null;
         }
     }
 }

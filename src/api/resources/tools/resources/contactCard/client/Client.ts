@@ -13,7 +13,7 @@ export declare namespace ContactCard {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -35,12 +35,12 @@ export declare namespace ContactCard {
 export class ContactCard {
     protected readonly _options: ContactCard.Options;
 
-    constructor(_options: ContactCard.Options) {
+    constructor(_options: ContactCard.Options = {}) {
         this._options = _options;
     }
 
     /**
-     * Retrieve contact information as a vCard and get a presigned URL to download the file.
+     * Retrieve contact information as a vCard and get a presigned URL to download the file. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
      *
      * @param {Pinnacle.tools.GetVcardParams} request
      * @param {ContactCard.RequestOptions} requestOptions - Request-specific configuration.
@@ -132,7 +132,7 @@ export class ContactCard {
     }
 
     /**
-     * Create a new contact card or updates an existing one with full vCard data.
+     * Create a new contact card or updates an existing one with full vCard data. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
      *
      * @param {Pinnacle.tools.UpsertVcardParams} request
      * @param {ContactCard.RequestOptions} requestOptions - Request-specific configuration.

@@ -12,7 +12,7 @@ export interface ExtendedBrand extends Pinnacle.OptionalBrandInfo {
     /** Indicates if this brand is archived. */
     isArchived: boolean;
     /**
-     * Current review status of the campaign. <br>
+     * Current review status of the brand. <br>
      *
      * `INCOMPLETE`: Not submitted. <br>
      *
@@ -20,7 +20,11 @@ export interface ExtendedBrand extends Pinnacle.OptionalBrandInfo {
      *
      * `VERIFIED`: Approved and ready to send messages. <br>
      *
-     * `FAILED`: Issues and errors related to the campaign's details.
+     * `FAILED`: Issues and errors related to the campaign's details. <br>
+     *
+     * `VETTED`: Has undergone additional vetting by a third party service post the brand being verified. Your brand will be assigned a trust score, with higher trust scores having higher message volumes. <br>
+     *
+     * `UNVERIFIED`: Brand details have been updated, and the brand will need to undergo re-verification.
      */
     status: Pinnacle.BrandStatusEnum;
     /** ISO 8601 formatted timestamp of when this brand was last updated. */

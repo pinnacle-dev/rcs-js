@@ -13,6 +13,6 @@ export namespace ShortenedUrl {
         /** Destination URL that your shortened link redirects to. */
         to: string;
         /** Expiration date for your shortened link in ISO 8601 format, or null if it's permanent. */
-        expiresAt?: string | null;
+        expiresAt: string | null;
     }
 }

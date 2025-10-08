@@ -21,7 +21,7 @@ export interface ReactMessageParams {
      *
      * Use `null` to remove existing reaction.
      */
-    reaction?: string | null;
+    reaction: string | null;
 }
 
 export namespace ReactMessageParams {

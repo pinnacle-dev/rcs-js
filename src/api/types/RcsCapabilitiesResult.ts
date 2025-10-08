@@ -7,4 +7,4 @@ import * as Pinnacle from "../index.js";
 /**
  * Response containing RCS capabilities for requested phone numbers
  */
-export type RcsCapabilitiesResult = Record<string, (Pinnacle.RcsCapability | null) | undefined>;
+export type RcsCapabilitiesResult = Record<string, Pinnacle.RcsCapability | null>;

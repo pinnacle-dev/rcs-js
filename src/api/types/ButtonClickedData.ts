@@ -11,7 +11,7 @@ export interface ButtonClickedData {
     /** Information about the button that was clicked. */
     button: ButtonClickedData.Button;
     /** ID of the message this button was attached to, or null if not available. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint. */
-    messageId?: number | null;
+    messageId: number | null;
 }
 
 export namespace ButtonClickedData {

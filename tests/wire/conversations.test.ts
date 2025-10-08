@@ -67,7 +67,7 @@ describe("Conversations", () => {
         });
     });
 
-    test("get (377bc6f2)", async () => {
+    test("get (9f189f17)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: 1 };
@@ -92,7 +92,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("get (2a3ee00c)", async () => {
+    test("get (f855329)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: 1 };
@@ -117,7 +117,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("get (7a09e7c0)", async () => {
+    test("get (516879d5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: 1 };
@@ -228,7 +228,7 @@ describe("Conversations", () => {
         });
     });
 
-    test("list (bf72a02d)", async () => {
+    test("list (b4fc7c86)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -267,7 +267,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("list (a879666d)", async () => {
+    test("list (597148ba)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -306,7 +306,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("list (30960759)", async () => {
+    test("list (ad3def0e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -368,7 +368,7 @@ describe("Conversations", () => {
         });
     });
 
-    test("update (7c07aeb9)", async () => {
+    test("update (b708ac45)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: 1, notes: "x" };
@@ -394,7 +394,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("update (c3f0ee61)", async () => {
+    test("update (e9e536cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: 1, notes: "x" };
@@ -420,7 +420,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("update (aff5d8ed)", async () => {
+    test("update (210dc0b7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: 1, notes: "x" };

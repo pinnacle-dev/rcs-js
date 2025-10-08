@@ -13,7 +13,7 @@ export declare namespace Webhooks {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace Webhooks {
 export class Webhooks {
     protected readonly _options: Webhooks.Options;
 
-    constructor(_options: Webhooks.Options) {
+    constructor(_options: Webhooks.Options = {}) {
         this._options = _options;
     }
 

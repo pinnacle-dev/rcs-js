@@ -12,5 +12,5 @@ export interface BrandsGetRequest {
      *
      * When you set this to true, the EIN value will be replaced with a masked placeholder instead of the actual number.
      */
-    hideEIN?: boolean | null;
+    hideEIN?: boolean;
 }

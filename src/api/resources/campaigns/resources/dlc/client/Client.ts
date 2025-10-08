@@ -13,7 +13,7 @@ export declare namespace Dlc {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace Dlc {
 export class Dlc {
     protected readonly _options: Dlc.Options;
 
-    constructor(_options: Dlc.Options) {
+    constructor(_options: Dlc.Options = {}) {
         this._options = _options;
     }
 

@@ -13,7 +13,7 @@ export declare namespace Campaign {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -35,12 +35,12 @@ export declare namespace Campaign {
 export class Campaign {
     protected readonly _options: Campaign.Options;
 
-    constructor(_options: Campaign.Options) {
+    constructor(_options: Campaign.Options = {}) {
         this._options = _options;
     }
 
     /**
-     * Link a phone number to a specific campaign.
+     * Link a phone number to a specific campaign. Phone numbers must be linked to a campaign to send messages.
      *
      * @param {Pinnacle.phoneNumbers.AttachCampaignParams} request
      * @param {Campaign.RequestOptions} requestOptions - Request-specific configuration.

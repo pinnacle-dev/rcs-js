@@ -13,7 +13,7 @@ export declare namespace Brands {
         environment?: core.Supplier<environments.PinnacleEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
         baseUrl?: core.Supplier<string>;
-        apiKey: core.Supplier<string>;
+        apiKey?: core.Supplier<string | undefined>;
         /** Additional headers to include in requests. */
         headers?: Record<string, string | core.Supplier<string | null | undefined> | null | undefined>;
     }
@@ -35,7 +35,7 @@ export declare namespace Brands {
 export class Brands {
     protected readonly _options: Brands.Options;
 
-    constructor(_options: Brands.Options) {
+    constructor(_options: Brands.Options = {}) {
         this._options = _options;
     }
 
@@ -167,14 +167,14 @@ export class Brands {
      *     })
      */
     public upsert(
-        request: Pinnacle.UpsertBrandParams = {},
+        request: Pinnacle.UpsertBrandParams,
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ExtendedBrand> {
         return core.HttpResponsePromise.fromPromise(this.__upsert(request, requestOptions));
     }
 
     private async __upsert(
-        request: Pinnacle.UpsertBrandParams = {},
+        request: Pinnacle.UpsertBrandParams,
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ExtendedBrand>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -273,8 +273,8 @@ export class Brands {
     ): Promise<core.WithRawResponse<Pinnacle.ExtendedBrandWithVetting>> {
         const { hideEIN: hideEin } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        if (hideEin !== undefined) {
-            _queryParams["hideEIN"] = hideEin?.toString() ?? null;
+        if (hideEin != null) {
+            _queryParams["hideEIN"] = hideEin.toString();
         }
 
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(

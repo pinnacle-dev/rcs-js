@@ -9,9 +9,9 @@ import * as Pinnacle from "../index.js";
  */
 export interface Conversation {
     /** Identifier for the brand associated with this conversation. */
-    brandId?: number | null;
+    brandId: number | null;
     /** Campaign information if this conversation is part of a marketing campaign. */
-    campaign?: Pinnacle.CampaignQuery | null;
+    campaign: Pinnacle.CampaignQuery | null;
     /** Contact information for the recipient in a conversation. */
     contact: Conversation.Contact;
     /** ISO 8601 timestamp when the conversation was created. */
@@ -26,7 +26,7 @@ export interface Conversation {
      * - An RCS agent with ID and name
      * - `null` if no sender is associated
      */
-    sender?: Conversation.Sender | null;
+    sender: Conversation.Sender | null;
     /** ISO 8601 timestamp when the conversation was last updated. */
     updatedAt: string;
 }

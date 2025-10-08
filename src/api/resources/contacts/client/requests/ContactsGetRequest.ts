@@ -12,7 +12,7 @@ export interface ContactsGetRequest {
      *
      * Either this parameter or `phoneNumber` must be provided, but not both.
      */
-    id?: number | null;
+    id?: number;
     /** Phone number you want to look up contact information for, provided in URL-encoded E.164 format with %2B prefix instead of +. */
-    phoneNumber?: string | null;
+    phoneNumber?: string;
 }

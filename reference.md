@@ -645,7 +645,7 @@ await client.contacts.update({
 
 ## Conversations
 
-<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">get</a>({ ...params }) -> (Pinnacle.Conversation | null) | undefined</code></summary>
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">get</a>({ ...params }) -> Pinnacle.Conversation | null</code></summary>
 <dl>
 <dd>
 
@@ -3058,7 +3058,7 @@ await client.phoneNumbers.webhook.attach("%2B14155551234", {
 
 The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
 
-Must be a phone number that you own and have already [purchased](./buy) through the API.
+Must be a phone number that you own and have already [purchased](./buy) through the API. A phone number can have multiple webhooks attached to it.
 
 </dd>
 </dl>
@@ -3180,7 +3180,7 @@ This must be a valid webhook ID that is currently attached to the specified phon
 <dl>
 <dd>
 
-Link a phone number to a specific campaign.
+Link a phone number to a specific campaign. Phone numbers must be linked to a campaign to send messages.
 
 </dd>
 </dl>
@@ -3923,7 +3923,7 @@ Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access
 
 <Callout type="info">
   This only works for presigned download URLs. At this moment, you cannot refresh a presigned upload URL, generate a new one instead.
-</Callout>  
+</Callout>
 </dd>
 </dl>
 </dd>
@@ -3995,7 +3995,7 @@ await client.tools.file.refresh({
 <dl>
 <dd>
 
-Retrieve contact information as a vCard and get a presigned URL to download the file.
+Retrieve contact information as a vCard and get a presigned URL to download the file. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
 
 </dd>
 </dl>
@@ -4060,7 +4060,7 @@ await client.tools.contactCard.get({
 <dl>
 <dd>
 
-Create a new contact card or updates an existing one with full vCard data.
+Create a new contact card or updates an existing one with full vCard data. Contact cards can be sent [via MMS](/api-reference/messages/send-mms) as a media file.
 
 </dd>
 </dl>

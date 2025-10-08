@@ -21,6 +21,6 @@ export namespace UploadResults {
          *
          * Null indicates that `download.expiresAt` was not provided and the expiration time is defaulted to one hour after uploading.
          */
-        expiresAt?: string | null;
+        expiresAt: string | null;
     }
 }

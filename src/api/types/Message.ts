@@ -11,19 +11,19 @@ export interface Message {
      *
      * Null means the message incurred no cost or has not been charged yet.
      */
-    cost?: number | null;
+    cost: number | null;
     /**
      * Timestamp indicating when the message was successfully delivered to the recipient. <br>
      *
      * Null indicates the message has not yet been delivered.
      */
-    deliveredAt?: string | null;
+    deliveredAt: string | null;
     /**
      * Detailed explanation of any errors that occurred while delivering the message. <br>
      *
      * Null indicates no errors.
      */
-    error?: string | null;
+    error: string | null;
     /** Unique identifier of the message. */
     id: number;
     method: Pinnacle.MessageMethodEnum;
@@ -38,7 +38,7 @@ export interface Message {
      *
      * Null indicates the message is still in the queue.
      */
-    sentAt?: string | null;
+    sentAt: string | null;
     status: Pinnacle.MessageStatusEnum;
     type: Pinnacle.MessageProtocolEnum;
 }

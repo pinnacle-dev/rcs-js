@@ -254,7 +254,7 @@ describe("Messages", () => {
         });
     });
 
-    test("get (57f38da8)", async () => {
+    test("get (83669a18)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -270,7 +270,7 @@ describe("Messages", () => {
         );
     });
 
-    test("get (23b43b1a)", async () => {
+    test("get (83cf3170)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -286,7 +286,7 @@ describe("Messages", () => {
         );
     });
 
-    test("get (12fda996)", async () => {
+    test("get (9568c1fc)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -302,7 +302,7 @@ describe("Messages", () => {
         );
     });
 
-    test("get (156c7aee)", async () => {
+    test("get (475ea104)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -345,10 +345,10 @@ describe("Messages", () => {
         });
     });
 
-    test("react (a253d06c)", async () => {
+    test("react (4df4e969)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -363,7 +363,7 @@ describe("Messages", () => {
             return await client.messages.react({
                 messageId: 1,
                 options: undefined,
-                reaction: undefined,
+                reaction: null,
             });
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
@@ -372,10 +372,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (e56ec446)", async () => {
+    test("react (220725f7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -390,7 +390,7 @@ describe("Messages", () => {
             return await client.messages.react({
                 messageId: 1,
                 options: undefined,
-                reaction: undefined,
+                reaction: null,
             });
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
@@ -399,10 +399,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (7e6cfef6)", async () => {
+    test("react (2dc8e777)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -417,7 +417,7 @@ describe("Messages", () => {
             return await client.messages.react({
                 messageId: 1,
                 options: undefined,
-                reaction: undefined,
+                reaction: null,
             });
         }).rejects.toThrow(
             new Pinnacle.PaymentRequiredError({
@@ -426,10 +426,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (5a7db842)", async () => {
+    test("react (9cfb4aa3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -444,7 +444,7 @@ describe("Messages", () => {
             return await client.messages.react({
                 messageId: 1,
                 options: undefined,
-                reaction: undefined,
+                reaction: null,
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
@@ -453,10 +453,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (60bb884a)", async () => {
+    test("react (51c1bbf3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -471,7 +471,7 @@ describe("Messages", () => {
             return await client.messages.react({
                 messageId: 1,
                 options: undefined,
-                reaction: undefined,
+                reaction: null,
             });
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
@@ -480,10 +480,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (83491d0a)", async () => {
+    test("react (6306bdb3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: undefined };
+        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -498,7 +498,7 @@ describe("Messages", () => {
             return await client.messages.react({
                 messageId: 1,
                 options: undefined,
-                reaction: undefined,
+                reaction: null,
             });
         }).rejects.toThrow(
             new Pinnacle.NotImplementedError({

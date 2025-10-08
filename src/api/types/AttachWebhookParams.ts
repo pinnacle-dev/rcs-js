@@ -13,12 +13,12 @@ export type AttachWebhookParams =
      * Attach a webhook you’ve already created in your account to this phone number. */
     | {
           webhookId: number;
-          event?: (Pinnacle.WebhookEventEnum | null) | undefined;
+          event: Pinnacle.WebhookEventEnum | null;
       }
     /**
      * Create a new webhook and immediately attach it to your phone number. */
     | {
           name: string;
           url: string;
-          event?: (Pinnacle.WebhookEventEnum | null) | undefined;
+          event: Pinnacle.WebhookEventEnum | null;
       };

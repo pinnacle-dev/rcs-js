@@ -24,7 +24,7 @@ export interface AdvancedPhoneInformation {
     /** Detailed carrier information. */
     carrier: AdvancedPhoneInformation.Carrier;
     /** Enhanced contact information associated with the phone number. */
-    contact?: AdvancedPhoneInformation.Contact | null;
+    contact: AdvancedPhoneInformation.Contact | null;
 }
 
 export namespace AdvancedPhoneInformation {
@@ -73,25 +73,25 @@ export namespace AdvancedPhoneInformation {
         /** Complete country identification and metadata. */
         country: Location.Country;
         /** Primary city or municipality associated with the phone number. */
-        city?: string | null;
+        city: string | null;
         /**
          * State, province, or primary administrative division code.
          * Uses standard 2-letter abbreviations where applicable.
          */
-        state?: string | null;
+        state: string | null;
         /** Postal or ZIP code for the phone number's registered location. */
-        zip?: string | null;
+        zip: string | null;
         /**
          * Primary Metropolitan Statistical Area (PMSA) code for US numbers.
          * Used for demographic and market analysis purposes.
          */
-        metroCode?: string | null;
+        metroCode: string | null;
         /** County or secondary administrative division name. */
-        county?: string | null;
+        county: string | null;
         /** Coordinates provide the precise latitude and longitude values for the phone number’s registered location. */
         coordinates: Location.Coordinates;
         /** IANA timezone identifier for the number’s location. */
-        timeZone?: string | null;
+        timeZone: string | null;
     }
 
     export namespace Location {
@@ -112,9 +112,9 @@ export namespace AdvancedPhoneInformation {
          */
         export interface Coordinates {
             /** Decimal degrees latitude coordinate. */
-            latitude?: number | null;
+            latitude: number | null;
             /** Decimal degrees longitude coordinate. */
-            longitude?: number | null;
+            longitude: number | null;
         }
     }
 
