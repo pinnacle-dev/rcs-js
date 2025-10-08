@@ -71,7 +71,7 @@ describe("Brands", () => {
         });
     });
 
-    test("autofill (9409f32c)", async () => {
+    test("autofill (cd96a2d7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additional_info: undefined, name: undefined, options: undefined, website: undefined };
@@ -99,7 +99,7 @@ describe("Brands", () => {
         );
     });
 
-    test("autofill (cdf78e7c)", async () => {
+    test("autofill (21c53f1e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additional_info: undefined, name: undefined, options: undefined, website: undefined };
@@ -127,7 +127,7 @@ describe("Brands", () => {
         );
     });
 
-    test("autofill (883d9f70)", async () => {
+    test("autofill (596a7d02)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additional_info: undefined, name: undefined, options: undefined, website: undefined };
@@ -253,7 +253,7 @@ describe("Brands", () => {
         });
     });
 
-    test("upsert (338dea1a)", async () => {
+    test("upsert (418ac479)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -300,7 +300,7 @@ describe("Brands", () => {
         );
     });
 
-    test("upsert (c432556)", async () => {
+    test("upsert (3e3563a8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -347,7 +347,7 @@ describe("Brands", () => {
         );
     });
 
-    test("upsert (a961439a)", async () => {
+    test("upsert (8b64bbbc)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -476,7 +476,7 @@ describe("Brands", () => {
         });
     });
 
-    test("get (83669a18)", async () => {
+    test("get (e72aa068)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -492,7 +492,7 @@ describe("Brands", () => {
         );
     });
 
-    test("get (83cf3170)", async () => {
+    test("get (38965f2f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -508,7 +508,7 @@ describe("Brands", () => {
         );
     });
 
-    test("get (9568c1fc)", async () => {
+    test("get (51dbad9b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -524,7 +524,7 @@ describe("Brands", () => {
         );
     });
 
-    test("get (475ea104)", async () => {
+    test("get (1368280b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -553,7 +553,7 @@ describe("Brands", () => {
         });
     });
 
-    test("submit (f1c05cc5)", async () => {
+    test("submit (fb12fbc5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -569,7 +569,7 @@ describe("Brands", () => {
         );
     });
 
-    test("submit (7086d44b)", async () => {
+    test("submit (c926e4e4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -585,7 +585,7 @@ describe("Brands", () => {
         );
     });
 
-    test("submit (3713af7b)", async () => {
+    test("submit (797584c4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -601,7 +601,7 @@ describe("Brands", () => {
         );
     });
 
-    test("submit (abd952e7)", async () => {
+    test("submit (961e95c0)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -617,7 +617,7 @@ describe("Brands", () => {
         );
     });
 
-    test("submit (97a3ee37)", async () => {
+    test("submit (e1aa1ad8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -633,7 +633,7 @@ describe("Brands", () => {
         );
     });
 
-    test("submit (e410fb57)", async () => {
+    test("submit (b1a58e48)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -711,7 +711,7 @@ describe("Brands", () => {
         });
     });
 
-    test("validate (1fe3dcd)", async () => {
+    test("validate (c29b5a5b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -761,7 +761,7 @@ describe("Brands", () => {
         );
     });
 
-    test("validate (c8d7fcf3)", async () => {
+    test("validate (1c580d92)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -811,7 +811,7 @@ describe("Brands", () => {
         );
     });
 
-    test("validate (25440b3f)", async () => {
+    test("validate (d9bc95c6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -881,7 +881,7 @@ describe("Brands", () => {
         });
     });
 
-    test("vet (313efec8)", async () => {
+    test("vet (4088a0bb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" };
@@ -904,7 +904,7 @@ describe("Brands", () => {
         );
     });
 
-    test("vet (28bc4bc0)", async () => {
+    test("vet (d73f22b2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" };
@@ -927,7 +927,7 @@ describe("Brands", () => {
         );
     });
 
-    test("vet (7a41e0)", async () => {
+    test("vet (75960b92)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" };
@@ -950,7 +950,7 @@ describe("Brands", () => {
         );
     });
 
-    test("vet (fde6aa8c)", async () => {
+    test("vet (16d4110e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" };
@@ -973,7 +973,7 @@ describe("Brands", () => {
         );
     });
 
-    test("vet (1924b954)", async () => {
+    test("vet (1bee81e6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" };
@@ -996,7 +996,7 @@ describe("Brands", () => {
         );
     });
 
-    test("vet (75ffed24)", async () => {
+    test("vet (a7e4d06)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" };

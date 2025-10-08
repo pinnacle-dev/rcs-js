@@ -51,7 +51,7 @@ describe("File_", () => {
         });
     });
 
-    test("upload (f83a5bce)", async () => {
+    test("upload (b10e0953)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -79,7 +79,7 @@ describe("File_", () => {
         );
     });
 
-    test("upload (5c378462)", async () => {
+    test("upload (7ad06d7a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -107,7 +107,7 @@ describe("File_", () => {
         );
     });
 
-    test("upload (76155216)", async () => {
+    test("upload (40d36dce)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -205,7 +205,7 @@ describe("File_", () => {
         ]);
     });
 
-    test("refresh (984bdfd)", async () => {
+    test("refresh (b786765b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { uris: ["uris", "uris"] };
@@ -230,7 +230,7 @@ describe("File_", () => {
         );
     });
 
-    test("refresh (564ac5c3)", async () => {
+    test("refresh (9940192)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { uris: ["uris", "uris"] };
@@ -255,7 +255,7 @@ describe("File_", () => {
         );
     });
 
-    test("refresh (cbb908f)", async () => {
+    test("refresh (368809c6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { uris: ["uris", "uris"] };

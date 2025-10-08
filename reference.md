@@ -3037,7 +3037,8 @@ Connect a webhook to your phone number to receive real-time notifications for in
 
 ```typescript
 await client.phoneNumbers.webhook.attach("%2B14155551234", {
-    webhookId: 1,
+    webhookId: 123,
+    event: "MESSAGE.STATUS",
 });
 ```
 

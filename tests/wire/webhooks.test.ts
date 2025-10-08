@@ -65,7 +65,7 @@ describe("Webhooks", () => {
         });
     });
 
-    test("get (dee49910)", async () => {
+    test("get (74f33452)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { identifiers: ["identifiers", "identifiers"] };
@@ -90,7 +90,7 @@ describe("Webhooks", () => {
         );
     });
 
-    test("get (5c2f7b88)", async () => {
+    test("get (288f78d9)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { identifiers: ["identifiers", "identifiers"] };
@@ -115,7 +115,7 @@ describe("Webhooks", () => {
         );
     });
 
-    test("get (eca2bd1c)", async () => {
+    test("get (3de92905)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { identifiers: ["identifiers", "identifiers"] };
