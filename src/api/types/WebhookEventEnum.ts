@@ -5,6 +5,7 @@
 /**
  * Types of events that can trigger webhook notifications for phone numbers.
  * Subscribe to specific events to receive real-time updates about your phone number activity.
+ * Use `null` to listen to all events.
  */
 export type WebhookEventEnum = "MESSAGE.STATUS" | "MESSAGE.RECEIVED";
 export const WebhookEventEnum = {
