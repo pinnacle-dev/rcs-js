@@ -7,12 +7,12 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("Rcs", () => {
-    test("autofill (9549091d)", async () => {
+    test("autofill (ec1d7fe3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
-            additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-            campaignId: 161,
+            additionalInfo: "Please autofill missing campaign fields using my brand profile",
+            campaignId: "dlc_1234567890",
         };
         const rawResponseBody = {
             agent: {
@@ -26,7 +26,7 @@ describe("Rcs", () => {
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
             },
-            campaignId: 161,
+            campaignId: "rcs_1234567890",
             brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
@@ -41,7 +41,7 @@ describe("Rcs", () => {
             optIn: { termsAndConditions: "Would you like to subscribe to Pinnacle?", method: "WEBSITE" },
             optOut: { description: "Reply STOP to opt-out anytime.", keywords: ["STOP", "UNSUBSCRIBE", "END"] },
             useCase: { behavior: "Acts as a customer service representative.", value: "OTHER" },
-            brand: 2,
+            brand: "b_1234567890",
         };
         server
             .mockEndpoint()
@@ -53,8 +53,8 @@ describe("Rcs", () => {
             .build();
 
         const response = await client.campaigns.rcs.autofill({
-            additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-            campaignId: 161,
+            additionalInfo: "Please autofill missing campaign fields using my brand profile",
+            campaignId: "dlc_1234567890",
         });
         expect(response).toEqual({
             agent: {
@@ -83,7 +83,7 @@ describe("Rcs", () => {
                 heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
                 iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
             },
-            campaignId: 161,
+            campaignId: "rcs_1234567890",
             brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
@@ -107,11 +107,11 @@ describe("Rcs", () => {
                 behavior: "Acts as a customer service representative.",
                 value: "OTHER",
             },
-            brand: 2,
+            brand: "b_1234567890",
         });
     });
 
-    test("autofill (d5360f26)", async () => {
+    test("autofill (be0b4ff4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -137,7 +137,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("autofill (772a13bd)", async () => {
+    test("autofill (5a2ba21c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -163,7 +163,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("autofill (17e040a9)", async () => {
+    test("autofill (78086810)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -189,7 +189,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("get (c9182f32)", async () => {
+    test("get (372c71d8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -223,14 +223,14 @@ describe("Rcs", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
             brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brandAttestation: true,
-            campaignId: 161,
+            campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -246,9 +246,15 @@ describe("Rcs", () => {
             optOut: { description: "Reply STOP to opt-out anytime.", keywords: ["STOP", "UNSUBSCRIBE", "END"] },
             useCase: { behavior: "Acts as a customer service representative.", value: "OTHER" },
         };
-        server.mockEndpoint().get("/campaigns/rcs/161").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/campaigns/rcs/rcs_1234567890")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.campaigns.rcs.get(161);
+        const response = await client.campaigns.rcs.get("rcs_1234567890");
         expect(response).toEqual({
             agent: {
                 color: "#000000",
@@ -294,14 +300,14 @@ describe("Rcs", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
             brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brandAttestation: true,
-            campaignId: 161,
+            campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -328,15 +334,21 @@ describe("Rcs", () => {
         });
     });
 
-    test("get (eecd4f52)", async () => {
+    test("get (c8293015)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
-        server.mockEndpoint().get("/campaigns/rcs/1").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/campaigns/rcs/campaignId")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.get(1);
+            return await client.campaigns.rcs.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -344,15 +356,21 @@ describe("Rcs", () => {
         );
     });
 
-    test("get (c9fc51d9)", async () => {
+    test("get (2a5bbc1f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/campaigns/rcs/1").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/campaigns/rcs/campaignId")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.get(1);
+            return await client.campaigns.rcs.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -360,15 +378,21 @@ describe("Rcs", () => {
         );
     });
 
-    test("get (84cc0bc5)", async () => {
+    test("get (d9f643cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/campaigns/rcs/1").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/campaigns/rcs/campaignId")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.get(1);
+            return await client.campaigns.rcs.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -376,15 +400,21 @@ describe("Rcs", () => {
         );
     });
 
-    test("get (eba86205)", async () => {
+    test("get (a63b9e7b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/campaigns/rcs/1").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/campaigns/rcs/campaignId")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.get(1);
+            return await client.campaigns.rcs.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -392,40 +422,40 @@ describe("Rcs", () => {
         );
     });
 
-    test("submit (3c06af76)", async () => {
+    test("submit (6c3174e8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true };
         server
             .mockEndpoint()
-            .post("/campaigns/rcs/submit/161")
+            .post("/campaigns/rcs/submit/rcs_1234567890")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.campaigns.rcs.submit(161);
+        const response = await client.campaigns.rcs.submit("rcs_1234567890");
         expect(response).toEqual({
             success: true,
         });
     });
 
-    test("submit (eecd4f52)", async () => {
+    test("submit (c8293015)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/campaigns/rcs/submit/1")
+            .post("/campaigns/rcs/submit/campaignId")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit(1);
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -433,21 +463,21 @@ describe("Rcs", () => {
         );
     });
 
-    test("submit (c9fc51d9)", async () => {
+    test("submit (2a5bbc1f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/rcs/submit/1")
+            .post("/campaigns/rcs/submit/campaignId")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit(1);
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -455,21 +485,21 @@ describe("Rcs", () => {
         );
     });
 
-    test("submit (ad9ea349)", async () => {
+    test("submit (4f01b21f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/rcs/submit/1")
+            .post("/campaigns/rcs/submit/campaignId")
             .respondWith()
             .statusCode(402)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit(1);
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.PaymentRequiredError({
                 error: "error",
@@ -477,21 +507,21 @@ describe("Rcs", () => {
         );
     });
 
-    test("submit (84cc0bc5)", async () => {
+    test("submit (d9f643cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/rcs/submit/1")
+            .post("/campaigns/rcs/submit/campaignId")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit(1);
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -499,21 +529,21 @@ describe("Rcs", () => {
         );
     });
 
-    test("submit (eba86205)", async () => {
+    test("submit (a63b9e7b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/rcs/submit/1")
+            .post("/campaigns/rcs/submit/campaignId")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit(1);
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -521,7 +551,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (e8f3c2f5)", async () => {
+    test("upsert (d681a268)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -537,7 +567,8 @@ describe("Rcs", () => {
                 websites: [{ label: "Get started with Pinnacle", url: "https://www.trypinnacle.app/" }],
             },
             brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
-            brand: 2,
+            brand: "b_1234567890",
+            campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -582,14 +613,14 @@ describe("Rcs", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
             brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brandAttestation: true,
-            campaignId: 161,
+            campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -642,7 +673,8 @@ describe("Rcs", () => {
                 ],
             },
             brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
-            brand: 2,
+            brand: "b_1234567890",
+            campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -711,14 +743,14 @@ describe("Rcs", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
             brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brandAttestation: true,
-            campaignId: 161,
+            campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -745,7 +777,7 @@ describe("Rcs", () => {
         });
     });
 
-    test("upsert (c28acf8a)", async () => {
+    test("upsert (80abcad1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -788,7 +820,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (eb488581)", async () => {
+    test("upsert (c898f863)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -831,7 +863,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (428928ad)", async () => {
+    test("upsert (2634fbf)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -874,7 +906,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (fc16a10d)", async () => {
+    test("upsert (a47f3f2f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -917,12 +949,12 @@ describe("Rcs", () => {
         );
     });
 
-    test("validate (4f46db2a)", async () => {
+    test("validate (9cc92503)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-            campaignId: 161,
+            campaignId: "dlc_1234567890",
         };
         const rawResponseBody = {
             errors: [{ description: "description", example: "example", field: "field" }],
@@ -939,7 +971,7 @@ describe("Rcs", () => {
 
         const response = await client.campaigns.rcs.validate({
             additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-            campaignId: 161,
+            campaignId: "dlc_1234567890",
         });
         expect(response).toEqual({
             errors: [
@@ -953,10 +985,10 @@ describe("Rcs", () => {
         });
     });
 
-    test("validate (6dfec3cf)", async () => {
+    test("validate (d11b3afa)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { additionalInfo: undefined, campaignId: 1 };
+        const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -970,7 +1002,7 @@ describe("Rcs", () => {
         await expect(async () => {
             return await client.campaigns.rcs.validate({
                 additionalInfo: undefined,
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
@@ -979,10 +1011,10 @@ describe("Rcs", () => {
         );
     });
 
-    test("validate (82beebc6)", async () => {
+    test("validate (ac3701da)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { additionalInfo: undefined, campaignId: 1 };
+        const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -996,7 +1028,7 @@ describe("Rcs", () => {
         await expect(async () => {
             return await client.campaigns.rcs.validate({
                 additionalInfo: undefined,
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
@@ -1005,10 +1037,10 @@ describe("Rcs", () => {
         );
     });
 
-    test("validate (df0dffca)", async () => {
+    test("validate (18773ae)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { additionalInfo: undefined, campaignId: 1 };
+        const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -1022,7 +1054,7 @@ describe("Rcs", () => {
         await expect(async () => {
             return await client.campaigns.rcs.validate({
                 additionalInfo: undefined,
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({

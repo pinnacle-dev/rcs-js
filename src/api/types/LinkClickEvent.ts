@@ -37,8 +37,6 @@ export interface LinkClickEvent {
     fingerprint_id?: string | null;
     /** Google Click Identifier. */
     gclid?: string | null;
-    /** Unique identifier for the click event. */
-    id: number;
     /** IP address of the visitor (may be anonymized). */
     ip_address?: string | null;
     /** Chain of IP addresses for proxied requests. */
@@ -49,8 +47,6 @@ export interface LinkClickEvent {
     latency_ms?: number | null;
     /** Geographic latitude. */
     latitude?: number | null;
-    /** ID of your shortened URL. */
-    link_id: number;
     /** Geographic longitude. */
     longitude?: number | null;
     /** Additional metadata as JSON object. */

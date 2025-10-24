@@ -159,7 +159,7 @@ export class Brands {
      *         description: "A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
      *         ein: "88-1234567",
      *         email: "founders@trypinnacle.app",
-     *         id: 1,
+     *         id: "b_1234567890",
      *         name: "Pinnacle",
      *         sector: "TECHNOLOGY",
      *         type: "PRIVATE_PROFIT",
@@ -246,7 +246,8 @@ export class Brands {
     /**
      * Retrieve detailed information for a specific brand in your account by ID.
      *
-     * @param {number} id - ID of an existing brand in your account that you want to retrieve.
+     * @param {string} id - The unique identifier of the brand you want to retrieve from your account.
+     *                      <br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
      * @param {Pinnacle.BrandsGetRequest} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -256,10 +257,10 @@ export class Brands {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.brands.get(1)
+     *     await client.brands.get("b_1234567890")
      */
     public get(
-        id: number,
+        id: string,
         request: Pinnacle.BrandsGetRequest = {},
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ExtendedBrandWithVetting> {
@@ -267,7 +268,7 @@ export class Brands {
     }
 
     private async __get(
-        id: number,
+        id: string,
         request: Pinnacle.BrandsGetRequest = {},
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ExtendedBrandWithVetting>> {
@@ -345,9 +346,8 @@ export class Brands {
     /**
      * Submit your brand for review and approval by the compliance team.
      *
-     * @param {number} brandId - The unique identifier of the brand you want to submit for review. <br>
-     *
-     *                           Must correspond to an existing brand in your account that is ready for submission.
+     * @param {string} brandId - The unique identifier of the brand you want to submit for review. <br><br>
+     *                           This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for submission.
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -358,17 +358,17 @@ export class Brands {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.brands.submit(1)
+     *     await client.brands.submit("b_1234567890")
      */
     public submit(
-        brandId: number,
+        brandId: string,
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.SubmissionResults> {
         return core.HttpResponsePromise.fromPromise(this.__submit(brandId, requestOptions));
     }
 
     private async __submit(
-        brandId: number,
+        brandId: string,
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.SubmissionResults>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -555,9 +555,9 @@ export class Brands {
     /**
      * Submit a brand for external vetting verification to enhance your brand's trust score and improved message delivery rates.
      *
-     * @param {number} brandId - The unique identifier of the brand to vet. <br>
+     * @param {string} brandId - The unique identifier of the brand to vet. <br>
      *
-     *                           The brand must be already registered before it can be vetted.
+     *                           This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for vetting.
      * @param {Pinnacle.VetBrandParams} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -569,10 +569,10 @@ export class Brands {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.brands.vet(1, {})
+     *     await client.brands.vet("b_1234567890", {})
      */
     public vet(
-        brandId: number,
+        brandId: string,
         request: Pinnacle.VetBrandParams,
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.VettingResults> {
@@ -580,7 +580,7 @@ export class Brands {
     }
 
     private async __vet(
-        brandId: number,
+        brandId: string,
         request: Pinnacle.VetBrandParams,
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.VettingResults>> {

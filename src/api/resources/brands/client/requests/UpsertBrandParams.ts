@@ -18,7 +18,7 @@ import * as Pinnacle from "../../../../index.js";
  *         description: "A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
  *         ein: "88-1234567",
  *         email: "founders@trypinnacle.app",
- *         id: 1,
+ *         id: "b_1234567890",
  *         name: "Pinnacle",
  *         sector: "TECHNOLOGY",
  *         type: "PRIVATE_PROFIT",
@@ -38,8 +38,11 @@ export interface UpsertBrandParams {
     ein?: string | null;
     /** Main contact email address for the brand. */
     email?: string | null;
-    /** Brand ID - include only when updating an existing brand, omit to create a new one. */
-    id?: number;
+    /**
+     * The unique identifier of the brand you want to update.
+     * <br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
+     */
+    id?: string;
     /** Legal name of the brand as registered. */
     name?: string | null;
     /** Industry the brand operates in. */

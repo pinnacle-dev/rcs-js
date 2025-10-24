@@ -42,7 +42,7 @@ export class Get {
     /**
      * Retrieve a brand's status.
      *
-     * @param {number} brandId - ID of the brand.
+     * @param {string} brandId - The unique identifier of the brand you want to retrieve the status for. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -52,14 +52,14 @@ export class Get {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.status.get.brand(28)
+     *     await client.status.get.brand("b_1234567890")
      */
-    public brand(brandId: number, requestOptions?: Get.RequestOptions): core.HttpResponsePromise<Pinnacle.BrandStatus> {
+    public brand(brandId: string, requestOptions?: Get.RequestOptions): core.HttpResponsePromise<Pinnacle.BrandStatus> {
         return core.HttpResponsePromise.fromPromise(this.__brand(brandId, requestOptions));
     }
 
     private async __brand(
-        brandId: number,
+        brandId: string,
         requestOptions?: Get.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.BrandStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -135,7 +135,7 @@ export class Get {
     /**
      * Retrieve a toll-free campaign's status.
      *
-     * @param {number} campaignId - ID of the toll-free campaign.
+     * @param {string} campaignId - The unique identifier of the toll-free campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -145,17 +145,17 @@ export class Get {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.status.get.tollFree(28)
+     *     await client.status.get.tollFree("tf_1234567890")
      */
     public tollFree(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.TollFreeCampaignStatus> {
         return core.HttpResponsePromise.fromPromise(this.__tollFree(campaignId, requestOptions));
     }
 
     private async __tollFree(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.TollFreeCampaignStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -233,7 +233,7 @@ export class Get {
     /**
      * Retrieve a 10DLC campaign's status.
      *
-     * @param {number} campaignId - ID of the 10DLC campaign.
+     * @param {string} campaignId - The unique identifier of the 10DLC campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -243,17 +243,17 @@ export class Get {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.status.get.dlc(28)
+     *     await client.status.get.dlc("dlc_1234567890")
      */
     public dlc(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.DlcCampaignStatus> {
         return core.HttpResponsePromise.fromPromise(this.__dlc(campaignId, requestOptions));
     }
 
     private async __dlc(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.DlcCampaignStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -331,7 +331,7 @@ export class Get {
     /**
      * Retrieve a RCS campaign's status.
      *
-     * @param {number} campaignId - ID of the campaign.
+     * @param {string} campaignId - The unique identifier of the RCS campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -341,17 +341,17 @@ export class Get {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.status.get.rcs(28)
+     *     await client.status.get.rcs("rcs_1234567890")
      */
     public rcs(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.RcsCampaignStatus> {
         return core.HttpResponsePromise.fromPromise(this.__rcs(campaignId, requestOptions));
     }
 
     private async __rcs(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.RcsCampaignStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(

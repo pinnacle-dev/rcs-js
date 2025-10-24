@@ -22,8 +22,8 @@ export namespace ConfiguredWebhook {
      * Detailed information about the attached webhook.
      */
     export interface Webhook {
-        /** Unique identifier of the webhook within the account. */
-        id: number;
+        /** Unique identifier of the webhook within the account. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`. */
+        id: string;
         /** Name of the webhook. */
         name: string;
         /** The HTTPS endpoint URL where webhook events will be sent as HTTP POST requests. */

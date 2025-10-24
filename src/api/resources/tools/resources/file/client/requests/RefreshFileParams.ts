@@ -5,18 +5,10 @@
 /**
  * @example
  *     {
- *         uris: ["https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken", "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2", "icons/3/test.jpg", "invalid/url", "https://google.com"]
+ *         urls: ["https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken", "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2", "invalid/url", "https://google.com"]
  *     }
  */
 export interface RefreshFileParams {
-    /**
-     * Array of file URIs to refresh for extended access. <br>
-     *
-     * Accepted formats:
-     * - **Full presigned URLs**: `https://server.trypinnacle.app/storage/v1/object/sign/...`
-     * - **Short URIs**: `{BUCKET}/${TEAM_ID}/...` (e.g., `vault/3/document.pdf`)
-     *
-     * Invalid or external URLs will be returned unchanged in the response.
-     */
-    uris: string[];
+    /** Array of file URLs to refresh for extended access. Provided URLs must be presigned URLs (i.e. `https://server.trypinnacle.app/storage/v1/object/sign/...`). Invalid or external URLs will be returned unchanged in the response. */
+    urls: string[];
 }

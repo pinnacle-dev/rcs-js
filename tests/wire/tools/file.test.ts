@@ -51,7 +51,7 @@ describe("File_", () => {
         });
     });
 
-    test("upload (b10e0953)", async () => {
+    test("upload (87cfceef)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -79,7 +79,7 @@ describe("File_", () => {
         );
     });
 
-    test("upload (7ad06d7a)", async () => {
+    test("upload (d94383e1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -107,7 +107,7 @@ describe("File_", () => {
         );
     });
 
-    test("upload (40d36dce)", async () => {
+    test("upload (3951fe6d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -135,14 +135,13 @@ describe("File_", () => {
         );
     });
 
-    test("refresh (d6f979a9)", async () => {
+    test("refresh (aad5dc29)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
-            uris: [
+            urls: [
                 "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
                 "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
-                "icons/3/test.jpg",
                 "invalid/url",
                 "https://google.com",
             ],
@@ -155,10 +154,6 @@ describe("File_", () => {
             {
                 original: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
                 refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=newtoken2",
-            },
-            {
-                original: "icons/3/test.jpg",
-                refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/icons/3/138/129?token=newtoken3",
             },
             { original: "invalid/url", refreshed: "invalid/url" },
             { original: "https://google.com", refreshed: "https://google.com" },
@@ -173,10 +168,9 @@ describe("File_", () => {
             .build();
 
         const response = await client.tools.file.refresh({
-            uris: [
+            urls: [
                 "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
                 "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
-                "icons/3/test.jpg",
                 "invalid/url",
                 "https://google.com",
             ],
@@ -191,10 +185,6 @@ describe("File_", () => {
                 refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=newtoken2",
             },
             {
-                original: "icons/3/test.jpg",
-                refreshed: "https://server.trypinnacle.app/storage/v1/object/sign/icons/3/138/129?token=newtoken3",
-            },
-            {
                 original: "invalid/url",
                 refreshed: "invalid/url",
             },
@@ -205,10 +195,10 @@ describe("File_", () => {
         ]);
     });
 
-    test("refresh (b786765b)", async () => {
+    test("refresh (c87aa06e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { uris: ["uris", "uris"] };
+        const rawRequestBody = { urls: ["urls", "urls"] };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -221,7 +211,7 @@ describe("File_", () => {
 
         await expect(async () => {
             return await client.tools.file.refresh({
-                uris: ["uris", "uris"],
+                urls: ["urls", "urls"],
             });
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
@@ -230,10 +220,10 @@ describe("File_", () => {
         );
     });
 
-    test("refresh (9940192)", async () => {
+    test("refresh (da140956)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { uris: ["uris", "uris"] };
+        const rawRequestBody = { urls: ["urls", "urls"] };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -246,7 +236,7 @@ describe("File_", () => {
 
         await expect(async () => {
             return await client.tools.file.refresh({
-                uris: ["uris", "uris"],
+                urls: ["urls", "urls"],
             });
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
@@ -255,10 +245,10 @@ describe("File_", () => {
         );
     });
 
-    test("refresh (368809c6)", async () => {
+    test("refresh (8d0ba79a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { uris: ["uris", "uris"] };
+        const rawRequestBody = { urls: ["urls", "urls"] };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -271,7 +261,7 @@ describe("File_", () => {
 
         await expect(async () => {
             return await client.tools.file.refresh({
-                uris: ["uris", "uris"],
+                urls: ["urls", "urls"],
             });
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({

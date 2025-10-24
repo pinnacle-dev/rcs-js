@@ -7,8 +7,8 @@ import * as Pinnacle from "../../../../index.js";
 /**
  * @example
  *     {
- *         brandId: 101,
- *         campaignId: 136,
+ *         brandId: "b_1234567890",
+ *         campaignId: "tf_1234567890",
  *         campaignType: "TOLL_FREE",
  *         pageIndex: 0,
  *         pageSize: 20,
@@ -17,10 +17,15 @@ import * as Pinnacle from "../../../../index.js";
  *     }
  */
 export interface ListConversationsParams {
-    /** The unique identifier of the brand to filter conversations. */
-    brandId?: number;
-    /** The unique identifier of the campaign to filter conversations. */
-    campaignId?: number;
+    /** The unique identifier of the brand to filter conversations. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`. */
+    brandId?: string;
+    /**
+     * The unique identifier of the campaign to filter conversations. This identifier is a string that begins with the prefix:
+     * - TOLL_FREE: `tf_` (e.g., `tf_1234567890`)
+     * - 10DLC: `dlc_` (e.g., `dlc_1234567890`)
+     * - RCS: `rcs_` (e.g., `rcs_1234567890`)
+     */
+    campaignId?: string;
     campaignType?: Pinnacle.CampaignEnum;
     /** Zero-based index for pagination. */
     pageIndex: number;

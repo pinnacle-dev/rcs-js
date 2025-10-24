@@ -5,5 +5,5 @@
 import * as Pinnacle from "../../../../../index.js";
 
 export interface TollFreeAutofillResponse extends Pinnacle.TollFreeCampaign {
-    brand?: number;
+    brand?: string;
 }

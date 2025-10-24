@@ -24,8 +24,8 @@ export interface Message {
      * Null indicates no errors.
      */
     error: string | null;
-    /** Unique identifier of the message. */
-    id: number;
+    /** Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. */
+    id: string;
     method: Pinnacle.MessageMethodEnum;
     /** Number of segments the message was split into for delivery. */
     numSegments: number;

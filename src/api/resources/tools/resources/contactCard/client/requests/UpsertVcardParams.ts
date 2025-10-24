@@ -7,7 +7,7 @@ import * as Pinnacle from "../../../../../../index.js";
 /**
  * @example
  *     {
- *         id: 34,
+ *         id: "cc_1234567890",
  *         formattedName: "Jane Smith",
  *         name: {
  *             familyName: "Smith",

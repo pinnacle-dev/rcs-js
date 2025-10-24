@@ -3,8 +3,8 @@
  */
 
 export interface SentRcsDetails {
-    /** Unique identifier for the sent MMS messages. */
-    messageIds?: number;
+    /** Unique identifier for the sent RCS message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. */
+    messageId: string;
     /** Total number of segments used across the message. */
     segments: number;
     /** Total cost of sending the message. */

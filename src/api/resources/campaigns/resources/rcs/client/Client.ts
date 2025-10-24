@@ -51,8 +51,8 @@ export class Rcs {
      *
      * @example
      *     await client.campaigns.rcs.autofill({
-     *         additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-     *         campaignId: 161
+     *         additionalInfo: "Please autofill missing campaign fields using my brand profile",
+     *         campaignId: "dlc_1234567890"
      *     })
      */
     public autofill(
@@ -138,7 +138,7 @@ export class Rcs {
     /**
      * Retrieve RCS campaign.
      *
-     * @param {number} campaignId - Unique identifier of the RCS campaign.
+     * @param {string} campaignId - Unique identifier of the RCS campaign. Must begin with the prefix `rcs_`.
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -147,17 +147,17 @@ export class Rcs {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.rcs.get(161)
+     *     await client.campaigns.rcs.get("rcs_1234567890")
      */
     public get(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Rcs.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ExtendedRcsCampaign> {
         return core.HttpResponsePromise.fromPromise(this.__get(campaignId, requestOptions));
     }
 
     private async __get(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Rcs.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ExtendedRcsCampaign>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -228,7 +228,7 @@ export class Rcs {
     /**
      * Submit your RCS campaign for approval and activation with carriers.
      *
-     * @param {number} campaignId - Unique identifier of the RCS campaign to retrieve.
+     * @param {string} campaignId - Unique identifier of the RCS campaign to retrieve. Must begin with the prefix `rcs_`.
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -238,17 +238,17 @@ export class Rcs {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.rcs.submit(161)
+     *     await client.campaigns.rcs.submit("rcs_1234567890")
      */
     public submit(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Rcs.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.CampaignSubmissionResult> {
         return core.HttpResponsePromise.fromPromise(this.__submit(campaignId, requestOptions));
     }
 
     private async __submit(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Rcs.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmissionResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -358,7 +358,8 @@ export class Rcs {
      *                 }]
      *         },
      *         brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
-     *         brand: 2,
+     *         brand: "b_1234567890",
+     *         campaignId: "rcs_1234567890",
      *         expectedAgentResponses: ["Here are the things I can help you with.", "I can assist you with booking an appointment, or you may choose to book manually.", "Here are the available times to connect with a representative tomorrow.", "Your appointment has been scheduled."],
      *         links: {
      *             privacyPolicy: "https://www.trypinnacle.app/privacy",
@@ -470,7 +471,7 @@ export class Rcs {
      * @example
      *     await client.campaigns.rcs.validate({
      *         additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-     *         campaignId: 161
+     *         campaignId: "dlc_1234567890"
      *     })
      */
     public validate(

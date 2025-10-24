@@ -7,17 +7,17 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("Dlc", () => {
-    test("autofill (75ebd13b)", async () => {
+    test("autofill (f5eadd81)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
-            additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-            campaignId: 161,
+            additionalInfo: "Please autofill missing campaign fields using my brand profile",
+            campaignId: "dlc_1234567890",
         };
         const rawResponseBody = {
             autoRenew: true,
-            brand: 1,
-            campaignId: 161,
+            brand: "b_1234567890",
+            campaignId: "dlc_1234567890",
             description: "description",
             keywords: {
                 HELP: { message: "Reply HELP for assistance, STOP to opt-out", values: ["HELP", "INFO", "SUPPORT"] },
@@ -57,13 +57,13 @@ describe("Dlc", () => {
             .build();
 
         const response = await client.campaigns.dlc.autofill({
-            additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-            campaignId: 161,
+            additionalInfo: "Please autofill missing campaign fields using my brand profile",
+            campaignId: "dlc_1234567890",
         });
         expect(response).toEqual({
             autoRenew: true,
-            brand: 1,
-            campaignId: 161,
+            brand: "b_1234567890",
+            campaignId: "dlc_1234567890",
             description: "description",
             keywords: {
                 HELP: {
@@ -101,7 +101,7 @@ describe("Dlc", () => {
         });
     });
 
-    test("autofill (d5360f26)", async () => {
+    test("autofill (be0b4ff4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -127,7 +127,7 @@ describe("Dlc", () => {
         );
     });
 
-    test("autofill (772a13bd)", async () => {
+    test("autofill (5a2ba21c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -153,7 +153,7 @@ describe("Dlc", () => {
         );
     });
 
-    test("autofill (17e040a9)", async () => {
+    test("autofill (78086810)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -179,7 +179,7 @@ describe("Dlc", () => {
         );
     });
 
-    test("get (f0df71fc)", async () => {
+    test("get (ad575dc4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -202,12 +202,12 @@ describe("Dlc", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
-            campaignId: 28,
+            campaignId: "dlc_1234567890",
             description: "description",
             keywords: {
                 HELP: {
@@ -241,9 +241,15 @@ describe("Dlc", () => {
             status: "VERIFIED",
             useCase: { value: "LOW_VOLUME" },
         };
-        server.mockEndpoint().get("/campaigns/dlc/28").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/campaigns/dlc/dlc_1234567890")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.campaigns.dlc.get(28);
+        const response = await client.campaigns.dlc.get("dlc_1234567890");
         expect(response).toEqual({
             autoRenew: false,
             brand: {
@@ -263,12 +269,12 @@ describe("Dlc", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
-            campaignId: 28,
+            campaignId: "dlc_1234567890",
             description: "description",
             keywords: {
                 HELP: {
@@ -306,104 +312,21 @@ describe("Dlc", () => {
         });
     });
 
-    test("get (eecd4f52)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { key: "value" };
-        server.mockEndpoint().get("/campaigns/dlc/1").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
-
-        await expect(async () => {
-            return await client.campaigns.dlc.get(1);
-        }).rejects.toThrow(
-            new Pinnacle.BadRequestError({
-                key: "value",
-            }),
-        );
-    });
-
-    test("get (c9fc51d9)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/campaigns/dlc/1").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
-
-        await expect(async () => {
-            return await client.campaigns.dlc.get(1);
-        }).rejects.toThrow(
-            new Pinnacle.UnauthorizedError({
-                error: "error",
-            }),
-        );
-    });
-
-    test("get (84cc0bc5)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/campaigns/dlc/1").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
-
-        await expect(async () => {
-            return await client.campaigns.dlc.get(1);
-        }).rejects.toThrow(
-            new Pinnacle.NotFoundError({
-                error: "error",
-            }),
-        );
-    });
-
-    test("get (eba86205)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/campaigns/dlc/1").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
-
-        await expect(async () => {
-            return await client.campaigns.dlc.get(1);
-        }).rejects.toThrow(
-            new Pinnacle.InternalServerError({
-                error: "error",
-            }),
-        );
-    });
-
-    test("submit (3c06af76)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { success: true };
-        server
-            .mockEndpoint()
-            .post("/campaigns/dlc/submit/161")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.campaigns.dlc.submit(161);
-        expect(response).toEqual({
-            success: true,
-        });
-    });
-
-    test("submit (eecd4f52)", async () => {
+    test("get (c8293015)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/campaigns/dlc/submit/1")
+            .get("/campaigns/dlc/campaignId")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.submit(1);
+            return await client.campaigns.dlc.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -411,21 +334,21 @@ describe("Dlc", () => {
         );
     });
 
-    test("submit (c9fc51d9)", async () => {
+    test("get (2a5bbc1f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/dlc/submit/1")
+            .get("/campaigns/dlc/campaignId")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.submit(1);
+            return await client.campaigns.dlc.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -433,21 +356,21 @@ describe("Dlc", () => {
         );
     });
 
-    test("submit (84cc0bc5)", async () => {
+    test("get (d9f643cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/dlc/submit/1")
+            .get("/campaigns/dlc/campaignId")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.submit(1);
+            return await client.campaigns.dlc.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -455,21 +378,21 @@ describe("Dlc", () => {
         );
     });
 
-    test("submit (eba86205)", async () => {
+    test("get (a63b9e7b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/dlc/submit/1")
+            .get("/campaigns/dlc/campaignId")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.submit(1);
+            return await client.campaigns.dlc.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -477,21 +400,128 @@ describe("Dlc", () => {
         );
     });
 
-    test("upsert (914fcb0d)", async () => {
+    test("submit (594a782d)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { success: true };
+        server
+            .mockEndpoint()
+            .post("/campaigns/dlc/submit/dlc_1234567890")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.campaigns.dlc.submit("dlc_1234567890");
+        expect(response).toEqual({
+            success: true,
+        });
+    });
+
+    test("submit (c8293015)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/dlc/submit/campaignId")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.dlc.submit("campaignId");
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("submit (2a5bbc1f)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/dlc/submit/campaignId")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.dlc.submit("campaignId");
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("submit (d9f643cb)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/dlc/submit/campaignId")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.dlc.submit("campaignId");
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("submit (a63b9e7b)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/dlc/submit/campaignId")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.dlc.submit("campaignId");
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("upsert (d434444)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             autoRenew: true,
-            brand: 1,
-            campaignId: 161,
+            brand: "b_1234567890",
+            campaignId: "dlc_1234567890",
             keywords: {
                 HELP: { message: "Reply HELP for assistance, STOP to opt-out", values: ["HELP", "INFO", "SUPPORT"] },
                 OPT_IN: {
-                    message: "Welcome! You're now subscribed to Pinnacle.",
+                    message: "Welcome. You are now subscribed to Pinnacle.",
                     values: ["JOIN", "START", "SUBSCRIBE"],
                 },
                 OPT_OUT: {
-                    message: "You've been unsubscribed. Reply START to rejoin.",
+                    message: "You have been unsubscribed. Reply START to rejoin.",
                     values: ["STOP", "QUIT", "UNSUBSCRIBE"],
                 },
             },
@@ -531,12 +561,12 @@ describe("Dlc", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 1,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-10T07:58:01.291",
             },
-            campaignId: 161,
+            campaignId: "dlc_1234567890",
             description: "description",
             keywords: {
                 HELP: { message: "Reply HELP for assistance, STOP to opt-out", values: ["HELP", "INFO", "SUPPORT"] },
@@ -578,19 +608,19 @@ describe("Dlc", () => {
 
         const response = await client.campaigns.dlc.upsert({
             autoRenew: true,
-            brand: 1,
-            campaignId: 161,
+            brand: "b_1234567890",
+            campaignId: "dlc_1234567890",
             keywords: {
                 HELP: {
                     message: "Reply HELP for assistance, STOP to opt-out",
                     values: ["HELP", "INFO", "SUPPORT"],
                 },
                 OPT_IN: {
-                    message: "Welcome! You're now subscribed to Pinnacle.",
+                    message: "Welcome. You are now subscribed to Pinnacle.",
                     values: ["JOIN", "START", "SUBSCRIBE"],
                 },
                 OPT_OUT: {
-                    message: "You've been unsubscribed. Reply START to rejoin.",
+                    message: "You have been unsubscribed. Reply START to rejoin.",
                     values: ["STOP", "QUIT", "UNSUBSCRIBE"],
                 },
             },
@@ -633,12 +663,12 @@ describe("Dlc", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 1,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-10T07:58:01.291",
             },
-            campaignId: 161,
+            campaignId: "dlc_1234567890",
             description: "description",
             keywords: {
                 HELP: {
@@ -677,7 +707,7 @@ describe("Dlc", () => {
         });
     });
 
-    test("upsert (1929a4ae)", async () => {
+    test("upsert (944c799)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -724,7 +754,7 @@ describe("Dlc", () => {
         );
     });
 
-    test("upsert (de0d4f35)", async () => {
+    test("upsert (1938549b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -771,7 +801,7 @@ describe("Dlc", () => {
         );
     });
 
-    test("upsert (99a12681)", async () => {
+    test("upsert (90f9cbb7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -818,7 +848,7 @@ describe("Dlc", () => {
         );
     });
 
-    test("upsert (4ef5dfc1)", async () => {
+    test("upsert (fd72f747)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -865,12 +895,12 @@ describe("Dlc", () => {
         );
     });
 
-    test("validate (4f46db2a)", async () => {
+    test("validate (9cc92503)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-            campaignId: 161,
+            campaignId: "dlc_1234567890",
         };
         const rawResponseBody = {
             errors: [{ description: "description", example: "example", field: "field" }],
@@ -887,7 +917,7 @@ describe("Dlc", () => {
 
         const response = await client.campaigns.dlc.validate({
             additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-            campaignId: 161,
+            campaignId: "dlc_1234567890",
         });
         expect(response).toEqual({
             errors: [
@@ -901,10 +931,10 @@ describe("Dlc", () => {
         });
     });
 
-    test("validate (6dfec3cf)", async () => {
+    test("validate (d11b3afa)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { additionalInfo: undefined, campaignId: 1 };
+        const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -918,7 +948,7 @@ describe("Dlc", () => {
         await expect(async () => {
             return await client.campaigns.dlc.validate({
                 additionalInfo: undefined,
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
@@ -927,10 +957,10 @@ describe("Dlc", () => {
         );
     });
 
-    test("validate (82beebc6)", async () => {
+    test("validate (ac3701da)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { additionalInfo: undefined, campaignId: 1 };
+        const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -944,7 +974,7 @@ describe("Dlc", () => {
         await expect(async () => {
             return await client.campaigns.dlc.validate({
                 additionalInfo: undefined,
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
@@ -953,10 +983,10 @@ describe("Dlc", () => {
         );
     });
 
-    test("validate (df0dffca)", async () => {
+    test("validate (18773ae)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { additionalInfo: undefined, campaignId: 1 };
+        const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -970,7 +1000,7 @@ describe("Dlc", () => {
         await expect(async () => {
             return await client.campaigns.dlc.validate({
                 additionalInfo: undefined,
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({

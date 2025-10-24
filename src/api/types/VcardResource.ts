@@ -3,8 +3,8 @@
  */
 
 export interface VcardResource {
-    /** Contact's id */
-    id?: number;
+    /** The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`. */
+    id?: string;
     /**
      * Presigned download url to download vCard data. <br>
      *

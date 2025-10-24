@@ -51,7 +51,7 @@ export class Conversations {
      *
      * @example
      *     await client.conversations.get({
-     *         id: 1
+     *         id: "conv_1234567890"
      *     })
      */
     public get(
@@ -143,8 +143,8 @@ export class Conversations {
      *
      * @example
      *     await client.conversations.list({
-     *         brandId: 101,
-     *         campaignId: 136,
+     *         brandId: "b_1234567890",
+     *         campaignId: "tf_1234567890",
      *         campaignType: "TOLL_FREE",
      *         pageIndex: 0,
      *         pageSize: 20,
@@ -241,7 +241,7 @@ export class Conversations {
      *
      * @example
      *     await client.conversations.update({
-     *         id: 123,
+     *         id: "conv_1234567890",
      *         notes: "Follow-up completed. Customer satisfied with resolution."
      *     })
      */

@@ -5,7 +5,7 @@
 /**
  * @example
  *     {
- *         messageId: 1410,
+ *         messageId: "msg_1234567890",
  *         options: {
  *             force: true
  *         },
@@ -13,8 +13,8 @@
  *     }
  */
 export interface ReactMessageParams {
-    /** Unique identifier of the message. */
-    messageId: number;
+    /** Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. */
+    messageId: string;
     options?: ReactMessageParams.Options;
     /**
      * Unicode emoji to add. <br>

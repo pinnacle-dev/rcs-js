@@ -7,8 +7,8 @@ export interface Contact {
     description?: string;
     /** Contact's email address, if available. */
     email?: string;
-    /** Unique ID of the contact. */
-    id: number;
+    /** Unique ID of the contact. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`. */
+    id: string;
     /** Full name of the contact, if available. */
     name?: string;
     /** Contact's phone number in E.164 format. */

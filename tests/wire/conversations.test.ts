@@ -7,16 +7,16 @@ import { PinnacleClient } from "../../src/Client";
 import * as Pinnacle from "../../src/api/index";
 
 describe("Conversations", () => {
-    test("get (820583fc)", async () => {
+    test("get (91a9d8d4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1 };
+        const rawRequestBody = { id: "conv_1234567890" };
         const rawResponseBody = {
-            brandId: 119,
-            campaign: { id: "136", type: "TOLL_FREE" },
-            contact: { id: 70, phoneNumber: "+16509231662" },
+            brandId: "b_1234567890",
+            campaign: { id: "tf_1234567890", type: "TOLL_FREE" },
+            contact: { id: "co_1234567890", phoneNumber: "+16509231662" },
             createdAt: "2024-09-11T00:05:29.434",
-            id: 1,
+            id: "conv_1234567890",
             notes: "Customer inquired about product availability",
             sender: {
                 capabilities: { mms: true, sms: true, voice: true },
@@ -37,20 +37,20 @@ describe("Conversations", () => {
             .build();
 
         const response = await client.conversations.get({
-            id: 1,
+            id: "conv_1234567890",
         });
         expect(response).toEqual({
-            brandId: 119,
+            brandId: "b_1234567890",
             campaign: {
-                id: "136",
+                id: "tf_1234567890",
                 type: "TOLL_FREE",
             },
             contact: {
-                id: 70,
+                id: "co_1234567890",
                 phoneNumber: "+16509231662",
             },
             createdAt: "2024-09-11T00:05:29.434",
-            id: 1,
+            id: "conv_1234567890",
             notes: "Customer inquired about product availability",
             sender: {
                 capabilities: {
@@ -67,10 +67,10 @@ describe("Conversations", () => {
         });
     });
 
-    test("get (8160f411)", async () => {
+    test("get (d340acbc)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1 };
+        const rawRequestBody = { id: "id" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -83,7 +83,7 @@ describe("Conversations", () => {
 
         await expect(async () => {
             return await client.conversations.get({
-                id: 1,
+                id: "id",
             });
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
@@ -92,10 +92,10 @@ describe("Conversations", () => {
         );
     });
 
-    test("get (96ce3c70)", async () => {
+    test("get (482a9854)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1 };
+        const rawRequestBody = { id: "id" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -108,7 +108,7 @@ describe("Conversations", () => {
 
         await expect(async () => {
             return await client.conversations.get({
-                id: 1,
+                id: "id",
             });
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
@@ -117,10 +117,10 @@ describe("Conversations", () => {
         );
     });
 
-    test("get (f104cc04)", async () => {
+    test("get (74176648)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1 };
+        const rawRequestBody = { id: "id" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -133,7 +133,7 @@ describe("Conversations", () => {
 
         await expect(async () => {
             return await client.conversations.get({
-                id: 1,
+                id: "id",
             });
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
@@ -142,12 +142,12 @@ describe("Conversations", () => {
         );
     });
 
-    test("list (a0abc8ad)", async () => {
+    test("list (6f7a74ba)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
-            brandId: 101,
-            campaignId: 136,
+            brandId: "b_1234567890",
+            campaignId: "tf_1234567890",
             campaignType: "TOLL_FREE",
             pageIndex: 0,
             pageSize: 20,
@@ -158,11 +158,11 @@ describe("Conversations", () => {
             count: 50,
             conversations: [
                 {
-                    brandId: 119,
-                    campaign: { id: "245", type: "10DLC" },
-                    contact: { id: 70, phoneNumber: "+16509231662" },
+                    brandId: "b_1234567890",
+                    campaign: { id: "dlc_1234567890", type: "10DLC" },
+                    contact: { id: "co_1234567890", phoneNumber: "+16509231662" },
                     createdAt: "2024-09-11T00:05:29.434",
-                    id: 1,
+                    id: "conv_1234567890",
                     notes: "VIP customer",
                     sender: {
                         capabilities: { mms: true, sms: true, voice: false },
@@ -186,8 +186,8 @@ describe("Conversations", () => {
             .build();
 
         const response = await client.conversations.list({
-            brandId: 101,
-            campaignId: 136,
+            brandId: "b_1234567890",
+            campaignId: "tf_1234567890",
             campaignType: "TOLL_FREE",
             pageIndex: 0,
             pageSize: 20,
@@ -198,17 +198,17 @@ describe("Conversations", () => {
             count: 50,
             conversations: [
                 {
-                    brandId: 119,
+                    brandId: "b_1234567890",
                     campaign: {
-                        id: "245",
+                        id: "dlc_1234567890",
                         type: "10DLC",
                     },
                     contact: {
-                        id: 70,
+                        id: "co_1234567890",
                         phoneNumber: "+16509231662",
                     },
                     createdAt: "2024-09-11T00:05:29.434",
-                    id: 1,
+                    id: "conv_1234567890",
                     notes: "VIP customer",
                     sender: {
                         capabilities: {
@@ -228,7 +228,7 @@ describe("Conversations", () => {
         });
     });
 
-    test("list (f08ee21c)", async () => {
+    test("list (33cc83a8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -267,7 +267,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("list (feacac43)", async () => {
+    test("list (f9f87f8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -306,7 +306,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("list (a19e670f)", async () => {
+    test("list (62d488c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -345,10 +345,13 @@ describe("Conversations", () => {
         );
     });
 
-    test("update (5aa8565c)", async () => {
+    test("update (a26ace86)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 123, notes: "Follow-up completed. Customer satisfied with resolution." };
+        const rawRequestBody = {
+            id: "conv_1234567890",
+            notes: "Follow-up completed. Customer satisfied with resolution.",
+        };
         const rawResponseBody = { success: true };
         server
             .mockEndpoint()
@@ -360,7 +363,7 @@ describe("Conversations", () => {
             .build();
 
         const response = await client.conversations.update({
-            id: 123,
+            id: "conv_1234567890",
             notes: "Follow-up completed. Customer satisfied with resolution.",
         });
         expect(response).toEqual({
@@ -368,10 +371,10 @@ describe("Conversations", () => {
         });
     });
 
-    test("update (f6a0cb8e)", async () => {
+    test("update (39fece6f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1, notes: "x" };
+        const rawRequestBody = { id: "id", notes: "x" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -384,7 +387,7 @@ describe("Conversations", () => {
 
         await expect(async () => {
             return await client.conversations.update({
-                id: 1,
+                id: "id",
                 notes: "x",
             });
         }).rejects.toThrow(
@@ -394,10 +397,10 @@ describe("Conversations", () => {
         );
     });
 
-    test("update (42d09bd5)", async () => {
+    test("update (f840ea61)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1, notes: "x" };
+        const rawRequestBody = { id: "id", notes: "x" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -410,7 +413,7 @@ describe("Conversations", () => {
 
         await expect(async () => {
             return await client.conversations.update({
-                id: 1,
+                id: "id",
                 notes: "x",
             });
         }).rejects.toThrow(
@@ -420,10 +423,10 @@ describe("Conversations", () => {
         );
     });
 
-    test("update (4eec07e1)", async () => {
+    test("update (46a054ed)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1, notes: "x" };
+        const rawRequestBody = { id: "id", notes: "x" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -436,7 +439,7 @@ describe("Conversations", () => {
 
         await expect(async () => {
             return await client.conversations.update({
-                id: 1,
+                id: "id",
                 notes: "x",
             });
         }).rejects.toThrow(

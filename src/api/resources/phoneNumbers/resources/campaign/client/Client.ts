@@ -55,7 +55,7 @@ export class Campaign {
      *     await client.phoneNumbers.campaign.attach({
      *         phones: ["+14155550123", "+14155559876", "+14155550111"],
      *         campaignType: "TOLL_FREE",
-     *         campaignId: 101
+     *         campaignId: "tf_1234567890"
      *     })
      */
     public attach(

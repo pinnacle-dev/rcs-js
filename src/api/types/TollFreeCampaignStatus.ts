@@ -14,8 +14,8 @@ export interface TollFreeCampaignStatus {
      * These errors may request additional information or point out erroneous and/or missing fields.
      */
     error?: string;
-    /** Id of the toll-free campaign. */
-    id: number;
+    /** The unique identifier of the toll-free campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`. */
+    id: string;
     /**
      * Status of phone numbers that are being attached to this campaign. <br>
      *

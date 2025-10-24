@@ -51,7 +51,9 @@ export class Contacts {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.contacts.get()
+     *     await client.contacts.get({
+     *         id: "co_1234567890"
+     *     })
      */
     public get(
         request: Pinnacle.ContactsGetRequest = {},
@@ -67,7 +69,7 @@ export class Contacts {
         const { id, phoneNumber } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (id != null) {
-            _queryParams["id"] = id.toString();
+            _queryParams["id"] = id;
         }
 
         if (phoneNumber != null) {
@@ -248,7 +250,7 @@ export class Contacts {
      *         email: "alvaroopedtech@pinnacle.sh",
      *         name: "Retired Bestie",
      *         tags: ["friend"],
-     *         id: 137
+     *         id: "co_1234567890"
      *     })
      */
     public update(

@@ -3,6 +3,6 @@
  */
 
 export interface UpdatedContactId {
-    /** Unique ID of the updated contact. */
-    id: number;
+    /** Unique ID of the updated contact. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`. */
+    id: string;
 }

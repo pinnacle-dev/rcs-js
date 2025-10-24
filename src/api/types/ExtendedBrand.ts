@@ -7,8 +7,8 @@ import * as Pinnacle from "../index.js";
 export interface ExtendedBrand extends Pinnacle.OptionalBrandInfo {
     /** ISO 8601 formatted timestamp of when this brand was added to our system. */
     createdAt: string;
-    /** The brand's ID. */
-    id: number;
+    /** The brand's ID. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`. */
+    id: string;
     /** Indicates if this brand is archived. */
     isArchived: boolean;
     /**

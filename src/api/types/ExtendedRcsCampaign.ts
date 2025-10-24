@@ -15,8 +15,8 @@ export interface ExtendedRcsCampaign {
     brandVerificationUrl?: string;
     /** Indicates whether the brand has provided an attestation. */
     brandAttestation: boolean;
-    /** Unique identifier for the campaign. */
-    campaignId?: number;
+    /** Unique identifier for the campaign. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`. */
+    campaignId?: string;
     /** List of what the agent might say to users. */
     expectedAgentResponses?: string[];
     /** Legal documentation links. */

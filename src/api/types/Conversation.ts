@@ -8,16 +8,16 @@ import * as Pinnacle from "../index.js";
  * Conversation that was found.
  */
 export interface Conversation {
-    /** Identifier for the brand associated with this conversation. */
-    brandId: number | null;
-    /** Campaign information if this conversation is part of a marketing campaign. */
+    /** The unique identifier of the brand associated with this conversation. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`. */
+    brandId: string | null;
+    /** Campaign information if this conversation is part of a marketing campaign. This is an object that contains the campaign ID and type. */
     campaign: Pinnacle.CampaignQuery | null;
     /** Contact information for the recipient in a conversation. */
     contact: Conversation.Contact;
     /** ISO 8601 timestamp when the conversation was created. */
     createdAt: string;
-    /** Unique identifier for the conversation. */
-    id: number;
+    /** Unique identifier for the conversation. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`. */
+    id: string;
     /** Free-form notes or comments about the conversation. */
     notes: string;
     /**
@@ -36,8 +36,8 @@ export namespace Conversation {
      * Contact information for the recipient in a conversation.
      */
     export interface Contact {
-        /** Unique identifier for the contact. */
-        id: number;
+        /** Unique ID of the contact. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`. */
+        id: string;
         /** The contact's phone number in E.164 format. */
         phoneNumber: string;
     }

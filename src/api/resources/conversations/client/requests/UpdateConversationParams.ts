@@ -5,13 +5,13 @@
 /**
  * @example
  *     {
- *         id: 123,
+ *         id: "conv_1234567890",
  *         notes: "Follow-up completed. Customer satisfied with resolution."
  *     }
  */
 export interface UpdateConversationParams {
-    /** The unique identifier of the conversation to update. */
-    id: number;
+    /** The unique identifier of the conversation to update. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`. */
+    id: string;
     /** New notes or comments for the conversation. */
     notes: string;
 }

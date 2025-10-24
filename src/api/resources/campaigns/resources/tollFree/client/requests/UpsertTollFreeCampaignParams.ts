@@ -7,8 +7,8 @@ import * as Pinnacle from "../../../../../../index.js";
 /**
  * @example
  *     {
- *         brand: 2,
- *         campaignId: 161,
+ *         brand: "b_1234567890",
+ *         campaignId: "tf_1234567890",
  *         monthlyVolume: "1,000",
  *         name: "Pinnacle",
  *         optIn: {
@@ -16,7 +16,7 @@ import * as Pinnacle from "../../../../../../index.js";
  *             url: "https://www.pinnacle.sh/",
  *             workflowDescription: "Visit https://www.pinnacle.sh/"
  *         },
- *         productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
+ *         productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
  *         useCase: {
  *             summary: "Alerts clients about any Pinnacle hosted workshops.",
  *             value: "WORKSHOP_ALERTS"
@@ -24,10 +24,10 @@ import * as Pinnacle from "../../../../../../index.js";
  *     }
  */
 export interface UpsertTollFreeCampaignParams {
-    /** Brand id. */
-    brand?: number;
-    /** Unique identifier for the campaign. */
-    campaignId?: number;
+    /** Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`. */
+    brand?: string;
+    /** Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`. */
+    campaignId?: string;
     monthlyVolume?: Pinnacle.MessageVolumeEnum;
     /** Display name of the campaign. */
     name?: string;

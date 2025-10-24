@@ -7,30 +7,42 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("Get", () => {
-    test("brand (42e4fa52)", async () => {
+    test("brand (32eb51ba)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { errors: ["errors"], id: 28, status: "PENDING" };
-        server.mockEndpoint().get("/status/brand/28").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        const rawResponseBody = { errors: ["errors"], id: "b_1234567890", status: "PENDING" };
+        server
+            .mockEndpoint()
+            .get("/status/brand/b_1234567890")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.status.get.brand(28);
+        const response = await client.status.get.brand("b_1234567890");
         expect(response).toEqual({
             errors: ["errors"],
-            id: 28,
+            id: "b_1234567890",
             status: "PENDING",
         });
     });
 
-    test("brand (fb12fbc5)", async () => {
+    test("brand (96d4f91a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
-        server.mockEndpoint().get("/status/brand/1").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/status/brand/brandId")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.status.get.brand(1);
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -38,15 +50,21 @@ describe("Get", () => {
         );
     });
 
-    test("brand (c926e4e4)", async () => {
+    test("brand (3b5b8d3a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/status/brand/1").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/status/brand/brandId")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.status.get.brand(1);
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -54,15 +72,21 @@ describe("Get", () => {
         );
     });
 
-    test("brand (961e95c0)", async () => {
+    test("brand (1d599d36)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/status/brand/1").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/status/brand/brandId")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.status.get.brand(1);
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -70,15 +94,21 @@ describe("Get", () => {
         );
     });
 
-    test("brand (e1aa1ad8)", async () => {
+    test("brand (685a638e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/status/brand/1").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/status/brand/brandId")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.status.get.brand(1);
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -86,15 +116,21 @@ describe("Get", () => {
         );
     });
 
-    test("brand (b1a58e48)", async () => {
+    test("brand (19256b0e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/status/brand/1").respondWith().statusCode(501).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/status/brand/brandId")
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
 
         await expect(async () => {
-            return await client.status.get.brand(1);
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(
             new Pinnacle.NotImplementedError({
                 error: "error",
@@ -102,27 +138,27 @@ describe("Get", () => {
         );
     });
 
-    test("toll free (eed2fc8c)", async () => {
+    test("toll free (c231c7fa)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             error: "",
-            id: 28,
+            id: "tf_1234567890",
             updates: { errors: ["errors"], number: "+14151234567", status: "IN_PROGRESS" },
         };
         server
             .mockEndpoint()
-            .get("/status/toll-free-campaign/28")
+            .get("/status/toll-free-campaign/tf_1234567890")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.status.get.tollFree(28);
+        const response = await client.status.get.tollFree("tf_1234567890");
         expect(response).toEqual({
             error: "",
-            id: 28,
+            id: "tf_1234567890",
             updates: {
                 errors: ["errors"],
                 number: "+14151234567",
@@ -131,21 +167,21 @@ describe("Get", () => {
         });
     });
 
-    test("toll free (eecd4f52)", async () => {
+    test("toll free (c8293015)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .get("/status/toll-free-campaign/1")
+            .get("/status/toll-free-campaign/campaignId")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree(1);
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -153,21 +189,21 @@ describe("Get", () => {
         );
     });
 
-    test("toll free (c9fc51d9)", async () => {
+    test("toll free (2a5bbc1f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/toll-free-campaign/1")
+            .get("/status/toll-free-campaign/campaignId")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree(1);
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -175,21 +211,21 @@ describe("Get", () => {
         );
     });
 
-    test("toll free (84cc0bc5)", async () => {
+    test("toll free (d9f643cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/toll-free-campaign/1")
+            .get("/status/toll-free-campaign/campaignId")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree(1);
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -197,21 +233,21 @@ describe("Get", () => {
         );
     });
 
-    test("toll free (eba86205)", async () => {
+    test("toll free (a63b9e7b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/toll-free-campaign/1")
+            .get("/status/toll-free-campaign/campaignId")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree(1);
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -219,21 +255,21 @@ describe("Get", () => {
         );
     });
 
-    test("toll free (49e482b5)", async () => {
+    test("toll free (9936a07b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/toll-free-campaign/1")
+            .get("/status/toll-free-campaign/campaignId")
             .respondWith()
             .statusCode(501)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree(1);
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotImplementedError({
                 error: "error",
@@ -241,28 +277,28 @@ describe("Get", () => {
         );
     });
 
-    test("dlc (4e253f41)", async () => {
+    test("dlc (3ebf411)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             error: "",
-            id: 28,
+            id: "dlc_1234567890",
             status: "IN REVIEW",
             updates: { number: "+14151234567", status: "PENDING_ASSIGNMENT", errors: ["errors"] },
         };
         server
             .mockEndpoint()
-            .get("/status/dlc-campaign/28")
+            .get("/status/dlc-campaign/dlc_1234567890")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.status.get.dlc(28);
+        const response = await client.status.get.dlc("dlc_1234567890");
         expect(response).toEqual({
             error: "",
-            id: 28,
+            id: "dlc_1234567890",
             status: "IN REVIEW",
             updates: {
                 number: "+14151234567",
@@ -272,21 +308,21 @@ describe("Get", () => {
         });
     });
 
-    test("dlc (eecd4f52)", async () => {
+    test("dlc (c8293015)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .get("/status/dlc-campaign/1")
+            .get("/status/dlc-campaign/campaignId")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc(1);
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -294,21 +330,21 @@ describe("Get", () => {
         );
     });
 
-    test("dlc (c9fc51d9)", async () => {
+    test("dlc (2a5bbc1f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/dlc-campaign/1")
+            .get("/status/dlc-campaign/campaignId")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc(1);
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -316,21 +352,21 @@ describe("Get", () => {
         );
     });
 
-    test("dlc (84cc0bc5)", async () => {
+    test("dlc (d9f643cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/dlc-campaign/1")
+            .get("/status/dlc-campaign/campaignId")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc(1);
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -338,21 +374,21 @@ describe("Get", () => {
         );
     });
 
-    test("dlc (eba86205)", async () => {
+    test("dlc (a63b9e7b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/dlc-campaign/1")
+            .get("/status/dlc-campaign/campaignId")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc(1);
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -360,21 +396,21 @@ describe("Get", () => {
         );
     });
 
-    test("dlc (49e482b5)", async () => {
+    test("dlc (9936a07b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/dlc-campaign/1")
+            .get("/status/dlc-campaign/campaignId")
             .respondWith()
             .statusCode(501)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc(1);
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotImplementedError({
                 error: "error",
@@ -382,42 +418,42 @@ describe("Get", () => {
         );
     });
 
-    test("rcs (719b692d)", async () => {
+    test("rcs (87a42ee9)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { errors: ["errors"], id: 28, status: "IN REVIEW" };
+        const rawResponseBody = { errors: ["errors"], id: "rcs_1234567890", status: "IN REVIEW" };
         server
             .mockEndpoint()
-            .get("/status/rcs-campaign/28")
+            .get("/status/rcs-campaign/rcs_1234567890")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.status.get.rcs(28);
+        const response = await client.status.get.rcs("rcs_1234567890");
         expect(response).toEqual({
             errors: ["errors"],
-            id: 28,
+            id: "rcs_1234567890",
             status: "IN REVIEW",
         });
     });
 
-    test("rcs (eecd4f52)", async () => {
+    test("rcs (c8293015)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .get("/status/rcs-campaign/1")
+            .get("/status/rcs-campaign/campaignId")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs(1);
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -425,21 +461,21 @@ describe("Get", () => {
         );
     });
 
-    test("rcs (c9fc51d9)", async () => {
+    test("rcs (2a5bbc1f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/rcs-campaign/1")
+            .get("/status/rcs-campaign/campaignId")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs(1);
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -447,21 +483,21 @@ describe("Get", () => {
         );
     });
 
-    test("rcs (84cc0bc5)", async () => {
+    test("rcs (d9f643cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/rcs-campaign/1")
+            .get("/status/rcs-campaign/campaignId")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs(1);
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -469,21 +505,21 @@ describe("Get", () => {
         );
     });
 
-    test("rcs (eba86205)", async () => {
+    test("rcs (a63b9e7b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/rcs-campaign/1")
+            .get("/status/rcs-campaign/campaignId")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs(1);
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -491,21 +527,21 @@ describe("Get", () => {
         );
     });
 
-    test("rcs (49e482b5)", async () => {
+    test("rcs (9936a07b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/status/rcs-campaign/1")
+            .get("/status/rcs-campaign/campaignId")
             .respondWith()
             .statusCode(501)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs(1);
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotImplementedError({
                 error: "error",
@@ -534,7 +570,7 @@ describe("Get", () => {
         });
     });
 
-    test("phone number (388355c7)", async () => {
+    test("phone number (3a2b11b1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -556,7 +592,7 @@ describe("Get", () => {
         );
     });
 
-    test("phone number (80d5b10e)", async () => {
+    test("phone number (b64abd03)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -578,7 +614,7 @@ describe("Get", () => {
         );
     });
 
-    test("phone number (b8b513aa)", async () => {
+    test("phone number (ee5ca4df)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -600,7 +636,7 @@ describe("Get", () => {
         );
     });
 
-    test("phone number (a76757b2)", async () => {
+    test("phone number (a0c4c5cf)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -622,7 +658,7 @@ describe("Get", () => {
         );
     });
 
-    test("phone number (27dfd32)", async () => {
+    test("phone number (5fface2f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 

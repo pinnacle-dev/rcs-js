@@ -9,13 +9,22 @@ import * as Pinnacle from "../../../../../../index.js";
  *     {
  *         phones: ["+14155550123", "+14155559876", "+14155550111"],
  *         campaignType: "TOLL_FREE",
- *         campaignId: 101
+ *         campaignId: "tf_1234567890"
  *     }
  */
 export interface AttachCampaignParams {
     /** List of phone number (E.164 format). */
     phones: string[];
     campaignType: Pinnacle.MessagingProfileEnum;
-    /** Campaign's identifier. */
-    campaignId: number;
+    /**
+     * Unique identifier for the campaign. <br>
+     *
+     *  - **TOLL_FREE** campaigns:
+     *    - Must begin with the prefix `tf_`
+     *    - Example: `tf_1234567890`
+     *  - **10DLC** campaigns:
+     *    - Must begin with the prefix `dlc_`
+     *    - Example: `dlc_1234567890`
+     */
+    campaignId: string;
 }

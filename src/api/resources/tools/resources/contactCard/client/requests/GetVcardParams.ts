@@ -5,12 +5,12 @@
 /**
  * @example
  *     {
- *         id: 33
+ *         id: "cc_1234567890"
  *     }
  */
 export interface GetVcardParams {
-    /** ID of your contact. */
-    id: number;
+    /** The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`. */
+    id: string;
     options?: GetVcardParams.Options;
 }
 

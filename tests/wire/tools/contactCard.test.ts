@@ -7,12 +7,12 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("ContactCard", () => {
-    test("get (b04dc098)", async () => {
+    test("get (dffa289f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 33 };
+        const rawRequestBody = { id: "cc_1234567890" };
         const rawResponseBody = {
-            id: 21,
+            id: "cc_1234567890",
             formattedName: "Porter",
             name: {
                 familyName: "Porter",
@@ -59,10 +59,10 @@ describe("ContactCard", () => {
             .build();
 
         const response = await client.tools.contactCard.get({
-            id: 33,
+            id: "cc_1234567890",
         });
         expect(response).toEqual({
-            id: 21,
+            id: "cc_1234567890",
             formattedName: "Porter",
             name: {
                 familyName: "Porter",
@@ -122,10 +122,10 @@ describe("ContactCard", () => {
         });
     });
 
-    test("get (99cfe789)", async () => {
+    test("get (30879b7a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1, options: undefined };
+        const rawRequestBody = { id: "id", options: undefined };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -138,7 +138,7 @@ describe("ContactCard", () => {
 
         await expect(async () => {
             return await client.tools.contactCard.get({
-                id: 1,
+                id: "id",
                 options: undefined,
             });
         }).rejects.toThrow(
@@ -148,10 +148,10 @@ describe("ContactCard", () => {
         );
     });
 
-    test("get (cb1006b8)", async () => {
+    test("get (bbcdbb5a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1, options: undefined };
+        const rawRequestBody = { id: "id", options: undefined };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -164,7 +164,7 @@ describe("ContactCard", () => {
 
         await expect(async () => {
             return await client.tools.contactCard.get({
-                id: 1,
+                id: "id",
                 options: undefined,
             });
         }).rejects.toThrow(
@@ -174,10 +174,10 @@ describe("ContactCard", () => {
         );
     });
 
-    test("get (1c7c1e4c)", async () => {
+    test("get (ab793d2e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: 1, options: undefined };
+        const rawRequestBody = { id: "id", options: undefined };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -190,7 +190,7 @@ describe("ContactCard", () => {
 
         await expect(async () => {
             return await client.tools.contactCard.get({
-                id: 1,
+                id: "id",
                 options: undefined,
             });
         }).rejects.toThrow(
@@ -200,11 +200,11 @@ describe("ContactCard", () => {
         );
     });
 
-    test("upsert (27b0e9d2)", async () => {
+    test("upsert (8a9bd4bd)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
-            id: 34,
+            id: "cc_1234567890",
             formattedName: "Jane Smith",
             name: {
                 familyName: "Smith",
@@ -239,7 +239,7 @@ describe("ContactCard", () => {
             note: "Test contact entry",
             photo: "https://fastly.picsum.photos/id/853/200/200.jpg?hmac=f4LF-tVBBnJb9PQAVEO8GCTGWgLUnxQLw44rUofE6mQ",
         };
-        const rawResponseBody = { id: 789, downloadUrl: "https://files.short.ly/vcard/def456.vcf" };
+        const rawResponseBody = { id: "cc_1234567890", downloadUrl: "https://files.short.ly/vcard/def456.vcf" };
         server
             .mockEndpoint()
             .post("/tools/contact-card/upsert")
@@ -250,7 +250,7 @@ describe("ContactCard", () => {
             .build();
 
         const response = await client.tools.contactCard.upsert({
-            id: 34,
+            id: "cc_1234567890",
             formattedName: "Jane Smith",
             name: {
                 familyName: "Smith",
@@ -302,12 +302,12 @@ describe("ContactCard", () => {
             photo: "https://fastly.picsum.photos/id/853/200/200.jpg?hmac=f4LF-tVBBnJb9PQAVEO8GCTGWgLUnxQLw44rUofE6mQ",
         });
         expect(response).toEqual({
-            id: 789,
+            id: "cc_1234567890",
             downloadUrl: "https://files.short.ly/vcard/def456.vcf",
         });
     });
 
-    test("upsert (3f2d4a5d)", async () => {
+    test("upsert (7227bbf6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -366,7 +366,7 @@ describe("ContactCard", () => {
         );
     });
 
-    test("upsert (2bc349ac)", async () => {
+    test("upsert (72c3456e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -425,7 +425,7 @@ describe("ContactCard", () => {
         );
     });
 
-    test("upsert (ccb46760)", async () => {
+    test("upsert (8de9c012)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {

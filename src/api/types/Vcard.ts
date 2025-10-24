@@ -5,8 +5,8 @@
 import * as Pinnacle from "../index.js";
 
 export interface Vcard {
-    /** Unique identifier for the contact. */
-    id?: number;
+    /** The unique identifier of the contact. This identifier is a string that always begins with the prefix `cc_`, for example: `cc_1234567890`. */
+    id?: string;
     /** Full display name for the vCard. */
     formattedName?: string;
     /** Structured name components. */

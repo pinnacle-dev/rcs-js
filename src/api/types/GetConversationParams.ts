@@ -9,7 +9,7 @@ export type GetConversationParams =
     /**
      * Retrieve conversation information by ID. */
     | {
-          id: number;
+          id: string;
       }
     /**
      * Retrieve conversation information by sender and recipient. */

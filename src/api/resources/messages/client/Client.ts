@@ -60,7 +60,7 @@ export class Messages {
     /**
      * Retrieve a previously sent message.
      *
-     * @param {number} id - Unique identifier of the message.
+     * @param {string} id - Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
      * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -69,14 +69,14 @@ export class Messages {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.messages.get(1240)
+     *     await client.messages.get("msg_1234567890")
      */
-    public get(id: number, requestOptions?: Messages.RequestOptions): core.HttpResponsePromise<Pinnacle.Message> {
+    public get(id: string, requestOptions?: Messages.RequestOptions): core.HttpResponsePromise<Pinnacle.Message> {
         return core.HttpResponsePromise.fromPromise(this.__get(id, requestOptions));
     }
 
     private async __get(
-        id: number,
+        id: string,
         requestOptions?: Messages.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.Message>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -159,7 +159,7 @@ export class Messages {
      *
      * @example
      *     await client.messages.react({
-     *         messageId: 1410,
+     *         messageId: "msg_1234567890",
      *         options: {
      *             force: true
      *         },

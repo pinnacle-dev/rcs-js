@@ -3,8 +3,8 @@
  */
 
 export interface ReactionResult {
-    /** ID of the message. */
-    messageId: number;
-    /** Unique identifier for the reaction. */
-    reactionMessageId: number;
+    /** Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. */
+    messageId: string;
+    /** Unique identifier of the message with the reaction. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. */
+    reactionMessageId: string;
 }

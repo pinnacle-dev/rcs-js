@@ -5,8 +5,8 @@
 import * as Pinnacle from "../index.js";
 
 export interface TollFreeCampaign {
-    /** Unique identifier for the campaign. */
-    campaignId?: number;
+    /** Unique identifier for the campaign. Must begin with the prefix `tf_`. */
+    campaignId?: string;
     monthlyVolume?: Pinnacle.MessageVolumeEnum;
     /** Display name of the campaign. */
     name?: string;

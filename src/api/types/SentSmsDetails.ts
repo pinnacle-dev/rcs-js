@@ -3,8 +3,8 @@
  */
 
 export interface SentSmsDetails {
-    /** Unique identifier for the sent message. */
-    messageId: number;
+    /** Unique identifier for the sent message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. */
+    messageId: string;
     /** Details about how the message was segmented for sending. */
     segments: SentSmsDetails.Segments;
     /** Total cost of sending the message. */

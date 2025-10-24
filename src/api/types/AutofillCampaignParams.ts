@@ -5,6 +5,11 @@
 export interface AutofillCampaignParams {
     /** Any additional information you want to provide. */
     additionalInfo?: string;
-    /** Campaign ID. */
-    campaignId?: number;
+    /**
+     * Unique identifier for the campaign.
+     * - When autofilling 10DLC campaigns, it must begin with the prefix `dlc_` (e.g., `dlc_1234567890`)
+     * - When autofilling Toll-Free campaigns, it must begin with the prefix `tf_` (e.g., `tf_1234567890`)
+     * - When autofilling RCS campaigns, it must begin with the prefix `rcs_` (e.g., `rcs_1234567890`)
+     */
+    campaignId?: string;
 }

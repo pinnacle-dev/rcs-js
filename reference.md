@@ -112,7 +112,7 @@ await client.brands.upsert({
     description: "A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
     ein: "88-1234567",
     email: "founders@trypinnacle.app",
-    id: 1,
+    id: "b_1234567890",
     name: "Pinnacle",
     sector: "TECHNOLOGY",
     type: "PRIVATE_PROFIT",
@@ -180,7 +180,7 @@ Retrieve detailed information for a specific brand in your account by ID.
 <dd>
 
 ```typescript
-await client.brands.get(1);
+await client.brands.get("b_1234567890");
 ```
 
 </dd>
@@ -196,7 +196,10 @@ await client.brands.get(1);
 <dl>
 <dd>
 
-**id:** `number` — ID of an existing brand in your account that you want to retrieve.
+**id:** `string`
+
+The unique identifier of the brand you want to retrieve from your account.
+<br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
 </dd>
 </dl>
@@ -251,7 +254,7 @@ Submit your brand for review and approval by the compliance team.
 <dd>
 
 ```typescript
-await client.brands.submit(1);
+await client.brands.submit("b_1234567890");
 ```
 
 </dd>
@@ -267,11 +270,10 @@ await client.brands.submit(1);
 <dl>
 <dd>
 
-**brandId:** `number`
+**brandId:** `string`
 
-The unique identifier of the brand you want to submit for review. <br>
-
-Must correspond to an existing brand in your account that is ready for submission.
+The unique identifier of the brand you want to submit for review. <br><br>
+This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for submission.
 
 </dd>
 </dl>
@@ -397,7 +399,7 @@ Submit a brand for external vetting verification to enhance your brand's trust s
 <dd>
 
 ```typescript
-await client.brands.vet(1, {});
+await client.brands.vet("b_1234567890", {});
 ```
 
 </dd>
@@ -413,11 +415,11 @@ await client.brands.vet(1, {});
 <dl>
 <dd>
 
-**brandId:** `number`
+**brandId:** `string`
 
 The unique identifier of the brand to vet. <br>
 
-The brand must be already registered before it can be vetted.
+This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for vetting.
 
 </dd>
 </dl>
@@ -474,7 +476,9 @@ Retrieve contact information for a given number.
 <dd>
 
 ```typescript
-await client.contacts.get();
+await client.contacts.get({
+    id: "co_1234567890",
+});
 ```
 
 </dd>
@@ -607,7 +611,7 @@ await client.contacts.update({
     email: "alvaroopedtech@pinnacle.sh",
     name: "Retired Bestie",
     tags: ["friend"],
-    id: 137,
+    id: "co_1234567890",
 });
 ```
 
@@ -674,7 +678,7 @@ Fetch a specific conversation using either its unique identifier or by matching 
 
 ```typescript
 await client.conversations.get({
-    id: 1,
+    id: "conv_1234567890",
 });
 ```
 
@@ -739,8 +743,8 @@ Retrieves conversations by page with optional filtering based off provided param
 
 ```typescript
 await client.conversations.list({
-    brandId: 101,
-    campaignId: 136,
+    brandId: "b_1234567890",
+    campaignId: "tf_1234567890",
     campaignType: "TOLL_FREE",
     pageIndex: 0,
     pageSize: 20,
@@ -810,7 +814,7 @@ Update the notes associated with a specific conversation.
 
 ```typescript
 await client.conversations.update({
-    id: 123,
+    id: "conv_1234567890",
     notes: "Follow-up completed. Customer satisfied with resolution.",
 });
 ```
@@ -877,7 +881,7 @@ Retrieve a previously sent message.
 <dd>
 
 ```typescript
-await client.messages.get(1240);
+await client.messages.get("msg_1234567890");
 ```
 
 </dd>
@@ -893,7 +897,7 @@ await client.messages.get(1240);
 <dl>
 <dd>
 
-**id:** `number` — Unique identifier of the message.
+**id:** `string` — Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`.
 
 </dd>
 </dl>
@@ -941,7 +945,7 @@ Add or remove an emoji reaction to a previously sent message.
 
 ```typescript
 await client.messages.react({
-    messageId: 1410,
+    messageId: "msg_1234567890",
     options: {
         force: true,
     },
@@ -1531,8 +1535,8 @@ Generate campaign details based off existing campaign and the brand it's connect
 
 ```typescript
 await client.campaigns.dlc.autofill({
-    additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-    campaignId: 161,
+    additionalInfo: "Please autofill missing campaign fields using my brand profile",
+    campaignId: "dlc_1234567890",
 });
 ```
 
@@ -1596,7 +1600,7 @@ Retrieve 10DLC campaign.
 <dd>
 
 ```typescript
-await client.campaigns.dlc.get(28);
+await client.campaigns.dlc.get("dlc_1234567890");
 ```
 
 </dd>
@@ -1612,7 +1616,7 @@ await client.campaigns.dlc.get(28);
 <dl>
 <dd>
 
-**campaignId:** `number` — Unique identifier of the 10DLC campaign.
+**campaignId:** `string` — Unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
 </dd>
 </dl>
@@ -1659,7 +1663,7 @@ Submit your 10DLC campaign for approval and activation with carriers.
 <dd>
 
 ```typescript
-await client.campaigns.dlc.submit(161);
+await client.campaigns.dlc.submit("dlc_1234567890");
 ```
 
 </dd>
@@ -1675,7 +1679,10 @@ await client.campaigns.dlc.submit(161);
 <dl>
 <dd>
 
-**campaignId:** `number` — Unique identifier of the 10DLC campaign to submit.
+**campaignId:** `string`
+
+Unique identifier of the 10DLC campaign to submit.
+<br><br> This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
 </dd>
 </dl>
@@ -1726,19 +1733,19 @@ Omit campaignId to create a campaign.
 ```typescript
 await client.campaigns.dlc.upsert({
     autoRenew: true,
-    brand: 1,
-    campaignId: 161,
+    brand: "b_1234567890",
+    campaignId: "dlc_1234567890",
     keywords: {
         HELP: {
             message: "Reply HELP for assistance, STOP to opt-out",
             values: ["HELP", "INFO", "SUPPORT"],
         },
         OPT_IN: {
-            message: "Welcome! You're now subscribed to Pinnacle.",
+            message: "Welcome. You are now subscribed to Pinnacle.",
             values: ["JOIN", "START", "SUBSCRIBE"],
         },
         OPT_OUT: {
-            message: "You've been unsubscribed. Reply START to rejoin.",
+            message: "You have been unsubscribed. Reply START to rejoin.",
             values: ["STOP", "QUIT", "UNSUBSCRIBE"],
         },
     },
@@ -1826,7 +1833,7 @@ Validate your 10DLC campaign configuration against carrier requirements and comp
 ```typescript
 await client.campaigns.dlc.validate({
     additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-    campaignId: 161,
+    campaignId: "dlc_1234567890",
 });
 ```
 
@@ -1893,8 +1900,8 @@ Generate campaign details based off existing campaign and the brand it's connect
 
 ```typescript
 await client.campaigns.tollFree.autofill({
-    additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-    campaignId: 161,
+    additionalInfo: "Please autofill missing campaign fields using my brand profile",
+    campaignId: "dlc_1234567890",
 });
 ```
 
@@ -1958,7 +1965,7 @@ Retrieve Toll-Free campaign.
 <dd>
 
 ```typescript
-await client.campaigns.tollFree.get(161);
+await client.campaigns.tollFree.get("tf_1234567890");
 ```
 
 </dd>
@@ -1974,7 +1981,7 @@ await client.campaigns.tollFree.get(161);
 <dl>
 <dd>
 
-**campaignId:** `number` — Unique identifier of toll-free campaign.
+**campaignId:** `string` — Unique identifier of toll-free campaign. Must begin with the prefix `tf_`.
 
 </dd>
 </dl>
@@ -2021,7 +2028,7 @@ Submit your toll-free campaign for approval and activation with carriers.
 <dd>
 
 ```typescript
-await client.campaigns.tollFree.submit(161);
+await client.campaigns.tollFree.submit("tf_1234567890");
 ```
 
 </dd>
@@ -2037,7 +2044,7 @@ await client.campaigns.tollFree.submit(161);
 <dl>
 <dd>
 
-**campaignId:** `number` — Unique identifier of the toll-free campaign to submit.
+**campaignId:** `string` — Unique identifier of the toll-free campaign to submit. Must begin with the prefix `tf_`.
 
 </dd>
 </dl>
@@ -2087,8 +2094,8 @@ Omit campaignId to create a campaign.
 
 ```typescript
 await client.campaigns.tollFree.upsert({
-    brand: 2,
-    campaignId: 161,
+    brand: "b_1234567890",
+    campaignId: "tf_1234567890",
     monthlyVolume: "1,000",
     name: "Pinnacle",
     optIn: {
@@ -2096,7 +2103,7 @@ await client.campaigns.tollFree.upsert({
         url: "https://www.pinnacle.sh/",
         workflowDescription: "Visit https://www.pinnacle.sh/",
     },
-    productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
+    productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
     useCase: {
         summary: "Alerts clients about any Pinnacle hosted workshops.",
         value: "WORKSHOP_ALERTS",
@@ -2166,7 +2173,7 @@ Validate your toll-free campaign configuration against carrier requirements and 
 ```typescript
 await client.campaigns.tollFree.validate({
     additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-    campaignId: 161,
+    campaignId: "dlc_1234567890",
 });
 ```
 
@@ -2233,8 +2240,8 @@ Generate campaign details based off existing campaign and the brand it's connect
 
 ```typescript
 await client.campaigns.rcs.autofill({
-    additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-    campaignId: 161,
+    additionalInfo: "Please autofill missing campaign fields using my brand profile",
+    campaignId: "dlc_1234567890",
 });
 ```
 
@@ -2298,7 +2305,7 @@ Retrieve RCS campaign.
 <dd>
 
 ```typescript
-await client.campaigns.rcs.get(161);
+await client.campaigns.rcs.get("rcs_1234567890");
 ```
 
 </dd>
@@ -2314,7 +2321,7 @@ await client.campaigns.rcs.get(161);
 <dl>
 <dd>
 
-**campaignId:** `number` — Unique identifier of the RCS campaign.
+**campaignId:** `string` — Unique identifier of the RCS campaign. Must begin with the prefix `rcs_`.
 
 </dd>
 </dl>
@@ -2361,7 +2368,7 @@ Submit your RCS campaign for approval and activation with carriers.
 <dd>
 
 ```typescript
-await client.campaigns.rcs.submit(161);
+await client.campaigns.rcs.submit("rcs_1234567890");
 ```
 
 </dd>
@@ -2377,7 +2384,7 @@ await client.campaigns.rcs.submit(161);
 <dl>
 <dd>
 
-**campaignId:** `number` — Unique identifier of the RCS campaign to retrieve.
+**campaignId:** `string` — Unique identifier of the RCS campaign to retrieve. Must begin with the prefix `rcs_`.
 
 </dd>
 </dl>
@@ -2454,7 +2461,8 @@ await client.campaigns.rcs.upsert({
         ],
     },
     brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
-    brand: 2,
+    brand: "b_1234567890",
+    campaignId: "rcs_1234567890",
     expectedAgentResponses: [
         "Here are the things I can help you with.",
         "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -2542,7 +2550,7 @@ Validate your RCS campaign configuration against carrier requirements and compli
 ```typescript
 await client.campaigns.rcs.validate({
     additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-    campaignId: 161,
+    campaignId: "dlc_1234567890",
 });
 ```
 
@@ -3037,7 +3045,7 @@ Connect a webhook to your phone number to receive real-time notifications for in
 
 ```typescript
 await client.phoneNumbers.webhook.attach("%2B14155551234", {
-    webhookId: 123,
+    webhookId: "wh_1234567890",
     event: "MESSAGE.STATUS",
 });
 ```
@@ -3116,7 +3124,7 @@ The webhook configuration itself remains intact and available for use with other
 <dd>
 
 ```typescript
-await client.phoneNumbers.webhook.detach("+14155551234", 123);
+await client.phoneNumbers.webhook.detach("+14155551234", "wh_1234567890");
 ```
 
 </dd>
@@ -3144,11 +3152,11 @@ Must be a phone number that you own and currently has the specified webhook atta
 <dl>
 <dd>
 
-**webhookId:** `number`
+**webhookId:** `string`
 
 The unique identifier of the webhook you want to detach from the phone number. <br>
 
-This must be a valid webhook ID that is currently attached to the specified phone number.
+This must be a valid webhook ID that is currently attached to the specified phone number. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
 
 </dd>
 </dl>
@@ -3200,7 +3208,7 @@ Link a phone number to a specific campaign. Phone numbers must be linked to a ca
 await client.phoneNumbers.campaign.attach({
     phones: ["+14155550123", "+14155559876", "+14155550111"],
     campaignType: "TOLL_FREE",
-    campaignId: 101,
+    campaignId: "tf_1234567890",
 });
 ```
 
@@ -3331,7 +3339,7 @@ Retrieve a brand's status.
 <dd>
 
 ```typescript
-await client.status.get.brand(28);
+await client.status.get.brand("b_1234567890");
 ```
 
 </dd>
@@ -3347,7 +3355,7 @@ await client.status.get.brand(28);
 <dl>
 <dd>
 
-**brandId:** `number` — ID of the brand.
+**brandId:** `string` — The unique identifier of the brand you want to retrieve the status for. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
 
 </dd>
 </dl>
@@ -3394,7 +3402,7 @@ Retrieve a toll-free campaign's status.
 <dd>
 
 ```typescript
-await client.status.get.tollFree(28);
+await client.status.get.tollFree("tf_1234567890");
 ```
 
 </dd>
@@ -3410,7 +3418,7 @@ await client.status.get.tollFree(28);
 <dl>
 <dd>
 
-**campaignId:** `number` — ID of the toll-free campaign.
+**campaignId:** `string` — The unique identifier of the toll-free campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
 
 </dd>
 </dl>
@@ -3457,7 +3465,7 @@ Retrieve a 10DLC campaign's status.
 <dd>
 
 ```typescript
-await client.status.get.dlc(28);
+await client.status.get.dlc("dlc_1234567890");
 ```
 
 </dd>
@@ -3473,7 +3481,7 @@ await client.status.get.dlc(28);
 <dl>
 <dd>
 
-**campaignId:** `number` — ID of the 10DLC campaign.
+**campaignId:** `string` — The unique identifier of the 10DLC campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
 
 </dd>
 </dl>
@@ -3520,7 +3528,7 @@ Retrieve a RCS campaign's status.
 <dd>
 
 ```typescript
-await client.status.get.rcs(28);
+await client.status.get.rcs("rcs_1234567890");
 ```
 
 </dd>
@@ -3536,7 +3544,7 @@ await client.status.get.rcs(28);
 <dl>
 <dd>
 
-**campaignId:** `number` — ID of the campaign.
+**campaignId:** `string` — The unique identifier of the RCS campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`.
 
 </dd>
 </dl>
@@ -3940,10 +3948,9 @@ Refresh expiring presigned URLs for Pinnacle-hosted files to extend their access
 
 ```typescript
 await client.tools.file.refresh({
-    uris: [
+    urls: [
         "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken",
         "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2",
-        "icons/3/test.jpg",
         "invalid/url",
         "https://google.com",
     ],
@@ -4013,7 +4020,7 @@ Retrieve contact information as a vCard and get a presigned URL to download the 
 
 ```typescript
 await client.tools.contactCard.get({
-    id: 33,
+    id: "cc_1234567890",
 });
 ```
 
@@ -4078,7 +4085,7 @@ Create a new contact card or updates an existing one with full vCard data. Conta
 
 ```typescript
 await client.tools.contactCard.upsert({
-    id: 34,
+    id: "cc_1234567890",
     formattedName: "Jane Smith",
     name: {
         familyName: "Smith",

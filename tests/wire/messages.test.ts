@@ -16,7 +16,7 @@ describe("Messages", () => {
             cost: 10,
             deliveredAt: "deliveredAt",
             error: '{"message": "Error: Timeout occurred"}',
-            id: 1240,
+            id: "msg_1234567890",
             method: "API",
             numSegments: 1,
             receiver: "+1415654321",
@@ -25,9 +25,15 @@ describe("Messages", () => {
             status: "PENDING",
             type: "SMS",
         };
-        server.mockEndpoint().get("/messages/1240").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/messages/msg_1234567890")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.messages.get(1240);
+        const response = await client.messages.get("msg_1234567890");
         expect(response).toEqual({
             content: {
                 text: "Hello from Pinnacle",
@@ -35,7 +41,7 @@ describe("Messages", () => {
             cost: 10,
             deliveredAt: "deliveredAt",
             error: '{"message": "Error: Timeout occurred"}',
-            id: 1240,
+            id: "msg_1234567890",
             method: "API",
             numSegments: 1,
             receiver: "+1415654321",
@@ -58,7 +64,7 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "deliveredAt",
             error: '{"message": "Error: Timeout occurred"}',
-            id: 1240,
+            id: "msg_1234567890",
             method: "SDK",
             numSegments: 1,
             receiver: "+1415654321",
@@ -67,9 +73,15 @@ describe("Messages", () => {
             status: "PENDING",
             type: "MMS",
         };
-        server.mockEndpoint().get("/messages/1240").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/messages/msg_1234567890")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.messages.get(1240);
+        const response = await client.messages.get("msg_1234567890");
         expect(response).toEqual({
             content: {
                 mediaUrls: ["https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3"],
@@ -78,7 +90,7 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "deliveredAt",
             error: '{"message": "Error: Timeout occurred"}',
-            id: 1240,
+            id: "msg_1234567890",
             method: "SDK",
             numSegments: 1,
             receiver: "+1415654321",
@@ -132,7 +144,7 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",
             error: '{"message": "Error: Timeout occurred"}',
-            id: 1240,
+            id: "msg_1234567890",
             method: "OTHER",
             numSegments: 1,
             receiver: "+1415654321",
@@ -141,9 +153,15 @@ describe("Messages", () => {
             status: "DELIVERED",
             type: "RCS",
         };
-        server.mockEndpoint().get("/messages/1240").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/messages/msg_1234567890")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.messages.get(1240);
+        const response = await client.messages.get("msg_1234567890");
         expect(response).toEqual({
             content: {
                 cards: [
@@ -199,7 +217,7 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",
             error: '{"message": "Error: Timeout occurred"}',
-            id: 1240,
+            id: "msg_1234567890",
             method: "OTHER",
             numSegments: 1,
             receiver: "+1415654321",
@@ -219,7 +237,7 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",
             error: '{"value":[]}',
-            id: 1240,
+            id: "msg_1234567890",
             method: "OTHER",
             numSegments: 1,
             receiver: "+1415654321",
@@ -228,9 +246,15 @@ describe("Messages", () => {
             status: "DELIVERED",
             type: "RCS",
         };
-        server.mockEndpoint().get("/messages/1240").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .get("/messages/msg_1234567890")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.messages.get(1240);
+        const response = await client.messages.get("msg_1234567890");
         expect(response).toEqual({
             content: {
                 data: {
@@ -243,7 +267,7 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",
             error: '{"value":[]}',
-            id: 1240,
+            id: "msg_1234567890",
             method: "OTHER",
             numSegments: 1,
             receiver: "+1415654321",
@@ -254,15 +278,15 @@ describe("Messages", () => {
         });
     });
 
-    test("get (e72aa068)", async () => {
+    test("get (d8ed2e53)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
-        server.mockEndpoint().get("/messages/1").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/messages/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.messages.get(1);
+            return await client.messages.get("id");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -270,15 +294,15 @@ describe("Messages", () => {
         );
     });
 
-    test("get (38965f2f)", async () => {
+    test("get (8d3a7c8d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/messages/1").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/messages/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.messages.get(1);
+            return await client.messages.get("id");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -286,15 +310,15 @@ describe("Messages", () => {
         );
     });
 
-    test("get (51dbad9b)", async () => {
+    test("get (367a6179)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/messages/1").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/messages/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.messages.get(1);
+            return await client.messages.get("id");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -302,15 +326,15 @@ describe("Messages", () => {
         );
     });
 
-    test("get (1368280b)", async () => {
+    test("get (f1cf1379)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
-        server.mockEndpoint().get("/messages/1").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().get("/messages/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.messages.get(1);
+            return await client.messages.get("id");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -318,11 +342,11 @@ describe("Messages", () => {
         );
     });
 
-    test("react (5a70926f)", async () => {
+    test("react (b42f7c29)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1410, options: { force: true }, reaction: "👍" };
-        const rawResponseBody = { messageId: 1410, reactionMessageId: 1868 };
+        const rawRequestBody = { messageId: "msg_1234567890", options: { force: true }, reaction: "👍" };
+        const rawResponseBody = { messageId: "msg_1234567890", reactionMessageId: "msg_1234567890" };
         server
             .mockEndpoint()
             .post("/messages/react")
@@ -333,22 +357,22 @@ describe("Messages", () => {
             .build();
 
         const response = await client.messages.react({
-            messageId: 1410,
+            messageId: "msg_1234567890",
             options: {
                 force: true,
             },
             reaction: "\uD83D\uDC4D",
         });
         expect(response).toEqual({
-            messageId: 1410,
-            reactionMessageId: 1868,
+            messageId: "msg_1234567890",
+            reactionMessageId: "msg_1234567890",
         });
     });
 
-    test("react (250f508b)", async () => {
+    test("react (85bed033)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
+        const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -361,7 +385,7 @@ describe("Messages", () => {
 
         await expect(async () => {
             return await client.messages.react({
-                messageId: 1,
+                messageId: "messageId",
                 options: undefined,
                 reaction: null,
             });
@@ -372,10 +396,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (a6cf6642)", async () => {
+    test("react (70bd94ad)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
+        const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -388,7 +412,7 @@ describe("Messages", () => {
 
         await expect(async () => {
             return await client.messages.react({
-                messageId: 1,
+                messageId: "messageId",
                 options: undefined,
                 reaction: null,
             });
@@ -399,10 +423,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (24c44da2)", async () => {
+    test("react (51671bbd)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
+        const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -415,7 +439,7 @@ describe("Messages", () => {
 
         await expect(async () => {
             return await client.messages.react({
-                messageId: 1,
+                messageId: "messageId",
                 options: undefined,
                 reaction: null,
             });
@@ -426,10 +450,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (e296855e)", async () => {
+    test("react (af63ec19)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
+        const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -442,7 +466,7 @@ describe("Messages", () => {
 
         await expect(async () => {
             return await client.messages.react({
-                messageId: 1,
+                messageId: "messageId",
                 options: undefined,
                 reaction: null,
             });
@@ -453,10 +477,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (e8bfcb76)", async () => {
+    test("react (4f55e099)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
+        const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -469,7 +493,7 @@ describe("Messages", () => {
 
         await expect(async () => {
             return await client.messages.react({
-                messageId: 1,
+                messageId: "messageId",
                 options: undefined,
                 reaction: null,
             });
@@ -480,10 +504,10 @@ describe("Messages", () => {
         );
     });
 
-    test("react (d756c56)", async () => {
+    test("react (a3814349)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { messageId: 1, options: undefined, reaction: null };
+        const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -496,7 +520,7 @@ describe("Messages", () => {
 
         await expect(async () => {
             return await client.messages.react({
-                messageId: 1,
+                messageId: "messageId",
                 options: undefined,
                 reaction: null,
             });

@@ -11,10 +11,10 @@ import * as Pinnacle from "../../../../index.js";
  *         email: "alvaroopedtech@pinnacle.sh",
  *         name: "Retired Bestie",
  *         tags: ["friend"],
- *         id: 137
+ *         id: "co_1234567890"
  *     }
  */
 export interface UpdateContactParams extends Pinnacle.OptionalContact {
-    /** ID of the contact you want to update. */
-    id: number;
+    /** ID of the contact you want to update. This identifier is a string that always begins with the prefix `co_`, for example: `co_1234567890`. */
+    id: string;
 }

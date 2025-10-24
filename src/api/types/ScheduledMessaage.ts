@@ -3,8 +3,8 @@
  */
 
 export interface ScheduledMessaage {
-    /** Unique identifier for the scheduled send. */
-    scheduleId: number;
+    /** Unique identifier for the scheduled send. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`. */
+    scheduleId: string;
     /** Configuration for the scheduled message. */
     config: ScheduledMessaage.Config;
 }

@@ -3,8 +3,8 @@
  */
 
 export interface SentMmsDetails {
-    /** Array of unique identifiers for the sent MMS messages. */
-    messageIds: number[];
+    /** Array of unique identifiers for the sent MMS messages. This identifiers are strings that always begin with the prefix `msg_`, for example: `msg_1234567890`. */
+    messageIds: string[];
     /** Total number of segments used across the message. */
     segments: number;
     /** Total cost of sending the message. */

@@ -10,8 +10,8 @@ import * as Pinnacle from "../index.js";
 export interface BrandStatus {
     /** List of errors that occurred. */
     errors: string[];
-    /** Id of the brand. */
-    id: number;
+    /** The unique identifier of the brand. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`. */
+    id: string;
     /**
      * Current review status of the brand. <br>
      *

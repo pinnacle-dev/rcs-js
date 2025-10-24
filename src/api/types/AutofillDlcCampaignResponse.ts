@@ -7,10 +7,10 @@ import * as Pinnacle from "../index.js";
 export interface AutofillDlcCampaignResponse {
     /** Whether the campaign renews automatically. */
     autoRenew: boolean;
-    /** Brand id. */
-    brand?: number;
-    /** Unique identifier for the campaign. */
-    campaignId?: number;
+    /** Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`. */
+    brand?: string;
+    /** Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`. */
+    campaignId?: string;
     /** Description of the campaign. */
     description?: string;
     /** Keyword response configuration. */

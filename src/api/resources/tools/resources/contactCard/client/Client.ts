@@ -51,7 +51,7 @@ export class ContactCard {
      *
      * @example
      *     await client.tools.contactCard.get({
-     *         id: 33
+     *         id: "cc_1234567890"
      *     })
      */
     public get(
@@ -143,7 +143,7 @@ export class ContactCard {
      *
      * @example
      *     await client.tools.contactCard.upsert({
-     *         id: 34,
+     *         id: "cc_1234567890",
      *         formattedName: "Jane Smith",
      *         name: {
      *             familyName: "Smith",

@@ -39,7 +39,7 @@ describe("Url", () => {
         });
     });
 
-    test("create (bc15ce24)", async () => {
+    test("create (19bacff8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: "url", options: undefined };
@@ -65,7 +65,7 @@ describe("Url", () => {
         );
     });
 
-    test("create (959dcb7b)", async () => {
+    test("create (5871e4e8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: "url", options: undefined };
@@ -91,7 +91,7 @@ describe("Url", () => {
         );
     });
 
-    test("create (e7c41227)", async () => {
+    test("create (37a452fc)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: "url", options: undefined };
@@ -117,7 +117,7 @@ describe("Url", () => {
         );
     });
 
-    test("get (f260a60f)", async () => {
+    test("get (3f4cffa5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -127,10 +127,8 @@ describe("Url", () => {
             clicks: [
                 {
                     created_at: "2025-07-09T23:57:28.889+00:00",
-                    id: 1,
                     is_bot: false,
                     latency_ms: 400,
-                    link_id: 13,
                     metadata: { key: "value" },
                     method: "GET",
                     redirect_hops: 0,
@@ -157,10 +155,8 @@ describe("Url", () => {
             clicks: [
                 {
                     created_at: "2025-07-09T23:57:28.889+00:00",
-                    id: 1,
                     is_bot: false,
                     latency_ms: 400,
-                    link_id: 13,
                     metadata: {
                         key: "value",
                     },
@@ -173,7 +169,7 @@ describe("Url", () => {
         });
     });
 
-    test("get (aaeb1da5)", async () => {
+    test("get (f6530def)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -189,7 +185,7 @@ describe("Url", () => {
         );
     });
 
-    test("get (3cb04284)", async () => {
+    test("get (676a10e1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -205,7 +201,7 @@ describe("Url", () => {
         );
     });
 
-    test("get (5f7f75f8)", async () => {
+    test("get (6426b6d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -250,7 +246,7 @@ describe("Url", () => {
         });
     });
 
-    test("update (38bdfbd6)", async () => {
+    test("update (a619276c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: undefined, options: undefined };
@@ -276,7 +272,7 @@ describe("Url", () => {
         );
     });
 
-    test("update (d616c72d)", async () => {
+    test("update (9d5ac864)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: undefined, options: undefined };
@@ -302,7 +298,7 @@ describe("Url", () => {
         );
     });
 
-    test("update (2a188319)", async () => {
+    test("update (ea62ce58)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: undefined, options: undefined };

@@ -27,8 +27,8 @@ export namespace DetachedPhoneNumberResult {
              * Campaign that the phone is now detached from.
              */
             export interface Campaign {
-                /** Id of the campaign. */
-                id: number;
+                /** Id of the campaign. For `TOLL_FREE` campaigns, it will begin with the prefix `tf_`, for example: `tf_1234567890`. For `10DLC` campaigns, it will begin with the prefix `dlc_`, for example: `dlc_1234567890`. */
+                id: string;
                 /** Campaign's name. */
                 name: string;
                 type: Pinnacle.MessagingProfileEnum;

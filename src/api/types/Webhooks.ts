@@ -8,8 +8,8 @@
 export interface Webhooks {
     /** URL where webhook events are delivered. */
     endpoint: string;
-    /** Unique identifier for the webhook. */
-    id: number;
+    /** The unique identifier of the webhook. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`. */
+    id: string;
     /** Name of the webhook. */
     name: string;
 }

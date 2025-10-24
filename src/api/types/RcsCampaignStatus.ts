@@ -10,8 +10,8 @@ import * as Pinnacle from "../index.js";
 export interface RcsCampaignStatus {
     /** List of errors that occured. */
     errors: string[];
-    /** Id of the RCS campaign. */
-    id: number;
+    /** The unique identifier of the RCS campaign. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`. */
+    id: string;
     /**
      * Current review status of the RCS campaign. <br>
      *

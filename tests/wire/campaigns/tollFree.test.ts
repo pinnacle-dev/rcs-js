@@ -7,15 +7,15 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("TollFree", () => {
-    test("autofill (2275120a)", async () => {
+    test("autofill (4aba9322)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
-            additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-            campaignId: 161,
+            additionalInfo: "Please autofill missing campaign fields using my brand profile",
+            campaignId: "dlc_1234567890",
         };
         const rawResponseBody = {
-            campaignId: 161,
+            campaignId: "tf_1234567890",
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -25,7 +25,7 @@ describe("TollFree", () => {
             },
             productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
             useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
-            brand: 2,
+            brand: "b_1234567890",
         };
         server
             .mockEndpoint()
@@ -37,11 +37,11 @@ describe("TollFree", () => {
             .build();
 
         const response = await client.campaigns.tollFree.autofill({
-            additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-            campaignId: 161,
+            additionalInfo: "Please autofill missing campaign fields using my brand profile",
+            campaignId: "dlc_1234567890",
         });
         expect(response).toEqual({
-            campaignId: 161,
+            campaignId: "tf_1234567890",
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -54,11 +54,11 @@ describe("TollFree", () => {
                 summary: "Alerts clients about any Pinnacle hosted workshops.",
                 value: "WORKSHOP_ALERTS",
             },
-            brand: 2,
+            brand: "b_1234567890",
         });
     });
 
-    test("autofill (d5360f26)", async () => {
+    test("autofill (be0b4ff4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -84,7 +84,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("autofill (772a13bd)", async () => {
+    test("autofill (5a2ba21c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -110,7 +110,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("autofill (17e040a9)", async () => {
+    test("autofill (78086810)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -136,12 +136,12 @@ describe("TollFree", () => {
         );
     });
 
-    test("get (1c13afd7)", async () => {
+    test("get (7e60e6e5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            campaignId: 161,
+            campaignId: "tf_1234567890",
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -168,7 +168,7 @@ describe("TollFree", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
@@ -177,15 +177,15 @@ describe("TollFree", () => {
         };
         server
             .mockEndpoint()
-            .get("/campaigns/toll-free/161")
+            .get("/campaigns/toll-free/tf_1234567890")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.campaigns.tollFree.get(161);
+        const response = await client.campaigns.tollFree.get("tf_1234567890");
         expect(response).toEqual({
-            campaignId: 161,
+            campaignId: "tf_1234567890",
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -215,7 +215,7 @@ describe("TollFree", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
@@ -224,21 +224,21 @@ describe("TollFree", () => {
         });
     });
 
-    test("get (eecd4f52)", async () => {
+    test("get (c8293015)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .get("/campaigns/toll-free/1")
+            .get("/campaigns/toll-free/campaignId")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.get(1);
+            return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -246,21 +246,21 @@ describe("TollFree", () => {
         );
     });
 
-    test("get (c9fc51d9)", async () => {
+    test("get (2a5bbc1f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/campaigns/toll-free/1")
+            .get("/campaigns/toll-free/campaignId")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.get(1);
+            return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -268,21 +268,21 @@ describe("TollFree", () => {
         );
     });
 
-    test("get (84cc0bc5)", async () => {
+    test("get (d9f643cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/campaigns/toll-free/1")
+            .get("/campaigns/toll-free/campaignId")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.get(1);
+            return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -290,21 +290,21 @@ describe("TollFree", () => {
         );
     });
 
-    test("get (eba86205)", async () => {
+    test("get (a63b9e7b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .get("/campaigns/toll-free/1")
+            .get("/campaigns/toll-free/campaignId")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.get(1);
+            return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -312,40 +312,40 @@ describe("TollFree", () => {
         );
     });
 
-    test("submit (3c06af76)", async () => {
+    test("submit (b8ca1922)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true };
         server
             .mockEndpoint()
-            .post("/campaigns/toll-free/submit/161")
+            .post("/campaigns/toll-free/submit/tf_1234567890")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.campaigns.tollFree.submit(161);
+        const response = await client.campaigns.tollFree.submit("tf_1234567890");
         expect(response).toEqual({
             success: true,
         });
     });
 
-    test("submit (eecd4f52)", async () => {
+    test("submit (c8293015)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/campaigns/toll-free/submit/1")
+            .post("/campaigns/toll-free/submit/campaignId")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.submit(1);
+            return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -353,21 +353,21 @@ describe("TollFree", () => {
         );
     });
 
-    test("submit (c9fc51d9)", async () => {
+    test("submit (2a5bbc1f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/toll-free/submit/1")
+            .post("/campaigns/toll-free/submit/campaignId")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.submit(1);
+            return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -375,21 +375,21 @@ describe("TollFree", () => {
         );
     });
 
-    test("submit (84cc0bc5)", async () => {
+    test("submit (d9f643cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/toll-free/submit/1")
+            .post("/campaigns/toll-free/submit/campaignId")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.submit(1);
+            return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -397,21 +397,21 @@ describe("TollFree", () => {
         );
     });
 
-    test("submit (eba86205)", async () => {
+    test("submit (a63b9e7b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/campaigns/toll-free/submit/1")
+            .post("/campaigns/toll-free/submit/campaignId")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.submit(1);
+            return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -419,12 +419,12 @@ describe("TollFree", () => {
         );
     });
 
-    test("upsert (77e5b4b4)", async () => {
+    test("upsert (4807ccb5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
-            brand: 2,
-            campaignId: 161,
+            brand: "b_1234567890",
+            campaignId: "tf_1234567890",
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -432,11 +432,11 @@ describe("TollFree", () => {
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
             },
-            productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
+            productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
             useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
         };
         const rawResponseBody = {
-            campaignId: 161,
+            campaignId: "tf_1234567890",
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -463,7 +463,7 @@ describe("TollFree", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
@@ -480,8 +480,8 @@ describe("TollFree", () => {
             .build();
 
         const response = await client.campaigns.tollFree.upsert({
-            brand: 2,
-            campaignId: 161,
+            brand: "b_1234567890",
+            campaignId: "tf_1234567890",
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -489,14 +489,14 @@ describe("TollFree", () => {
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
             },
-            productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
+            productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
             useCase: {
                 summary: "Alerts clients about any Pinnacle hosted workshops.",
                 value: "WORKSHOP_ALERTS",
             },
         });
         expect(response).toEqual({
-            campaignId: 161,
+            campaignId: "tf_1234567890",
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -526,7 +526,7 @@ describe("TollFree", () => {
                 type: "PRIVATE_PROFIT",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
-                id: 2,
+                id: "b_1234567890",
                 isArchived: false,
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
@@ -535,7 +535,7 @@ describe("TollFree", () => {
         });
     });
 
-    test("upsert (861b9fbd)", async () => {
+    test("upsert (24488f6b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -574,7 +574,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("upsert (725e9b4c)", async () => {
+    test("upsert (65b2c1f5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -613,7 +613,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("upsert (1d2aef88)", async () => {
+    test("upsert (bca9a41)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -652,7 +652,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("upsert (17b55500)", async () => {
+    test("upsert (1cd9e681)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -691,12 +691,12 @@ describe("TollFree", () => {
         );
     });
 
-    test("validate (4f46db2a)", async () => {
+    test("validate (9cc92503)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-            campaignId: 161,
+            campaignId: "dlc_1234567890",
         };
         const rawResponseBody = {
             errors: [{ description: "description", example: "example", field: "field" }],
@@ -713,7 +713,7 @@ describe("TollFree", () => {
 
         const response = await client.campaigns.tollFree.validate({
             additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-            campaignId: 161,
+            campaignId: "dlc_1234567890",
         });
         expect(response).toEqual({
             errors: [
@@ -727,10 +727,10 @@ describe("TollFree", () => {
         });
     });
 
-    test("validate (6dfec3cf)", async () => {
+    test("validate (d11b3afa)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { additionalInfo: undefined, campaignId: 1 };
+        const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -744,7 +744,7 @@ describe("TollFree", () => {
         await expect(async () => {
             return await client.campaigns.tollFree.validate({
                 additionalInfo: undefined,
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
@@ -753,10 +753,10 @@ describe("TollFree", () => {
         );
     });
 
-    test("validate (82beebc6)", async () => {
+    test("validate (ac3701da)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { additionalInfo: undefined, campaignId: 1 };
+        const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -770,7 +770,7 @@ describe("TollFree", () => {
         await expect(async () => {
             return await client.campaigns.tollFree.validate({
                 additionalInfo: undefined,
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
@@ -779,10 +779,10 @@ describe("TollFree", () => {
         );
     });
 
-    test("validate (df0dffca)", async () => {
+    test("validate (18773ae)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { additionalInfo: undefined, campaignId: 1 };
+        const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -796,7 +796,7 @@ describe("TollFree", () => {
         await expect(async () => {
             return await client.campaigns.tollFree.validate({
                 additionalInfo: undefined,
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({

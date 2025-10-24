@@ -51,8 +51,8 @@ export class Dlc {
      *
      * @example
      *     await client.campaigns.dlc.autofill({
-     *         additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-     *         campaignId: 161
+     *         additionalInfo: "Please autofill missing campaign fields using my brand profile",
+     *         campaignId: "dlc_1234567890"
      *     })
      */
     public autofill(
@@ -135,7 +135,7 @@ export class Dlc {
     /**
      * Retrieve 10DLC campaign.
      *
-     * @param {number} campaignId - Unique identifier of the 10DLC campaign.
+     * @param {string} campaignId - Unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -144,17 +144,17 @@ export class Dlc {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.dlc.get(28)
+     *     await client.campaigns.dlc.get("dlc_1234567890")
      */
     public get(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Dlc.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.DlcCampaignWithExtendedBrandAndStatus> {
         return core.HttpResponsePromise.fromPromise(this.__get(campaignId, requestOptions));
     }
 
     private async __get(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Dlc.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.DlcCampaignWithExtendedBrandAndStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -228,7 +228,8 @@ export class Dlc {
     /**
      * Submit your 10DLC campaign for approval and activation with carriers.
      *
-     * @param {number} campaignId - Unique identifier of the 10DLC campaign to submit.
+     * @param {string} campaignId - Unique identifier of the 10DLC campaign to submit.
+     *                              <br><br> This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -237,17 +238,17 @@ export class Dlc {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.dlc.submit(161)
+     *     await client.campaigns.dlc.submit("dlc_1234567890")
      */
     public submit(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Dlc.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.CampaignSubmissionResult> {
         return core.HttpResponsePromise.fromPromise(this.__submit(campaignId, requestOptions));
     }
 
     private async __submit(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: Dlc.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmissionResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -333,19 +334,19 @@ export class Dlc {
      * @example
      *     await client.campaigns.dlc.upsert({
      *         autoRenew: true,
-     *         brand: 1,
-     *         campaignId: 161,
+     *         brand: "b_1234567890",
+     *         campaignId: "dlc_1234567890",
      *         keywords: {
      *             HELP: {
      *                 message: "Reply HELP for assistance, STOP to opt-out",
      *                 values: ["HELP", "INFO", "SUPPORT"]
      *             },
      *             OPT_IN: {
-     *                 message: "Welcome! You're now subscribed to Pinnacle.",
+     *                 message: "Welcome. You are now subscribed to Pinnacle.",
      *                 values: ["JOIN", "START", "SUBSCRIBE"]
      *             },
      *             OPT_OUT: {
-     *                 message: "You've been unsubscribed. Reply START to rejoin.",
+     *                 message: "You have been unsubscribed. Reply START to rejoin.",
      *                 values: ["STOP", "QUIT", "UNSUBSCRIBE"]
      *             }
      *         },
@@ -465,7 +466,7 @@ export class Dlc {
      * @example
      *     await client.campaigns.dlc.validate({
      *         additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-     *         campaignId: 161
+     *         campaignId: "dlc_1234567890"
      *     })
      */
     public validate(

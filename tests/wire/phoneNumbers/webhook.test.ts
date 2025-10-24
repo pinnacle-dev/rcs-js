@@ -7,13 +7,13 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("Webhook", () => {
-    test("attach (61fe9649)", async () => {
+    test("attach (d9f938a7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: 123, event: "MESSAGE.STATUS" };
+        const rawRequestBody = { webhookId: "wh_1234567890", event: "MESSAGE.STATUS" };
         const rawResponseBody = {
             webhook: {
-                id: 123,
+                id: "wh_1234567890",
                 name: "SMS Delivery Tracker",
                 url: "https://api.myapp.com/webhooks/sms-delivery",
                 secret: "whsec_1a2b3c4d5e6f7g8h9i0j",
@@ -31,12 +31,12 @@ describe("Webhook", () => {
             .build();
 
         const response = await client.phoneNumbers.webhook.attach("%2B14155551234", {
-            webhookId: 123,
+            webhookId: "wh_1234567890",
             event: "MESSAGE.STATUS",
         });
         expect(response).toEqual({
             webhook: {
-                id: 123,
+                id: "wh_1234567890",
                 name: "SMS Delivery Tracker",
                 url: "https://api.myapp.com/webhooks/sms-delivery",
                 secret: "whsec_1a2b3c4d5e6f7g8h9i0j",
@@ -46,10 +46,10 @@ describe("Webhook", () => {
         });
     });
 
-    test("attach (f81ef5b5)", async () => {
+    test("attach (420998e4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: 1, event: null };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -62,7 +62,7 @@ describe("Webhook", () => {
 
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
-                webhookId: 1,
+                webhookId: "webhookId",
                 event: null,
             });
         }).rejects.toThrow(
@@ -72,10 +72,10 @@ describe("Webhook", () => {
         );
     });
 
-    test("attach (6d31abd4)", async () => {
+    test("attach (ed3d5d6c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: 1, event: null };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -88,7 +88,7 @@ describe("Webhook", () => {
 
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
-                webhookId: 1,
+                webhookId: "webhookId",
                 event: null,
             });
         }).rejects.toThrow(
@@ -98,10 +98,10 @@ describe("Webhook", () => {
         );
     });
 
-    test("attach (7ae69270)", async () => {
+    test("attach (348eaf28)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: 1, event: null };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -114,7 +114,7 @@ describe("Webhook", () => {
 
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
-                webhookId: 1,
+                webhookId: "webhookId",
                 event: null,
             });
         }).rejects.toThrow(
@@ -124,10 +124,10 @@ describe("Webhook", () => {
         );
     });
 
-    test("attach (b38549c8)", async () => {
+    test("attach (ef28fa20)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: 1, event: null };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -140,7 +140,7 @@ describe("Webhook", () => {
 
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
-                webhookId: 1,
+                webhookId: "webhookId",
                 event: null,
             });
         }).rejects.toThrow(
@@ -150,10 +150,10 @@ describe("Webhook", () => {
         );
     });
 
-    test("attach (40ae4bf8)", async () => {
+    test("attach (ed96ba50)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: 1, event: null };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -166,7 +166,7 @@ describe("Webhook", () => {
 
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
-                webhookId: 1,
+                webhookId: "webhookId",
                 event: null,
             });
         }).rejects.toThrow(
@@ -176,46 +176,46 @@ describe("Webhook", () => {
         );
     });
 
-    test("detach (7a3147d0)", async () => {
+    test("detach (58fd08c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
             message: "Webhook detached successfully",
-            webhookId: 123,
+            webhookId: "wh_1234567890",
             phoneNumber: "+14155551234",
         };
         server
             .mockEndpoint()
-            .delete("/phone-numbers/%2B14155551234/detach-webhook/123")
+            .delete("/phone-numbers/%2B14155551234/detach-webhook/wh_1234567890")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.phoneNumbers.webhook.detach("+14155551234", 123);
+        const response = await client.phoneNumbers.webhook.detach("+14155551234", "wh_1234567890");
         expect(response).toEqual({
             message: "Webhook detached successfully",
-            webhookId: 123,
+            webhookId: "wh_1234567890",
             phoneNumber: "+14155551234",
         });
     });
 
-    test("detach (d20bc79a)", async () => {
+    test("detach (e8057299)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .delete("/phone-numbers/phone/detach-webhook/1")
+            .delete("/phone-numbers/phone/detach-webhook/webhookId")
             .respondWith()
             .statusCode(400)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.phoneNumbers.webhook.detach("phone", 1);
+            return await client.phoneNumbers.webhook.detach("phone", "webhookId");
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
                 key: "value",
@@ -223,21 +223,21 @@ describe("Webhook", () => {
         );
     });
 
-    test("detach (29878a11)", async () => {
+    test("detach (2f2f659b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .delete("/phone-numbers/phone/detach-webhook/1")
+            .delete("/phone-numbers/phone/detach-webhook/webhookId")
             .respondWith()
             .statusCode(401)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.phoneNumbers.webhook.detach("phone", 1);
+            return await client.phoneNumbers.webhook.detach("phone", "webhookId");
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
                 error: "error",
@@ -245,21 +245,21 @@ describe("Webhook", () => {
         );
     });
 
-    test("detach (588c4f7d)", async () => {
+    test("detach (5b5d4cb7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .delete("/phone-numbers/phone/detach-webhook/1")
+            .delete("/phone-numbers/phone/detach-webhook/webhookId")
             .respondWith()
             .statusCode(404)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.phoneNumbers.webhook.detach("phone", 1);
+            return await client.phoneNumbers.webhook.detach("phone", "webhookId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
                 error: "error",
@@ -267,21 +267,21 @@ describe("Webhook", () => {
         );
     });
 
-    test("detach (328a999d)", async () => {
+    test("detach (10896847)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .delete("/phone-numbers/phone/detach-webhook/1")
+            .delete("/phone-numbers/phone/detach-webhook/webhookId")
             .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.phoneNumbers.webhook.detach("phone", 1);
+            return await client.phoneNumbers.webhook.detach("phone", "webhookId");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",
@@ -289,21 +289,21 @@ describe("Webhook", () => {
         );
     });
 
-    test("detach (56c9d00d)", async () => {
+    test("detach (52d6d27)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .delete("/phone-numbers/phone/detach-webhook/1")
+            .delete("/phone-numbers/phone/detach-webhook/webhookId")
             .respondWith()
             .statusCode(501)
             .jsonBody(rawResponseBody)
             .build();
 
         await expect(async () => {
-            return await client.phoneNumbers.webhook.detach("phone", 1);
+            return await client.phoneNumbers.webhook.detach("phone", "webhookId");
         }).rejects.toThrow(
             new Pinnacle.NotImplementedError({
                 error: "error",

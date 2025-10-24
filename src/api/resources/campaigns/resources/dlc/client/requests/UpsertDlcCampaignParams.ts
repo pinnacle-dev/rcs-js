@@ -8,19 +8,19 @@ import * as Pinnacle from "../../../../../../index.js";
  * @example
  *     {
  *         autoRenew: true,
- *         brand: 1,
- *         campaignId: 161,
+ *         brand: "b_1234567890",
+ *         campaignId: "dlc_1234567890",
  *         keywords: {
  *             HELP: {
  *                 message: "Reply HELP for assistance, STOP to opt-out",
  *                 values: ["HELP", "INFO", "SUPPORT"]
  *             },
  *             OPT_IN: {
- *                 message: "Welcome! You're now subscribed to Pinnacle.",
+ *                 message: "Welcome. You are now subscribed to Pinnacle.",
  *                 values: ["JOIN", "START", "SUBSCRIBE"]
  *             },
  *             OPT_OUT: {
- *                 message: "You've been unsubscribed. Reply START to rejoin.",
+ *                 message: "You have been unsubscribed. Reply START to rejoin.",
  *                 values: ["STOP", "QUIT", "UNSUBSCRIBE"]
  *             }
  *         },
@@ -48,10 +48,10 @@ import * as Pinnacle from "../../../../../../index.js";
 export interface UpsertDlcCampaignParams {
     /** Whether the campaign renews automatically. */
     autoRenew?: boolean;
-    /** Brand id. */
-    brand?: number;
-    /** Unique identifier for the campaign. */
-    campaignId?: number;
+    /** Brand id. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`. */
+    brand?: string;
+    /** Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`. */
+    campaignId?: string;
     /** Description of the campaign. */
     description?: string;
     /** Keyword response configuration. */

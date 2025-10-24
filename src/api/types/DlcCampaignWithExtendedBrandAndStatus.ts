@@ -12,8 +12,8 @@ export interface DlcCampaignWithExtendedBrandAndStatus {
     autoRenew: boolean;
     /** Brand associated with this campaign. */
     brand: Pinnacle.ExtendedBrand;
-    /** Unique identifier for the campaign. */
-    campaignId?: number;
+    /** Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`. */
+    campaignId?: string;
     /** Description of the campaign. */
     description?: string;
     /** Keyword response configuration. */

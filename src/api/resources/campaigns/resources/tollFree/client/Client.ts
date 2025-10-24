@@ -51,8 +51,8 @@ export class TollFree {
      *
      * @example
      *     await client.campaigns.tollFree.autofill({
-     *         additionalInfo: "Please autofill missing DLC campaign fields using my brand profile",
-     *         campaignId: 161
+     *         additionalInfo: "Please autofill missing campaign fields using my brand profile",
+     *         campaignId: "dlc_1234567890"
      *     })
      */
     public autofill(
@@ -140,7 +140,7 @@ export class TollFree {
     /**
      * Retrieve Toll-Free campaign.
      *
-     * @param {number} campaignId - Unique identifier of toll-free campaign.
+     * @param {string} campaignId - Unique identifier of toll-free campaign. Must begin with the prefix `tf_`.
      * @param {TollFree.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -149,17 +149,17 @@ export class TollFree {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.tollFree.get(161)
+     *     await client.campaigns.tollFree.get("tf_1234567890")
      */
     public get(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: TollFree.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus> {
         return core.HttpResponsePromise.fromPromise(this.__get(campaignId, requestOptions));
     }
 
     private async __get(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: TollFree.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -235,7 +235,7 @@ export class TollFree {
     /**
      * Submit your toll-free campaign for approval and activation with carriers.
      *
-     * @param {number} campaignId - Unique identifier of the toll-free campaign to submit.
+     * @param {string} campaignId - Unique identifier of the toll-free campaign to submit. Must begin with the prefix `tf_`.
      * @param {TollFree.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -244,17 +244,17 @@ export class TollFree {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.tollFree.submit(161)
+     *     await client.campaigns.tollFree.submit("tf_1234567890")
      */
     public submit(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: TollFree.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.CampaignSubmissionResult> {
         return core.HttpResponsePromise.fromPromise(this.__submit(campaignId, requestOptions));
     }
 
     private async __submit(
-        campaignId: number,
+        campaignId: string,
         requestOptions?: TollFree.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmissionResult>> {
         let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -339,8 +339,8 @@ export class TollFree {
      *
      * @example
      *     await client.campaigns.tollFree.upsert({
-     *         brand: 2,
-     *         campaignId: 161,
+     *         brand: "b_1234567890",
+     *         campaignId: "tf_1234567890",
      *         monthlyVolume: "1,000",
      *         name: "Pinnacle",
      *         optIn: {
@@ -348,7 +348,7 @@ export class TollFree {
      *             url: "https://www.pinnacle.sh/",
      *             workflowDescription: "Visit https://www.pinnacle.sh/"
      *         },
-     *         productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
+     *         productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
      *         useCase: {
      *             summary: "Alerts clients about any Pinnacle hosted workshops.",
      *             value: "WORKSHOP_ALERTS"
@@ -450,7 +450,7 @@ export class TollFree {
      * @example
      *     await client.campaigns.tollFree.validate({
      *         additionalInfo: "Please validate this DLC campaign for 10DLC compliance",
-     *         campaignId: 161
+     *         campaignId: "dlc_1234567890"
      *     })
      */
     public validate(

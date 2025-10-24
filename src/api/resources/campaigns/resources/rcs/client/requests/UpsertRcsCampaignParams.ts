@@ -27,7 +27,8 @@ import * as Pinnacle from "../../../../../../index.js";
  *                 }]
  *         },
  *         brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
- *         brand: 2,
+ *         brand: "b_1234567890",
+ *         campaignId: "rcs_1234567890",
  *         expectedAgentResponses: ["Here are the things I can help you with.", "I can assist you with booking an appointment, or you may choose to book manually.", "Here are the available times to connect with a representative tomorrow.", "Your appointment has been scheduled."],
  *         links: {
  *             privacyPolicy: "https://www.trypinnacle.app/privacy",
@@ -53,9 +54,9 @@ export interface UpsertRcsCampaignParams {
     /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
     brandVerificationUrl?: string;
     /** Unique identifier for the brand. */
-    brand?: number;
+    brand?: string;
     /** Unique identifier for the campaign. */
-    campaignId?: number;
+    campaignId?: string;
     /** List of what the agent might say to users (1-5 required). */
     expectedAgentResponses?: string[];
     /** Legal documentation links. */

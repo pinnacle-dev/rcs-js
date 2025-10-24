@@ -12,7 +12,7 @@ export type AttachWebhookParams =
     /**
      * Attach a webhook you’ve already created in your account to this phone number. */
     | {
-          webhookId: number;
+          webhookId: string;
           event: Pinnacle.WebhookEventEnum | null;
       }
     /**

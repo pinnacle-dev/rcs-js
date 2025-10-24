@@ -14,8 +14,8 @@ export interface DlcCampaignStatus {
      * These errors may request additional information or point out erroneous and/or missing fields.
      */
     error: string;
-    /** Id of the DLC campaign. */
-    id: number;
+    /** The unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`. */
+    id: string;
     /**
      * Current review status of the DLC campaign. <br>
      *

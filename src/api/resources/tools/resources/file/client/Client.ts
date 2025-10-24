@@ -154,7 +154,7 @@ export class File_ {
      *
      * @example
      *     await client.tools.file.refresh({
-     *         uris: ["https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken", "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2", "icons/3/test.jpg", "invalid/url", "https://google.com"]
+     *         urls: ["https://server.trypinnacle.app/storage/v1/object/sign/vault/3/test.jpg?token=oldtoken", "https://server.trypinnacle.app/storage/v1/object/sign/vault/3/document.pdf?token=oldtoken2", "invalid/url", "https://google.com"]
      *     })
      */
     public refresh(

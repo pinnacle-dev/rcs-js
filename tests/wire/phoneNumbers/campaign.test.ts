@@ -7,18 +7,24 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("Campaign", () => {
-    test("attach (e2584533)", async () => {
+    test("attach (7a00cd29)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             phones: ["+14155550123", "+14155559876", "+14155550111"],
             campaignType: "TOLL_FREE",
-            campaignId: 101,
+            campaignId: "tf_1234567890",
         };
         const rawResponseBody = {
             phoneNumbers: [
-                { phoneNumber: "+14155550123", campaign: { id: 101, name: "Summer Promo", type: "TOLL_FREE" } },
-                { phoneNumber: "+14155559876", campaign: { id: 102, name: "Winter Blast", type: "TOLL_FREE" } },
+                {
+                    phoneNumber: "+14155550123",
+                    campaign: { id: "dlc_1234567890", name: "Summer Promo", type: "10DLC" },
+                },
+                {
+                    phoneNumber: "+14155559876",
+                    campaign: { id: "dlc_1234567891", name: "Winter Blast", type: "10DLC" },
+                },
             ],
             failed: [
                 {
@@ -39,24 +45,24 @@ describe("Campaign", () => {
         const response = await client.phoneNumbers.campaign.attach({
             phones: ["+14155550123", "+14155559876", "+14155550111"],
             campaignType: "TOLL_FREE",
-            campaignId: 101,
+            campaignId: "tf_1234567890",
         });
         expect(response).toEqual({
             phoneNumbers: [
                 {
                     phoneNumber: "+14155550123",
                     campaign: {
-                        id: 101,
+                        id: "dlc_1234567890",
                         name: "Summer Promo",
-                        type: "TOLL_FREE",
+                        type: "10DLC",
                     },
                 },
                 {
                     phoneNumber: "+14155559876",
                     campaign: {
-                        id: 102,
+                        id: "dlc_1234567891",
                         name: "Winter Blast",
-                        type: "TOLL_FREE",
+                        type: "10DLC",
                     },
                 },
             ],
@@ -69,10 +75,10 @@ describe("Campaign", () => {
         });
     });
 
-    test("attach (1cc09090)", async () => {
+    test("attach (7f3e334b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: 1 };
+        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -87,7 +93,7 @@ describe("Campaign", () => {
             return await client.phoneNumbers.campaign.attach({
                 phones: ["phones", "phones"],
                 campaignType: "TOLL_FREE",
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.BadRequestError({
@@ -96,10 +102,10 @@ describe("Campaign", () => {
         );
     });
 
-    test("attach (9ec62207)", async () => {
+    test("attach (ca84d315)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: 1 };
+        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -114,7 +120,7 @@ describe("Campaign", () => {
             return await client.phoneNumbers.campaign.attach({
                 phones: ["phones", "phones"],
                 campaignType: "TOLL_FREE",
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.UnauthorizedError({
@@ -123,10 +129,10 @@ describe("Campaign", () => {
         );
     });
 
-    test("attach (662cb273)", async () => {
+    test("attach (9b02b61)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: 1 };
+        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -141,7 +147,7 @@ describe("Campaign", () => {
             return await client.phoneNumbers.campaign.attach({
                 phones: ["phones", "phones"],
                 campaignType: "TOLL_FREE",
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
@@ -150,10 +156,10 @@ describe("Campaign", () => {
         );
     });
 
-    test("attach (cf844583)", async () => {
+    test("attach (5f4edd21)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: 1 };
+        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -168,7 +174,7 @@ describe("Campaign", () => {
             return await client.phoneNumbers.campaign.attach({
                 phones: ["phones", "phones"],
                 campaignType: "TOLL_FREE",
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
@@ -177,10 +183,10 @@ describe("Campaign", () => {
         );
     });
 
-    test("attach (3db766c3)", async () => {
+    test("attach (5da300b1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: 1 };
+        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -195,7 +201,7 @@ describe("Campaign", () => {
             return await client.phoneNumbers.campaign.attach({
                 phones: ["phones", "phones"],
                 campaignType: "TOLL_FREE",
-                campaignId: 1,
+                campaignId: "campaignId",
             });
         }).rejects.toThrow(
             new Pinnacle.NotImplementedError({
@@ -204,13 +210,16 @@ describe("Campaign", () => {
         );
     });
 
-    test("detach (58f74df8)", async () => {
+    test("detach (5035bd2f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["+14155559876", "14155550111"] };
         const rawResponseBody = {
             phoneNumbers: [
-                { phoneNumber: "+14155559876", campaign: { id: 101, name: "Summer Promo", type: "TOLL_FREE" } },
+                {
+                    phoneNumber: "+14155559876",
+                    campaign: { id: "dlc_1234567890", name: "Summer Promo", type: "10DLC" },
+                },
             ],
             failed: [
                 {
@@ -236,9 +245,9 @@ describe("Campaign", () => {
                 {
                     phoneNumber: "+14155559876",
                     campaign: {
-                        id: 101,
+                        id: "dlc_1234567890",
                         name: "Summer Promo",
-                        type: "TOLL_FREE",
+                        type: "10DLC",
                     },
                 },
             ],
@@ -251,7 +260,7 @@ describe("Campaign", () => {
         });
     });
 
-    test("detach (488a24bd)", async () => {
+    test("detach (d5c7861d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"] };
@@ -276,7 +285,7 @@ describe("Campaign", () => {
         );
     });
 
-    test("detach (6f1aa24c)", async () => {
+    test("detach (e02f74d7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"] };
@@ -301,7 +310,7 @@ describe("Campaign", () => {
         );
     });
 
-    test("detach (b4d0688)", async () => {
+    test("detach (f8863203)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"] };
@@ -326,7 +335,7 @@ describe("Campaign", () => {
         );
     });
 
-    test("detach (4b52fc00)", async () => {
+    test("detach (88b354d3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"] };
@@ -351,7 +360,7 @@ describe("Campaign", () => {
         );
     });
 
-    test("detach (2e6ec8b0)", async () => {
+    test("detach (5b3fe493)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"] };

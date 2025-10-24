@@ -4,7 +4,9 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         id: "co_1234567890"
+ *     }
  */
 export interface ContactsGetRequest {
     /**
@@ -12,7 +14,7 @@ export interface ContactsGetRequest {
      *
      * Either this parameter or `phoneNumber` must be provided, but not both.
      */
-    id?: number;
+    id?: string;
     /** Phone number you want to look up contact information for, provided in URL-encoded E.164 format with %2B prefix instead of +. */
     phoneNumber?: string;
 }

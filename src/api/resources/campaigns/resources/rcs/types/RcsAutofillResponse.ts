@@ -5,5 +5,5 @@
 import * as Pinnacle from "../../../../../index.js";
 
 export interface RcsAutofillResponse extends Pinnacle.RcsCampaign {
-    brand?: number;
+    brand?: string;
 }

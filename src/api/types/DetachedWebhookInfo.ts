@@ -5,8 +5,8 @@
 export interface DetachedWebhookInfo {
     /** Confirmation message. */
     message: string;
-    /** ID of the detached webhook. */
-    webhookId: number;
+    /** Unique identifier of the webhook within the account. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`. */
+    webhookId: string;
     /** Phone number the webhook was detached from in E.164 format. */
     phoneNumber: string;
 }

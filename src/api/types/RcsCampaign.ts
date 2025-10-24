@@ -8,7 +8,7 @@ export interface RcsCampaign {
     /** Agent configured to the campaign. */
     agent?: RcsCampaign.Agent;
     /** Unique identifier for the campaign. */
-    campaignId?: number;
+    campaignId?: string;
     /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
     brandVerificationUrl?: string;
     /** List of what the agent might say to users. */
