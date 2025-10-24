@@ -133,3 +133,4 @@ export * from "./VcardResource.js";
 export * from "./Webhooks.js";
 export * from "./WebhookResult.js";
 export * from "./MessageEvent.js";
+export * from "./UserEvent.js";
