@@ -279,11 +279,11 @@ describe("PhoneNumbers", () => {
         );
     });
 
-    test("buy (98a6b7bc)", async () => {
+    test("buy (d3cbaf64)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { numbers: ["numbers", "numbers"] };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/phone-numbers/buy")
@@ -299,7 +299,7 @@ describe("PhoneNumbers", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -532,11 +532,11 @@ describe("PhoneNumbers", () => {
         );
     });
 
-    test("get (4656397b)", async () => {
+    test("get (b28e67e1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phone: "phone", level: "basic", options: undefined };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/phone-numbers/details")
@@ -554,7 +554,7 @@ describe("PhoneNumbers", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

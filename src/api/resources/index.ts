@@ -1,10 +1,11 @@
+export * as conversations from "./conversations/index.js";
+export * from "./conversations/types/index.js";
 export * as phoneNumbers from "./phoneNumbers/index.js";
 export * from "./phoneNumbers/types/index.js";
 export * as campaigns from "./campaigns/index.js";
 export * as messages from "./messages/index.js";
 export * as brands from "./brands/index.js";
 export * as contacts from "./contacts/index.js";
-export * as conversations from "./conversations/index.js";
 export * as rcs from "./rcs/index.js";
 export * as webhooks from "./webhooks/index.js";
 export * as status from "./status/index.js";

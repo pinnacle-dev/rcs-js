@@ -514,18 +514,18 @@ describe("Brands", () => {
         );
     });
 
-    test("get (367a6179)", async () => {
+    test("get (d851f5ff)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/brands/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.brands.get("id");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -631,11 +631,11 @@ describe("Brands", () => {
         );
     });
 
-    test("submit (1d599d36)", async () => {
+    test("submit (e274da0e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/brands/brandId/submit")
@@ -648,7 +648,7 @@ describe("Brands", () => {
             return await client.brands.submit("brandId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -998,11 +998,11 @@ describe("Brands", () => {
         );
     });
 
-    test("vet (b54e6b18)", async () => {
+    test("vet (ca086d18)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/brands/brandId/vet")
@@ -1016,7 +1016,7 @@ describe("Brands", () => {
             return await client.brands.vet("brandId", {});
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

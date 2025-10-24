@@ -258,7 +258,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("send (6fffd4c0)", async () => {
+    test("send (93774e10)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -271,7 +271,7 @@ describe("Rcs", () => {
             ],
             text: "text",
         };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/messages/send/rcs")
@@ -304,7 +304,7 @@ describe("Rcs", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

@@ -378,11 +378,11 @@ describe("Rcs", () => {
         );
     });
 
-    test("get (d9f643cb)", async () => {
+    test("get (9792c291)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .get("/campaigns/rcs/campaignId")
@@ -395,7 +395,7 @@ describe("Rcs", () => {
             return await client.campaigns.rcs.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -507,11 +507,11 @@ describe("Rcs", () => {
         );
     });
 
-    test("submit (d9f643cb)", async () => {
+    test("submit (9792c291)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/campaigns/rcs/submit/campaignId")
@@ -524,7 +524,7 @@ describe("Rcs", () => {
             return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -863,7 +863,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("upsert (2634fbf)", async () => {
+    test("upsert (187022fd)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -877,7 +877,7 @@ describe("Rcs", () => {
             optOut: undefined,
             useCase: undefined,
         };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/campaigns/rcs")
@@ -901,7 +901,7 @@ describe("Rcs", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

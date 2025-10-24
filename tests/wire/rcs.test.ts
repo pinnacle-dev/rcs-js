@@ -254,11 +254,11 @@ describe("Rcs", () => {
         );
     });
 
-    test("whitelist (bd605cf0)", async () => {
+    test("whitelist (2c9f8920)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { agentId: "agentId", phoneNumber: "phoneNumber" };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/rcs/whitelist")
@@ -275,7 +275,7 @@ describe("Rcs", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -422,11 +422,11 @@ describe("Rcs", () => {
         );
     });
 
-    test("getLink (d36caaa8)", async () => {
+    test("getLink (88554c8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { agentId: "agentId", testMode: undefined, phoneNumber: undefined, body: undefined };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/rcs/link")
@@ -445,7 +445,7 @@ describe("Rcs", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

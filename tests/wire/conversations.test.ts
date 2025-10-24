@@ -448,4 +448,187 @@ describe("Conversations", () => {
             }),
         );
     });
+
+    test("listMessages (7bfa8558)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            messages: [
+                {
+                    content: { text: "Hello, how can I help you today?" },
+                    cost: 0.0075,
+                    deliveredAt: "2024-09-11T00:05:30.123Z",
+                    error: "error",
+                    id: "msg_1234567890",
+                    method: "API",
+                    numSegments: 1,
+                    receiver: "+16509231662",
+                    sender: "+18445551234",
+                    sentAt: "2024-09-11T00:05:29.434Z",
+                    status: "DELIVERED",
+                    type: "SMS",
+                    direction: "OUTBOUND",
+                    reaction: "reaction",
+                },
+                {
+                    content: { text: "I need help with my order" },
+                    cost: 1.1,
+                    deliveredAt: "2024-09-11T00:10:16.123Z",
+                    error: "error",
+                    id: "msg_0987654321",
+                    method: "API",
+                    numSegments: 1,
+                    receiver: "+18445551234",
+                    sender: "+16509231662",
+                    sentAt: "2024-09-11T00:10:15.234Z",
+                    status: "DELIVERED",
+                    type: "SMS",
+                    direction: "INBOUND",
+                    reaction: "👍",
+                },
+            ],
+            hasMore: true,
+            count: 42,
+        };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.conversations.listMessages("id");
+        expect(response).toEqual({
+            messages: [
+                {
+                    content: {
+                        text: "Hello, how can I help you today?",
+                    },
+                    cost: 0.0075,
+                    deliveredAt: "2024-09-11T00:05:30.123Z",
+                    error: "error",
+                    id: "msg_1234567890",
+                    method: "API",
+                    numSegments: 1,
+                    receiver: "+16509231662",
+                    sender: "+18445551234",
+                    sentAt: "2024-09-11T00:05:29.434Z",
+                    status: "DELIVERED",
+                    type: "SMS",
+                    direction: "OUTBOUND",
+                    reaction: "reaction",
+                },
+                {
+                    content: {
+                        text: "I need help with my order",
+                    },
+                    cost: 1.1,
+                    deliveredAt: "2024-09-11T00:10:16.123Z",
+                    error: "error",
+                    id: "msg_0987654321",
+                    method: "API",
+                    numSegments: 1,
+                    receiver: "+18445551234",
+                    sender: "+16509231662",
+                    sentAt: "2024-09-11T00:10:15.234Z",
+                    status: "DELIVERED",
+                    type: "SMS",
+                    direction: "INBOUND",
+                    reaction: "\uD83D\uDC4D",
+                },
+            ],
+            hasMore: true,
+            count: 42,
+        });
+    });
+
+    test("listMessages (d8ed2e53)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.listMessages("id");
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("listMessages (8d3a7c8d)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.listMessages("id");
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("listMessages (d851f5ff)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.listMessages("id");
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("listMessages (f1cf1379)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.listMessages("id");
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
 });

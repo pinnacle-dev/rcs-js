@@ -66,18 +66,18 @@ describe("Contacts", () => {
         );
     });
 
-    test("get (2a52b7bf)", async () => {
+    test("get (7d911afd)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/contacts").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.contacts.get();
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -315,11 +315,11 @@ describe("Contacts", () => {
         );
     });
 
-    test("update (6f3234b9)", async () => {
+    test("update (8a383ebf)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", description: undefined, email: undefined, name: undefined, tags: undefined };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .put("/contacts")
@@ -339,7 +339,7 @@ describe("Contacts", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

@@ -216,7 +216,7 @@ describe("Mms", () => {
         );
     });
 
-    test("send (c743a546)", async () => {
+    test("send (27bebbe)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -226,7 +226,7 @@ describe("Mms", () => {
             text: "text",
             to: "to",
         };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/messages/send/mms")
@@ -246,7 +246,7 @@ describe("Mms", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

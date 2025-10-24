@@ -310,18 +310,18 @@ describe("Messages", () => {
         );
     });
 
-    test("get (367a6179)", async () => {
+    test("get (d851f5ff)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/messages/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.messages.get("id");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -450,11 +450,11 @@ describe("Messages", () => {
         );
     });
 
-    test("react (af63ec19)", async () => {
+    test("react (2eb4255f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/messages/react")
@@ -472,7 +472,7 @@ describe("Messages", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

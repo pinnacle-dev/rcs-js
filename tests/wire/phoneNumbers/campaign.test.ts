@@ -129,11 +129,11 @@ describe("Campaign", () => {
         );
     });
 
-    test("attach (9b02b61)", async () => {
+    test("attach (975d5d7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/phone-numbers/attach-campaign")
@@ -151,7 +151,7 @@ describe("Campaign", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -310,11 +310,11 @@ describe("Campaign", () => {
         );
     });
 
-    test("detach (f8863203)", async () => {
+    test("detach (80d5f579)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"] };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .delete("/phone-numbers/detach-campaign")
@@ -330,7 +330,7 @@ describe("Campaign", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

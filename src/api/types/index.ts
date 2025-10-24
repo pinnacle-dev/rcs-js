@@ -1,4 +1,5 @@
 export * from "./BadRequestErrorBody.js";
+export * from "./NotFoundErrorBody.js";
 export * from "./OptionalContacts.js";
 export * from "./CompanySectorEnum.js";
 export * from "./CompanyTypeEnum.js";
@@ -67,6 +68,8 @@ export * from "./MessageMethodEnum.js";
 export * from "./MessageStatusEnum.js";
 export * from "./MessageProtocolEnum.js";
 export * from "./Message.js";
+export * from "./MessageWithReaction.js";
+export * from "./MessageList.js";
 export * from "./ReactionResult.js";
 export * from "./MessageSchedule.js";
 export * from "./Tracking.js";

@@ -98,11 +98,11 @@ describe("Webhook", () => {
         );
     });
 
-    test("attach (348eaf28)", async () => {
+    test("attach (26e29e48)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { webhookId: "webhookId", event: null };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/phone-numbers/phone/attach-webhook")
@@ -119,7 +119,7 @@ describe("Webhook", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -245,11 +245,11 @@ describe("Webhook", () => {
         );
     });
 
-    test("detach (5b5d4cb7)", async () => {
+    test("detach (ffb717a5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .delete("/phone-numbers/phone/detach-webhook/webhookId")
@@ -262,7 +262,7 @@ describe("Webhook", () => {
             return await client.phoneNumbers.webhook.detach("phone", "webhookId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

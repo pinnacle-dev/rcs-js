@@ -268,11 +268,11 @@ describe("TollFree", () => {
         );
     });
 
-    test("get (d9f643cb)", async () => {
+    test("get (9792c291)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .get("/campaigns/toll-free/campaignId")
@@ -285,7 +285,7 @@ describe("TollFree", () => {
             return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -375,11 +375,11 @@ describe("TollFree", () => {
         );
     });
 
-    test("submit (d9f643cb)", async () => {
+    test("submit (9792c291)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/campaigns/toll-free/submit/campaignId")
@@ -392,7 +392,7 @@ describe("TollFree", () => {
             return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
@@ -613,7 +613,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("upsert (bca9a41)", async () => {
+    test("upsert (db43dbf7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -625,7 +625,7 @@ describe("TollFree", () => {
             productionMessageContent: undefined,
             useCase: undefined,
         };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/campaigns/toll-free")
@@ -647,7 +647,7 @@ describe("TollFree", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });

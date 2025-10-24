@@ -3,11 +3,10 @@
  */
 
 import * as errors from "../../errors/index.js";
-import * as Pinnacle from "../index.js";
 import * as core from "../../core/index.js";
 
 export class NotFoundError extends errors.PinnacleError {
-    constructor(body: Pinnacle.Error_, rawResponse?: core.RawResponse) {
+    constructor(body?: unknown, rawResponse?: core.RawResponse) {
         super({
             message: "NotFoundError",
             statusCode: 404,
