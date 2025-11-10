@@ -41,19 +41,8 @@ export default {
                         tsconfig: "<rootDir>/tests/tsconfig.json",
                     },
                 ],
-                "^.+/node_modules/(msw|@mswjs/interceptors|until-async)/.*\\.js$": [
-                    "ts-jest",
-                    {
-                        useESM: false,
-                        tsconfig: {
-                            allowJs: true,
-                            esModuleInterop: true,
-                            module: "commonjs",
-                        },
-                    },
-                ],
             },
-            transformIgnorePatterns: ["node_modules/(?!(msw|@mswjs/interceptors|until-async)/)"],
+            transformIgnorePatterns: [],
             roots: ["<rootDir>/tests/wire"],
             setupFilesAfterEnv: ["<rootDir>/tests/mock-server/setup.ts"],
         },
