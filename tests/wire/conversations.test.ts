@@ -67,7 +67,7 @@ describe("Conversations", () => {
         });
     });
 
-    test("get (d340acbc)", async () => {
+    test("get (cd14ece)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id" };
@@ -92,7 +92,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("get (482a9854)", async () => {
+    test("get (1536c8ff)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id" };
@@ -117,7 +117,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("get (74176648)", async () => {
+    test("get (b7bb74db)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id" };
@@ -228,7 +228,7 @@ describe("Conversations", () => {
         });
     });
 
-    test("list (33cc83a8)", async () => {
+    test("list (150845f6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -267,7 +267,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("list (f9f87f8)", async () => {
+    test("list (945bc337)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -306,7 +306,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("list (62d488c)", async () => {
+    test("list (83092733)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -371,7 +371,7 @@ describe("Conversations", () => {
         });
     });
 
-    test("update (39fece6f)", async () => {
+    test("update (13a096fb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", notes: "x" };
@@ -397,7 +397,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("update (f840ea61)", async () => {
+    test("update (f87e82e8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", notes: "x" };
@@ -423,7 +423,7 @@ describe("Conversations", () => {
         );
     });
 
-    test("update (46a054ed)", async () => {
+    test("update (143a30fc)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", notes: "x" };
@@ -442,6 +442,189 @@ describe("Conversations", () => {
                 id: "id",
                 notes: "x",
             });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("listMessages (7bfa8558)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            messages: [
+                {
+                    content: { text: "Hello, how can I help you today?" },
+                    cost: 0.0075,
+                    deliveredAt: "2024-09-11T00:05:30.123Z",
+                    error: "error",
+                    id: "msg_1234567890",
+                    method: "API",
+                    numSegments: 1,
+                    receiver: "+16509231662",
+                    sender: "+18445551234",
+                    sentAt: "2024-09-11T00:05:29.434Z",
+                    status: "DELIVERED",
+                    type: "SMS",
+                    direction: "OUTBOUND",
+                    reaction: "reaction",
+                },
+                {
+                    content: { text: "I need help with my order" },
+                    cost: 1.1,
+                    deliveredAt: "2024-09-11T00:10:16.123Z",
+                    error: "error",
+                    id: "msg_0987654321",
+                    method: "API",
+                    numSegments: 1,
+                    receiver: "+18445551234",
+                    sender: "+16509231662",
+                    sentAt: "2024-09-11T00:10:15.234Z",
+                    status: "DELIVERED",
+                    type: "SMS",
+                    direction: "INBOUND",
+                    reaction: "👍",
+                },
+            ],
+            hasMore: true,
+            count: 42,
+        };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.conversations.listMessages("id");
+        expect(response).toEqual({
+            messages: [
+                {
+                    content: {
+                        text: "Hello, how can I help you today?",
+                    },
+                    cost: 0.0075,
+                    deliveredAt: "2024-09-11T00:05:30.123Z",
+                    error: "error",
+                    id: "msg_1234567890",
+                    method: "API",
+                    numSegments: 1,
+                    receiver: "+16509231662",
+                    sender: "+18445551234",
+                    sentAt: "2024-09-11T00:05:29.434Z",
+                    status: "DELIVERED",
+                    type: "SMS",
+                    direction: "OUTBOUND",
+                    reaction: "reaction",
+                },
+                {
+                    content: {
+                        text: "I need help with my order",
+                    },
+                    cost: 1.1,
+                    deliveredAt: "2024-09-11T00:10:16.123Z",
+                    error: "error",
+                    id: "msg_0987654321",
+                    method: "API",
+                    numSegments: 1,
+                    receiver: "+18445551234",
+                    sender: "+16509231662",
+                    sentAt: "2024-09-11T00:10:15.234Z",
+                    status: "DELIVERED",
+                    type: "SMS",
+                    direction: "INBOUND",
+                    reaction: "\uD83D\uDC4D",
+                },
+            ],
+            hasMore: true,
+            count: 42,
+        });
+    });
+
+    test("listMessages (66664bb8)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.listMessages("id");
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("listMessages (b4eebc5d)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.listMessages("id");
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("listMessages (4534d7ac)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.listMessages("id");
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("listMessages (e021fc49)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.listMessages("id");
         }).rejects.toThrow(
             new Pinnacle.InternalServerError({
                 error: "error",

@@ -7,19 +7,24 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("File_", () => {
-    test("upload (6e8111f1)", async () => {
+    test("upload (131aaf05)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             contentType: "image/jpeg",
             size: 1024,
             name: "test.jpg",
-            options: { download: { expiresAt: "2025-06-30T12:00:00.000Z" } },
+            options: { deleteAt: "2025-12-31T23:59:59Z", download: { expiresAt: "2025-06-30T12:00:00.000Z" } },
         };
         const rawResponseBody = {
             uploadUrl: "https://server.trypinnacle.app/storage/v2/object/upload/sign/vault/3/test.jpg?token=example",
             downloadUrl: "https://server.trypinnacle.app/storage/v2/object/sign/vault/3/test.jpg?token=example",
-            metadata: { fileName: "test.jpg", contentType: "image/jpeg", expiresAt: "2025-08-30T12:00:00.000Z" },
+            metadata: {
+                fileName: "test.jpg",
+                contentType: "image/jpeg",
+                expiresAt: "2025-08-30T12:00:00.000Z",
+                deleteAt: "2025-12-31T23:59:59Z",
+            },
         };
         server
             .mockEndpoint()
@@ -35,6 +40,7 @@ describe("File_", () => {
             size: 1024,
             name: "test.jpg",
             options: {
+                deleteAt: "2025-12-31T23:59:59Z",
                 download: {
                     expiresAt: "2025-06-30T12:00:00.000Z",
                 },
@@ -47,11 +53,12 @@ describe("File_", () => {
                 fileName: "test.jpg",
                 contentType: "image/jpeg",
                 expiresAt: "2025-08-30T12:00:00.000Z",
+                deleteAt: "2025-12-31T23:59:59Z",
             },
         });
     });
 
-    test("upload (87cfceef)", async () => {
+    test("upload (86844099)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -79,7 +86,7 @@ describe("File_", () => {
         );
     });
 
-    test("upload (d94383e1)", async () => {
+    test("upload (b446ce02)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -107,7 +114,7 @@ describe("File_", () => {
         );
     });
 
-    test("upload (3951fe6d)", async () => {
+    test("upload (f0895b36)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { contentType: "contentType", size: 1, name: undefined, options: undefined };
@@ -195,7 +202,7 @@ describe("File_", () => {
         ]);
     });
 
-    test("refresh (c87aa06e)", async () => {
+    test("refresh (c46482a1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { urls: ["urls", "urls"] };
@@ -220,7 +227,7 @@ describe("File_", () => {
         );
     });
 
-    test("refresh (da140956)", async () => {
+    test("refresh (3dd2f75a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { urls: ["urls", "urls"] };
@@ -245,7 +252,7 @@ describe("File_", () => {
         );
     });
 
-    test("refresh (8d0ba79a)", async () => {
+    test("refresh (2b10f92e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { urls: ["urls", "urls"] };

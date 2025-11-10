@@ -58,7 +58,7 @@ describe("TollFree", () => {
         });
     });
 
-    test("autofill (be0b4ff4)", async () => {
+    test("autofill (b04b8c41)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -84,7 +84,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("autofill (5a2ba21c)", async () => {
+    test("autofill (61636ba)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -110,7 +110,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("autofill (78086810)", async () => {
+    test("autofill (905a1d0e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: undefined };
@@ -224,7 +224,7 @@ describe("TollFree", () => {
         });
     });
 
-    test("get (c8293015)", async () => {
+    test("get (6c65e476)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -246,7 +246,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("get (2a5bbc1f)", async () => {
+    test("get (c243d6b7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -268,11 +268,11 @@ describe("TollFree", () => {
         );
     });
 
-    test("get (d9f643cb)", async () => {
+    test("get (214ebefa)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .get("/campaigns/toll-free/campaignId")
@@ -285,12 +285,12 @@ describe("TollFree", () => {
             return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("get (a63b9e7b)", async () => {
+    test("get (e8b80ab3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -331,7 +331,7 @@ describe("TollFree", () => {
         });
     });
 
-    test("submit (c8293015)", async () => {
+    test("submit (6c65e476)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -353,7 +353,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("submit (2a5bbc1f)", async () => {
+    test("submit (c243d6b7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -375,11 +375,11 @@ describe("TollFree", () => {
         );
     });
 
-    test("submit (d9f643cb)", async () => {
+    test("submit (214ebefa)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/campaigns/toll-free/submit/campaignId")
@@ -392,12 +392,12 @@ describe("TollFree", () => {
             return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("submit (a63b9e7b)", async () => {
+    test("submit (e8b80ab3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -535,7 +535,7 @@ describe("TollFree", () => {
         });
     });
 
-    test("upsert (24488f6b)", async () => {
+    test("upsert (ac3b95a0)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -574,7 +574,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("upsert (65b2c1f5)", async () => {
+    test("upsert (b4c30975)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -613,7 +613,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("upsert (bca9a41)", async () => {
+    test("upsert (29c59154)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -625,7 +625,7 @@ describe("TollFree", () => {
             productionMessageContent: undefined,
             useCase: undefined,
         };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/campaigns/toll-free")
@@ -647,12 +647,12 @@ describe("TollFree", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("upsert (1cd9e681)", async () => {
+    test("upsert (12187e01)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -727,7 +727,7 @@ describe("TollFree", () => {
         });
     });
 
-    test("validate (d11b3afa)", async () => {
+    test("validate (ecaee43e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
@@ -753,7 +753,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("validate (ac3701da)", async () => {
+    test("validate (fefac64f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };
@@ -779,7 +779,7 @@ describe("TollFree", () => {
         );
     });
 
-    test("validate (18773ae)", async () => {
+    test("validate (2f44e1ab)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { additionalInfo: undefined, campaignId: "campaignId" };

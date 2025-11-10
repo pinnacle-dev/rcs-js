@@ -34,7 +34,7 @@ describe("Contacts", () => {
         });
     });
 
-    test("get (57f242d1)", async () => {
+    test("get (bd4f3c5e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -50,7 +50,7 @@ describe("Contacts", () => {
         );
     });
 
-    test("get (2f2ae063)", async () => {
+    test("get (598ae72f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -66,23 +66,23 @@ describe("Contacts", () => {
         );
     });
 
-    test("get (2a52b7bf)", async () => {
+    test("get (d79ab662)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/contacts").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.contacts.get();
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("get (1df0272f)", async () => {
+    test("get (2fd7b00b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -120,7 +120,7 @@ describe("Contacts", () => {
         });
     });
 
-    test("create (755f4819)", async () => {
+    test("create (2143a259)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -155,7 +155,7 @@ describe("Contacts", () => {
         );
     });
 
-    test("create (d95f6e1b)", async () => {
+    test("create (2d6f1442)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -190,7 +190,7 @@ describe("Contacts", () => {
         );
     });
 
-    test("create (b57920c7)", async () => {
+    test("create (1c9eb976)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -257,7 +257,7 @@ describe("Contacts", () => {
         });
     });
 
-    test("update (d6fd013)", async () => {
+    test("update (450d0c67)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", description: undefined, email: undefined, name: undefined, tags: undefined };
@@ -286,7 +286,7 @@ describe("Contacts", () => {
         );
     });
 
-    test("update (c9e72dcd)", async () => {
+    test("update (702f7564)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", description: undefined, email: undefined, name: undefined, tags: undefined };
@@ -315,11 +315,11 @@ describe("Contacts", () => {
         );
     });
 
-    test("update (6f3234b9)", async () => {
+    test("update (3b9bdc23)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", description: undefined, email: undefined, name: undefined, tags: undefined };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .put("/contacts")
@@ -339,12 +339,12 @@ describe("Contacts", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("update (c8fc8cb9)", async () => {
+    test("update (786d5b58)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", description: undefined, email: undefined, name: undefined, tags: undefined };

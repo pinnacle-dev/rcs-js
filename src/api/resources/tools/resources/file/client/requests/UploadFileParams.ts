@@ -9,6 +9,7 @@
  *         size: 1024,
  *         name: "test.jpg",
  *         options: {
+ *             deleteAt: "2025-12-31T23:59:59Z",
  *             download: {
  *                 expiresAt: "2025-06-30T12:00:00.000Z"
  *             }
@@ -39,6 +40,12 @@ export namespace UploadFileParams {
      * Additional configurations for your file.
      */
     export interface Options {
+        /**
+         * Set a deletion date for your file in ISO 8601 format. After this date, the file will be automatically deleted from our storage.<br>
+         *
+         * If this field is not provided, the file will not be deleted. You can still schedule deletion or delete the file manually in the Storage page in the dashboard.
+         */
+        deleteAt?: string;
         /** Configure download settings for your uploaded file. */
         download?: Options.Download;
     }

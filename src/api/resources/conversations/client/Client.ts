@@ -325,6 +325,135 @@ export class Conversations {
         }
     }
 
+    /**
+     * Retrieve a paginated and filtered list of messages for a specific conversation.
+     *
+     * @param {string} id - Unique identifier of the conversation. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`.
+     * @param {Pinnacle.ConversationsListMessagesRequest} request
+     * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Pinnacle.BadRequestError}
+     * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.NotFoundError}
+     * @throws {@link Pinnacle.InternalServerError}
+     *
+     * @example
+     *     await client.conversations.listMessages("id")
+     */
+    public listMessages(
+        id: string,
+        request: Pinnacle.ConversationsListMessagesRequest = {},
+        requestOptions?: Conversations.RequestOptions,
+    ): core.HttpResponsePromise<Pinnacle.MessageList> {
+        return core.HttpResponsePromise.fromPromise(this.__listMessages(id, request, requestOptions));
+    }
+
+    private async __listMessages(
+        id: string,
+        request: Pinnacle.ConversationsListMessagesRequest = {},
+        requestOptions?: Conversations.RequestOptions,
+    ): Promise<core.WithRawResponse<Pinnacle.MessageList>> {
+        const { pageIndex, pageSize, sortOrder, direction, status, type: type_, dateFrom, dateTo } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (pageIndex != null) {
+            _queryParams["pageIndex"] = pageIndex.toString();
+        }
+
+        if (pageSize != null) {
+            _queryParams["pageSize"] = pageSize.toString();
+        }
+
+        if (sortOrder != null) {
+            _queryParams["sortOrder"] = sortOrder;
+        }
+
+        if (direction != null) {
+            _queryParams["direction"] = direction;
+        }
+
+        if (status != null) {
+            _queryParams["status"] = status;
+        }
+
+        if (type_ != null) {
+            _queryParams["type"] = type_;
+        }
+
+        if (dateFrom != null) {
+            _queryParams["dateFrom"] = dateFrom;
+        }
+
+        if (dateTo != null) {
+            _queryParams["dateTo"] = dateTo;
+        }
+
+        let _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.PinnacleEnvironment.Default,
+                `conversations/${encodeURIComponent(id)}/messages`,
+            ),
+            method: "POST",
+            headers: _headers,
+            queryParameters: { ..._queryParams, ...requestOptions?.queryParams },
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Pinnacle.MessageList, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new Pinnacle.UnauthorizedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.PinnacleError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.PinnacleError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.PinnacleTimeoutError(
+                    "Timeout exceeded when calling POST /conversations/{id}/messages.",
+                );
+            case "unknown":
+                throw new errors.PinnacleError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getCustomAuthorizationHeaders() {
         const apiKeyValue = await core.Supplier.get(this._options.apiKey);
         return { "PINNACLE-API-KEY": apiKeyValue };

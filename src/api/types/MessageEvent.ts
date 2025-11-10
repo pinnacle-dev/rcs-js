@@ -24,8 +24,7 @@ export interface MessageEvent {
      * Null if not yet delivered or for inbound messages.
      */
     deliveredAt?: string | null;
-    /** Message details including ID and content. */
-    message: MessageEvent.Message;
+    message: Pinnacle.MessageEventContent;
 }
 
 export namespace MessageEvent {
@@ -52,16 +51,4 @@ export namespace MessageEvent {
         Inbound: "INBOUND",
         Outbound: "OUTBOUND",
     } as const;
-
-    /**
-     * Message details including ID and content.
-     */
-    export interface Message {
-        /**
-         * Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
-         * To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
-         */
-        id: string;
-        content: Pinnacle.MessageContent;
-    }
 }

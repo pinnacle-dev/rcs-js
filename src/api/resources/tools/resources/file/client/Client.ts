@@ -55,6 +55,7 @@ export class File_ {
      *         size: 1024,
      *         name: "test.jpg",
      *         options: {
+     *             deleteAt: "2025-12-31T23:59:59Z",
      *             download: {
      *                 expiresAt: "2025-06-30T12:00:00.000Z"
      *             }

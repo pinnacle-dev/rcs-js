@@ -278,7 +278,7 @@ describe("Messages", () => {
         });
     });
 
-    test("get (d8ed2e53)", async () => {
+    test("get (66664bb8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -294,7 +294,7 @@ describe("Messages", () => {
         );
     });
 
-    test("get (8d3a7c8d)", async () => {
+    test("get (b4eebc5d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -310,23 +310,23 @@ describe("Messages", () => {
         );
     });
 
-    test("get (367a6179)", async () => {
+    test("get (4534d7ac)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/messages/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
             return await client.messages.get("id");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("get (f1cf1379)", async () => {
+    test("get (e021fc49)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -369,7 +369,7 @@ describe("Messages", () => {
         });
     });
 
-    test("react (85bed033)", async () => {
+    test("react (e1f87ff1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
@@ -396,7 +396,7 @@ describe("Messages", () => {
         );
     });
 
-    test("react (70bd94ad)", async () => {
+    test("react (b8e5d20a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
@@ -423,7 +423,7 @@ describe("Messages", () => {
         );
     });
 
-    test("react (51671bbd)", async () => {
+    test("react (bce8f86a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
@@ -450,11 +450,11 @@ describe("Messages", () => {
         );
     });
 
-    test("react (af63ec19)", async () => {
+    test("react (6d18689d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .post("/messages/react")
@@ -472,12 +472,12 @@ describe("Messages", () => {
             });
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("react (4f55e099)", async () => {
+    test("react (ec018fde)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };
@@ -504,7 +504,7 @@ describe("Messages", () => {
         );
     });
 
-    test("react (a3814349)", async () => {
+    test("react (e2ab6bde)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { messageId: "messageId", options: undefined, reaction: null };

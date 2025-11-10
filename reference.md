@@ -851,6 +851,77 @@ await client.conversations.update({
 </dl>
 </details>
 
+<details><summary><code>client.conversations.<a href="/src/api/resources/conversations/client/Client.ts">listMessages</a>(id, { ...params }) -> Pinnacle.MessageList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a paginated and filtered list of messages for a specific conversation.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conversations.listMessages("id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Unique identifier of the conversation. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ConversationsListMessagesRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Conversations.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Messages
 
 <details><summary><code>client.messages.<a href="/src/api/resources/messages/client/Client.ts">get</a>(id) -> Pinnacle.Message</code></summary>
@@ -1290,24 +1361,28 @@ Whitelist a phone number for testing with your test RCS agent.
 ## Overview
 
 During development and testing, RCS agents can only send messages to whitelisted phone numbers.
-Use this endpoint to add test devices to your agent's whitelist before sending test messages.
+Use this endpoint to whitelist specific phone numbers to send and receive messages from the test agent.
 
 ## Verification Process
 
 After whitelisting a number, you'll need to complete verification:
 
-1. Check the test device for an "RBM Tester Management" request
-2. Accept the request on the device
-3. Enter the 4-digit verification code in the Pinnacle dashboard at:
+1. Check the test device for message from "RBM Tester Management"
+2. Click the "Make me a tester" button
+3. Enter the separate 4-digit verification SMS code in the Pinnacle dashboard at:
     ```
     https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
     ```
 
+> **⚠️ Important: Re-whitelisting Numbers**
+>
+> If you whitelist a number that's already whitelisted, you'll receive a new message from "RBM Tester Management". **You must click the "Make me a tester" button again to continue sending and receiving messages.**
+
 > **Important Notes**
 >
-> - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number
-> - **AT&T limitation:** Whitelisting may currently fail for AT&T numbers
-> - **Verification required:** The whitelist request isn't complete until you verify the device.
+> - **Verification required:** Messages cannot be sent nor received until you have clicked the "Make me a tester" button on the test device.
+> - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number.
+> - **Network limitations:** Whitelisting may be temporarily unavailable for some carriers but are usually restored shortly.
 
 </dd>
 </dl>
@@ -3877,6 +3952,7 @@ await client.tools.file.upload({
     size: 1024,
     name: "test.jpg",
     options: {
+        deleteAt: "2025-12-31T23:59:59Z",
         download: {
             expiresAt: "2025-06-30T12:00:00.000Z",
         },

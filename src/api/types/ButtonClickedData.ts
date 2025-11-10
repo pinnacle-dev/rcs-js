@@ -10,7 +10,7 @@ import * as Pinnacle from "../index.js";
 export interface ButtonClickedData {
     /** Information about the button that was clicked. */
     button: ButtonClickedData.Button;
-    /** ID of the message this button was attached to, or null if not available. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint. */
+    /** ID of the message this button was sent in, or null if not available. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint. */
     messageId: string | null;
 }
 

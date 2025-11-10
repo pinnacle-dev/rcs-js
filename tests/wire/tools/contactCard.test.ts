@@ -122,7 +122,7 @@ describe("ContactCard", () => {
         });
     });
 
-    test("get (30879b7a)", async () => {
+    test("get (54664753)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", options: undefined };
@@ -148,7 +148,7 @@ describe("ContactCard", () => {
         );
     });
 
-    test("get (bbcdbb5a)", async () => {
+    test("get (c45377f0)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", options: undefined };
@@ -174,7 +174,7 @@ describe("ContactCard", () => {
         );
     });
 
-    test("get (ab793d2e)", async () => {
+    test("get (8aa7d784)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", options: undefined };
@@ -307,7 +307,7 @@ describe("ContactCard", () => {
         });
     });
 
-    test("upsert (7227bbf6)", async () => {
+    test("upsert (68426d50)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -366,7 +366,7 @@ describe("ContactCard", () => {
         );
     });
 
-    test("upsert (72c3456e)", async () => {
+    test("upsert (faedf4c5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -425,7 +425,7 @@ describe("ContactCard", () => {
         );
     });
 
-    test("upsert (8de9c012)", async () => {
+    test("upsert (321a1191)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {

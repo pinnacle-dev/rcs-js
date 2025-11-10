@@ -39,7 +39,7 @@ describe("Url", () => {
         });
     });
 
-    test("create (19bacff8)", async () => {
+    test("create (2f7ed7fd)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: "url", options: undefined };
@@ -65,7 +65,7 @@ describe("Url", () => {
         );
     });
 
-    test("create (5871e4e8)", async () => {
+    test("create (7573e216)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: "url", options: undefined };
@@ -91,7 +91,7 @@ describe("Url", () => {
         );
     });
 
-    test("create (37a452fc)", async () => {
+    test("create (7e78885a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: "url", options: undefined };
@@ -117,7 +117,7 @@ describe("Url", () => {
         );
     });
 
-    test("get (3f4cffa5)", async () => {
+    test("get (cdb9bc42)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -126,14 +126,55 @@ describe("Url", () => {
             config: { to: "https://pinnacle.sh", expiresAt: "2023-10-23T16:18:25+00:00" },
             clicks: [
                 {
+                    accept_language: "accept_language",
+                    accuracy_radius_km: 1,
+                    asn: 1,
+                    blocked_reason: "blocked_reason",
+                    ch_ua_brand: "ch_ua_brand",
+                    ch_ua_mobile: "ch_ua_mobile",
+                    ch_ua_platform: "ch_ua_platform",
+                    city: "city",
+                    color_depth: 1,
+                    connection_type: "connection_type",
+                    country: "country",
                     created_at: "2025-07-09T23:57:28.889+00:00",
+                    error_details: { key: "value" },
+                    fbclid: "fbclid",
+                    final_url: "final_url",
+                    fingerprint_id: "fingerprint_id",
+                    gclid: "gclid",
+                    ip_address: "ip_address",
+                    ip_chain: ["ip_chain"],
                     is_bot: false,
                     latency_ms: 400,
+                    latitude: 1.1,
+                    longitude: 1.1,
                     metadata: { key: "value" },
                     method: "GET",
+                    metro_code: 1,
+                    network_downlink: 1.1,
+                    network_rtt: 1,
+                    performance_ttfb_ms: 1,
+                    postal_code: "postal_code",
                     redirect_hops: 0,
+                    referrer: "referrer",
+                    referrer_domain: "referrer_domain",
+                    region: "region",
+                    resolved_at: "resolved_at",
+                    screen_res: "screen_res",
                     status_code: 302,
+                    timezone_offset_min: 1,
+                    tor_exit_node: true,
+                    ua_browser: "ua_browser",
+                    ua_device: "ua_device",
+                    ua_os: "ua_os",
+                    ua_version: "ua_version",
                     user_agent: "vscode-restclient",
+                    utm_campaign: "utm_campaign",
+                    utm_content: "utm_content",
+                    utm_medium: "utm_medium",
+                    utm_source: "utm_source",
+                    utm_term: "utm_term",
                 },
             ],
         };
@@ -154,22 +195,65 @@ describe("Url", () => {
             },
             clicks: [
                 {
+                    accept_language: "accept_language",
+                    accuracy_radius_km: 1,
+                    asn: 1,
+                    blocked_reason: "blocked_reason",
+                    ch_ua_brand: "ch_ua_brand",
+                    ch_ua_mobile: "ch_ua_mobile",
+                    ch_ua_platform: "ch_ua_platform",
+                    city: "city",
+                    color_depth: 1,
+                    connection_type: "connection_type",
+                    country: "country",
                     created_at: "2025-07-09T23:57:28.889+00:00",
+                    error_details: {
+                        key: "value",
+                    },
+                    fbclid: "fbclid",
+                    final_url: "final_url",
+                    fingerprint_id: "fingerprint_id",
+                    gclid: "gclid",
+                    ip_address: "ip_address",
+                    ip_chain: ["ip_chain"],
                     is_bot: false,
                     latency_ms: 400,
+                    latitude: 1.1,
+                    longitude: 1.1,
                     metadata: {
                         key: "value",
                     },
                     method: "GET",
+                    metro_code: 1,
+                    network_downlink: 1.1,
+                    network_rtt: 1,
+                    performance_ttfb_ms: 1,
+                    postal_code: "postal_code",
                     redirect_hops: 0,
+                    referrer: "referrer",
+                    referrer_domain: "referrer_domain",
+                    region: "region",
+                    resolved_at: "resolved_at",
+                    screen_res: "screen_res",
                     status_code: 302,
+                    timezone_offset_min: 1,
+                    tor_exit_node: true,
+                    ua_browser: "ua_browser",
+                    ua_device: "ua_device",
+                    ua_os: "ua_os",
+                    ua_version: "ua_version",
                     user_agent: "vscode-restclient",
+                    utm_campaign: "utm_campaign",
+                    utm_content: "utm_content",
+                    utm_medium: "utm_medium",
+                    utm_source: "utm_source",
+                    utm_term: "utm_term",
                 },
             ],
         });
     });
 
-    test("get (f6530def)", async () => {
+    test("get (8f058374)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -185,7 +269,7 @@ describe("Url", () => {
         );
     });
 
-    test("get (676a10e1)", async () => {
+    test("get (456c7409)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -201,7 +285,7 @@ describe("Url", () => {
         );
     });
 
-    test("get (6426b6d)", async () => {
+    test("get (8a526b5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -246,7 +330,7 @@ describe("Url", () => {
         });
     });
 
-    test("update (a619276c)", async () => {
+    test("update (f4cb5e1c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: undefined, options: undefined };
@@ -272,7 +356,7 @@ describe("Url", () => {
         );
     });
 
-    test("update (9d5ac864)", async () => {
+    test("update (b53f2ae1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: undefined, options: undefined };
@@ -298,7 +382,7 @@ describe("Url", () => {
         );
     });
 
-    test("update (ea62ce58)", async () => {
+    test("update (2cab456d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { url: undefined, options: undefined };

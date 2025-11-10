@@ -112,7 +112,7 @@ export class Messages {
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Pinnacle.NotFoundError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
+                    throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new Pinnacle.InternalServerError(
                         _response.error.body as Pinnacle.Error_,
@@ -218,7 +218,7 @@ export class Messages {
                         _response.rawResponse,
                     );
                 case 404:
-                    throw new Pinnacle.NotFoundError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
+                    throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new Pinnacle.InternalServerError(
                         _response.error.body as Pinnacle.Error_,

@@ -22,5 +22,11 @@ export namespace UploadResults {
          * Null indicates that `download.expiresAt` was not provided and the expiration time is defaulted to one hour after uploading.
          */
         expiresAt: string | null;
+        /**
+         * Deletion date for the file in ISO 8601 format. After this date, the file will be automatically deleted from our storage.<br>
+         *
+         * If this field is not provided, the file will not be deleted. You can still schedule deletion or delete the file manually in the Storage page in the dashboard.
+         */
+        deleteAt?: string | null;
     }
 }

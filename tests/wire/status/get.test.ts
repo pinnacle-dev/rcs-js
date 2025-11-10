@@ -28,7 +28,7 @@ describe("Get", () => {
         });
     });
 
-    test("brand (96d4f91a)", async () => {
+    test("brand (53270bb1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -50,7 +50,7 @@ describe("Get", () => {
         );
     });
 
-    test("brand (3b5b8d3a)", async () => {
+    test("brand (259544a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -72,11 +72,11 @@ describe("Get", () => {
         );
     });
 
-    test("brand (1d599d36)", async () => {
+    test("brand (70728f5d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .get("/status/brand/brandId")
@@ -89,12 +89,12 @@ describe("Get", () => {
             return await client.status.get.brand("brandId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("brand (685a638e)", async () => {
+    test("brand (dd5fd01e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -116,7 +116,7 @@ describe("Get", () => {
         );
     });
 
-    test("brand (19256b0e)", async () => {
+    test("brand (98032c1e)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -167,7 +167,7 @@ describe("Get", () => {
         });
     });
 
-    test("toll free (c8293015)", async () => {
+    test("toll free (6c65e476)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -189,7 +189,7 @@ describe("Get", () => {
         );
     });
 
-    test("toll free (2a5bbc1f)", async () => {
+    test("toll free (c243d6b7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -211,11 +211,11 @@ describe("Get", () => {
         );
     });
 
-    test("toll free (d9f643cb)", async () => {
+    test("toll free (214ebefa)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .get("/status/toll-free-campaign/campaignId")
@@ -228,12 +228,12 @@ describe("Get", () => {
             return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("toll free (a63b9e7b)", async () => {
+    test("toll free (e8b80ab3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -255,7 +255,7 @@ describe("Get", () => {
         );
     });
 
-    test("toll free (9936a07b)", async () => {
+    test("toll free (26717f73)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -308,7 +308,7 @@ describe("Get", () => {
         });
     });
 
-    test("dlc (c8293015)", async () => {
+    test("dlc (6c65e476)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -330,7 +330,7 @@ describe("Get", () => {
         );
     });
 
-    test("dlc (2a5bbc1f)", async () => {
+    test("dlc (c243d6b7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -352,11 +352,11 @@ describe("Get", () => {
         );
     });
 
-    test("dlc (d9f643cb)", async () => {
+    test("dlc (214ebefa)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .get("/status/dlc-campaign/campaignId")
@@ -369,12 +369,12 @@ describe("Get", () => {
             return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("dlc (a63b9e7b)", async () => {
+    test("dlc (e8b80ab3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -396,7 +396,7 @@ describe("Get", () => {
         );
     });
 
-    test("dlc (9936a07b)", async () => {
+    test("dlc (26717f73)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -439,7 +439,7 @@ describe("Get", () => {
         });
     });
 
-    test("rcs (c8293015)", async () => {
+    test("rcs (6c65e476)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -461,7 +461,7 @@ describe("Get", () => {
         );
     });
 
-    test("rcs (2a5bbc1f)", async () => {
+    test("rcs (c243d6b7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -483,11 +483,11 @@ describe("Get", () => {
         );
     });
 
-    test("rcs (d9f643cb)", async () => {
+    test("rcs (214ebefa)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .get("/status/rcs-campaign/campaignId")
@@ -500,12 +500,12 @@ describe("Get", () => {
             return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("rcs (a63b9e7b)", async () => {
+    test("rcs (e8b80ab3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -527,7 +527,7 @@ describe("Get", () => {
         );
     });
 
-    test("rcs (9936a07b)", async () => {
+    test("rcs (26717f73)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -570,7 +570,7 @@ describe("Get", () => {
         });
     });
 
-    test("phone number (3a2b11b1)", async () => {
+    test("phone number (b49560b2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -592,7 +592,7 @@ describe("Get", () => {
         );
     });
 
-    test("phone number (b64abd03)", async () => {
+    test("phone number (4fc4fbf3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -614,11 +614,11 @@ describe("Get", () => {
         );
     });
 
-    test("phone number (ee5ca4df)", async () => {
+    test("phone number (d3dadf06)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { error: "error" };
+        const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
             .get("/status/phone-number/phoneNumber")
@@ -631,12 +631,12 @@ describe("Get", () => {
             return await client.status.get.phoneNumber("phoneNumber");
         }).rejects.toThrow(
             new Pinnacle.NotFoundError({
-                error: "error",
+                key: "value",
             }),
         );
     });
 
-    test("phone number (a0c4c5cf)", async () => {
+    test("phone number (3727aa3f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -658,7 +658,7 @@ describe("Get", () => {
         );
     });
 
-    test("phone number (5fface2f)", async () => {
+    test("phone number (a392991f)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
