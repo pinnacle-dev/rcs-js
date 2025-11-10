@@ -17,7 +17,8 @@ export interface MessageEventRcsMediaContent {
      * To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
      */
     id: string;
-    media: Pinnacle.RcsMediaDetailsContent;
+    /** URL of the media file. */
+    media: string;
     /** List of interactive quick reply buttons in the message. */
     quickReplies: Pinnacle.RichButton[];
 }
