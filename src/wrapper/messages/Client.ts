@@ -22,11 +22,16 @@ export class EnhancedMessages extends Messages {
 
         if (req instanceof Request) {
             headerSecret =
-                req.headers?.get("PINNACLE-SIGNING-SECRET") || req.headers?.get("pinnacle-signing-secret") || undefined;
+                req.headers?.get("PINNACLE-SIGNING-SECRET") ||
+                req.headers?.get("pinnacle-signing-secret") ||
+                req.headers?.get("Pinnacle-Signing-Secret") ||
+                undefined;
             body = await req.json();
         } else {
             const headers = req.headers;
-            headerSecret = headers["pinnacle-signing-secret"] as string | undefined;
+            headerSecret = (headers["PINNACLE-SIGNING-SECRET"] ||
+                headers["pinnacle-signing-secret"] ||
+                headers["Pinnacle-Signing-Secret"]) as string | undefined;
             body = req.body;
         }
 
