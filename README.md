@@ -5,6 +5,23 @@
 
 The Pinnacle TypeScript library provides convenient access to the Pinnacle APIs from TypeScript.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Request and Response Types](#request-and-response-types)
+- [Exception Handling](#exception-handling)
+- [Advanced](#advanced)
+    - [Additional Headers](#additional-headers)
+    - [Additional Query String Parameters](#additional-query-string-parameters)
+    - [Retries](#retries)
+    - [Timeouts](#timeouts)
+    - [Aborting Requests](#aborting-requests)
+    - [Access Raw Response Data](#access-raw-response-data)
+    - [Runtime Compatibility](#runtime-compatibility)
+- [Contributing](#contributing)
+- [Reference](#reference)
+
 ## Installation
 
 ```sh
@@ -29,7 +46,7 @@ await client.brands.autofill({
 });
 ```
 
-## Request And Response Types
+## Request and Response Types
 
 The SDK exports all request and response types as TypeScript interfaces. Simply import them with the
 following namespace:

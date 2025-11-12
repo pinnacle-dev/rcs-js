@@ -35,7 +35,7 @@ export namespace RichCardsMessage {
         export interface StandaloneCard {
             /** The orientation of the standalone card. */
             orientation?: StandaloneCard.Orientation;
-            /** The alignment of the image in the standalone card. */
+            /** The alignment of the image in the standalone card. This field is ignored if orientation is VERTICAL. */
             image_alignment?: StandaloneCard.ImageAlignment;
         }
 
@@ -49,7 +49,7 @@ export namespace RichCardsMessage {
                 Vertical: "VERTICAL",
             } as const;
             /**
-             * The alignment of the image in the standalone card.
+             * The alignment of the image in the standalone card. This field is ignored if orientation is VERTICAL.
              */
             export type ImageAlignment = "LEFT" | "RIGHT";
             export const ImageAlignment = {
