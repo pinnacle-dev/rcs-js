@@ -2,3 +2,4 @@
 src/wrapper
 src/index.ts
 jest.config.mjs
+tests/tsconfig.json
