@@ -6,3 +6,4 @@ export * as rcs from "./rcs/index.js";
 export * from "./rcs/types/index.js";
 export * from "./sms/client/requests/index.js";
 export * from "./mms/client/requests/index.js";
+export * from "./rcs/client/requests/index.js";

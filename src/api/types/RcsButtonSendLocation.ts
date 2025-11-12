@@ -6,12 +6,18 @@
  * Button that shares a specific location with the recipient when tapped.
  */
 export interface RcsButtonSendLocation {
+    /**
+     * Optional name or label for the location that will be displayed in the map app (e.g., "Central Park", "Home Office").
+     *
+     * If not provided, the button title will be used as the location name.
+     */
+    name?: string;
     /** Geographic coordinates of the location to share. */
     latLong: RcsButtonSendLocation.LatLong;
-    /** Optional additional data to attach to this button. */
-    metadata?: string;
     /** Display text for the button. */
     title: string;
+    /** Optional additional data to attach to this button. */
+    metadata?: string;
 }
 
 export namespace RcsButtonSendLocation {

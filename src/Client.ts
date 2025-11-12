@@ -60,8 +60,8 @@ export class PinnacleClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "rcs-js",
-                    "X-Fern-SDK-Version": "2.0.3",
-                    "User-Agent": "rcs-js/2.0.3",
+                    "X-Fern-SDK-Version": "2.0.4",
+                    "User-Agent": "rcs-js/2.0.4",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

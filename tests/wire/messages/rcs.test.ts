@@ -105,7 +105,7 @@ describe("Rcs", () => {
         });
     });
 
-    test("send (61a52976)", async () => {
+    test("send (978aba4a)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -136,15 +136,17 @@ describe("Rcs", () => {
                 quickReplies: [
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                 ],
                 text: "text",
@@ -156,7 +158,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("send (bc5995b7)", async () => {
+    test("send (14cc045b)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -187,15 +189,17 @@ describe("Rcs", () => {
                 quickReplies: [
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                 ],
                 text: "text",
@@ -207,7 +211,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("send (efdfd37)", async () => {
+    test("send (aa6255cb)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -238,15 +242,17 @@ describe("Rcs", () => {
                 quickReplies: [
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                 ],
                 text: "text",
@@ -258,7 +264,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("send (979c73fa)", async () => {
+    test("send (85e329be)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -289,15 +295,17 @@ describe("Rcs", () => {
                 quickReplies: [
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                 ],
                 text: "text",
@@ -309,7 +317,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("send (33cc69b3)", async () => {
+    test("send (9d0c9007)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -340,15 +348,17 @@ describe("Rcs", () => {
                 quickReplies: [
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                 ],
                 text: "text",
@@ -360,7 +370,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("send (7185de73)", async () => {
+    test("send (c907dfe7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -391,18 +401,191 @@ describe("Rcs", () => {
                 quickReplies: [
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                 ],
                 text: "text",
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotImplementedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("sendTyping (51748eb5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { agentId: "agent_pinnacle", to: "+14154746461", options: { test_mode: false } };
+        const rawResponseBody = {
+            success: true,
+            agentId: "agent_pinnacle",
+            recipient: "+14154746461",
+            startedAt: "2025-11-10T14:30:00Z",
+            endedAt: "2025-11-10T14:31:00Z",
+        };
+        server
+            .mockEndpoint()
+            .post("/messages/typing")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.messages.rcs.sendTyping({
+            agentId: "agent_pinnacle",
+            to: "+14154746461",
+            options: {
+                test_mode: false,
+            },
+        });
+        expect(response).toEqual({
+            success: true,
+            agentId: "agent_pinnacle",
+            recipient: "+14154746461",
+            startedAt: "2025-11-10T14:30:00Z",
+            endedAt: "2025-11-10T14:31:00Z",
+        });
+    });
+
+    test("sendTyping (bd07d16f)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { agentId: "agentId", to: "to", options: undefined };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/messages/typing")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.sendTyping({
+                agentId: "agentId",
+                to: "to",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.BadRequestError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("sendTyping (70b7563c)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { agentId: "agentId", to: "to", options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/typing")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.sendTyping({
+                agentId: "agentId",
+                to: "to",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.UnauthorizedError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("sendTyping (3de6852b)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { agentId: "agentId", to: "to", options: undefined };
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/messages/typing")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.sendTyping({
+                agentId: "agentId",
+                to: "to",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.NotFoundError({
+                key: "value",
+            }),
+        );
+    });
+
+    test("sendTyping (e00c6a30)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { agentId: "agentId", to: "to", options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/typing")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.sendTyping({
+                agentId: "agentId",
+                to: "to",
+                options: undefined,
+            });
+        }).rejects.toThrow(
+            new Pinnacle.InternalServerError({
+                error: "error",
+            }),
+        );
+    });
+
+    test("sendTyping (34501660)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { agentId: "agentId", to: "to", options: undefined };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/typing")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.sendTyping({
+                agentId: "agentId",
+                to: "to",
+                options: undefined,
             });
         }).rejects.toThrow(
             new Pinnacle.NotImplementedError({
@@ -445,7 +628,7 @@ describe("Rcs", () => {
         });
     });
 
-    test("validate (b2c48d10)", async () => {
+    test("validate (6365194c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -470,15 +653,17 @@ describe("Rcs", () => {
                 quickReplies: [
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                 ],
                 text: "text",
@@ -490,7 +675,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("validate (a5525605)", async () => {
+    test("validate (a4a5b2f1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -515,15 +700,17 @@ describe("Rcs", () => {
                 quickReplies: [
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                 ],
                 text: "text",
@@ -535,7 +722,7 @@ describe("Rcs", () => {
         );
     });
 
-    test("validate (faeca0d1)", async () => {
+    test("validate (654c537d)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -560,15 +747,17 @@ describe("Rcs", () => {
                 quickReplies: [
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                     {
                         type: "openUrl",
-                        metadata: undefined,
+                        webviewMode: undefined,
                         payload: "payload",
                         title: "title",
+                        metadata: undefined,
                     },
                 ],
                 text: "text",

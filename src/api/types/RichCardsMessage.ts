@@ -4,4 +4,58 @@
 
 import * as Pinnacle from "../index.js";
 
-export interface RichCardsMessage extends Pinnacle.RcsBase, Pinnacle.RcsCards {}
+export interface RichCardsMessage extends Pinnacle.RcsCards {
+    options?: RichCardsMessage.Options;
+    /** Your RCS agent ID which must be prefixed with 'agent_'. */
+    from: string;
+    /** Recipient's phone number in E.164 format. */
+    to: string;
+}
+
+export namespace RichCardsMessage {
+    export interface Options extends Pinnacle.Options {
+        /**
+         * Configure standalone card layout options for enhanced visual presentation.
+         *
+         * > **⚠️ Important Restriction**
+         * >
+         * > This option is **only valid for single card messages**. Using it with multiple cards will cause the request to fail with a validation error.
+         */
+        standalone_card?: Options.StandaloneCard;
+    }
+
+    export namespace Options {
+        /**
+         * Configure standalone card layout options for enhanced visual presentation.
+         *
+         * > **⚠️ Important Restriction**
+         * >
+         * > This option is **only valid for single card messages**. Using it with multiple cards will cause the request to fail with a validation error.
+         */
+        export interface StandaloneCard {
+            /** The orientation of the standalone card. */
+            orientation?: StandaloneCard.Orientation;
+            /** The alignment of the image in the standalone card. */
+            image_alignment?: StandaloneCard.ImageAlignment;
+        }
+
+        export namespace StandaloneCard {
+            /**
+             * The orientation of the standalone card.
+             */
+            export type Orientation = "HORIZONTAL" | "VERTICAL";
+            export const Orientation = {
+                Horizontal: "HORIZONTAL",
+                Vertical: "VERTICAL",
+            } as const;
+            /**
+             * The alignment of the image in the standalone card.
+             */
+            export type ImageAlignment = "LEFT" | "RIGHT";
+            export const ImageAlignment = {
+                Left: "LEFT",
+                Right: "RIGHT",
+            } as const;
+        }
+    }
+}

@@ -6,10 +6,40 @@
  * Button that opens a URL when tapped by the recipient.
  */
 export interface RcsButtonOpenUrl {
-    /** Optional additional data to attach to this button. */
-    metadata?: string;
+    /**
+     * Controls how the URL is displayed when the button is tapped.
+     *
+     * **Default behavior:** If not specified, the URL opens in the device's default browser. If you're sending deeplinks, you should use this mode as it will open the deeplink in the native app if it is installed.
+     *
+     * **Available modes in order of size:**
+     * - `HALF` — Half-screen webview overlay
+     * - `TALL` — Tall webview overlay
+     * - `FULL` — Full-screen webview
+     */
+    webviewMode?: RcsButtonOpenUrl.WebviewMode;
     /** The URL to open when the button is tapped. Must be a valid HTTP or HTTPS URL. */
     payload: string;
     /** Display text for the button. */
     title: string;
+    /** Optional additional data to attach to this button. */
+    metadata?: string;
+}
+
+export namespace RcsButtonOpenUrl {
+    /**
+     * Controls how the URL is displayed when the button is tapped.
+     *
+     * **Default behavior:** If not specified, the URL opens in the device's default browser. If you're sending deeplinks, you should use this mode as it will open the deeplink in the native app if it is installed.
+     *
+     * **Available modes in order of size:**
+     * - `HALF` — Half-screen webview overlay
+     * - `TALL` — Tall webview overlay
+     * - `FULL` — Full-screen webview
+     */
+    export type WebviewMode = "HALF" | "TALL" | "FULL";
+    export const WebviewMode = {
+        Half: "HALF",
+        Tall: "TALL",
+        Full: "FULL",
+    } as const;
 }
