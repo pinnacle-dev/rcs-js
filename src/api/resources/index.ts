@@ -1,3 +1,5 @@
+export * as audiences from "./audiences/index.js";
+export * from "./audiences/types/index.js";
 export * as conversations from "./conversations/index.js";
 export * from "./conversations/types/index.js";
 export * as phoneNumbers from "./phoneNumbers/index.js";
@@ -11,6 +13,7 @@ export * as webhooks from "./webhooks/index.js";
 export * as status from "./status/index.js";
 export * as tools from "./tools/index.js";
 export * from "./brands/client/requests/index.js";
+export * from "./audiences/client/requests/index.js";
 export * from "./contacts/client/requests/index.js";
 export * from "./conversations/client/requests/index.js";
 export * from "./messages/client/requests/index.js";

@@ -446,6 +446,275 @@ This identifier is a string that always begins with the prefix `b_`, for example
 </dl>
 </details>
 
+## Audiences
+
+<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">get</a>({ ...params }) -> Pinnacle.AudiencesGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve an audience by ID with optional pagination.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.get({
+    id: "aud_abc123",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.AudiencesGetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Audiences.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">create</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new audience with optional initial contacts. Phone numbers that don't exist will be auto-created as contacts.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.create({
+    name: "Marketing Campaign Q1",
+    description: "Contacts for Q1 marketing push",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.CreateAudienceParams`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Audiences.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">delete</a>({ ...params }) -> Pinnacle.DeleteAudienceResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete an audience and all its contact associations.
+
+Note: This will NOT delete the contacts themselves, only the audience and its memberships.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.delete({
+    id: "aud_abc123",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.AudiencesDeleteRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Audiences.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">update</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update audience metadata. This endpoint does NOT modify contacts.
+
+To add or remove contacts, use the [Add Contacts](/api-reference/audiences/add-contacts) or [Remove Contacts](/api-reference/audiences/remove-contacts) endpoints.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.update({
+    id: "aud_abc123",
+    name: "Updated Audience Name",
+    description: "New description",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.UpdateAudienceParams`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Audiences.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## Contacts
 
 <details><summary><code>client.contacts.<a href="/src/api/resources/contacts/client/Client.ts">get</a>({ ...params }) -> Pinnacle.Contact</code></summary>
@@ -1569,6 +1838,145 @@ await client.webhooks.get({
 <dd>
 
 **requestOptions:** `Webhooks.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Audiences Contacts
+
+<details><summary><code>client.audiences.contacts.<a href="/src/api/resources/audiences/resources/contacts/client/Client.ts">remove</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Remove contacts from an existing audience. This operation is idempotent.
+
+- Only removes contacts that exist in the audience
+- Contacts not in the audience are ignored
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.contacts.remove({
+    id: "aud_abc123",
+    contacts: ["+12125551234", "cont_def456"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.audiences.RemoveContactsParams`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Contacts.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.audiences.contacts.<a href="/src/api/resources/audiences/resources/contacts/client/Client.ts">add</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add contacts to an existing audience. This operation is additive and idempotent.
+
+- Phone numbers that don't exist will be auto-created as contacts
+- Duplicate adds are ignored
+- Contacts already in the audience are ignored
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.contacts.add({
+    id: "aud_abc123",
+    contacts: ["+12125551234", "cont_def456", "+13105551234"],
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.audiences.AddContactsParams`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Contacts.RequestOptions`
 
 </dd>
 </dl>

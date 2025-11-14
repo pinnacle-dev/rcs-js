@@ -7,6 +7,24 @@ The Pinnacle TypeScript library provides convenient access to the Pinnacle APIs 
 
 ## Table of Contents
 
+- [Table of Contents](#table-of-contents)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Request and Response Types](#request-and-response-types)
+- [Exception Handling](#exception-handling)
+- [Advanced](#advanced)
+    - [Additional Headers](#additional-headers)
+    - [Additional Query String Parameters](#additional-query-string-parameters)
+    - [Retries](#retries)
+    - [Timeouts](#timeouts)
+    - [Aborting Requests](#aborting-requests)
+    - [Access Raw Response Data](#access-raw-response-data)
+    - [Runtime Compatibility](#runtime-compatibility)
+- [Contributing](#contributing)
+- [Reference](#reference)
+
+## Table of Contents
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Request and Response Types](#request-and-response-types)

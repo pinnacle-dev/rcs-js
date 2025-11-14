@@ -6,6 +6,7 @@ import * as environments from "./environments.js";
 import * as core from "./core/index.js";
 import { mergeHeaders } from "./core/headers.js";
 import { Brands } from "./api/resources/brands/client/Client.js";
+import { Audiences } from "./api/resources/audiences/client/Client.js";
 import { Contacts } from "./api/resources/contacts/client/Client.js";
 import { Conversations } from "./api/resources/conversations/client/Client.js";
 import { Messages } from "./api/resources/messages/client/Client.js";
@@ -43,6 +44,7 @@ export declare namespace PinnacleClient {
 export class PinnacleClient {
     protected readonly _options: PinnacleClient.Options;
     protected _brands: Brands | undefined;
+    protected _audiences: Audiences | undefined;
     protected _contacts: Contacts | undefined;
     protected _conversations: Conversations | undefined;
     protected _messages: Messages | undefined;
@@ -60,8 +62,8 @@ export class PinnacleClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "rcs-js",
-                    "X-Fern-SDK-Version": "2.0.5",
-                    "User-Agent": "rcs-js/2.0.5",
+                    "X-Fern-SDK-Version": "2.0.5-rc.1",
+                    "User-Agent": "rcs-js/2.0.5-rc.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -72,6 +74,10 @@ export class PinnacleClient {
 
     public get brands(): Brands {
         return (this._brands ??= new Brands(this._options));
+    }
+
+    public get audiences(): Audiences {
+        return (this._audiences ??= new Audiences(this._options));
     }
 
     public get contacts(): Contacts {
