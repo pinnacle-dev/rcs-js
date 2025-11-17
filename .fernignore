@@ -1,5 +1,4 @@
 # Specify files that shouldn't be modified by Fern
 src/wrapper
 src/index.ts
-jest.config.mjs
 tests/tsconfig.json
