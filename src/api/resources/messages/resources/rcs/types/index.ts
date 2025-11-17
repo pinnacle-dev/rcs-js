@@ -1,1 +1,1 @@
-export * from "./RcsSendResponse.js";
+export * from "./SendRcsResponse.js";

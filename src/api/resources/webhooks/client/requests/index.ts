@@ -1,1 +1,1 @@
-export { type GetWebhookParams } from "./GetWebhookParams.js";
+export type { GetWebhookParams } from "./GetWebhookParams.js";

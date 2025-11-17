@@ -1,1 +1,1 @@
-export * from "./PhoneNumbersGetResponse.js";
+export * from "./GetPhoneNumbersResponse.js";

@@ -1,1 +1,1 @@
-export { type Mms } from "./Mms.js";
+export type { Mms } from "./Mms.js";

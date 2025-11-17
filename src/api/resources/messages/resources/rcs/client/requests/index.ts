@@ -1,1 +1,1 @@
-export { type SendTypingIndicatorSchema } from "./SendTypingIndicatorSchema.js";
+export type { SendTypingIndicatorSchema } from "./SendTypingIndicatorSchema.js";

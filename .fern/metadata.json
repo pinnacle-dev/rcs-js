@@ -1,0 +1,14 @@
+{
+    "cliVersion": "1.2.0",
+    "generatorName": "fernapi/fern-typescript-sdk",
+    "generatorVersion": "3.29.2",
+    "generatorConfig": {
+        "namespaceExport": "Pinnacle",
+        "extraDependencies": {
+            "mime-types": "^3.0.1"
+        },
+        "extraDevDependencies": {
+            "@types/mime-types": "^3.0.1"
+        }
+    }
+}
