@@ -6,7 +6,7 @@
  * @example
  *     {
  *         id: "aud_abc123",
- *         contacts: ["+12125551234", "cont_def456"]
+ *         contacts: ["+12125551234", "co_def456"]
  *     }
  */
 export interface RemoveContactsParams {

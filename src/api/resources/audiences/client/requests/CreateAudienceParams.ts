@@ -19,7 +19,7 @@
  * @example
  *     {
  *         name: "Mixed Audience",
- *         contacts: ["+12125551234", "cont_abc123", "+13105551234"]
+ *         contacts: ["+12125551234", "co_abc123", "+13105551234"]
  *     }
  */
 export interface CreateAudienceParams {

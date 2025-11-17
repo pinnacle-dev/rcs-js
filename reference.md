@@ -1882,7 +1882,7 @@ Remove contacts from an existing audience. This operation is idempotent.
 ```typescript
 await client.audiences.contacts.remove({
     id: "aud_abc123",
-    contacts: ["+12125551234", "cont_def456"],
+    contacts: ["+12125551234", "co_def456"],
 });
 ```
 
@@ -1951,7 +1951,7 @@ Add contacts to an existing audience. This operation is additive and idempotent.
 ```typescript
 await client.audiences.contacts.add({
     id: "aud_abc123",
-    contacts: ["+12125551234", "cont_def456", "+13105551234"],
+    contacts: ["+12125551234", "co_def456", "+13105551234"],
 });
 ```
 

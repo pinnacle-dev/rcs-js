@@ -19,7 +19,7 @@ describe("Audiences", () => {
                 {
                     description: "Premium customer",
                     email: "john@example.com",
-                    id: "cont_def456",
+                    id: "co_def456",
                     name: "John Doe",
                     phoneNumber: "+12125551234",
                     tags: ["vip", "enterprise"],
@@ -41,7 +41,7 @@ describe("Audiences", () => {
                 {
                     description: "Premium customer",
                     email: "john@example.com",
-                    id: "cont_def456",
+                    id: "co_def456",
                     name: "John Doe",
                     phoneNumber: "+12125551234",
                     tags: ["vip", "enterprise"],
@@ -222,7 +222,7 @@ describe("Audiences", () => {
     test("create (Mixed identifiers)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { name: "Mixed Audience", contacts: ["+12125551234", "cont_abc123", "+13105551234"] };
+        const rawRequestBody = { name: "Mixed Audience", contacts: ["+12125551234", "co_abc123", "+13105551234"] };
         const rawResponseBody = {
             id: "aud_abc123",
             name: "Marketing Campaign Q1",
@@ -240,7 +240,7 @@ describe("Audiences", () => {
 
         const response = await client.audiences.create({
             name: "Mixed Audience",
-            contacts: ["+12125551234", "cont_abc123", "+13105551234"],
+            contacts: ["+12125551234", "co_abc123", "+13105551234"],
         });
         expect(response).toEqual({
             id: "aud_abc123",

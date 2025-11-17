@@ -7,10 +7,10 @@ import { PinnacleClient } from "../../../src/Client";
 import * as Pinnacle from "../../../src/api/index";
 
 describe("Contacts", () => {
-    test("remove (ebf064be)", async () => {
+    test("remove (ae35791c)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: "aud_abc123", contacts: ["+12125551234", "cont_def456"] };
+        const rawRequestBody = { id: "aud_abc123", contacts: ["+12125551234", "co_def456"] };
         const rawResponseBody = {
             id: "aud_abc123",
             name: "VIP Customers",
@@ -28,7 +28,7 @@ describe("Contacts", () => {
 
         const response = await client.audiences.contacts.remove({
             id: "aud_abc123",
-            contacts: ["+12125551234", "cont_def456"],
+            contacts: ["+12125551234", "co_def456"],
         });
         expect(response).toEqual({
             id: "aud_abc123",
@@ -142,10 +142,10 @@ describe("Contacts", () => {
         );
     });
 
-    test("add (45d62a67)", async () => {
+    test("add (376d0705)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { id: "aud_abc123", contacts: ["+12125551234", "cont_def456", "+13105551234"] };
+        const rawRequestBody = { id: "aud_abc123", contacts: ["+12125551234", "co_def456", "+13105551234"] };
         const rawResponseBody = {
             id: "aud_abc123",
             name: "VIP Customers",
@@ -163,7 +163,7 @@ describe("Contacts", () => {
 
         const response = await client.audiences.contacts.add({
             id: "aud_abc123",
-            contacts: ["+12125551234", "cont_def456", "+13105551234"],
+            contacts: ["+12125551234", "co_def456", "+13105551234"],
         });
         expect(response).toEqual({
             id: "aud_abc123",

@@ -3,7 +3,11 @@
  */
 
 export interface SentMmsDetails {
-    /** Array of unique identifiers for the sent MMS messages. This identifiers are strings that always begin with the prefix `msg_`, for example: `msg_1234567890`. */
+    /**
+     * Array of unique message identifiers for an individual MMS send. Each identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
+     * When media assets are too large to fit in a single MMS and `options.multiple_messages` is set to true, the content is automatically split across multiple messages. Each split message gets its own ID, and all IDs are returned in this array. <br><br>
+     * Note: When sending to audiences, you'll receive multiple response objects (one per recipient), each containing its own messageIds array.
+     */
     messageIds: string[];
     /** Total number of segments used across the message. */
     segments: number;
