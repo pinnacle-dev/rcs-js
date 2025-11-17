@@ -1,6 +1,6 @@
 import * as mime from "mime-types";
 import { File_ } from "../../api/resources/tools/resources/file/client/Client.js";
-import { UploadFileParams } from "../../api/resources/tools/resources/file/client/requests/index.js";
+import { type UploadFileParams } from "../../api/resources/tools/resources/file/client/requests/index.js";
 import { BadRequestError, NotFoundError, InternalServerError } from "../../api/errors/index.js";
 
 export class FileUploader extends File_ {
