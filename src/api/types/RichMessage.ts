@@ -10,5 +10,8 @@ export type RichMessage =
      * Send a media RCS message with optional quick reply buttons. */
     | Pinnacle.RichMediaMessage
     /**
-     * Send a cards RCS message with optional quick reply buttons. */
+     * Send a cards RCS message with quick replies / buttons.
+     *
+     * - [Quick replies](/api-reference/messages/send-rcs#request.body.Cards.quickReplies) are shared across all cards in the carousel
+     * - While [buttons](/api-reference/messages/send-rcs#request.body.Cards.cards.buttons) resemble quick replies, they remain on screen after being clicked and are card-specific. */
     | Pinnacle.RichCardsMessage;

@@ -23,7 +23,10 @@ export class Webhook {
     /**
      * Connect a webhook to your phone number to receive real-time notifications for incoming messages, delivery status updates, and other communication events.
      *
-     * @param {Pinnacle.phoneNumbers.AttachWebhookRequest} request
+     * @param {string} phone - The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
+     *
+     *                         Must be a phone number that you own and have already [purchased](./buy) through the API. A phone number can have multiple webhooks attached to it.
+     * @param {Pinnacle.AttachWebhookParams} request
      * @param {Webhook.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -33,26 +36,24 @@ export class Webhook {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.phoneNumbers.webhook.attach({
-     *         phone: "%2B14155551234",
-     *         body: {
-     *             webhookId: "wh_1234567890",
-     *             event: "MESSAGE.STATUS"
-     *         }
+     *     await client.phoneNumbers.webhook.attach("%2B14155551234", {
+     *         webhookId: "wh_1234567890",
+     *         event: "MESSAGE.STATUS"
      *     })
      */
     public attach(
-        request: Pinnacle.phoneNumbers.AttachWebhookRequest,
+        phone: string,
+        request: Pinnacle.AttachWebhookParams,
         requestOptions?: Webhook.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ConfiguredWebhook> {
-        return core.HttpResponsePromise.fromPromise(this.__attach(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__attach(phone, request, requestOptions));
     }
 
     private async __attach(
-        request: Pinnacle.phoneNumbers.AttachWebhookRequest,
+        phone: string,
+        request: Pinnacle.AttachWebhookParams,
         requestOptions?: Webhook.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ConfiguredWebhook>> {
-        const { phone, body: _body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -70,7 +71,7 @@ export class Webhook {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: _body,
+            body: request,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -135,7 +136,12 @@ export class Webhook {
      *
      * The webhook configuration itself remains intact and available for use with other phone numbers.
      *
-     * @param {Pinnacle.phoneNumbers.DetachWebhookRequest} request
+     * @param {string} phone - The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
+     *
+     *                         Must be a phone number that you own and currently has the specified webhook attached.
+     * @param {string} webhookId - The unique identifier of the webhook you want to detach from the phone number. <br>
+     *
+     *                             This must be a valid webhook ID that is currently attached to the specified phone number. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
      * @param {Webhook.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -145,23 +151,21 @@ export class Webhook {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.phoneNumbers.webhook.detach({
-     *         phone: "+14155551234",
-     *         webhookId: "wh_1234567890"
-     *     })
+     *     await client.phoneNumbers.webhook.detach("+14155551234", "wh_1234567890")
      */
     public detach(
-        request: Pinnacle.phoneNumbers.DetachWebhookRequest,
+        phone: string,
+        webhookId: string,
         requestOptions?: Webhook.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.DetachedWebhookInfo> {
-        return core.HttpResponsePromise.fromPromise(this.__detach(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__detach(phone, webhookId, requestOptions));
     }
 
     private async __detach(
-        request: Pinnacle.phoneNumbers.DetachWebhookRequest,
+        phone: string,
+        webhookId: string,
         requestOptions?: Webhook.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.DetachedWebhookInfo>> {
-        const { phone, webhookId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),

@@ -7,14 +7,14 @@ import type * as Pinnacle from "../../../../../../index.js";
  *     {
  *         agent: {
  *             color: "#000000",
- *             description: "Engaging campaigns with RBM \u2013 next-gen SMS marketing with rich content and better analytics.",
+ *             description: "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
  *             emails: [{
  *                     email: "founders@trypinnacle.app",
  *                     label: "Email Us"
  *                 }],
- *             heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
- *             iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
- *             name: "Pinnacle Software Development",
+ *             heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+ *             iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
+ *             name: "Pinnacle - RCS Demo",
  *             phones: [{
  *                     label: "Contact us directly",
  *                     phone: "+14154467821"
@@ -24,7 +24,6 @@ import type * as Pinnacle from "../../../../../../index.js";
  *                     url: "https://www.trypinnacle.app/"
  *                 }]
  *         },
- *         brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
  *         brand: "b_1234567890",
  *         campaignId: "rcs_1234567890",
  *         expectedAgentResponses: ["Here are the things I can help you with.", "I can assist you with booking an appointment, or you may choose to book manually.", "Here are the available times to connect with a representative tomorrow.", "Your appointment has been scheduled."],
@@ -32,25 +31,41 @@ import type * as Pinnacle from "../../../../../../index.js";
  *             privacyPolicy: "https://www.trypinnacle.app/privacy",
  *             termsOfService: "https://www.trypinnacle.app/terms"
  *         },
- *         optIn: {
- *             method: "WEBSITE",
- *             termsAndConditions: "Would you like to subscribe to Pinnacle?"
- *         },
- *         optOut: {
- *             description: "Reply STOP to opt-out anytime.",
- *             keywords: ["STOP", "UNSUBSCRIBE", "END"]
- *         },
  *         useCase: {
- *             behavior: "Acts as a customer service representative.",
+ *             behavior: "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an \u201Conboarding guide\u201D for new customers and a \u201Cbest-practices coach\u201D for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2\u20136 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
  *             value: "OTHER"
- *         }
+ *         },
+ *         optInTermsAndConditions: "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+ *         messagingType: "MULTI_USE",
+ *         carrierDescription: "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+ *         keywords: {
+ *             HELP: {
+ *                 message: "Email founders@trypinnacle.app for support.",
+ *                 keywords: ["HELP", "SUPPORT"]
+ *             },
+ *             OPT_IN: {
+ *                 message: "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle - RCS Demo and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+ *                 keywords: ["START", "SUBSCRIBE"]
+ *             },
+ *             OPT_OUT: {
+ *                 message: "You've been unsubscribed from Pinnacle - RCS Demo and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+ *                 keywords: ["STOP", "UNSUBSCRIBE", "END"]
+ *             }
+ *         },
+ *         traffic: {
+ *             monthlyWebsite: 10000,
+ *             monthlyRcsEstimate: 10000
+ *         },
+ *         agentTriggers: "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+ *         interactionDescription: "The agent's primary interaction will be customer service \u2014 helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+ *         isConversational: true,
+ *         ctaLanguage: "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+ *         demoTrigger: "Text \"START\" to trigger the flow."
  *     }
  */
 export interface UpsertRcsCampaignParams {
     /** Create an agent for the campaign. */
     agent?: UpsertRcsCampaignParams.Agent;
-    /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
-    brandVerificationUrl?: string;
     /** Unique identifier for the brand. */
     brand?: string;
     /** Unique identifier for the campaign. */
@@ -59,12 +74,30 @@ export interface UpsertRcsCampaignParams {
     expectedAgentResponses?: string[];
     /** Legal documentation links. */
     links?: UpsertRcsCampaignParams.Links;
-    /** Opt-in configuration. */
-    optIn?: UpsertRcsCampaignParams.OptIn;
-    /** Opt-out configuration. */
-    optOut?: UpsertRcsCampaignParams.OptOut;
     /** Use case classification for the campaign. */
     useCase?: UpsertRcsCampaignParams.UseCase;
+    /** Details on how opt-in is acquired. If it is done through a website or app, provide the link. */
+    optInTermsAndConditions?: string;
+    messagingType?: Pinnacle.RcsMessagingTypeEnum;
+    /** Description of the agent's purpose, shown to carriers for approval. */
+    carrierDescription?: string;
+    keywords?: UpsertRcsCampaignParams.Keywords;
+    traffic?: UpsertRcsCampaignParams.Traffic;
+    /** Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. */
+    agentTriggers?: string;
+    /** Description of all agent interactions. */
+    interactionDescription?: string;
+    /** Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user. */
+    isConversational?: boolean;
+    /**
+     * Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
+     *
+     * [Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
+     * T&Cs page].
+     */
+    ctaLanguage?: string;
+    /** Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user. */
+    demoTrigger?: string;
 }
 
 export namespace UpsertRcsCampaignParams {
@@ -78,7 +111,11 @@ export namespace UpsertRcsCampaignParams {
          * Must have sufficient contrast with white.
          */
         color?: string;
-        /** Description of the agent. */
+        /**
+         * Description of the agent. <br>
+         *
+         * Be clear, concise, user-focused, and highlight what the agent does and the benefits it provides for the user.
+         */
         description?: string;
         /** List of emails (1-3 required). */
         emails?: Agent.Emails.Item[];
@@ -86,7 +123,11 @@ export namespace UpsertRcsCampaignParams {
         heroUrl?: string;
         /** Link to the agent's icon. Icon must be an image file with dimensions 224x224px. */
         iconUrl?: string;
-        /** Name of the agent. */
+        /**
+         * Name of the agent. <br>
+         *
+         * Recommended format: [Brand Name] - [1-2 word description of purpose]
+         */
         name?: string;
         /** List of phone numbers (1-3 required). */
         phones?: Agent.Phones.Item[];
@@ -140,34 +181,62 @@ export namespace UpsertRcsCampaignParams {
     }
 
     /**
-     * Opt-in configuration.
-     */
-    export interface OptIn {
-        method?: Pinnacle.RcsCampaignOptInMethodEnum;
-        /** Message shown to users explaining what they are agreeing to when opting in. */
-        termsAndConditions?: string;
-    }
-
-    /**
-     * Opt-out configuration.
-     */
-    export interface OptOut {
-        /** Description for the keyword. */
-        description?: string;
-        /**
-         * Keywords to opt-out. <br>
-         *
-         * Each keyword must be a single word with no spaces or whitespace characters.
-         */
-        keywords?: string[];
-    }
-
-    /**
      * Use case classification for the campaign.
      */
     export interface UseCase {
-        /** Summary of the use case. */
+        /** Detailed summary of what the brand is and how this agent will be used. */
         behavior?: string;
         value?: Pinnacle.RcsCampaignUseCaseEnum;
+    }
+
+    export interface Keywords {
+        HELP?: Keywords.Help;
+        OPT_IN?: Keywords.OptIn;
+        OPT_OUT?: Keywords.OptOut;
+    }
+
+    export namespace Keywords {
+        export interface Help {
+            /**
+             * Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website).<br>
+             *
+             * Recommended format: [Verb] [Contact Information] for support.
+             */
+            message?: string;
+            /** Keywords that trigger help response (HELP, SUPPORT, INFO, etc). */
+            keywords?: string[];
+        }
+
+        export interface OptIn {
+            /**
+             * Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates).<br>
+             *
+             * Recommended Format:<br>
+             * [Greetings]<br>
+             * You are now subscribed to [Agent Name] and will receive [type of messages that the agent will send]. Feel free to contact us any time for help. <br>
+             * Reply STOP to opt out and HELP for support. Message & rates may apply.
+             */
+            message?: string;
+            /** Keywords that trigger opt-in response (START, SUBSCRIBE, JOIN, etc). */
+            keywords?: string[];
+        }
+
+        export interface OptOut {
+            /**
+             * Message sent when a user opt-out. Must include brand name, acknowledge opt-out request and state user will not receive further messages. No marketing or re-engagement attempts.<br>
+             *
+             * Recommended format: "You've been unsubscribed from [Agent Name] and will no longer receive messages. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime."
+             */
+            message?: string;
+            /** Keywords that trigger opt-out response (END, UNSUBSCRIBE, STOP, etc). */
+            keywords?: string[];
+        }
+    }
+
+    export interface Traffic {
+        /** Estimated monthly website visitors. */
+        monthlyWebsite?: number;
+        /** Estimated monthly RCS messages sent. */
+        monthlyRcsEstimate?: number;
     }
 }

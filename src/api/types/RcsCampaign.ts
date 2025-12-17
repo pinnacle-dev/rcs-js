@@ -7,18 +7,34 @@ export interface RcsCampaign {
     agent?: RcsCampaign.Agent;
     /** Unique identifier for the campaign. */
     campaignId?: string;
-    /** Link to document verifying the brand's name. This may be the certificate of incorporation, business license, or other relevant document. You can typically find this on the Secretary of State website. */
-    brandVerificationUrl?: string;
     /** List of what the agent might say to users. */
     expectedAgentResponses?: string[];
     /** Legal documentation links. */
     links?: RcsCampaign.Links;
-    /** Opt-in configuration. */
-    optIn?: RcsCampaign.OptIn;
-    /** Opt-out configuration. */
-    optOut?: RcsCampaign.OptOut;
     /** Use case classification for the campaign. */
     useCase?: RcsCampaign.UseCase;
+    /** Details on how opt-in is acquired. If it is done through a website or app, provide the link. */
+    optInTermsAndConditions?: string;
+    messagingType?: Pinnacle.RcsMessagingTypeEnum;
+    /** Description of the agent's purpose, shown to carriers for approval. */
+    carrierDescription?: string;
+    keywords?: RcsCampaign.Keywords;
+    traffic?: RcsCampaign.Traffic;
+    /** Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. */
+    agentTriggers?: string;
+    /** Description of all agent interactions. */
+    interactionDescription?: string;
+    /** Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user. */
+    isConversational?: boolean;
+    /**
+     * Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
+     *
+     * [Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
+     * T&Cs page].
+     */
+    ctaLanguage?: string;
+    /** Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user. */
+    demoTrigger?: string;
 }
 
 export namespace RcsCampaign {
@@ -90,30 +106,47 @@ export namespace RcsCampaign {
     }
 
     /**
-     * Opt-in configuration.
-     */
-    export interface OptIn {
-        /** Message shown to users explaining what they are agreeing to when opting in. */
-        termsAndConditions?: string;
-        method?: Pinnacle.RcsCampaignOptInMethodEnum;
-    }
-
-    /**
-     * Opt-out configuration.
-     */
-    export interface OptOut {
-        /** Description for the keyword. */
-        description?: string;
-        /** Keywords to opt-out. */
-        keywords?: string[];
-    }
-
-    /**
      * Use case classification for the campaign.
      */
     export interface UseCase {
-        /** Summary of the use case. */
+        /** Detailed summary of what the brand is and how this agent will be used. */
         behavior?: string;
         value?: Pinnacle.RcsCampaignUseCaseEnum;
+    }
+
+    export interface Keywords {
+        HELP?: Keywords.Help;
+        OPT_IN?: Keywords.OptIn;
+        OPT_OUT?: Keywords.OptOut;
+    }
+
+    export namespace Keywords {
+        export interface Help {
+            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). */
+            message?: string;
+            /** Keywords that trigger help response. */
+            keywords?: string[];
+        }
+
+        export interface OptIn {
+            /** Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). */
+            message?: string;
+            /** Keywords that trigger opt-in response. */
+            keywords?: string[];
+        }
+
+        export interface OptOut {
+            /** Message sent when a user opt-out. Must include brand name, acknowledge opt-out request and state user will not receive further messages. No marketing or re-engagement attempts. */
+            message?: string;
+            /** Keywords that trigger opt-out response. */
+            keywords?: string[];
+        }
+    }
+
+    export interface Traffic {
+        /** Estimated monthly website visitors. */
+        monthlyWebsite?: number;
+        /** Estimated monthly RCS messages sent. */
+        monthlyRcsEstimate?: number;
     }
 }

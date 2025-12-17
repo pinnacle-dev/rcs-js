@@ -43,14 +43,14 @@ export class Sms {
     public send(
         request: Pinnacle.messages.Sms,
         requestOptions?: Sms.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.messages.SendSmsResponse> {
+    ): core.HttpResponsePromise<Pinnacle.messages.SmsSendResponse> {
         return core.HttpResponsePromise.fromPromise(this.__send(request, requestOptions));
     }
 
     private async __send(
         request: Pinnacle.messages.Sms,
         requestOptions?: Sms.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.messages.SendSmsResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.messages.SmsSendResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -76,7 +76,7 @@ export class Sms {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.messages.SendSmsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.messages.SmsSendResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

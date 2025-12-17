@@ -5,17 +5,10 @@ import type * as Pinnacle from "../../../../../../index.js";
 /**
  * @example
  *     {
- *         linkId: "ePzVxILF",
  *         url: "https://www.pinnacle.sh/"
  *     }
  */
 export interface UpdateUrlParams {
-    /**
-     * Unique identifier from your shortened URL. For example, for `https://pncl.to/ePzVxILF`, the `linkId` is `ePzVxILF`. <br>
-     *
-     * See the response of [Create Shortened URL](./create-url) for more information.
-     */
-    linkId: string;
     /** New destination URL where your visitors will be redirected. */
     url?: string;
     options?: Pinnacle.CreateUrlOptions;

@@ -120,7 +120,9 @@ export class Url {
     /**
      * Retrieve configuration and details for your shortened URL using its unique identifier.
      *
-     * @param {Pinnacle.tools.GetUrlRequest} request
+     * @param {string} linkId - Unique identifier from your shortened URL. For example, for `https://pncl.to/ePzVxILF`, the `linkId` is `ePzVxILF`. <br>
+     *
+     *                          See the response of [Create Shortened URL](./create-url) for more information.
      * @param {Url.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -128,22 +130,19 @@ export class Url {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.tools.url.get({
-     *         linkId: "ePzVxILF"
-     *     })
+     *     await client.tools.url.get("ePzVxILF")
      */
     public get(
-        request: Pinnacle.tools.GetUrlRequest,
+        linkId: string,
         requestOptions?: Url.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ShortenedUrlWithClickData> {
-        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(linkId, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.tools.GetUrlRequest,
+        linkId: string,
         requestOptions?: Url.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ShortenedUrlWithClickData>> {
-        const { linkId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -212,6 +211,9 @@ export class Url {
     /**
      * Update the destination or expiration date of an existing shortened URL. Expiring links cannot be updated into a permalink.
      *
+     * @param {string} linkId - Unique identifier from your shortened URL. For example, for `https://pncl.to/ePzVxILF`, the `linkId` is `ePzVxILF`. <br>
+     *
+     *                          See the response of [Create Shortened URL](./create-url) for more information.
      * @param {Pinnacle.tools.UpdateUrlParams} request
      * @param {Url.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -220,23 +222,23 @@ export class Url {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.tools.url.update({
-     *         linkId: "ePzVxILF",
+     *     await client.tools.url.update("ePzVxILF", {
      *         url: "https://www.pinnacle.sh/"
      *     })
      */
     public update(
-        request: Pinnacle.tools.UpdateUrlParams,
+        linkId: string,
+        request: Pinnacle.tools.UpdateUrlParams = {},
         requestOptions?: Url.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ShortenedUrl> {
-        return core.HttpResponsePromise.fromPromise(this.__update(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__update(linkId, request, requestOptions));
     }
 
     private async __update(
-        request: Pinnacle.tools.UpdateUrlParams,
+        linkId: string,
+        request: Pinnacle.tools.UpdateUrlParams = {},
         requestOptions?: Url.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ShortenedUrl>> {
-        const { linkId, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -254,7 +256,7 @@ export class Url {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: _body,
+            body: request,
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

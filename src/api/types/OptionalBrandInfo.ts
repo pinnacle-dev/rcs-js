@@ -18,6 +18,8 @@ export interface OptionalBrandInfo {
     name?: string;
     sector?: Pinnacle.CompanySectorEnum;
     type?: Pinnacle.CompanyTypeEnum;
+    /** Legal entity type of the brand. */
+    entityType?: Pinnacle.CompanyEntityTypeEnum;
     /** Brand website URL. */
     website?: string;
 }

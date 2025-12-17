@@ -8,7 +8,7 @@ import type * as Pinnacle from "../index.js";
 export type RcsContent =
     /**
      * Message containing longer text content with optional quick reply buttons. */
-    | Pinnacle.RcsTextContent
+    | Pinnacle.RichText
     /**
      * Message containing a media file and/or text with optional quick reply buttons. <br>
      *

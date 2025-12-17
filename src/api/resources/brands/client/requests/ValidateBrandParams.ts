@@ -19,6 +19,7 @@ import type * as Pinnacle from "../../../../index.js";
  *         name: "Pinnacle",
  *         sector: "TECHNOLOGY",
  *         type: "PRIVATE_PROFIT",
+ *         entityType: "LLC",
  *         website: "https://www.pinnacle.sh"
  *     }
  */
@@ -39,6 +40,8 @@ export interface ValidateBrandParams {
     name: string;
     sector: Pinnacle.CompanySectorEnum;
     type: Pinnacle.CompanyTypeEnum;
+    /** Legal entity type of the brand. */
+    entityType: Pinnacle.CompanyEntityTypeEnum;
     /** Brand website URL. */
     website: string;
 }

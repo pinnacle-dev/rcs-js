@@ -12,7 +12,13 @@ export interface MessageSchedule {
      * [Learn more about cron expressions](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html).
      */
     recurrence?: string;
-    /** Date and time when you want to send your message in ISO 8601 format. */
+    /**
+     * The date and time you want your message to be sent.
+     * - Use [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601), for example: `2024-12-17T14:30:00Z`.
+     * - This time must be at least 5 minutes in the future.
+     * - The message will be scheduled based on the `timezone` you provide.
+     * - If you set a `recurrence` schedule, this is the start date and time for the recurring schedule.
+     */
     sendAt: string;
     /** Timezone for your scheduled message, using an IANA identifier. */
     timezone: string;

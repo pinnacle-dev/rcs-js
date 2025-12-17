@@ -1,1 +1,1 @@
-export * from "./SendMmsResponse.js";
+export * from "./MmsSendResponse.js";

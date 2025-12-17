@@ -118,7 +118,7 @@ export class Dlc {
     /**
      * Retrieve 10DLC campaign.
      *
-     * @param {Pinnacle.campaigns.GetDlcRequest} request
+     * @param {string} campaignId - Unique identifier of the 10DLC campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -127,22 +127,19 @@ export class Dlc {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.dlc.get({
-     *         campaignId: "dlc_1234567890"
-     *     })
+     *     await client.campaigns.dlc.get("dlc_1234567890")
      */
     public get(
-        request: Pinnacle.campaigns.GetDlcRequest,
+        campaignId: string,
         requestOptions?: Dlc.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.DlcCampaignWithExtendedBrandAndStatus> {
-        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(campaignId, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.campaigns.GetDlcRequest,
+        campaignId: string,
         requestOptions?: Dlc.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.DlcCampaignWithExtendedBrandAndStatus>> {
-        const { campaignId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -216,7 +213,8 @@ export class Dlc {
     /**
      * Submit your 10DLC campaign for approval and activation with carriers.
      *
-     * @param {Pinnacle.campaigns.SubmitDlcRequest} request
+     * @param {string} campaignId - Unique identifier of the 10DLC campaign to submit.
+     *                              <br><br> This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -225,22 +223,19 @@ export class Dlc {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.dlc.submit({
-     *         campaignId: "dlc_1234567890"
-     *     })
+     *     await client.campaigns.dlc.submit("dlc_1234567890")
      */
     public submit(
-        request: Pinnacle.campaigns.SubmitDlcRequest,
+        campaignId: string,
         requestOptions?: Dlc.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.CampaignSubmissionResult> {
-        return core.HttpResponsePromise.fromPromise(this.__submit(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__submit(campaignId, requestOptions));
     }
 
     private async __submit(
-        request: Pinnacle.campaigns.SubmitDlcRequest,
+        campaignId: string,
         requestOptions?: Dlc.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmissionResult>> {
-        const { campaignId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),

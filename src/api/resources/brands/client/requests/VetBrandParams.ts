@@ -2,15 +2,6 @@
 
 /**
  * @example
- *     {
- *         brandId: "b_1234567890"
- *     }
+ *     {}
  */
-export interface VetBrandParams {
-    /**
-     * The unique identifier of the brand to vet. <br>
-     *
-     * This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for vetting.
-     */
-    brandId: string;
-}
+export type VetBrandParams = {};

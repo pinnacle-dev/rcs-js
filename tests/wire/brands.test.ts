@@ -30,6 +30,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
         };
         server
@@ -65,6 +66,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
         });
     });
@@ -146,6 +148,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
         };
         const rawResponseBody = {
@@ -164,6 +167,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
             createdAt: "2024-09-11T19:41:12.099",
             id: "b_1234567890",
@@ -197,6 +201,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
         });
         expect(response).toEqual({
@@ -215,6 +220,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
             createdAt: "2024-09-11T19:41:12.099",
             id: "b_1234567890",
@@ -227,7 +233,7 @@ describe("Brands", () => {
     test("upsert (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = { contact: null, sector: null, type: null };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -239,14 +245,18 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.upsert();
+            return await client.brands.upsert({
+                contact: null,
+                sector: null,
+                type: null,
+            });
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
     test("upsert (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = { contact: null, sector: null, type: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -258,14 +268,18 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.upsert();
+            return await client.brands.upsert({
+                contact: null,
+                sector: null,
+                type: null,
+            });
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
     test("upsert (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = { contact: null, sector: null, type: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -277,7 +291,11 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.upsert();
+            return await client.brands.upsert({
+                contact: null,
+                sector: null,
+                type: null,
+            });
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -300,6 +318,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
             createdAt: "2024-09-11T19:41:12.099",
             id: "b_1234567890",
@@ -326,9 +345,7 @@ describe("Brands", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.brands.get({
-            id: "b_1234567890",
-        });
+        const response = await client.brands.get("b_1234567890");
         expect(response).toEqual({
             address: "500 Folsom St, San Francisco, CA 94105",
             contact: {
@@ -344,6 +361,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
             createdAt: "2024-09-11T19:41:12.099",
             id: "b_1234567890",
@@ -379,9 +397,7 @@ describe("Brands", () => {
         server.mockEndpoint().get("/brands/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.brands.get({
-                id: "id",
-            });
+            return await client.brands.get("id");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -393,9 +409,7 @@ describe("Brands", () => {
         server.mockEndpoint().get("/brands/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.brands.get({
-                id: "id",
-            });
+            return await client.brands.get("id");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -407,9 +421,7 @@ describe("Brands", () => {
         server.mockEndpoint().get("/brands/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.brands.get({
-                id: "id",
-            });
+            return await client.brands.get("id");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -421,9 +433,7 @@ describe("Brands", () => {
         server.mockEndpoint().get("/brands/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.brands.get({
-                id: "id",
-            });
+            return await client.brands.get("id");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -440,9 +450,7 @@ describe("Brands", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.brands.submit({
-            brandId: "b_1234567890",
-        });
+        const response = await client.brands.submit("b_1234567890");
         expect(response).toEqual({
             success: true,
         });
@@ -462,9 +470,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.submit({
-                brandId: "brandId",
-            });
+            return await client.brands.submit("brandId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -482,9 +488,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.submit({
-                brandId: "brandId",
-            });
+            return await client.brands.submit("brandId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -502,9 +506,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.submit({
-                brandId: "brandId",
-            });
+            return await client.brands.submit("brandId");
         }).rejects.toThrow(Pinnacle.PaymentRequiredError);
     });
 
@@ -522,9 +524,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.submit({
-                brandId: "brandId",
-            });
+            return await client.brands.submit("brandId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -542,9 +542,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.submit({
-                brandId: "brandId",
-            });
+            return await client.brands.submit("brandId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -562,9 +560,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.submit({
-                brandId: "brandId",
-            });
+            return await client.brands.submit("brandId");
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
 
@@ -586,6 +582,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
         };
         const rawResponseBody = {
@@ -616,6 +613,7 @@ describe("Brands", () => {
             name: "Pinnacle",
             sector: "TECHNOLOGY",
             type: "PRIVATE_PROFIT",
+            entityType: "LLC",
             website: "https://www.pinnacle.sh",
         });
         expect(response).toEqual({
@@ -641,6 +639,7 @@ describe("Brands", () => {
             name: "name",
             sector: "AGRICULTURE",
             type: "GOVERNMENT",
+            entityType: "LLC",
             website: "website",
         };
         const rawResponseBody = { key: "value" };
@@ -667,6 +666,7 @@ describe("Brands", () => {
                 name: "name",
                 sector: "AGRICULTURE",
                 type: "GOVERNMENT",
+                entityType: "LLC",
                 website: "website",
             });
         }).rejects.toThrow(Pinnacle.BadRequestError);
@@ -683,6 +683,7 @@ describe("Brands", () => {
             name: "name",
             sector: "AGRICULTURE",
             type: "GOVERNMENT",
+            entityType: "LLC",
             website: "website",
         };
         const rawResponseBody = { error: "error" };
@@ -709,6 +710,7 @@ describe("Brands", () => {
                 name: "name",
                 sector: "AGRICULTURE",
                 type: "GOVERNMENT",
+                entityType: "LLC",
                 website: "website",
             });
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
@@ -725,6 +727,7 @@ describe("Brands", () => {
             name: "name",
             sector: "AGRICULTURE",
             type: "GOVERNMENT",
+            entityType: "LLC",
             website: "website",
         };
         const rawResponseBody = { error: "error" };
@@ -751,6 +754,7 @@ describe("Brands", () => {
                 name: "name",
                 sector: "AGRICULTURE",
                 type: "GOVERNMENT",
+                entityType: "LLC",
                 website: "website",
             });
         }).rejects.toThrow(Pinnacle.InternalServerError);
@@ -770,9 +774,7 @@ describe("Brands", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.brands.vet({
-            brandId: "b_1234567890",
-        });
+        const response = await client.brands.vet("b_1234567890", {});
         expect(response).toEqual({
             success: true,
         });
@@ -793,9 +795,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.vet({
-                brandId: "brandId",
-            });
+            return await client.brands.vet("brandId", {});
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -814,9 +814,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.vet({
-                brandId: "brandId",
-            });
+            return await client.brands.vet("brandId", {});
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -835,9 +833,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.vet({
-                brandId: "brandId",
-            });
+            return await client.brands.vet("brandId", {});
         }).rejects.toThrow(Pinnacle.PaymentRequiredError);
     });
 
@@ -856,9 +852,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.vet({
-                brandId: "brandId",
-            });
+            return await client.brands.vet("brandId", {});
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -877,9 +871,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.vet({
-                brandId: "brandId",
-            });
+            return await client.brands.vet("brandId", {});
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -898,9 +890,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.vet({
-                brandId: "brandId",
-            });
+            return await client.brands.vet("brandId", {});
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
 });

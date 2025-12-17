@@ -39,14 +39,14 @@ export class Rcs {
     public autofill(
         request: Pinnacle.AutofillCampaignParams,
         requestOptions?: Rcs.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.campaigns.AutofillRcsResponse> {
+    ): core.HttpResponsePromise<Pinnacle.campaigns.RcsAutofillResponse> {
         return core.HttpResponsePromise.fromPromise(this.__autofill(request, requestOptions));
     }
 
     private async __autofill(
         request: Pinnacle.AutofillCampaignParams,
         requestOptions?: Rcs.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.campaigns.AutofillRcsResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.campaigns.RcsAutofillResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -73,7 +73,7 @@ export class Rcs {
         });
         if (_response.ok) {
             return {
-                data: _response.body as Pinnacle.campaigns.AutofillRcsResponse,
+                data: _response.body as Pinnacle.campaigns.RcsAutofillResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -121,7 +121,7 @@ export class Rcs {
     /**
      * Retrieve RCS campaign.
      *
-     * @param {Pinnacle.campaigns.GetRcsRequest} request
+     * @param {string} campaignId - Unique identifier of the RCS campaign. Must begin with the prefix `rcs_`.
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -130,22 +130,19 @@ export class Rcs {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.rcs.get({
-     *         campaignId: "rcs_1234567890"
-     *     })
+     *     await client.campaigns.rcs.get("rcs_1234567890")
      */
     public get(
-        request: Pinnacle.campaigns.GetRcsRequest,
+        campaignId: string,
         requestOptions?: Rcs.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ExtendedRcsCampaign> {
-        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(campaignId, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.campaigns.GetRcsRequest,
+        campaignId: string,
         requestOptions?: Rcs.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ExtendedRcsCampaign>> {
-        const { campaignId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -216,7 +213,7 @@ export class Rcs {
     /**
      * Submit your RCS campaign for approval and activation with carriers.
      *
-     * @param {Pinnacle.campaigns.SubmitRcsRequest} request
+     * @param {string} campaignId - Unique identifier of the RCS campaign to retrieve. Must begin with the prefix `rcs_`.
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -226,22 +223,19 @@ export class Rcs {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.rcs.submit({
-     *         campaignId: "rcs_1234567890"
-     *     })
+     *     await client.campaigns.rcs.submit("rcs_1234567890")
      */
     public submit(
-        request: Pinnacle.campaigns.SubmitRcsRequest,
+        campaignId: string,
         requestOptions?: Rcs.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.CampaignSubmissionResult> {
-        return core.HttpResponsePromise.fromPromise(this.__submit(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__submit(campaignId, requestOptions));
     }
 
     private async __submit(
-        request: Pinnacle.campaigns.SubmitRcsRequest,
+        campaignId: string,
         requestOptions?: Rcs.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmissionResult>> {
-        const { campaignId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -333,14 +327,14 @@ export class Rcs {
      *     await client.campaigns.rcs.upsert({
      *         agent: {
      *             color: "#000000",
-     *             description: "Engaging campaigns with RBM \u2013 next-gen SMS marketing with rich content and better analytics.",
+     *             description: "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
      *             emails: [{
      *                     email: "founders@trypinnacle.app",
      *                     label: "Email Us"
      *                 }],
-     *             heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-     *             iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
-     *             name: "Pinnacle Software Development",
+     *             heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+     *             iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
+     *             name: "Pinnacle - RCS Demo",
      *             phones: [{
      *                     label: "Contact us directly",
      *                     phone: "+14154467821"
@@ -350,7 +344,6 @@ export class Rcs {
      *                     url: "https://www.trypinnacle.app/"
      *                 }]
      *         },
-     *         brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
      *         brand: "b_1234567890",
      *         campaignId: "rcs_1234567890",
      *         expectedAgentResponses: ["Here are the things I can help you with.", "I can assist you with booking an appointment, or you may choose to book manually.", "Here are the available times to connect with a representative tomorrow.", "Your appointment has been scheduled."],
@@ -358,18 +351,36 @@ export class Rcs {
      *             privacyPolicy: "https://www.trypinnacle.app/privacy",
      *             termsOfService: "https://www.trypinnacle.app/terms"
      *         },
-     *         optIn: {
-     *             method: "WEBSITE",
-     *             termsAndConditions: "Would you like to subscribe to Pinnacle?"
-     *         },
-     *         optOut: {
-     *             description: "Reply STOP to opt-out anytime.",
-     *             keywords: ["STOP", "UNSUBSCRIBE", "END"]
-     *         },
      *         useCase: {
-     *             behavior: "Acts as a customer service representative.",
+     *             behavior: "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an \u201Conboarding guide\u201D for new customers and a \u201Cbest-practices coach\u201D for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2\u20136 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
      *             value: "OTHER"
-     *         }
+     *         },
+     *         optInTermsAndConditions: "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+     *         messagingType: "MULTI_USE",
+     *         carrierDescription: "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+     *         keywords: {
+     *             HELP: {
+     *                 message: "Email founders@trypinnacle.app for support.",
+     *                 keywords: ["HELP", "SUPPORT"]
+     *             },
+     *             OPT_IN: {
+     *                 message: "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle - RCS Demo and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+     *                 keywords: ["START", "SUBSCRIBE"]
+     *             },
+     *             OPT_OUT: {
+     *                 message: "You've been unsubscribed from Pinnacle - RCS Demo and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+     *                 keywords: ["STOP", "UNSUBSCRIBE", "END"]
+     *             }
+     *         },
+     *         traffic: {
+     *             monthlyWebsite: 10000,
+     *             monthlyRcsEstimate: 10000
+     *         },
+     *         agentTriggers: "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+     *         interactionDescription: "The agent's primary interaction will be customer service \u2014 helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+     *         isConversational: true,
+     *         ctaLanguage: "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+     *         demoTrigger: "Text \"START\" to trigger the flow."
      *     })
      */
     public upsert(

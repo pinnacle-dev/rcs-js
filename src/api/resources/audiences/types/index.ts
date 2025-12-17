@@ -1,1 +1,1 @@
-export * from "./GetAudiencesResponse.js";
+export * from "./AudiencesGetResponse.js";

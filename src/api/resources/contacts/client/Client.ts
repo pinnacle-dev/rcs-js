@@ -23,7 +23,7 @@ export class Contacts {
     /**
      * Retrieve contact information for a given number.
      *
-     * @param {Pinnacle.GetContactsRequest} request
+     * @param {Pinnacle.ContactsGetRequest} request
      * @param {Contacts.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -37,14 +37,14 @@ export class Contacts {
      *     })
      */
     public get(
-        request: Pinnacle.GetContactsRequest = {},
+        request: Pinnacle.ContactsGetRequest = {},
         requestOptions?: Contacts.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.Contact> {
         return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.GetContactsRequest = {},
+        request: Pinnacle.ContactsGetRequest = {},
         requestOptions?: Contacts.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.Contact>> {
         const { id, phoneNumber } = request;

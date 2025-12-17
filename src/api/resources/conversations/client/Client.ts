@@ -315,7 +315,8 @@ export class Conversations {
     /**
      * Retrieve a paginated and filtered list of messages for a specific conversation.
      *
-     * @param {Pinnacle.ListMessagesConversationsRequest} request
+     * @param {string} id - Unique identifier of the conversation. This identifier is a string that always begins with the prefix `conv_`, for example: `conv_1234567890`.
+     * @param {Pinnacle.ConversationsListMessagesRequest} request
      * @param {Conversations.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -324,22 +325,22 @@ export class Conversations {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.conversations.listMessages({
-     *         id: "id"
-     *     })
+     *     await client.conversations.listMessages("id")
      */
     public listMessages(
-        request: Pinnacle.ListMessagesConversationsRequest,
+        id: string,
+        request: Pinnacle.ConversationsListMessagesRequest = {},
         requestOptions?: Conversations.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.MessageList> {
-        return core.HttpResponsePromise.fromPromise(this.__listMessages(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__listMessages(id, request, requestOptions));
     }
 
     private async __listMessages(
-        request: Pinnacle.ListMessagesConversationsRequest,
+        id: string,
+        request: Pinnacle.ConversationsListMessagesRequest = {},
         requestOptions?: Conversations.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.MessageList>> {
-        const { id, pageIndex, pageSize, sortOrder, direction, status, type: type_, dateFrom, dateTo } = request;
+        const { pageIndex, pageSize, sortOrder, direction, status, type: type_, dateFrom, dateTo } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (pageIndex != null) {
             _queryParams.pageIndex = pageIndex.toString();

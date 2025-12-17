@@ -5,6 +5,8 @@ export interface RcsValidationResult {
     total: number;
     /** Cost per message. */
     unit: number;
+    /** Total number of segments used across the message. */
+    segments: number;
     /** List of unsupported media file names or URLs. */
     unsupportedFiles: string[];
 }

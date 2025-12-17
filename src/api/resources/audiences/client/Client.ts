@@ -29,7 +29,7 @@ export class Audiences {
     /**
      * Retrieve an audience by ID with optional pagination.
      *
-     * @param {Pinnacle.GetAudiencesRequest} request
+     * @param {Pinnacle.AudiencesGetRequest} request
      * @param {Audiences.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -43,16 +43,16 @@ export class Audiences {
      *     })
      */
     public get(
-        request: Pinnacle.GetAudiencesRequest,
+        request: Pinnacle.AudiencesGetRequest,
         requestOptions?: Audiences.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.GetAudiencesResponse> {
+    ): core.HttpResponsePromise<Pinnacle.AudiencesGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.GetAudiencesRequest,
+        request: Pinnacle.AudiencesGetRequest,
         requestOptions?: Audiences.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.GetAudiencesResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.AudiencesGetResponse>> {
         const { id, page, limit } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams.id = id;
@@ -86,7 +86,7 @@ export class Audiences {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.GetAudiencesResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.AudiencesGetResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -244,7 +244,7 @@ export class Audiences {
      *
      * Note: This will NOT delete the contacts themselves, only the audience and its memberships.
      *
-     * @param {Pinnacle.DeleteAudiencesRequest} request
+     * @param {Pinnacle.AudiencesDeleteRequest} request
      * @param {Audiences.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -258,14 +258,14 @@ export class Audiences {
      *     })
      */
     public delete(
-        request: Pinnacle.DeleteAudiencesRequest,
+        request: Pinnacle.AudiencesDeleteRequest,
         requestOptions?: Audiences.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.DeleteAudienceResponse> {
         return core.HttpResponsePromise.fromPromise(this.__delete(request, requestOptions));
     }
 
     private async __delete(
-        request: Pinnacle.DeleteAudiencesRequest,
+        request: Pinnacle.AudiencesDeleteRequest,
         requestOptions?: Audiences.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.DeleteAudienceResponse>> {
         const { id } = request;

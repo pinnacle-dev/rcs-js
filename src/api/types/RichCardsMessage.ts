@@ -2,7 +2,7 @@
 
 import type * as Pinnacle from "../index.js";
 
-export interface RichCardsMessage extends Pinnacle.RcsCards {
+export interface RichCardsMessage extends Pinnacle.RichCards {
     options?: RichCardsMessage.Options;
     /** Your RCS agent ID which must be prefixed with 'agent_'. */
     from: string;
@@ -11,13 +11,14 @@ export interface RichCardsMessage extends Pinnacle.RcsCards {
 }
 
 export namespace RichCardsMessage {
-    export interface Options extends Pinnacle.Options {
+    export interface Options extends Pinnacle.SendRichMessageOptions {
         /**
          * Configure standalone card layout options for enhanced visual presentation.
          *
          * > **⚠️ Important Restriction**
          * >
-         * > This option is **only valid for single card messages**. Using it with multiple cards will cause the request to fail with a validation error.
+         * > This option is **only valid for single card messages** with static media. Using it with multiple cards will cause the request to fail with a validation error.
+         * > GIFs and videos are not supported and will be rendered as vertical cards.
          */
         standalone_card?: Options.StandaloneCard;
     }
@@ -28,7 +29,8 @@ export namespace RichCardsMessage {
          *
          * > **⚠️ Important Restriction**
          * >
-         * > This option is **only valid for single card messages**. Using it with multiple cards will cause the request to fail with a validation error.
+         * > This option is **only valid for single card messages** with static media. Using it with multiple cards will cause the request to fail with a validation error.
+         * > GIFs and videos are not supported and will be rendered as vertical cards.
          */
         export interface StandaloneCard {
             /** The orientation of the standalone card. */

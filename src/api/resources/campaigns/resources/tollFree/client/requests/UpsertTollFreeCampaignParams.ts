@@ -7,12 +7,28 @@ import type * as Pinnacle from "../../../../../../index.js";
  *     {
  *         brand: "b_1234567890",
  *         campaignId: "tf_1234567890",
+ *         keywords: {
+ *             HELP: {
+ *                 message: "Email founders@trypinnacle.app for support."
+ *             },
+ *             OPT_IN: {
+ *                 message: "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+ *                 keywords: ["START", "SUBSCRIBE"]
+ *             }
+ *         },
+ *         links: {
+ *             privacyPolicy: "https://www.pinnacle.sh/privacy",
+ *             termsOfService: "https://www.pinnacle.sh/terms"
+ *         },
  *         monthlyVolume: "1,000",
  *         name: "Pinnacle",
  *         optIn: {
  *             method: "DIGITAL",
  *             url: "https://www.pinnacle.sh/",
  *             workflowDescription: "Visit https://www.pinnacle.sh/"
+ *         },
+ *         options: {
+ *             ageGated: false
  *         },
  *         productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
  *         useCase: {
@@ -26,11 +42,17 @@ export interface UpsertTollFreeCampaignParams {
     brand?: string;
     /** Unique identifier for the campaign. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`. */
     campaignId?: string;
+    /** Keyword response configuration. */
+    keywords?: UpsertTollFreeCampaignParams.Keywords;
+    /** Legal documentation links. */
+    links?: UpsertTollFreeCampaignParams.Links;
     monthlyVolume?: Pinnacle.MessageVolumeEnum;
     /** Display name of the campaign. */
     name?: string;
     /** Opt-in keyword settings. */
     optIn?: UpsertTollFreeCampaignParams.OptIn;
+    /** Campaign configuration options. */
+    options?: UpsertTollFreeCampaignParams.Options;
     /** Explain message that would be sent. */
     productionMessageContent?: string;
     /** Use case classification for the campaign. */
@@ -38,6 +60,46 @@ export interface UpsertTollFreeCampaignParams {
 }
 
 export namespace UpsertTollFreeCampaignParams {
+    /**
+     * Keyword response configuration.
+     */
+    export interface Keywords {
+        /** Help keyword settings. */
+        HELP?: Keywords.Help;
+        /** Opt-in keyword settings. */
+        OPT_IN?: Keywords.OptIn;
+    }
+
+    export namespace Keywords {
+        /**
+         * Help keyword settings.
+         */
+        export interface Help {
+            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). */
+            message?: string;
+        }
+
+        /**
+         * Opt-in keyword settings.
+         */
+        export interface OptIn {
+            /** Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). */
+            message?: string;
+            /** Keywords that trigger opt-in response. */
+            keywords?: string[];
+        }
+    }
+
+    /**
+     * Legal documentation links.
+     */
+    export interface Links {
+        /** Privacy policy URL. */
+        privacyPolicy?: string;
+        /** Terms of service URL. */
+        termsOfService?: string;
+    }
+
     /**
      * Opt-in keyword settings.
      */
@@ -47,6 +109,14 @@ export namespace UpsertTollFreeCampaignParams {
         url?: string;
         /** Explain how users find the opt-in. */
         workflowDescription?: string;
+    }
+
+    /**
+     * Campaign configuration options.
+     */
+    export interface Options {
+        /** Whether the campaign is age-gated. */
+        ageGated?: boolean;
     }
 
     /**

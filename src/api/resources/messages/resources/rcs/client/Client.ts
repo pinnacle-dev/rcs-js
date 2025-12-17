@@ -50,14 +50,14 @@ export class Rcs {
     public send(
         request: Pinnacle.RichMessage,
         requestOptions?: Rcs.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.messages.SendRcsResponse> {
+    ): core.HttpResponsePromise<Pinnacle.messages.SendRichMessageResponse> {
         return core.HttpResponsePromise.fromPromise(this.__send(request, requestOptions));
     }
 
     private async __send(
         request: Pinnacle.RichMessage,
         requestOptions?: Rcs.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.messages.SendRcsResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.messages.SendRichMessageResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -83,7 +83,10 @@ export class Rcs {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.messages.SendRcsResponse, rawResponse: _response.rawResponse };
+            return {
+                data: _response.body as Pinnacle.messages.SendRichMessageResponse,
+                rawResponse: _response.rawResponse,
+            };
         }
 
         if (_response.error.reason === "status-code") {

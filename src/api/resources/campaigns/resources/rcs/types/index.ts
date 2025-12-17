@@ -1,1 +1,1 @@
-export * from "./AutofillRcsResponse.js";
+export * from "./RcsAutofillResponse.js";

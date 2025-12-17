@@ -14,18 +14,17 @@ describe("Rcs", () => {
         };
         const rawResponseBody = {
             agent: {
-                name: "Pinnacle Software Development",
+                name: "Pinnacle - RCS Demo",
                 description:
-                    "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
+                    "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
                 color: "#000000",
                 emails: [{ email: "founders@trypinnacle.app", label: "Email Us" }],
                 phones: [{ phone: "+14154467821", label: "Contact us directly" }],
                 websites: [{ url: "https://www.trypinnacle.app/", label: "Get started with Pinnacle" }],
-                heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-                iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
+                heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+                iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
             },
             campaignId: "rcs_1234567890",
-            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -33,12 +32,41 @@ describe("Rcs", () => {
                 "Your appointment has been scheduled.",
             ],
             links: {
-                privacyPolicy: "https://www.trypinnacle.app/privacy",
-                termsOfService: "https://www.trypinnacle.app/terms",
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
             },
-            optIn: { termsAndConditions: "Would you like to subscribe to Pinnacle?", method: "WEBSITE" },
-            optOut: { description: "Reply STOP to opt-out anytime.", keywords: ["STOP", "UNSUBSCRIBE", "END"] },
-            useCase: { behavior: "Acts as a customer service representative.", value: "OTHER" },
+            useCase: {
+                behavior:
+                    "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an “onboarding guide” for new customers and a “best-practices coach” for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\n\nThe agent delivers a mix of operational updates and educational content (2–6 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
+                value: "OTHER",
+            },
+            optInTermsAndConditions:
+                "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\n\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+            messagingType: "MULTI_USE",
+            carrierDescription:
+                "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+            keywords: {
+                HELP: { message: "Email founders@trypinnacle.app for support.", keywords: ["HELP", "SUPPORT"] },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+                OPT_OUT: {
+                    message:
+                        "You've been unsubscribed from Pinnacle - RCS Demo and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+                    keywords: ["STOP", "UNSUBSCRIBE", "END"],
+                },
+            },
+            traffic: { monthlyWebsite: 10000, monthlyRcsEstimate: 10000 },
+            agentTriggers:
+                "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+            interactionDescription:
+                "The agent's primary interaction will be customer service — helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+            isConversational: true,
+            ctaLanguage:
+                "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+            demoTrigger: 'Text "START" to trigger the flow.',
             brand: "b_1234567890",
         };
         server
@@ -56,9 +84,9 @@ describe("Rcs", () => {
         });
         expect(response).toEqual({
             agent: {
-                name: "Pinnacle Software Development",
+                name: "Pinnacle - RCS Demo",
                 description:
-                    "Engaging campaigns with RBM \u2013 next-gen SMS marketing with rich content and better analytics.",
+                    "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
                 color: "#000000",
                 emails: [
                     {
@@ -78,11 +106,10 @@ describe("Rcs", () => {
                         label: "Get started with Pinnacle",
                     },
                 ],
-                heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-                iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
+                heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+                iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
             },
             campaignId: "rcs_1234567890",
-            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
                 "I can assist you with booking an appointment, or you may choose to book manually.",
@@ -90,21 +117,47 @@ describe("Rcs", () => {
                 "Your appointment has been scheduled.",
             ],
             links: {
-                privacyPolicy: "https://www.trypinnacle.app/privacy",
-                termsOfService: "https://www.trypinnacle.app/terms",
-            },
-            optIn: {
-                termsAndConditions: "Would you like to subscribe to Pinnacle?",
-                method: "WEBSITE",
-            },
-            optOut: {
-                description: "Reply STOP to opt-out anytime.",
-                keywords: ["STOP", "UNSUBSCRIBE", "END"],
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
             },
             useCase: {
-                behavior: "Acts as a customer service representative.",
+                behavior:
+                    "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an \u201Conboarding guide\u201D for new customers and a \u201Cbest-practices coach\u201D for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\n\nThe agent delivers a mix of operational updates and educational content (2\u20136 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
                 value: "OTHER",
             },
+            optInTermsAndConditions:
+                "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\n\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+            messagingType: "MULTI_USE",
+            carrierDescription:
+                "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+            keywords: {
+                HELP: {
+                    message: "Email founders@trypinnacle.app for support.",
+                    keywords: ["HELP", "SUPPORT"],
+                },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+                OPT_OUT: {
+                    message:
+                        "You've been unsubscribed from Pinnacle - RCS Demo and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+                    keywords: ["STOP", "UNSUBSCRIBE", "END"],
+                },
+            },
+            traffic: {
+                monthlyWebsite: 10000,
+                monthlyRcsEstimate: 10000,
+            },
+            agentTriggers:
+                "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+            interactionDescription:
+                "The agent's primary interaction will be customer service \u2014 helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+            isConversational: true,
+            ctaLanguage:
+                "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+            demoTrigger: 'Text "START" to trigger the flow.',
             brand: "b_1234567890",
         });
     });
@@ -174,11 +227,11 @@ describe("Rcs", () => {
             agent: {
                 color: "#000000",
                 description:
-                    "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
+                    "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
                 emails: [{ email: "founders@trypinnacle.app", label: "Email Us" }],
-                heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-                iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
-                name: "Pinnacle Software Development",
+                heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+                iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
+                name: "Pinnacle - RCS Demo",
                 phones: [{ label: "Contact us directly", phone: "+14154467821" }],
                 websites: [{ label: "Get started with Pinnacle", url: "https://www.trypinnacle.app/" }],
             },
@@ -198,6 +251,7 @@ describe("Rcs", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -205,8 +259,6 @@ describe("Rcs", () => {
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
-            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
-            brandAttestation: true,
             campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
@@ -215,13 +267,42 @@ describe("Rcs", () => {
                 "Your appointment has been scheduled.",
             ],
             links: {
-                privacyPolicy: "https://www.trypinnacle.app/privacy",
-                termsOfService: "https://www.trypinnacle.app/terms",
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
             },
             status: "VERIFIED",
-            optIn: { method: "WEBSITE", termsAndConditions: "Would you like to subscribe to Pinnacle?" },
-            optOut: { description: "Reply STOP to opt-out anytime.", keywords: ["STOP", "UNSUBSCRIBE", "END"] },
-            useCase: { behavior: "Acts as a customer service representative.", value: "OTHER" },
+            useCase: {
+                behavior:
+                    "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an “onboarding guide” for new customers and a “best-practices coach” for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\n\nThe agent delivers a mix of operational updates and educational content (2–6 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
+                value: "OTHER",
+            },
+            optInTermsAndConditions:
+                "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\n\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+            messagingType: "MULTI_USE",
+            carrierDescription:
+                "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+            keywords: {
+                HELP: { message: "Email founders@trypinnacle.app for support.", keywords: ["HELP", "SUPPORT"] },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle - RCS Demo and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+                OPT_OUT: {
+                    message:
+                        "You’ve been unsubscribed from Pinnacle and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+                    keywords: ["STOP", "UNSUBSCRIBE", "END"],
+                },
+            },
+            traffic: { monthlyWebsite: 10000, monthlyRcsEstimate: 10000 },
+            agentTriggers:
+                "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+            interactionDescription:
+                "The agent’s primary interaction will be customer service — helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+            isConversational: true,
+            ctaLanguage:
+                "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+            demoTrigger: 'Text "START" to trigger the flow.',
         };
         server
             .mockEndpoint()
@@ -231,23 +312,21 @@ describe("Rcs", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.campaigns.rcs.get({
-            campaignId: "rcs_1234567890",
-        });
+        const response = await client.campaigns.rcs.get("rcs_1234567890");
         expect(response).toEqual({
             agent: {
                 color: "#000000",
                 description:
-                    "Engaging campaigns with RBM \u2013 next-gen SMS marketing with rich content and better analytics.",
+                    "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
                 emails: [
                     {
                         email: "founders@trypinnacle.app",
                         label: "Email Us",
                     },
                 ],
-                heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-                iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
-                name: "Pinnacle Software Development",
+                heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+                iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
+                name: "Pinnacle - RCS Demo",
                 phones: [
                     {
                         label: "Contact us directly",
@@ -277,6 +356,7 @@ describe("Rcs", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -284,8 +364,6 @@ describe("Rcs", () => {
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
-            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
-            brandAttestation: true,
             campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
@@ -294,22 +372,48 @@ describe("Rcs", () => {
                 "Your appointment has been scheduled.",
             ],
             links: {
-                privacyPolicy: "https://www.trypinnacle.app/privacy",
-                termsOfService: "https://www.trypinnacle.app/terms",
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
             },
             status: "VERIFIED",
-            optIn: {
-                method: "WEBSITE",
-                termsAndConditions: "Would you like to subscribe to Pinnacle?",
-            },
-            optOut: {
-                description: "Reply STOP to opt-out anytime.",
-                keywords: ["STOP", "UNSUBSCRIBE", "END"],
-            },
             useCase: {
-                behavior: "Acts as a customer service representative.",
+                behavior:
+                    "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an \u201Conboarding guide\u201D for new customers and a \u201Cbest-practices coach\u201D for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\n\nThe agent delivers a mix of operational updates and educational content (2\u20136 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
                 value: "OTHER",
             },
+            optInTermsAndConditions:
+                "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\n\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+            messagingType: "MULTI_USE",
+            carrierDescription:
+                "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+            keywords: {
+                HELP: {
+                    message: "Email founders@trypinnacle.app for support.",
+                    keywords: ["HELP", "SUPPORT"],
+                },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle - RCS Demo and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+                OPT_OUT: {
+                    message:
+                        "You\u2019ve been unsubscribed from Pinnacle and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+                    keywords: ["STOP", "UNSUBSCRIBE", "END"],
+                },
+            },
+            traffic: {
+                monthlyWebsite: 10000,
+                monthlyRcsEstimate: 10000,
+            },
+            agentTriggers:
+                "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+            interactionDescription:
+                "The agent\u2019s primary interaction will be customer service \u2014 helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+            isConversational: true,
+            ctaLanguage:
+                "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+            demoTrigger: 'Text "START" to trigger the flow.',
         });
     });
 
@@ -327,9 +431,7 @@ describe("Rcs", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.rcs.get("campaignId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -347,9 +449,7 @@ describe("Rcs", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.rcs.get("campaignId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -367,9 +467,7 @@ describe("Rcs", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.rcs.get("campaignId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -387,9 +485,7 @@ describe("Rcs", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.rcs.get("campaignId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -406,9 +502,7 @@ describe("Rcs", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.campaigns.rcs.submit({
-            campaignId: "rcs_1234567890",
-        });
+        const response = await client.campaigns.rcs.submit("rcs_1234567890");
         expect(response).toEqual({
             success: true,
         });
@@ -428,9 +522,7 @@ describe("Rcs", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -448,9 +540,7 @@ describe("Rcs", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -468,9 +558,7 @@ describe("Rcs", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(Pinnacle.PaymentRequiredError);
     });
 
@@ -488,9 +576,7 @@ describe("Rcs", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -508,9 +594,7 @@ describe("Rcs", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.rcs.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.rcs.submit("campaignId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -521,15 +605,14 @@ describe("Rcs", () => {
             agent: {
                 color: "#000000",
                 description:
-                    "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
+                    "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
                 emails: [{ email: "founders@trypinnacle.app", label: "Email Us" }],
-                heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-                iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
-                name: "Pinnacle Software Development",
+                heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+                iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
+                name: "Pinnacle - RCS Demo",
                 phones: [{ label: "Contact us directly", phone: "+14154467821" }],
                 websites: [{ label: "Get started with Pinnacle", url: "https://www.trypinnacle.app/" }],
             },
-            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brand: "b_1234567890",
             campaignId: "rcs_1234567890",
             expectedAgentResponses: [
@@ -542,19 +625,48 @@ describe("Rcs", () => {
                 privacyPolicy: "https://www.trypinnacle.app/privacy",
                 termsOfService: "https://www.trypinnacle.app/terms",
             },
-            optIn: { method: "WEBSITE", termsAndConditions: "Would you like to subscribe to Pinnacle?" },
-            optOut: { description: "Reply STOP to opt-out anytime.", keywords: ["STOP", "UNSUBSCRIBE", "END"] },
-            useCase: { behavior: "Acts as a customer service representative.", value: "OTHER" },
+            useCase: {
+                behavior:
+                    "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an “onboarding guide” for new customers and a “best-practices coach” for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2–6 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
+                value: "OTHER",
+            },
+            optInTermsAndConditions:
+                "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+            messagingType: "MULTI_USE",
+            carrierDescription:
+                "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+            keywords: {
+                HELP: { message: "Email founders@trypinnacle.app for support.", keywords: ["HELP", "SUPPORT"] },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle - RCS Demo and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+                OPT_OUT: {
+                    message:
+                        "You've been unsubscribed from Pinnacle - RCS Demo and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+                    keywords: ["STOP", "UNSUBSCRIBE", "END"],
+                },
+            },
+            traffic: { monthlyWebsite: 10000, monthlyRcsEstimate: 10000 },
+            agentTriggers:
+                "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+            interactionDescription:
+                "The agent's primary interaction will be customer service — helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+            isConversational: true,
+            ctaLanguage:
+                "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+            demoTrigger: 'Text "START" to trigger the flow.',
         };
         const rawResponseBody = {
             agent: {
                 color: "#000000",
                 description:
-                    "Engaging campaigns with RBM – next-gen SMS marketing with rich content and better analytics.",
+                    "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
                 emails: [{ email: "founders@trypinnacle.app", label: "Email Us" }],
-                heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-                iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
-                name: "Pinnacle Software Development",
+                heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+                iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
+                name: "Pinnacle - RCS Demo",
                 phones: [{ label: "Contact us directly", phone: "+14154467821" }],
                 websites: [{ label: "Get started with Pinnacle", url: "https://www.trypinnacle.app/" }],
             },
@@ -574,6 +686,7 @@ describe("Rcs", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -581,8 +694,6 @@ describe("Rcs", () => {
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
-            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
-            brandAttestation: true,
             campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
@@ -591,13 +702,42 @@ describe("Rcs", () => {
                 "Your appointment has been scheduled.",
             ],
             links: {
-                privacyPolicy: "https://www.trypinnacle.app/privacy",
-                termsOfService: "https://www.trypinnacle.app/terms",
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
             },
             status: "VERIFIED",
-            optIn: { method: "WEBSITE", termsAndConditions: "Would you like to subscribe to Pinnacle?" },
-            optOut: { description: "Reply STOP to opt-out anytime.", keywords: ["STOP", "UNSUBSCRIBE", "END"] },
-            useCase: { behavior: "Acts as a customer service representative.", value: "OTHER" },
+            useCase: {
+                behavior:
+                    "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an “onboarding guide” for new customers and a “best-practices coach” for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\n\nThe agent delivers a mix of operational updates and educational content (2–6 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
+                value: "OTHER",
+            },
+            optInTermsAndConditions:
+                "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\n\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+            messagingType: "MULTI_USE",
+            carrierDescription:
+                "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+            keywords: {
+                HELP: { message: "Email founders@trypinnacle.app for support.", keywords: ["HELP", "SUPPORT"] },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+                OPT_OUT: {
+                    message:
+                        "You've been unsubscribed from Pinnacle - RCS Demo and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+                    keywords: ["STOP", "UNSUBSCRIBE", "END"],
+                },
+            },
+            traffic: { monthlyWebsite: 10000, monthlyRcsEstimate: 10000 },
+            agentTriggers:
+                "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+            interactionDescription:
+                "The agent's primary interaction will be customer service — helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+            isConversational: true,
+            ctaLanguage:
+                "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+            demoTrigger: 'Text "START" to trigger the flow.',
         };
         server
             .mockEndpoint()
@@ -612,16 +752,16 @@ describe("Rcs", () => {
             agent: {
                 color: "#000000",
                 description:
-                    "Engaging campaigns with RBM \u2013 next-gen SMS marketing with rich content and better analytics.",
+                    "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
                 emails: [
                     {
                         email: "founders@trypinnacle.app",
                         label: "Email Us",
                     },
                 ],
-                heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-                iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
-                name: "Pinnacle Software Development",
+                heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+                iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
+                name: "Pinnacle - RCS Demo",
                 phones: [
                     {
                         label: "Contact us directly",
@@ -635,7 +775,6 @@ describe("Rcs", () => {
                     },
                 ],
             },
-            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
             brand: "b_1234567890",
             campaignId: "rcs_1234567890",
             expectedAgentResponses: [
@@ -648,33 +787,59 @@ describe("Rcs", () => {
                 privacyPolicy: "https://www.trypinnacle.app/privacy",
                 termsOfService: "https://www.trypinnacle.app/terms",
             },
-            optIn: {
-                method: "WEBSITE",
-                termsAndConditions: "Would you like to subscribe to Pinnacle?",
-            },
-            optOut: {
-                description: "Reply STOP to opt-out anytime.",
-                keywords: ["STOP", "UNSUBSCRIBE", "END"],
-            },
             useCase: {
-                behavior: "Acts as a customer service representative.",
+                behavior:
+                    "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an \u201Conboarding guide\u201D for new customers and a \u201Cbest-practices coach\u201D for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2\u20136 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
                 value: "OTHER",
             },
+            optInTermsAndConditions:
+                "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+            messagingType: "MULTI_USE",
+            carrierDescription:
+                "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+            keywords: {
+                HELP: {
+                    message: "Email founders@trypinnacle.app for support.",
+                    keywords: ["HELP", "SUPPORT"],
+                },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle - RCS Demo and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+                OPT_OUT: {
+                    message:
+                        "You've been unsubscribed from Pinnacle - RCS Demo and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+                    keywords: ["STOP", "UNSUBSCRIBE", "END"],
+                },
+            },
+            traffic: {
+                monthlyWebsite: 10000,
+                monthlyRcsEstimate: 10000,
+            },
+            agentTriggers:
+                "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+            interactionDescription:
+                "The agent's primary interaction will be customer service \u2014 helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+            isConversational: true,
+            ctaLanguage:
+                "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+            demoTrigger: 'Text "START" to trigger the flow.',
         });
         expect(response).toEqual({
             agent: {
                 color: "#000000",
                 description:
-                    "Engaging campaigns with RBM \u2013 next-gen SMS marketing with rich content and better analytics.",
+                    "Experience the power of RCS messaging with interactive demos. Test rich features like carousels, suggested replies, and media sharing. Get started with our developer-friendly APIs.",
                 emails: [
                     {
                         email: "founders@trypinnacle.app",
                         label: "Email Us",
                     },
                 ],
-                heroUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9mmw7kfynqiKSPfsaoc6",
-                iconUrl: "https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3",
-                name: "Pinnacle Software Development",
+                heroUrl: "https://pncl.to/D6pDSqGxqgfbCfQmw4gXdnlHu4uSB4",
+                iconUrl: "https://pncl.to/mq_tdIDenRb5eYpJiM8-3THCaUBrZP",
+                name: "Pinnacle - RCS Demo",
                 phones: [
                     {
                         label: "Contact us directly",
@@ -704,6 +869,7 @@ describe("Rcs", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -711,8 +877,6 @@ describe("Rcs", () => {
                 status: "VERIFIED",
                 updatedAt: "2024-12-09T10:03:54.934",
             },
-            brandVerificationUrl: "https://www.pinnacle.sh/articles-of-incorporation.pdf",
-            brandAttestation: true,
             campaignId: "rcs_1234567890",
             expectedAgentResponses: [
                 "Here are the things I can help you with.",
@@ -721,22 +885,48 @@ describe("Rcs", () => {
                 "Your appointment has been scheduled.",
             ],
             links: {
-                privacyPolicy: "https://www.trypinnacle.app/privacy",
-                termsOfService: "https://www.trypinnacle.app/terms",
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
             },
             status: "VERIFIED",
-            optIn: {
-                method: "WEBSITE",
-                termsAndConditions: "Would you like to subscribe to Pinnacle?",
-            },
-            optOut: {
-                description: "Reply STOP to opt-out anytime.",
-                keywords: ["STOP", "UNSUBSCRIBE", "END"],
-            },
             useCase: {
-                behavior: "Acts as a customer service representative.",
+                behavior:
+                    "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an \u201Conboarding guide\u201D for new customers and a \u201Cbest-practices coach\u201D for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\n\nThe agent delivers a mix of operational updates and educational content (2\u20136 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
                 value: "OTHER",
             },
+            optInTermsAndConditions:
+                "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\n\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
+            messagingType: "MULTI_USE",
+            carrierDescription:
+                "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+            keywords: {
+                HELP: {
+                    message: "Email founders@trypinnacle.app for support.",
+                    keywords: ["HELP", "SUPPORT"],
+                },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+                OPT_OUT: {
+                    message:
+                        "You've been unsubscribed from Pinnacle - RCS Demo and will no longer receive notifications. If you ever change your mind, reply START or SUBSCRIBE to rejoin anytime.",
+                    keywords: ["STOP", "UNSUBSCRIBE", "END"],
+                },
+            },
+            traffic: {
+                monthlyWebsite: 10000,
+                monthlyRcsEstimate: 10000,
+            },
+            agentTriggers:
+                "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
+            interactionDescription:
+                "The agent's primary interaction will be customer service \u2014 helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
+            isConversational: true,
+            ctaLanguage:
+                "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
+            demoTrigger: 'Text "START" to trigger the flow.',
         });
     });
 

@@ -18,9 +18,7 @@ describe("Get", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.status.get.brand({
-            brandId: "b_1234567890",
-        });
+        const response = await client.status.get.brand("b_1234567890");
         expect(response).toEqual({
             errors: ["errors"],
             id: "b_1234567890",
@@ -42,9 +40,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.brand({
-                brandId: "brandId",
-            });
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -62,9 +58,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.brand({
-                brandId: "brandId",
-            });
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -82,9 +76,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.brand({
-                brandId: "brandId",
-            });
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -102,9 +94,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.brand({
-                brandId: "brandId",
-            });
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -122,9 +112,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.brand({
-                brandId: "brandId",
-            });
+            return await client.status.get.brand("brandId");
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
 
@@ -145,9 +133,7 @@ describe("Get", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.status.get.tollFree({
-            campaignId: "tf_1234567890",
-        });
+        const response = await client.status.get.tollFree("tf_1234567890");
         expect(response).toEqual({
             error: "",
             id: "tf_1234567890",
@@ -173,9 +159,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -193,9 +177,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -213,9 +195,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -233,9 +213,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -253,9 +231,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.tollFree({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.tollFree("campaignId");
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
 
@@ -277,9 +253,7 @@ describe("Get", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.status.get.dlc({
-            campaignId: "dlc_1234567890",
-        });
+        const response = await client.status.get.dlc("dlc_1234567890");
         expect(response).toEqual({
             error: "",
             id: "dlc_1234567890",
@@ -306,9 +280,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -326,9 +298,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -346,9 +316,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -366,9 +334,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -386,9 +352,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.dlc({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.dlc("campaignId");
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
 
@@ -405,9 +369,7 @@ describe("Get", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.status.get.rcs({
-            campaignId: "rcs_1234567890",
-        });
+        const response = await client.status.get.rcs("rcs_1234567890");
         expect(response).toEqual({
             errors: ["errors"],
             id: "rcs_1234567890",
@@ -429,9 +391,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -449,9 +409,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -469,9 +427,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -489,9 +445,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -509,9 +463,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.rcs({
-                campaignId: "campaignId",
-            });
+            return await client.status.get.rcs("campaignId");
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
 
@@ -528,9 +480,7 @@ describe("Get", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.status.get.phoneNumber({
-            phoneNumber: "+14151234567",
-        });
+        const response = await client.status.get.phoneNumber("+14151234567");
         expect(response).toEqual({
             errors: ["errors"],
             phoneNumber: "+14151234567",
@@ -552,9 +502,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.phoneNumber({
-                phoneNumber: "phoneNumber",
-            });
+            return await client.status.get.phoneNumber("phoneNumber");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -572,9 +520,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.phoneNumber({
-                phoneNumber: "phoneNumber",
-            });
+            return await client.status.get.phoneNumber("phoneNumber");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -592,9 +538,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.phoneNumber({
-                phoneNumber: "phoneNumber",
-            });
+            return await client.status.get.phoneNumber("phoneNumber");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -612,9 +556,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.phoneNumber({
-                phoneNumber: "phoneNumber",
-            });
+            return await client.status.get.phoneNumber("phoneNumber");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -632,9 +574,7 @@ describe("Get", () => {
             .build();
 
         await expect(async () => {
-            return await client.status.get.phoneNumber({
-                phoneNumber: "phoneNumber",
-            });
+            return await client.status.get.phoneNumber("phoneNumber");
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
 });

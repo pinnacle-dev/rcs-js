@@ -5,11 +5,17 @@ import type * as Pinnacle from "../index.js";
 export interface TollFreeCampaign {
     /** Unique identifier for the campaign. Must begin with the prefix `tf_`. */
     campaignId?: string;
+    /** Keyword response configuration. */
+    keywords?: TollFreeCampaign.Keywords;
+    /** Legal documentation links. */
+    links?: TollFreeCampaign.Links;
     monthlyVolume?: Pinnacle.MessageVolumeEnum;
     /** Display name of the campaign. */
     name?: string;
     /** Opt-in keyword settings. */
     optIn?: TollFreeCampaign.OptIn;
+    /** Campaign configuration options. */
+    options?: TollFreeCampaign.Options;
     /** Explain message that would be sent. */
     productionMessageContent?: string;
     /** Use case classification for the campaign. */
@@ -17,6 +23,46 @@ export interface TollFreeCampaign {
 }
 
 export namespace TollFreeCampaign {
+    /**
+     * Keyword response configuration.
+     */
+    export interface Keywords {
+        /** Help keyword settings. */
+        HELP?: Keywords.Help;
+        /** Opt-in keyword settings. */
+        OPT_IN?: Keywords.OptIn;
+    }
+
+    export namespace Keywords {
+        /**
+         * Help keyword settings.
+         */
+        export interface Help {
+            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). */
+            message?: string;
+        }
+
+        /**
+         * Opt-in keyword settings.
+         */
+        export interface OptIn {
+            /** Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). */
+            message?: string;
+            /** Keywords that trigger opt-in response. */
+            keywords?: string[];
+        }
+    }
+
+    /**
+     * Legal documentation links.
+     */
+    export interface Links {
+        /** Privacy policy URL. */
+        privacyPolicy?: string;
+        /** Terms of service URL. */
+        termsOfService?: string;
+    }
+
     /**
      * Opt-in keyword settings.
      */
@@ -26,6 +72,14 @@ export namespace TollFreeCampaign {
         url?: string;
         /** Explain how users find the opt-in. */
         workflowDescription?: string;
+    }
+
+    /**
+     * Campaign configuration options.
+     */
+    export interface Options {
+        /** Whether the campaign is age-gated. */
+        ageGated?: boolean;
     }
 
     /**

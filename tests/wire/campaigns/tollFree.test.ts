@@ -14,6 +14,18 @@ describe("TollFree", () => {
         };
         const rawResponseBody = {
             campaignId: "tf_1234567890",
+            keywords: {
+                HELP: { message: "Email founders@trypinnacle.app for support." },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -21,6 +33,7 @@ describe("TollFree", () => {
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
             },
+            options: { ageGated: false },
             productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
             useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
             brand: "b_1234567890",
@@ -40,12 +53,29 @@ describe("TollFree", () => {
         });
         expect(response).toEqual({
             campaignId: "tf_1234567890",
+            keywords: {
+                HELP: {
+                    message: "Email founders@trypinnacle.app for support.",
+                },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
                 method: "DIGITAL",
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
+            },
+            options: {
+                ageGated: false,
             },
             productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
             useCase: {
@@ -119,6 +149,18 @@ describe("TollFree", () => {
 
         const rawResponseBody = {
             campaignId: "tf_1234567890",
+            keywords: {
+                HELP: { message: "Email founders@trypinnacle.app for support." },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -126,6 +168,7 @@ describe("TollFree", () => {
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
             },
+            options: { ageGated: false },
             productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
             useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
             brand: {
@@ -143,6 +186,7 @@ describe("TollFree", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -160,17 +204,32 @@ describe("TollFree", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.campaigns.tollFree.get({
-            campaignId: "tf_1234567890",
-        });
+        const response = await client.campaigns.tollFree.get("tf_1234567890");
         expect(response).toEqual({
             campaignId: "tf_1234567890",
+            keywords: {
+                HELP: {
+                    message: "Email founders@trypinnacle.app for support.",
+                },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
                 method: "DIGITAL",
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
+            },
+            options: {
+                ageGated: false,
             },
             productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
             useCase: {
@@ -192,6 +251,7 @@ describe("TollFree", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -217,9 +277,7 @@ describe("TollFree", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -237,9 +295,7 @@ describe("TollFree", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -257,9 +313,7 @@ describe("TollFree", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -277,9 +331,7 @@ describe("TollFree", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.tollFree.get("campaignId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -296,9 +348,7 @@ describe("TollFree", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.campaigns.tollFree.submit({
-            campaignId: "tf_1234567890",
-        });
+        const response = await client.campaigns.tollFree.submit("tf_1234567890");
         expect(response).toEqual({
             success: true,
         });
@@ -318,9 +368,7 @@ describe("TollFree", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -338,9 +386,7 @@ describe("TollFree", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -358,9 +404,7 @@ describe("TollFree", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -378,9 +422,7 @@ describe("TollFree", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.tollFree.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.tollFree.submit("campaignId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -390,6 +432,18 @@ describe("TollFree", () => {
         const rawRequestBody = {
             brand: "b_1234567890",
             campaignId: "tf_1234567890",
+            keywords: {
+                HELP: { message: "Email founders@trypinnacle.app for support." },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -397,11 +451,24 @@ describe("TollFree", () => {
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
             },
+            options: { ageGated: false },
             productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
             useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
         };
         const rawResponseBody = {
             campaignId: "tf_1234567890",
+            keywords: {
+                HELP: { message: "Email founders@trypinnacle.app for support." },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
@@ -409,6 +476,7 @@ describe("TollFree", () => {
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
             },
+            options: { ageGated: false },
             productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
             useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
             brand: {
@@ -426,6 +494,7 @@ describe("TollFree", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -447,12 +516,29 @@ describe("TollFree", () => {
         const response = await client.campaigns.tollFree.upsert({
             brand: "b_1234567890",
             campaignId: "tf_1234567890",
+            keywords: {
+                HELP: {
+                    message: "Email founders@trypinnacle.app for support.",
+                },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
                 method: "DIGITAL",
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
+            },
+            options: {
+                ageGated: false,
             },
             productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
             useCase: {
@@ -462,12 +548,29 @@ describe("TollFree", () => {
         });
         expect(response).toEqual({
             campaignId: "tf_1234567890",
+            keywords: {
+                HELP: {
+                    message: "Email founders@trypinnacle.app for support.",
+                },
+                OPT_IN: {
+                    message:
+                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
             monthlyVolume: "1,000",
             name: "Pinnacle",
             optIn: {
                 method: "DIGITAL",
                 url: "https://www.pinnacle.sh/",
                 workflowDescription: "Visit https://www.pinnacle.sh/",
+            },
+            options: {
+                ageGated: false,
             },
             productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
             useCase: {
@@ -489,6 +592,7 @@ describe("TollFree", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",

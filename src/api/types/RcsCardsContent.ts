@@ -22,7 +22,7 @@ export namespace RcsCardsContent {
          * Individual card containing title, optional media, and action buttons.
          */
         export interface Item {
-            /** Action buttons attached to the card. */
+            /** While buttons resemble quick replies, they remain on screen after being clicked and are card-specific. */
             buttons: Pinnacle.RichButton[];
             media?: Pinnacle.RcsMediaDetailsContent;
             /** Secondary text displayed below the title for additional context. */

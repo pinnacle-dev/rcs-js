@@ -23,7 +23,7 @@ export class Get {
     /**
      * Retrieve a brand's status.
      *
-     * @param {Pinnacle.status.BrandGetRequest} request
+     * @param {string} brandId - The unique identifier of the brand you want to retrieve the status for. This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -33,22 +33,16 @@ export class Get {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.status.get.brand({
-     *         brandId: "b_1234567890"
-     *     })
+     *     await client.status.get.brand("b_1234567890")
      */
-    public brand(
-        request: Pinnacle.status.BrandGetRequest,
-        requestOptions?: Get.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.BrandStatus> {
-        return core.HttpResponsePromise.fromPromise(this.__brand(request, requestOptions));
+    public brand(brandId: string, requestOptions?: Get.RequestOptions): core.HttpResponsePromise<Pinnacle.BrandStatus> {
+        return core.HttpResponsePromise.fromPromise(this.__brand(brandId, requestOptions));
     }
 
     private async __brand(
-        request: Pinnacle.status.BrandGetRequest,
+        brandId: string,
         requestOptions?: Get.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.BrandStatus>> {
-        const { brandId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -124,7 +118,7 @@ export class Get {
     /**
      * Retrieve a toll-free campaign's status.
      *
-     * @param {Pinnacle.status.TollFreeGetRequest} request
+     * @param {string} campaignId - The unique identifier of the toll-free campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `tf_`, for example: `tf_1234567890`.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -134,22 +128,19 @@ export class Get {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.status.get.tollFree({
-     *         campaignId: "tf_1234567890"
-     *     })
+     *     await client.status.get.tollFree("tf_1234567890")
      */
     public tollFree(
-        request: Pinnacle.status.TollFreeGetRequest,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.TollFreeCampaignStatus> {
-        return core.HttpResponsePromise.fromPromise(this.__tollFree(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__tollFree(campaignId, requestOptions));
     }
 
     private async __tollFree(
-        request: Pinnacle.status.TollFreeGetRequest,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.TollFreeCampaignStatus>> {
-        const { campaignId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -227,7 +218,7 @@ export class Get {
     /**
      * Retrieve a 10DLC campaign's status.
      *
-     * @param {Pinnacle.status.DlcGetRequest} request
+     * @param {string} campaignId - The unique identifier of the 10DLC campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -237,22 +228,19 @@ export class Get {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.status.get.dlc({
-     *         campaignId: "dlc_1234567890"
-     *     })
+     *     await client.status.get.dlc("dlc_1234567890")
      */
     public dlc(
-        request: Pinnacle.status.DlcGetRequest,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.DlcCampaignStatus> {
-        return core.HttpResponsePromise.fromPromise(this.__dlc(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__dlc(campaignId, requestOptions));
     }
 
     private async __dlc(
-        request: Pinnacle.status.DlcGetRequest,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.DlcCampaignStatus>> {
-        const { campaignId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -330,7 +318,7 @@ export class Get {
     /**
      * Retrieve a RCS campaign's status.
      *
-     * @param {Pinnacle.status.RcsGetRequest} request
+     * @param {string} campaignId - The unique identifier of the RCS campaign you want to retrieve the status for. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -340,22 +328,19 @@ export class Get {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.status.get.rcs({
-     *         campaignId: "rcs_1234567890"
-     *     })
+     *     await client.status.get.rcs("rcs_1234567890")
      */
     public rcs(
-        request: Pinnacle.status.RcsGetRequest,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.RcsCampaignStatus> {
-        return core.HttpResponsePromise.fromPromise(this.__rcs(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__rcs(campaignId, requestOptions));
     }
 
     private async __rcs(
-        request: Pinnacle.status.RcsGetRequest,
+        campaignId: string,
         requestOptions?: Get.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.RcsCampaignStatus>> {
-        const { campaignId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -435,7 +420,7 @@ export class Get {
      *
      * Check if a number is active and ready to send messages.
      *
-     * @param {Pinnacle.status.PhoneNumberGetRequest} request
+     * @param {string} phoneNumber - Phone number in E164 format that is in review.
      * @param {Get.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -445,22 +430,19 @@ export class Get {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.status.get.phoneNumber({
-     *         phoneNumber: "+14151234567"
-     *     })
+     *     await client.status.get.phoneNumber("+14151234567")
      */
     public phoneNumber(
-        request: Pinnacle.status.PhoneNumberGetRequest,
+        phoneNumber: string,
         requestOptions?: Get.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.PhoneNumberStatus> {
-        return core.HttpResponsePromise.fromPromise(this.__phoneNumber(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__phoneNumber(phoneNumber, requestOptions));
     }
 
     private async __phoneNumber(
-        request: Pinnacle.status.PhoneNumberGetRequest,
+        phoneNumber: string,
         requestOptions?: Get.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.PhoneNumberStatus>> {
-        const { phoneNumber } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),

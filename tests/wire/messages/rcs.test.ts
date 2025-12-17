@@ -514,7 +514,7 @@ describe("Rcs", () => {
             quickReplies: [{ type: "openUrl", payload: "payload", title: "title" }],
             text: "text",
         };
-        const rawResponseBody = { total: 0.03, unit: 0.03, unsupportedFiles: ["unsupportedFiles"] };
+        const rawResponseBody = { total: 0.035, unit: 0.035, segments: 1, unsupportedFiles: ["unsupportedFiles"] };
         server
             .mockEndpoint()
             .post("/messages/validate/rcs")
@@ -535,8 +535,9 @@ describe("Rcs", () => {
             text: "text",
         });
         expect(response).toEqual({
-            total: 0.03,
-            unit: 0.03,
+            total: 0.035,
+            unit: 0.035,
+            segments: 1,
             unsupportedFiles: ["unsupportedFiles"],
         });
     });

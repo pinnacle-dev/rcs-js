@@ -169,9 +169,7 @@ describe("Url", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.url.get({
-            linkId: "ePzVxILF",
-        });
+        const response = await client.tools.url.get("ePzVxILF");
         expect(response).toEqual({
             url: "https://pncl.to/ePzVxILF",
             config: {
@@ -246,9 +244,7 @@ describe("Url", () => {
         server.mockEndpoint().get("/tools/url/linkId").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.tools.url.get({
-                linkId: "linkId",
-            });
+            return await client.tools.url.get("linkId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -260,9 +256,7 @@ describe("Url", () => {
         server.mockEndpoint().get("/tools/url/linkId").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.tools.url.get({
-                linkId: "linkId",
-            });
+            return await client.tools.url.get("linkId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -274,9 +268,7 @@ describe("Url", () => {
         server.mockEndpoint().get("/tools/url/linkId").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.tools.url.get({
-                linkId: "linkId",
-            });
+            return await client.tools.url.get("linkId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -297,8 +289,7 @@ describe("Url", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.tools.url.update({
-            linkId: "ePzVxILF",
+        const response = await client.tools.url.update("ePzVxILF", {
             url: "https://www.pinnacle.sh/",
         });
         expect(response).toEqual({
@@ -325,9 +316,7 @@ describe("Url", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.url.update({
-                linkId: "linkId",
-            });
+            return await client.tools.url.update("linkId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -346,9 +335,7 @@ describe("Url", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.url.update({
-                linkId: "linkId",
-            });
+            return await client.tools.url.update("linkId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -367,9 +354,7 @@ describe("Url", () => {
             .build();
 
         await expect(async () => {
-            return await client.tools.url.update({
-                linkId: "linkId",
-            });
+            return await client.tools.url.update("linkId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 });

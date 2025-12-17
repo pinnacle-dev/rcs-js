@@ -177,6 +177,7 @@ describe("Dlc", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -226,9 +227,7 @@ describe("Dlc", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.campaigns.dlc.get({
-            campaignId: "dlc_1234567890",
-        });
+        const response = await client.campaigns.dlc.get("dlc_1234567890");
         expect(response).toEqual({
             autoRenew: false,
             brand: {
@@ -246,6 +245,7 @@ describe("Dlc", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -306,9 +306,7 @@ describe("Dlc", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.dlc.get("campaignId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -326,9 +324,7 @@ describe("Dlc", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.dlc.get("campaignId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -346,9 +342,7 @@ describe("Dlc", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.dlc.get("campaignId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -366,9 +360,7 @@ describe("Dlc", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.get({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.dlc.get("campaignId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -385,9 +377,7 @@ describe("Dlc", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.campaigns.dlc.submit({
-            campaignId: "dlc_1234567890",
-        });
+        const response = await client.campaigns.dlc.submit("dlc_1234567890");
         expect(response).toEqual({
             success: true,
         });
@@ -407,9 +397,7 @@ describe("Dlc", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.dlc.submit("campaignId");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -427,9 +415,7 @@ describe("Dlc", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.dlc.submit("campaignId");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -447,9 +433,7 @@ describe("Dlc", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.dlc.submit("campaignId");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -467,9 +451,7 @@ describe("Dlc", () => {
             .build();
 
         await expect(async () => {
-            return await client.campaigns.dlc.submit({
-                campaignId: "campaignId",
-            });
+            return await client.campaigns.dlc.submit("campaignId");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -525,6 +507,7 @@ describe("Dlc", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",
@@ -627,6 +610,7 @@ describe("Dlc", () => {
                 name: "Pinnacle",
                 sector: "TECHNOLOGY",
                 type: "PRIVATE_PROFIT",
+                entityType: "LLC",
                 website: "https://www.pinnacle.sh/",
                 createdAt: "2024-08-17T08:00:30.632",
                 id: "b_1234567890",

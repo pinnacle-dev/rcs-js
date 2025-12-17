@@ -31,9 +31,7 @@ describe("Messages", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.messages.get({
-            id: "msg_1234567890",
-        });
+        const response = await client.messages.get("msg_1234567890");
         expect(response).toEqual({
             content: {
                 text: "Hello from Pinnacle",
@@ -81,9 +79,7 @@ describe("Messages", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.messages.get({
-            id: "msg_1234567890",
-        });
+        const response = await client.messages.get("msg_1234567890");
         expect(response).toEqual({
             content: {
                 mediaUrls: ["https://agent-logos.storage.googleapis.com/_/m0bk9gvlDunZEw1krfruZmw3"],
@@ -163,9 +159,7 @@ describe("Messages", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.messages.get({
-            id: "msg_1234567890",
-        });
+        const response = await client.messages.get("msg_1234567890");
         expect(response).toEqual({
             content: {
                 cards: [
@@ -258,9 +252,7 @@ describe("Messages", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.messages.get({
-            id: "msg_1234567890",
-        });
+        const response = await client.messages.get("msg_1234567890");
         expect(response).toEqual({
             content: {
                 data: {
@@ -292,9 +284,7 @@ describe("Messages", () => {
         server.mockEndpoint().get("/messages/id").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.messages.get({
-                id: "id",
-            });
+            return await client.messages.get("id");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -306,9 +296,7 @@ describe("Messages", () => {
         server.mockEndpoint().get("/messages/id").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.messages.get({
-                id: "id",
-            });
+            return await client.messages.get("id");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -320,9 +308,7 @@ describe("Messages", () => {
         server.mockEndpoint().get("/messages/id").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.messages.get({
-                id: "id",
-            });
+            return await client.messages.get("id");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -334,9 +320,7 @@ describe("Messages", () => {
         server.mockEndpoint().get("/messages/id").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
-            return await client.messages.get({
-                id: "id",
-            });
+            return await client.messages.get("id");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -497,5 +481,96 @@ describe("Messages", () => {
                 reaction: null,
             });
         }).rejects.toThrow(Pinnacle.NotImplementedError);
+    });
+
+    test("cancel (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { success: true };
+        server
+            .mockEndpoint()
+            .delete("/messages/send/schedule/msg_sched_1234567890")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.messages.cancel("msg_sched_1234567890");
+        expect(response).toEqual({
+            success: true,
+        });
+    });
+
+    test("cancel (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/messages/send/schedule/id")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.cancel("id");
+        }).rejects.toThrow(Pinnacle.BadRequestError);
+    });
+
+    test("cancel (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .delete("/messages/send/schedule/id")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.cancel("id");
+        }).rejects.toThrow(Pinnacle.UnauthorizedError);
+    });
+
+    test("cancel (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .delete("/messages/send/schedule/id")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.cancel("id");
+        }).rejects.toThrow(Pinnacle.NotFoundError);
+    });
+
+    test("cancel (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .delete("/messages/send/schedule/id")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.cancel("id");
+        }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 });

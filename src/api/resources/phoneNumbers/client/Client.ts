@@ -270,14 +270,14 @@ export class PhoneNumbers {
     public get(
         request: Pinnacle.RetrievePhoneNumberDetailsParams,
         requestOptions?: PhoneNumbers.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.GetPhoneNumbersResponse> {
+    ): core.HttpResponsePromise<Pinnacle.PhoneNumbersGetResponse> {
         return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
     }
 
     private async __get(
         request: Pinnacle.RetrievePhoneNumberDetailsParams,
         requestOptions?: PhoneNumbers.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.GetPhoneNumbersResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.PhoneNumbersGetResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -303,7 +303,7 @@ export class PhoneNumbers {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.GetPhoneNumbersResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.PhoneNumbersGetResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

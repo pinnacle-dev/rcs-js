@@ -146,18 +146,19 @@ export class Brands {
      *         name: "Pinnacle",
      *         sector: "TECHNOLOGY",
      *         type: "PRIVATE_PROFIT",
+     *         entityType: "LLC",
      *         website: "https://www.pinnacle.sh"
      *     })
      */
     public upsert(
-        request: Pinnacle.UpsertBrandParams = {},
+        request: Pinnacle.UpsertBrandParams,
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ExtendedBrand> {
         return core.HttpResponsePromise.fromPromise(this.__upsert(request, requestOptions));
     }
 
     private async __upsert(
-        request: Pinnacle.UpsertBrandParams = {},
+        request: Pinnacle.UpsertBrandParams,
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ExtendedBrand>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -231,7 +232,9 @@ export class Brands {
     /**
      * Retrieve detailed information for a specific brand in your account by ID.
      *
-     * @param {Pinnacle.GetBrandsRequest} request
+     * @param {string} id - The unique identifier of the brand you want to retrieve from your account.
+     *                      <br><br> This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890`.
+     * @param {Pinnacle.BrandsGetRequest} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -240,22 +243,22 @@ export class Brands {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.brands.get({
-     *         id: "b_1234567890"
-     *     })
+     *     await client.brands.get("b_1234567890")
      */
     public get(
-        request: Pinnacle.GetBrandsRequest,
+        id: string,
+        request: Pinnacle.BrandsGetRequest = {},
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ExtendedBrandWithVetting> {
-        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(id, request, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.GetBrandsRequest,
+        id: string,
+        request: Pinnacle.BrandsGetRequest = {},
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ExtendedBrandWithVetting>> {
-        const { id, hideEIN: hideEin } = request;
+        const { hideEIN: hideEin } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (hideEin != null) {
             _queryParams.hideEIN = hideEin.toString();
@@ -331,7 +334,8 @@ export class Brands {
     /**
      * Submit your brand for review and approval by the compliance team.
      *
-     * @param {Pinnacle.SubmitBrandsRequest} request
+     * @param {string} brandId - The unique identifier of the brand you want to submit for review. <br><br>
+     *                           This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for submission.
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -342,22 +346,19 @@ export class Brands {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.brands.submit({
-     *         brandId: "b_1234567890"
-     *     })
+     *     await client.brands.submit("b_1234567890")
      */
     public submit(
-        request: Pinnacle.SubmitBrandsRequest,
+        brandId: string,
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.SubmissionResults> {
-        return core.HttpResponsePromise.fromPromise(this.__submit(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__submit(brandId, requestOptions));
     }
 
     private async __submit(
-        request: Pinnacle.SubmitBrandsRequest,
+        brandId: string,
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.SubmissionResults>> {
-        const { brandId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -461,6 +462,7 @@ export class Brands {
      *         name: "Pinnacle",
      *         sector: "TECHNOLOGY",
      *         type: "PRIVATE_PROFIT",
+     *         entityType: "LLC",
      *         website: "https://www.pinnacle.sh"
      *     })
      */
@@ -546,6 +548,9 @@ export class Brands {
     /**
      * Submit a brand for external vetting verification to enhance your brand's trust score and improved message delivery rates.
      *
+     * @param {string} brandId - The unique identifier of the brand to vet. <br>
+     *
+     *                           This identifier is a string that always begins with the prefix `b_`, for example: `b_1234567890` and must correspond to an existing brand in your account that is ready for vetting.
      * @param {Pinnacle.VetBrandParams} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -557,22 +562,21 @@ export class Brands {
      * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
-     *     await client.brands.vet({
-     *         brandId: "b_1234567890"
-     *     })
+     *     await client.brands.vet("b_1234567890", {})
      */
     public vet(
+        brandId: string,
         request: Pinnacle.VetBrandParams,
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.VettingResults> {
-        return core.HttpResponsePromise.fromPromise(this.__vet(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__vet(brandId, request, requestOptions));
     }
 
     private async __vet(
+        brandId: string,
         request: Pinnacle.VetBrandParams,
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.VettingResults>> {
-        const { brandId, ..._body } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -590,7 +594,7 @@ export class Brands {
             contentType: "application/json",
             queryParameters: requestOptions?.queryParams,
             requestType: "json",
-            body: { ..._body, type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" },
+            body: { ...request, type: "EXTERNAL", provider: "AEGIS", vettingClass: "STANDARD" },
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

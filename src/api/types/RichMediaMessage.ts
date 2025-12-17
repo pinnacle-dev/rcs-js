@@ -2,7 +2,7 @@
 
 import type * as Pinnacle from "../index.js";
 
-export interface RichMediaMessage extends Pinnacle.RcsBase {
+export interface RichMediaMessage extends Pinnacle.BaseRichMessage {
     /**
      * Media file URLs to send. <br>
      *

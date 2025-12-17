@@ -39,14 +39,14 @@ export class TollFree {
     public autofill(
         request: Pinnacle.AutofillCampaignParams,
         requestOptions?: TollFree.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.campaigns.AutofillTollFreeResponse> {
+    ): core.HttpResponsePromise<Pinnacle.campaigns.TollFreeAutofillResponse> {
         return core.HttpResponsePromise.fromPromise(this.__autofill(request, requestOptions));
     }
 
     private async __autofill(
         request: Pinnacle.AutofillCampaignParams,
         requestOptions?: TollFree.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.campaigns.AutofillTollFreeResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.campaigns.TollFreeAutofillResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -73,7 +73,7 @@ export class TollFree {
         });
         if (_response.ok) {
             return {
-                data: _response.body as Pinnacle.campaigns.AutofillTollFreeResponse,
+                data: _response.body as Pinnacle.campaigns.TollFreeAutofillResponse,
                 rawResponse: _response.rawResponse,
             };
         }
@@ -123,7 +123,7 @@ export class TollFree {
     /**
      * Retrieve Toll-Free campaign.
      *
-     * @param {Pinnacle.campaigns.GetTollFreeRequest} request
+     * @param {string} campaignId - Unique identifier of toll-free campaign. Must begin with the prefix `tf_`.
      * @param {TollFree.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -132,22 +132,19 @@ export class TollFree {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.tollFree.get({
-     *         campaignId: "tf_1234567890"
-     *     })
+     *     await client.campaigns.tollFree.get("tf_1234567890")
      */
     public get(
-        request: Pinnacle.campaigns.GetTollFreeRequest,
+        campaignId: string,
         requestOptions?: TollFree.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus> {
-        return core.HttpResponsePromise.fromPromise(this.__get(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__get(campaignId, requestOptions));
     }
 
     private async __get(
-        request: Pinnacle.campaigns.GetTollFreeRequest,
+        campaignId: string,
         requestOptions?: TollFree.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.TollFreeCampaignWithExtendedBrandAndStatus>> {
-        const { campaignId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -223,7 +220,7 @@ export class TollFree {
     /**
      * Submit your toll-free campaign for approval and activation with carriers.
      *
-     * @param {Pinnacle.campaigns.SubmitTollFreeRequest} request
+     * @param {string} campaignId - Unique identifier of the toll-free campaign to submit. Must begin with the prefix `tf_`.
      * @param {TollFree.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -232,22 +229,19 @@ export class TollFree {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.campaigns.tollFree.submit({
-     *         campaignId: "tf_1234567890"
-     *     })
+     *     await client.campaigns.tollFree.submit("tf_1234567890")
      */
     public submit(
-        request: Pinnacle.campaigns.SubmitTollFreeRequest,
+        campaignId: string,
         requestOptions?: TollFree.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.CampaignSubmissionResult> {
-        return core.HttpResponsePromise.fromPromise(this.__submit(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__submit(campaignId, requestOptions));
     }
 
     private async __submit(
-        request: Pinnacle.campaigns.SubmitTollFreeRequest,
+        campaignId: string,
         requestOptions?: TollFree.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.CampaignSubmissionResult>> {
-        const { campaignId } = request;
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -334,12 +328,28 @@ export class TollFree {
      *     await client.campaigns.tollFree.upsert({
      *         brand: "b_1234567890",
      *         campaignId: "tf_1234567890",
+     *         keywords: {
+     *             HELP: {
+     *                 message: "Email founders@trypinnacle.app for support."
+     *             },
+     *             OPT_IN: {
+     *                 message: "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+     *                 keywords: ["START", "SUBSCRIBE"]
+     *             }
+     *         },
+     *         links: {
+     *             privacyPolicy: "https://www.pinnacle.sh/privacy",
+     *             termsOfService: "https://www.pinnacle.sh/terms"
+     *         },
      *         monthlyVolume: "1,000",
      *         name: "Pinnacle",
      *         optIn: {
      *             method: "DIGITAL",
      *             url: "https://www.pinnacle.sh/",
      *             workflowDescription: "Visit https://www.pinnacle.sh/"
+     *         },
+     *         options: {
+     *             ageGated: false
      *         },
      *         productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
      *         useCase: {

@@ -419,9 +419,7 @@ describe("Conversations", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.conversations.listMessages({
-            id: "id",
-        });
+        const response = await client.conversations.listMessages("id");
         expect(response).toEqual({
             messages: [
                 {
@@ -480,9 +478,7 @@ describe("Conversations", () => {
             .build();
 
         await expect(async () => {
-            return await client.conversations.listMessages({
-                id: "id",
-            });
+            return await client.conversations.listMessages("id");
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
@@ -500,9 +496,7 @@ describe("Conversations", () => {
             .build();
 
         await expect(async () => {
-            return await client.conversations.listMessages({
-                id: "id",
-            });
+            return await client.conversations.listMessages("id");
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
@@ -520,9 +514,7 @@ describe("Conversations", () => {
             .build();
 
         await expect(async () => {
-            return await client.conversations.listMessages({
-                id: "id",
-            });
+            return await client.conversations.listMessages("id");
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
@@ -540,9 +532,7 @@ describe("Conversations", () => {
             .build();
 
         await expect(async () => {
-            return await client.conversations.listMessages({
-                id: "id",
-            });
+            return await client.conversations.listMessages("id");
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 });

@@ -2,4 +2,4 @@
 
 import type * as Pinnacle from "../index.js";
 
-export interface RichTextMessage extends Pinnacle.RcsBase, Pinnacle.RcsTextContent {}
+export interface RichTextMessage extends Pinnacle.BaseRichMessage, Pinnacle.RichText {}

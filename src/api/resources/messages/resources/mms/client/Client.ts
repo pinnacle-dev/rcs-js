@@ -48,14 +48,14 @@ export class Mms {
     public send(
         request: Pinnacle.messages.Mms,
         requestOptions?: Mms.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.messages.SendMmsResponse> {
+    ): core.HttpResponsePromise<Pinnacle.messages.MmsSendResponse> {
         return core.HttpResponsePromise.fromPromise(this.__send(request, requestOptions));
     }
 
     private async __send(
         request: Pinnacle.messages.Mms,
         requestOptions?: Mms.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.messages.SendMmsResponse>> {
+    ): Promise<core.WithRawResponse<Pinnacle.messages.MmsSendResponse>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -81,7 +81,7 @@ export class Mms {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.messages.SendMmsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.messages.MmsSendResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
