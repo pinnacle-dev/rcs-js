@@ -51,6 +51,8 @@ jobs:
 
       - name: Set up node
         uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -63,16 +65,12 @@ jobs:
 
       - name: Publish to npm
         run: |
-          npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
-          publish() {  # use latest npm to ensure OIDC support
-            npx -y npm@latest publish "$@"
-          }
           if [[ ${GITHUB_REF} == *alpha* ]]; then
-            publish --access public --tag alpha
+            npm publish --provenance --access public --tag alpha
           elif [[ ${GITHUB_REF} == *beta* ]]; then
-            publish --access public --tag beta
+            npm publish --provenance --access public --tag beta
           else
-            publish --access public
+            npm publish --provenance --access public
           fi
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
