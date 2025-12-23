@@ -1321,74 +1321,6 @@ await client.messages.react({
 </dl>
 </details>
 
-<details><summary><code>client.messages.<a href="/src/api/resources/messages/client/Client.ts">cancel</a>(id) -> Pinnacle.CancelScheduledMessageResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Cancel a previously scheduled message before it is sent.
-
-Use the `scheduleId` returned from a scheduled send request (SMS, MMS, or RCS) to cancel the message.
-Once cancelled, the scheduled message will stop being sent.
-
-> **Note:** You cannot cancel a message that has already been sent.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.messages.cancel("msg_sched_1234567890");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Messages.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 ## PhoneNumbers
 <details><summary><code>client.phoneNumbers.<a href="/src/api/resources/phoneNumbers/client/Client.ts">search</a>({ ...params }) -> Pinnacle.PhoneNumberDetails[]</code></summary>
 <dl>
@@ -3627,6 +3559,305 @@ await client.messages.rcs.validate({
 <dd>
 
 **requestOptions:** `Rcs.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Messages Blast
+<details><summary><code>client.messages.blast.<a href="/src/api/resources/messages/resources/blast/client/Client.ts">sms</a>({ ...params }) -> Pinnacle.BlastSmsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send an SMS message to all contacts in an audience. <br>
+
+Messages are distributed evenly across the provided sender phone numbers. <br>
+
+Use the optional `schedule` parameter in `options` to schedule the blast for future delivery. When scheduled, the response will contain a `scheduleId` instead of blast details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.blast.sms({
+    audienceId: "aud_abc123",
+    senders: ["+14155164736", "+14155164737"],
+    message: {
+        text: "Hello from Pinnacle!"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.messages.BlastSms` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Blast.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.blast.<a href="/src/api/resources/messages/resources/blast/client/Client.ts">mms</a>({ ...params }) -> Pinnacle.BlastMmsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send an MMS message to all contacts in an audience. <br>
+
+Messages are distributed evenly across the provided sender phone numbers. <br>
+
+Use the optional `schedule` parameter in `options` to schedule the blast for future delivery. When scheduled, the response will contain a `scheduleId` instead of blast details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.blast.mms({
+    audienceId: "aud_abc123",
+    senders: ["+14155164736", "+14155164737"],
+    message: {
+        mediaUrls: ["https://fastly.picsum.photos/id/941/300/300.jpg"],
+        text: "Check out this image!"
+    },
+    options: {
+        validate: true
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.messages.BlastMms` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Blast.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.messages.blast.<a href="/src/api/resources/messages/resources/blast/client/Client.ts">rcs</a>({ ...params }) -> Pinnacle.BlastRcsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send an RCS message to all contacts in an audience. <br>
+
+Messages are distributed evenly across the provided RCS agents for load balancing. Requires active RCS agents and recipient devices that support RCS Business Messaging. <br>
+
+Use the optional `schedule` parameter in `options` to schedule the blast for future delivery. When scheduled, the response will contain a `scheduleId` instead of blast details.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.blast.rcs({
+    audienceId: "aud_abc123",
+    senders: ["agent_pinnacle", "agent_pinnacle2"],
+    message: {
+        quickReplies: [{
+                type: "trigger",
+                payload: "payload",
+                title: "title"
+            }],
+        text: "Hello from Pinnacle RCS!"
+    },
+    options: {
+        transcode: true,
+        validate: true
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.messages.BlastRcs` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Blast.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Messages Schedule
+<details><summary><code>client.messages.schedule.<a href="/src/api/resources/messages/resources/schedule/client/Client.ts">cancel</a>(id) -> Pinnacle.ScheduleCancelResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel a scheduled message or blast. <br>
+
+Works for both individual scheduled messages and scheduled blasts. Use the `scheduleId` returned when the message or blast was scheduled.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.schedule.cancel("id");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Schedule.RequestOptions` 
     
 </dd>
 </dl>

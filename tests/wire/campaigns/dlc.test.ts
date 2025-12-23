@@ -218,6 +218,8 @@ describe("Dlc", () => {
             sampleMessages: ["Hello from Pinnacle.", "To get started visit https://www.pinnacle.sh/"],
             status: "VERIFIED",
             useCase: { sub: ["ACCOUNT_NOTIFICATION"], value: "LOW_VOLUME" },
+            mnoBrandTier: "LOW",
+            mnoTcrTier: "G",
         };
         server
             .mockEndpoint()
@@ -289,6 +291,8 @@ describe("Dlc", () => {
                 sub: ["ACCOUNT_NOTIFICATION"],
                 value: "LOW_VOLUME",
             },
+            mnoBrandTier: "LOW",
+            mnoTcrTier: "G",
         });
     });
 
@@ -545,6 +549,8 @@ describe("Dlc", () => {
             sampleMessages: ["Security alert: Unusual login detected from new device."],
             status: "VERIFIED",
             useCase: { sub: ["FRAUD_ALERT"], value: "ACCOUNT_NOTIFICATION" },
+            mnoBrandTier: "LOW",
+            mnoTcrTier: "G",
         };
         server
             .mockEndpoint()
@@ -654,6 +660,8 @@ describe("Dlc", () => {
                 sub: ["FRAUD_ALERT"],
                 value: "ACCOUNT_NOTIFICATION",
             },
+            mnoBrandTier: "LOW",
+            mnoTcrTier: "G",
         });
     });
 

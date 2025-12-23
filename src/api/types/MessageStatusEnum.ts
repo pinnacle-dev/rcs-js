@@ -2,6 +2,7 @@
 
 /** Current status of the message. */
 export const MessageStatusEnum = {
+    Queued: "QUEUED",
     Pending: "PENDING",
     Sent: "SENT",
     SendFailed: "SEND_FAILED",

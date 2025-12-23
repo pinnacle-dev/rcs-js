@@ -4,22 +4,36 @@
  * Define when and how your message should be sent.
  */
 export interface MessageSchedule {
-    /** Date and time when you want recurring messages to stop in ISO 8601 format. */
-    endDate?: string;
-    /**
-     * Provide an AWS cron expression to control the when messages are sent. <br>
-     *
-     * [Learn more about cron expressions](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html).
-     */
-    recurrence?: string;
     /**
      * The date and time you want your message to be sent.
-     * - Use [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601), for example: `2024-12-17T14:30:00Z`.
+     * - Use [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601), for example: `2024-12-17T14:30:00Z`. Format: `YYYY-MM-DDThh:mm` (e.g., `2024-12-25T14:30`).
      * - This time must be at least 5 minutes in the future.
      * - The message will be scheduled based on the `timezone` you provide.
      * - If you set a `recurrence` schedule, this is the start date and time for the recurring schedule.
      */
     sendAt: string;
-    /** Timezone for your scheduled message, using an IANA identifier. */
-    timezone: string;
+    /**
+     * AWS cron expression for recurring schedules (6 fields). <br>
+     *
+     * [Learn more about cron expressions](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-scheduled-rule-pattern.html). <br>
+     *
+     * **Examples:**
+     * - `0 10 * * ? *` - Every day at 10:00 AM
+     * - `0/30 * * * ? *` - Every 30 minutes
+     * - `0 9 ? * MON-FRI *` - Every weekday at 9:00 AM
+     * - `0 12 1 * ? *` - First day of every month at noon
+     */
+    recurrence?: string;
+    /**
+     * IANA timezone identifier (e.g., `America/New_York`, `UTC`). <br>
+     *
+     * Defaults to `UTC` if not specified.
+     */
+    timezone?: string;
+    /**
+     * Date and time when recurring messages should stop. <br>
+     *
+     * Format: `YYYY-MM-DDThh:mm`. Required if `recurrence` is set.
+     */
+    endDate?: string;
 }

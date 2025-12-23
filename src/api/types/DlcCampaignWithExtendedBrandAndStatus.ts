@@ -40,6 +40,18 @@ export interface DlcCampaignWithExtendedBrandAndStatus {
     status: Pinnacle.ProfileStatusEnum;
     /** Use case for the campaign. */
     useCase?: DlcCampaignWithExtendedBrandAndStatus.UseCase;
+    /**
+     * The MNO brand tier for T-Mobile rate limits. Tiers range from `TOP` (highest) to `LOW` (lowest), based on your brand's vetting score.
+     *
+     * See [SMS Rate Limits](/guides/messages/rate-limits) for details.
+     */
+    mnoBrandTier?: DlcCampaignWithExtendedBrandAndStatus.MnoBrandTier;
+    /**
+     * The MNO TCR message class for AT&T, Verizon, and other carriers. Classes `A`-`G` are standard (based on vetting score), while `T`, `N`, and `S` are for special use cases.
+     *
+     * See [SMS Rate Limits](/guides/messages/rate-limits) for details.
+     */
+    mnoTcrTier?: DlcCampaignWithExtendedBrandAndStatus.MnoTcrTier;
 }
 
 export namespace DlcCampaignWithExtendedBrandAndStatus {
@@ -123,4 +135,35 @@ export namespace DlcCampaignWithExtendedBrandAndStatus {
         sub?: Pinnacle.SubUseCaseEnum[];
         value?: Pinnacle.DlcCampaignUseCaseEnum;
     }
+
+    /**
+     * The MNO brand tier for T-Mobile rate limits. Tiers range from `TOP` (highest) to `LOW` (lowest), based on your brand's vetting score.
+     *
+     * See [SMS Rate Limits](/guides/messages/rate-limits) for details.
+     */
+    export const MnoBrandTier = {
+        Top: "TOP",
+        HighMid: "HIGH_MID",
+        LowMid: "LOW_MID",
+        Low: "LOW",
+    } as const;
+    export type MnoBrandTier = (typeof MnoBrandTier)[keyof typeof MnoBrandTier];
+    /**
+     * The MNO TCR message class for AT&T, Verizon, and other carriers. Classes `A`-`G` are standard (based on vetting score), while `T`, `N`, and `S` are for special use cases.
+     *
+     * See [SMS Rate Limits](/guides/messages/rate-limits) for details.
+     */
+    export const MnoTcrTier = {
+        A: "A",
+        B: "B",
+        C: "C",
+        D: "D",
+        E: "E",
+        F: "F",
+        G: "G",
+        N: "N",
+        T: "T",
+        S: "S",
+    } as const;
+    export type MnoTcrTier = (typeof MnoTcrTier)[keyof typeof MnoTcrTier];
 }

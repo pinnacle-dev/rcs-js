@@ -6,8 +6,10 @@ import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
 import * as Pinnacle from "../../../index.js";
+import { Blast } from "../resources/blast/client/Client.js";
 import { Mms } from "../resources/mms/client/Client.js";
 import { Rcs } from "../resources/rcs/client/Client.js";
+import { Schedule } from "../resources/schedule/client/Client.js";
 import { Sms } from "../resources/sms/client/Client.js";
 
 export declare namespace Messages {
@@ -21,6 +23,8 @@ export class Messages {
     protected _sms: Sms | undefined;
     protected _mms: Mms | undefined;
     protected _rcs: Rcs | undefined;
+    protected _blast: Blast | undefined;
+    protected _schedule: Schedule | undefined;
 
     constructor(_options: Messages.Options = {}) {
         this._options = _options;
@@ -36,6 +40,14 @@ export class Messages {
 
     public get rcs(): Rcs {
         return (this._rcs ??= new Rcs(this._options));
+    }
+
+    public get blast(): Blast {
+        return (this._blast ??= new Blast(this._options));
+    }
+
+    public get schedule(): Schedule {
+        return (this._schedule ??= new Schedule(this._options));
     }
 
     /**
@@ -232,108 +244,6 @@ export class Messages {
                 });
             case "timeout":
                 throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/react.");
-            case "unknown":
-                throw new errors.PinnacleError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Cancel a previously scheduled message before it is sent.
-     *
-     * Use the `scheduleId` returned from a scheduled send request (SMS, MMS, or RCS) to cancel the message.
-     * Once cancelled, the scheduled message will stop being sent.
-     *
-     * > **Note:** You cannot cancel a message that has already been sent.
-     *
-     * @param {string} id - Unique identifier of the scheduled message. This identifier is a string that always begins with the prefix `msg_sched_`, for example: `msg_sched_1234567890`.
-     * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Pinnacle.BadRequestError}
-     * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.NotFoundError}
-     * @throws {@link Pinnacle.InternalServerError}
-     *
-     * @example
-     *     await client.messages.cancel("msg_sched_1234567890")
-     */
-    public cancel(
-        id: string,
-        requestOptions?: Messages.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.CancelScheduledMessageResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__cancel(id, requestOptions));
-    }
-
-    private async __cancel(
-        id: string,
-        requestOptions?: Messages.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.CancelScheduledMessageResponse>> {
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            this._options?.headers,
-            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-            requestOptions?.headers,
-        );
-        const _response = await core.fetcher({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.PinnacleEnvironment.Default,
-                `messages/send/schedule/${core.url.encodePathParam(id)}`,
-            ),
-            method: "DELETE",
-            headers: _headers,
-            queryParameters: requestOptions?.queryParams,
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return {
-                data: _response.body as Pinnacle.CancelScheduledMessageResponse,
-                rawResponse: _response.rawResponse,
-            };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new Pinnacle.UnauthorizedError(
-                        _response.error.body as Pinnacle.Error_,
-                        _response.rawResponse,
-                    );
-                case 404:
-                    throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new Pinnacle.InternalServerError(
-                        _response.error.body as Pinnacle.Error_,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.PinnacleError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.PinnacleError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.PinnacleTimeoutError(
-                    "Timeout exceeded when calling DELETE /messages/send/schedule/{id}.",
-                );
             case "unknown":
                 throw new errors.PinnacleError({
                     message: _response.error.errorMessage,
