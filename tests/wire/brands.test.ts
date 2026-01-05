@@ -233,7 +233,7 @@ describe("Brands", () => {
     test("upsert (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { contact: null, sector: null, type: null };
+        const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -245,18 +245,14 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.upsert({
-                contact: null,
-                sector: null,
-                type: null,
-            });
+            return await client.brands.upsert();
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
     test("upsert (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { contact: null, sector: null, type: null };
+        const rawRequestBody = {};
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -268,18 +264,14 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.upsert({
-                contact: null,
-                sector: null,
-                type: null,
-            });
+            return await client.brands.upsert();
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
     test("upsert (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { contact: null, sector: null, type: null };
+        const rawRequestBody = {};
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -291,11 +283,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.upsert({
-                contact: null,
-                sector: null,
-                type: null,
-            });
+            return await client.brands.upsert();
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
@@ -567,24 +555,7 @@ describe("Brands", () => {
     test("validate (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            address: "500 Folsom St, San Francisco, CA 94105",
-            contact: {
-                email: "michael.chen@trypinnacle.app",
-                name: "Michael Chen",
-                phone: "+14155551234",
-                title: "Customer Support Representative",
-            },
-            dba: "Pinnacle Messaging",
-            description: "Pinnacle is an SMS, MMS, and RCS API for scaling conversations with customers you value.",
-            ein: "88-1234567",
-            email: "founders@trypinnacle.app",
-            name: "Pinnacle",
-            sector: "TECHNOLOGY",
-            type: "PRIVATE_PROFIT",
-            entityType: "LLC",
-            website: "https://www.pinnacle.sh",
-        };
+        const rawRequestBody = {};
         const rawResponseBody = {
             errors: [{ description: "description", example: "example", field: "field" }],
             isValid: true,
@@ -598,24 +569,7 @@ describe("Brands", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.brands.validate({
-            address: "500 Folsom St, San Francisco, CA 94105",
-            contact: {
-                email: "michael.chen@trypinnacle.app",
-                name: "Michael Chen",
-                phone: "+14155551234",
-                title: "Customer Support Representative",
-            },
-            dba: "Pinnacle Messaging",
-            description: "Pinnacle is an SMS, MMS, and RCS API for scaling conversations with customers you value.",
-            ein: "88-1234567",
-            email: "founders@trypinnacle.app",
-            name: "Pinnacle",
-            sector: "TECHNOLOGY",
-            type: "PRIVATE_PROFIT",
-            entityType: "LLC",
-            website: "https://www.pinnacle.sh",
-        });
+        const response = await client.brands.validate({});
         expect(response).toEqual({
             errors: [
                 {
@@ -631,17 +585,7 @@ describe("Brands", () => {
     test("validate (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            address: "address",
-            contact: { email: "email", name: "name", phone: "phone", title: "title" },
-            description: "description",
-            email: "email",
-            name: "name",
-            sector: "AGRICULTURE",
-            type: "GOVERNMENT",
-            entityType: "LLC",
-            website: "website",
-        };
+        const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -653,39 +597,14 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.validate({
-                address: "address",
-                contact: {
-                    email: "email",
-                    name: "name",
-                    phone: "phone",
-                    title: "title",
-                },
-                description: "description",
-                email: "email",
-                name: "name",
-                sector: "AGRICULTURE",
-                type: "GOVERNMENT",
-                entityType: "LLC",
-                website: "website",
-            });
+            return await client.brands.validate({});
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
 
     test("validate (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            address: "address",
-            contact: { email: "email", name: "name", phone: "phone", title: "title" },
-            description: "description",
-            email: "email",
-            name: "name",
-            sector: "AGRICULTURE",
-            type: "GOVERNMENT",
-            entityType: "LLC",
-            website: "website",
-        };
+        const rawRequestBody = {};
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -697,39 +616,14 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.validate({
-                address: "address",
-                contact: {
-                    email: "email",
-                    name: "name",
-                    phone: "phone",
-                    title: "title",
-                },
-                description: "description",
-                email: "email",
-                name: "name",
-                sector: "AGRICULTURE",
-                type: "GOVERNMENT",
-                entityType: "LLC",
-                website: "website",
-            });
+            return await client.brands.validate({});
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
     test("validate (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            address: "address",
-            contact: { email: "email", name: "name", phone: "phone", title: "title" },
-            description: "description",
-            email: "email",
-            name: "name",
-            sector: "AGRICULTURE",
-            type: "GOVERNMENT",
-            entityType: "LLC",
-            website: "website",
-        };
+        const rawRequestBody = {};
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -741,22 +635,7 @@ describe("Brands", () => {
             .build();
 
         await expect(async () => {
-            return await client.brands.validate({
-                address: "address",
-                contact: {
-                    email: "email",
-                    name: "name",
-                    phone: "phone",
-                    title: "title",
-                },
-                description: "description",
-                email: "email",
-                name: "name",
-                sector: "AGRICULTURE",
-                type: "GOVERNMENT",
-                entityType: "LLC",
-                website: "website",
-            });
+            return await client.brands.validate({});
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 

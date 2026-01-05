@@ -151,14 +151,14 @@ export class Brands {
      *     })
      */
     public upsert(
-        request: Pinnacle.UpsertBrandParams,
+        request: Pinnacle.UpsertBrandParams = {},
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ExtendedBrand> {
         return core.HttpResponsePromise.fromPromise(this.__upsert(request, requestOptions));
     }
 
     private async __upsert(
-        request: Pinnacle.UpsertBrandParams,
+        request: Pinnacle.UpsertBrandParams = {},
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ExtendedBrand>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -439,7 +439,7 @@ export class Brands {
     /**
      * Validate your brand information for compliance and correctness before submission or storage.
      *
-     * @param {Pinnacle.ValidateBrandParams} request
+     * @param {Pinnacle.OptionalBrandInfo} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
@@ -447,34 +447,17 @@ export class Brands {
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
-     *     await client.brands.validate({
-     *         address: "500 Folsom St, San Francisco, CA 94105",
-     *         contact: {
-     *             email: "michael.chen@trypinnacle.app",
-     *             name: "Michael Chen",
-     *             phone: "+14155551234",
-     *             title: "Customer Support Representative"
-     *         },
-     *         dba: "Pinnacle Messaging",
-     *         description: "Pinnacle is an SMS, MMS, and RCS API for scaling conversations with customers you value.",
-     *         ein: "88-1234567",
-     *         email: "founders@trypinnacle.app",
-     *         name: "Pinnacle",
-     *         sector: "TECHNOLOGY",
-     *         type: "PRIVATE_PROFIT",
-     *         entityType: "LLC",
-     *         website: "https://www.pinnacle.sh"
-     *     })
+     *     await client.brands.validate({})
      */
     public validate(
-        request: Pinnacle.ValidateBrandParams,
+        request: Pinnacle.OptionalBrandInfo,
         requestOptions?: Brands.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.ValidationResults> {
         return core.HttpResponsePromise.fromPromise(this.__validate(request, requestOptions));
     }
 
     private async __validate(
-        request: Pinnacle.ValidateBrandParams,
+        request: Pinnacle.OptionalBrandInfo,
         requestOptions?: Brands.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.ValidationResults>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(

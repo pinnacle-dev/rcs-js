@@ -133,7 +133,6 @@ export * from "./TollFreeStatusEnum.js";
 export * from "./Tracking.js";
 export * from "./UpdatedContactId.js";
 export * from "./UploadResults.js";
-export * from "./UpsertContact.js";
 export * from "./UserEvent.js";
 export * from "./ValidateCampaignParams.js";
 export * from "./ValidationErrorDetails.js";

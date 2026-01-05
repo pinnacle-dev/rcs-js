@@ -318,24 +318,7 @@ Validate your brand information for compliance and correctness before submission
 <dd>
 
 ```typescript
-await client.brands.validate({
-    address: "500 Folsom St, San Francisco, CA 94105",
-    contact: {
-        email: "michael.chen@trypinnacle.app",
-        name: "Michael Chen",
-        phone: "+14155551234",
-        title: "Customer Support Representative"
-    },
-    dba: "Pinnacle Messaging",
-    description: "Pinnacle is an SMS, MMS, and RCS API for scaling conversations with customers you value.",
-    ein: "88-1234567",
-    email: "founders@trypinnacle.app",
-    name: "Pinnacle",
-    sector: "TECHNOLOGY",
-    type: "PRIVATE_PROFIT",
-    entityType: "LLC",
-    website: "https://www.pinnacle.sh"
-});
+await client.brands.validate({});
 
 ```
 </dd>
@@ -351,7 +334,7 @@ await client.brands.validate({
 <dl>
 <dd>
 
-**request:** `Pinnacle.ValidateBrandParams` 
+**request:** `Pinnacle.OptionalBrandInfo` 
     
 </dd>
 </dl>
