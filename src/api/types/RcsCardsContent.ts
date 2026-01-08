@@ -8,9 +8,15 @@ import type * as Pinnacle from "../index.js";
  * See (supported file types)[https://app.pinnacle.sh/supported-file-types?type=RCS-CARD].
  */
 export interface RcsCardsContent {
-    /** Collection of cards attached to the message. */
+    /**
+     * Collection of cards attached to the message. <br><br>
+     * **Limit:** 1 to 10
+     */
     cards: RcsCardsContent.Cards.Item[];
-    /** List of interactive quick reply buttons in the message. */
+    /**
+     * List of interactive quick reply buttons in the message. <br><br>
+     * **Limit:** 10 max
+     */
     quickReplies: Pinnacle.RichButton[];
 }
 
@@ -22,7 +28,10 @@ export namespace RcsCardsContent {
          * Individual card containing title, optional media, and action buttons.
          */
         export interface Item {
-            /** While buttons resemble quick replies, they remain on screen after being clicked and are card-specific. */
+            /**
+             * While buttons resemble quick replies, they remain on screen after being clicked and are card-specific. <br><br>
+             * **Limit:** 4 max
+             */
             buttons: Pinnacle.RichButton[];
             media?: Pinnacle.RcsMediaDetailsContent;
             /** Secondary text displayed below the title for additional context. */

@@ -7,6 +7,9 @@
  *     }
  */
 export interface GetWebhookParams {
-    /** List of URLs or phone numbers in E.164 format that the webhook is attached to. */
+    /**
+     * List of URLs or phone numbers in E.164 format that the webhook is attached to. <br><br>
+     * **Limit:** 1 min
+     */
     identifiers: string[];
 }

@@ -374,7 +374,7 @@ describe("Rcs", () => {
         };
         server
             .mockEndpoint()
-            .post("/messages/typing")
+            .post("/messages/send/typing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -404,7 +404,7 @@ describe("Rcs", () => {
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/messages/typing")
+            .post("/messages/send/typing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -426,7 +426,7 @@ describe("Rcs", () => {
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/messages/typing")
+            .post("/messages/send/typing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -448,7 +448,7 @@ describe("Rcs", () => {
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .post("/messages/typing")
+            .post("/messages/send/typing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -470,7 +470,7 @@ describe("Rcs", () => {
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/messages/typing")
+            .post("/messages/send/typing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -492,7 +492,7 @@ describe("Rcs", () => {
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
-            .post("/messages/typing")
+            .post("/messages/send/typing")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(501)

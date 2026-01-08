@@ -7,6 +7,9 @@
  *     }
  */
 export interface DetachCampaignParams {
-    /** List of phone numbers (E.164 format). */
+    /**
+     * List of phone numbers (E.164 format). <br><br>
+     * **Limit:** 1 to 10
+     */
     phones: string[];
 }

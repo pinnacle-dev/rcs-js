@@ -10,6 +10,9 @@
 export interface AddContactsParams {
     /** Audience ID. This identifier is a string that always begins with the prefix `aud_`, for example: `aud_abc123`. */
     id: string;
-    /** Array of phone numbers (E.164 format) or contact IDs (minimum 1 item). */
+    /**
+     * Array of phone numbers (E.164 format) or contact IDs. <br><br>
+     * **Limit:** 1 min
+     */
     contacts: string[];
 }

@@ -9,6 +9,9 @@ export interface RichMediaMessage extends Pinnacle.BaseRichMessage {
      * See [supported media types](https://app.pinnacle.sh/supported-file-types?type=RCS-MEDIA).
      */
     media: string;
-    /** List of interactive quick reply buttons in the message. */
+    /**
+     * List of interactive quick reply buttons in the message. <br>
+     * `≤10`
+     */
     quickReplies: Pinnacle.RichButton[];
 }

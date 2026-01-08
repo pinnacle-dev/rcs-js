@@ -62,7 +62,10 @@ export interface UpsertDlcCampaignParams {
     name?: string;
     /** Campaign configuration options. */
     options?: UpsertDlcCampaignParams.Options;
-    /** Example messages for the campaign. */
+    /**
+     * Example messages for the campaign. <br><br>
+     * **Limit:** 1 to 5
+     */
     sampleMessages?: string[];
     /** Use case for the campaign. */
     useCase?: UpsertDlcCampaignParams.UseCase;

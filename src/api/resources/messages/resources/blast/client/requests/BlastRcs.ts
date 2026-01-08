@@ -52,6 +52,8 @@ export interface BlastRcs {
      * Messages will be evenly distributed across these agents.
      *
      * > **Note:** Test agents cannot be used for blasts.
+     *
+     * **Limit:** 1 min
      */
     senders: string[];
     message: Pinnacle.RcsValidateContent;

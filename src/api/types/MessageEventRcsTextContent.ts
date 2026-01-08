@@ -13,7 +13,10 @@ export interface MessageEventRcsTextContent {
      * To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
      */
     id: string;
-    /** List of interactive quick reply buttons in the message. */
+    /**
+     * List of interactive quick reply buttons in the message. <br><br>
+     * **Limit:** 10 max
+     */
     quickReplies: Pinnacle.RichButton[];
     /** Text content of the RCS message. */
     text: string;

@@ -9,6 +9,9 @@ import type * as Pinnacle from "../index.js";
  */
 export interface RcsMediaContent {
     media: Pinnacle.RcsMediaDetailsContent;
-    /** List of interactive quick reply buttons in the message. */
+    /**
+     * List of interactive quick reply buttons in the message. <br><br>
+     * **Limit:** 10 max
+     */
     quickReplies: Pinnacle.RichButton[];
 }

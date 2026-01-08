@@ -70,7 +70,10 @@ export interface UpsertRcsCampaignParams {
     brand?: string;
     /** Unique identifier for the campaign. */
     campaignId?: string;
-    /** List of what the agent might say to users (1-5 required). */
+    /**
+     * List of what the agent might say to users. <br><br>
+     * **Limit:** 1 to 5
+     */
     expectedAgentResponses?: string[];
     /** Legal documentation links. */
     links?: UpsertRcsCampaignParams.Links;
@@ -117,7 +120,10 @@ export namespace UpsertRcsCampaignParams {
          * Be clear, concise, user-focused, and highlight what the agent does and the benefits it provides for the user.
          */
         description?: string;
-        /** List of emails (1-3 required). */
+        /**
+         * List of emails. <br><br>
+         * **Limit:** 1 to 3
+         */
         emails?: Agent.Emails.Item[];
         /** Link to the agent's hero. Hero must be an image file with dimensions 1440x448px. */
         heroUrl?: string;
@@ -129,9 +135,15 @@ export namespace UpsertRcsCampaignParams {
          * Recommended format: [Brand Name] - [1-2 word description of purpose]
          */
         name?: string;
-        /** List of phone numbers (1-3 required). */
+        /**
+         * List of phone numbers. <br><br>
+         * **Limit:** 1 to 3
+         */
         phones?: Agent.Phones.Item[];
-        /** List of urls (1-3 required). */
+        /**
+         * List of urls. <br><br>
+         * **Limit:** 1 to 3
+         */
         websites?: Agent.Websites.Item[];
     }
 

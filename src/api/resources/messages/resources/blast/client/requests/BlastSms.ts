@@ -34,6 +34,8 @@ export interface BlastSms {
      * Messages will be distributed evenly across these senders.
      *
      * > **Note:** Sandbox numbers cannot be used for blasts.
+     *
+     * **Limit:** 1 min
      */
     senders: string[];
     message: Pinnacle.SmsContent;

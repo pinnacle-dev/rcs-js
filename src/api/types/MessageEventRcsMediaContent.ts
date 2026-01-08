@@ -17,6 +17,9 @@ export interface MessageEventRcsMediaContent {
     id: string;
     /** URL of the media file. */
     media: string;
-    /** List of interactive quick reply buttons in the message. */
+    /**
+     * List of interactive quick reply buttons in the message. <br><br>
+     * **Limit:** 10 max
+     */
     quickReplies: Pinnacle.RichButton[];
 }

@@ -11,7 +11,10 @@ import type * as Pinnacle from "../../../../../../index.js";
  *     }
  */
 export interface AttachCampaignParams {
-    /** List of phone number (E.164 format). */
+    /**
+     * List of phone number (E.164 format). <br><br>
+     * **Limit:** 1 to 10
+     */
     phones: string[];
     campaignType: Pinnacle.MessagingProfileEnum;
     /**

@@ -193,7 +193,7 @@ export class Rcs {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.PinnacleEnvironment.Default,
-                "messages/typing",
+                "messages/send/typing",
             ),
             method: "POST",
             headers: _headers,
@@ -249,7 +249,7 @@ export class Rcs {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/typing.");
+                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/send/typing.");
             case "unknown":
                 throw new errors.PinnacleError({
                     message: _response.error.errorMessage,

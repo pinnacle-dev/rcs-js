@@ -15,9 +15,15 @@ export interface MessageEventRcsCardsContent {
      * To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
      */
     id: string;
-    /** Collection of cards attached to the message. */
+    /**
+     * Collection of cards attached to the message. <br><br>
+     * **Limit:** 1 to 10
+     */
     cards: MessageEventRcsCardsContent.Cards.Item[];
-    /** List of interactive quick reply buttons in the message. */
+    /**
+     * List of interactive quick reply buttons in the message. <br><br>
+     * **Limit:** 10 max
+     */
     quickReplies: Pinnacle.RichButton[];
 }
 
@@ -29,7 +35,10 @@ export namespace MessageEventRcsCardsContent {
          * Individual card containing title, optional media, and action buttons.
          */
         export interface Item {
-            /** Action buttons attached to the card. */
+            /**
+             * Action buttons attached to the card. <br><br>
+             * **Limit:** 4 max
+             */
             buttons: Pinnacle.RichButton[];
             media?: Pinnacle.RcsMediaDetailsContent;
             /** Secondary text displayed below the title for additional context. */
