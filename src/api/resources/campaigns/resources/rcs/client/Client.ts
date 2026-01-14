@@ -16,7 +16,7 @@ export declare namespace Rcs {
 export class Rcs {
     protected readonly _options: Rcs.Options;
 
-    constructor(_options: Rcs.Options = {}) {
+    constructor(_options: Rcs.Options) {
         this._options = _options;
     }
 
@@ -311,9 +311,15 @@ export class Rcs {
     }
 
     /**
-     * Create a new RCS campaign or updates an existing one. <br>
+     * Create a new RCS campaign or update an existing one.
      *
-     * Omit campaignId to create a campaign.
+     * <Note>
+     * **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+     *
+     * **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+     *
+     * All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/rcs/submit).
+     * </Note>
      *
      * @param {Pinnacle.campaigns.UpsertRcsCampaignParams} request
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.

@@ -21,17 +21,7 @@ describe("Rcs", () => {
                     sendLocation: false,
                 },
             },
-            "+19876543210": {
-                cards: { standalone: true, carousel: true },
-                actions: {
-                    openUrl: true,
-                    call: true,
-                    trigger: true,
-                    requestUserLocation: true,
-                    scheduleEvent: true,
-                    sendLocation: true,
-                },
-            },
+            "+19876543210": null,
         };
         server
             .mockEndpoint()
@@ -60,20 +50,7 @@ describe("Rcs", () => {
                     sendLocation: false,
                 },
             },
-            "+19876543210": {
-                cards: {
-                    standalone: true,
-                    carousel: true,
-                },
-                actions: {
-                    openUrl: true,
-                    call: true,
-                    trigger: true,
-                    requestUserLocation: true,
-                    scheduleEvent: true,
-                    sendLocation: true,
-                },
-            },
+            "+19876543210": null,
         });
     });
 

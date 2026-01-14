@@ -45,7 +45,7 @@ describe("ContactCard", () => {
             categories: ["categories"],
             note: "note",
             revision: "2025-08-15T18:35:42.538+00:00",
-            file: { url: "https://server.pinnacle.sh//storage/v1/example", metadata: { expiresAt: "expiresAt" } },
+            file: { url: "https://server.pinnacle.sh//storage/v1/example", metadata: { expiresAt: null } },
         };
         server
             .mockEndpoint()
@@ -114,7 +114,7 @@ describe("ContactCard", () => {
             file: {
                 url: "https://server.pinnacle.sh//storage/v1/example",
                 metadata: {
-                    expiresAt: "expiresAt",
+                    expiresAt: null,
                 },
             },
         });

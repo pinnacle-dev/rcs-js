@@ -16,7 +16,7 @@ export declare namespace Brands {
 export class Brands {
     protected readonly _options: Brands.Options;
 
-    constructor(_options: Brands.Options = {}) {
+    constructor(_options: Brands.Options) {
         this._options = _options;
     }
 
@@ -120,7 +120,13 @@ export class Brands {
     }
 
     /**
-     * Create a new brand or update an existing brand by with the provided information.
+     * Create a new brand or update an existing one.
+     *
+     * <Note>
+     * **To create a new brand:** Omit `id` — one will be generated automatically.
+     *
+     * All fields are **required** except `description` and `dba`, and will be validated when [submitted](/api-reference/brands/submit).
+     * </Note>
      *
      * @param {Pinnacle.UpsertBrandParams} request
      * @param {Brands.RequestOptions} requestOptions - Request-specific configuration.

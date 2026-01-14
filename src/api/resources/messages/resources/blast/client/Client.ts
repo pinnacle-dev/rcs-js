@@ -16,7 +16,7 @@ export declare namespace Blast {
 export class Blast {
     protected readonly _options: Blast.Options;
 
-    constructor(_options: Blast.Options = {}) {
+    constructor(_options: Blast.Options) {
         this._options = _options;
     }
 

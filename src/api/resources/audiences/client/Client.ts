@@ -18,7 +18,7 @@ export class Audiences {
     protected readonly _options: Audiences.Options;
     protected _contacts: Contacts | undefined;
 
-    constructor(_options: Audiences.Options = {}) {
+    constructor(_options: Audiences.Options) {
         this._options = _options;
     }
 

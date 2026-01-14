@@ -10,13 +10,13 @@ export interface TollFreeCampaign {
     /** Legal documentation links. */
     links?: TollFreeCampaign.Links;
     monthlyVolume?: Pinnacle.MessageVolumeEnum;
-    /** Display name of the campaign. */
+    /** Display name of the campaign. This is not sent to carriers for approval and is only used for your reference on the Pinnacle dashboard. */
     name?: string;
-    /** Opt-in keyword settings. */
+    /** Opt-in method and workflow. */
     optIn?: TollFreeCampaign.OptIn;
     /** Campaign configuration options. */
     options?: TollFreeCampaign.Options;
-    /** Explain message that would be sent. */
+    /** Example message(s) that would be sent in production. Should reflect the actual content users will receive. See the [Production Message Content](/guides/campaigns/opt-in-compliance#production-message-content) section for requirements. */
     productionMessageContent?: string;
     /** Use case classification for the campaign. */
     useCase?: TollFreeCampaign.UseCase;
@@ -38,7 +38,7 @@ export namespace TollFreeCampaign {
          * Help keyword settings.
          */
         export interface Help {
-            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). */
+            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). See the [Help keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages). */
             message?: string;
         }
 
@@ -46,7 +46,7 @@ export namespace TollFreeCampaign {
          * Opt-in keyword settings.
          */
         export interface OptIn {
-            /** Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). */
+            /** Message sent when a user opts in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). See the [Opt-In keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages). */
             message?: string;
             /** Keywords that trigger opt-in response. */
             keywords?: string[];
@@ -64,13 +64,13 @@ export namespace TollFreeCampaign {
     }
 
     /**
-     * Opt-in keyword settings.
+     * Opt-in method and workflow.
      */
     export interface OptIn {
         method?: Pinnacle.OptInMethodEnum;
-        /** Url to opt in. */
+        /** URL where the opt-in form or documentation can be found. */
         url?: string;
-        /** Explain how users find the opt-in. */
+        /** Describe your opt-in workflow. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements and examples. */
         workflowDescription?: string;
     }
 
@@ -86,7 +86,7 @@ export namespace TollFreeCampaign {
      * Use case classification for the campaign.
      */
     export interface UseCase {
-        /** Summary of the use case. */
+        /** Detailed summary of the use case explaining what messages will be sent and how users interact with the campaign. See the [Use Case Summary](/guides/campaigns/opt-in-compliance#use-case-summary) section for requirements. */
         summary?: string;
         value?: Pinnacle.TollFreeCampaignUseCaseEnum;
     }

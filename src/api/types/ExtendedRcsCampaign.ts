@@ -11,34 +11,29 @@ export interface ExtendedRcsCampaign {
     brand: Pinnacle.ExtendedBrand;
     /** Unique identifier for the campaign. This identifier is a string that always begins with the prefix `rcs_`, for example: `rcs_1234567890`. */
     campaignId?: string;
-    /** List of what the agent might say to users. */
+    /** List of what the agent might say to users. See the [Expected Agent Responses](/guides/campaigns/rcs-compliance#expected-agent-responses) section for requirements. */
     expectedAgentResponses?: string[];
     /** Legal documentation links. */
     links?: ExtendedRcsCampaign.Links;
     status: Pinnacle.ProfileStatusEnum;
     /** Use case classification for the campaign. */
     useCase?: ExtendedRcsCampaign.UseCase;
-    /** Details on how opt-in is acquired. If it is done through a website or app, provide the link. */
+    /** Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements. */
     optInTermsAndConditions?: string;
     messagingType?: Pinnacle.RcsMessagingTypeEnum;
-    /** Description of the agent's purpose, shown to carriers for approval. */
+    /** Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements. */
     carrierDescription?: string;
     keywords?: ExtendedRcsCampaign.Keywords;
     traffic?: ExtendedRcsCampaign.Traffic;
-    /** Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. */
+    /** Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements. */
     agentTriggers?: string;
-    /** Description of all agent interactions. */
+    /** Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements. */
     interactionDescription?: string;
     /** Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user. */
     isConversational?: boolean;
-    /**
-     * Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. The text should meet the US CTIA requirements and is usually in the following format: <br>
-     *
-     * [Program description of the company sending the messages and what type of messages are being sent]. Msg&data rates may apply. [Message frequency: How frequently messages are sent]. [Privacy statement or link to privacy policy]. [Link to full mobile
-     * T&Cs page].
-     */
+    /** Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements. */
     ctaLanguage?: string;
-    /** Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user. */
+    /** Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user. See the [Demo Trigger](/guides/campaigns/rcs-compliance#demo-trigger) section for requirements. */
     demoTrigger?: string;
 }
 
@@ -114,7 +109,7 @@ export namespace ExtendedRcsCampaign {
      * Use case classification for the campaign.
      */
     export interface UseCase {
-        /** Detailed summary of what the brand is and how this agent will be used. */
+        /** Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements. */
         behavior?: string;
         value?: Pinnacle.RcsCampaignUseCaseEnum;
     }
@@ -127,21 +122,21 @@ export namespace ExtendedRcsCampaign {
 
     export namespace Keywords {
         export interface Help {
-            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). */
+            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements. */
             message?: string;
             /** Keywords that trigger help response. */
             keywords?: string[];
         }
 
         export interface OptIn {
-            /** Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). */
+            /** Message sent when a user opts in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements. */
             message?: string;
             /** Keywords that trigger opt-in response. */
             keywords?: string[];
         }
 
         export interface OptOut {
-            /** Message sent when a user opt-out. Must include brand name, acknowledge opt-out request and state user will not receive further messages. No marketing or re-engagement attempts. */
+            /** Message sent when a user opts out. Must include brand name, acknowledge opt-out request and state user will not receive further messages. No marketing or re-engagement attempts. See the [Keyword Response Messages](/guides/campaigns/rcs-compliance#keyword-response-messages) section for requirements. */
             message?: string;
             /** Keywords that trigger opt-out response. */
             keywords?: string[];

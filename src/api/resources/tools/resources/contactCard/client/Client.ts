@@ -16,7 +16,7 @@ export declare namespace ContactCard {
 export class ContactCard {
     protected readonly _options: ContactCard.Options;
 
-    constructor(_options: ContactCard.Options = {}) {
+    constructor(_options: ContactCard.Options) {
         this._options = _options;
     }
 

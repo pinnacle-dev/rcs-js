@@ -11,20 +11,20 @@ export interface DlcCampaignWithExtendedBrandAndStatus {
     /** Brand associated with this campaign. */
     brand: Pinnacle.ExtendedBrand;
     /** Unique identifier for the campaign. This identifier is a string that always begins with the prefix `dlc_`, for example: `dlc_1234567890`. */
-    campaignId?: string;
+    campaignId: string;
     /** Description of the campaign. */
     description?: string;
     /** Keyword response configuration. */
     keywords: DlcCampaignWithExtendedBrandAndStatus.Keywords;
     /** Legal documentation links. */
     links?: DlcCampaignWithExtendedBrandAndStatus.Links;
-    /** Describe the flow of how users will opt in to this campaign. */
+    /** Describe the flow of how users will opt in to this campaign. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements. */
     messageFlow?: string;
     /** Display name of the campaign. */
     name?: string;
     /** Campaign configuration options. */
     options: DlcCampaignWithExtendedBrandAndStatus.Options;
-    /** Example messages for the campaign. */
+    /** Example messages for the campaign. See the [Sample Messages](/guides/campaigns/opt-in-compliance#sample-messages) section for requirements. */
     sampleMessages?: string[];
     /**
      * Current review status of the campaign. <br>
@@ -72,7 +72,7 @@ export namespace DlcCampaignWithExtendedBrandAndStatus {
          * Help keyword settings.
          */
         export interface Help {
-            /** Response message for help keywords. */
+            /** Response message for help keywords. See the [Keyword Response Messages](/guides/campaigns/opt-in-compliance#keyword-response-messages) section for requirements. */
             message?: string;
             /** Keywords that trigger help response. */
             values: string[];
@@ -82,7 +82,7 @@ export namespace DlcCampaignWithExtendedBrandAndStatus {
          * Opt-in keyword settings.
          */
         export interface OptIn {
-            /** Response message for opt-in keywords. */
+            /** Response message for opt-in keywords. See the [Keyword Response Messages](/guides/campaigns/opt-in-compliance#keyword-response-messages) section for requirements. */
             message?: string;
             /** Keywords that trigger opt-in. */
             values: string[];
@@ -92,7 +92,7 @@ export namespace DlcCampaignWithExtendedBrandAndStatus {
          * Opt-out keyword settings.
          */
         export interface OptOut {
-            /** Response message for opt-out keywords. */
+            /** Response message for opt-out keywords. See the [Keyword Response Messages](/guides/campaigns/opt-in-compliance#keyword-response-messages) section for requirements. */
             message?: string;
             /** Keywords that trigger opt-out. */
             values: string[];

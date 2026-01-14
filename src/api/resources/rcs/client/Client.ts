@@ -16,7 +16,7 @@ export declare namespace Rcs {
 export class Rcs {
     protected readonly _options: Rcs.Options;
 
-    constructor(_options: Rcs.Options = {}) {
+    constructor(_options: Rcs.Options) {
         this._options = _options;
     }
 

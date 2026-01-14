@@ -15,7 +15,7 @@ export class Tools {
     protected _file: File_ | undefined;
     protected _contactCard: ContactCard | undefined;
 
-    constructor(_options: Tools.Options = {}) {
+    constructor(_options: Tools.Options) {
         this._options = _options;
     }
 

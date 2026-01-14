@@ -16,7 +16,7 @@ export declare namespace Contacts {
 export class Contacts {
     protected readonly _options: Contacts.Options;
 
-    constructor(_options: Contacts.Options = {}) {
+    constructor(_options: Contacts.Options) {
         this._options = _options;
     }
 

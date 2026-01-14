@@ -9,10 +9,10 @@ import type * as Pinnacle from "../../../../../../index.js";
  *         campaignId: "tf_1234567890",
  *         keywords: {
  *             HELP: {
- *                 message: "Email founders@trypinnacle.app for support."
+ *                 message: "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel."
  *             },
  *             OPT_IN: {
- *                 message: "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+ *                 message: "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
  *                 keywords: ["START", "SUBSCRIBE"]
  *             }
  *         },
@@ -20,20 +20,20 @@ import type * as Pinnacle from "../../../../../../index.js";
  *             privacyPolicy: "https://www.pinnacle.sh/privacy",
  *             termsOfService: "https://www.pinnacle.sh/terms"
  *         },
- *         monthlyVolume: "1,000",
+ *         monthlyVolume: "10,000",
  *         name: "Pinnacle",
  *         optIn: {
- *             method: "DIGITAL",
- *             url: "https://www.pinnacle.sh/",
- *             workflowDescription: "Visit https://www.pinnacle.sh/"
+ *             method: "PAPER",
+ *             url: "https://www.pinnacle.sh/opt-in",
+ *             workflowDescription: "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in"
  *         },
  *         options: {
  *             ageGated: false
  *         },
- *         productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
+ *         productionMessageContent: "Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.",
  *         useCase: {
- *             summary: "Alerts clients about any Pinnacle hosted workshops.",
- *             value: "WORKSHOP_ALERTS"
+ *             summary: "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+ *             value: "CHATBOT"
  *         }
  *     }
  */
@@ -47,13 +47,13 @@ export interface UpsertTollFreeCampaignParams {
     /** Legal documentation links. */
     links?: UpsertTollFreeCampaignParams.Links;
     monthlyVolume?: Pinnacle.MessageVolumeEnum;
-    /** Display name of the campaign. */
+    /** Display name of the campaign. This is not sent to carriers for approval and is only used for your reference on the Pinnacle dashboard. */
     name?: string;
-    /** Opt-in keyword settings. */
+    /** Opt-in method and workflow. */
     optIn?: UpsertTollFreeCampaignParams.OptIn;
     /** Campaign configuration options. */
     options?: UpsertTollFreeCampaignParams.Options;
-    /** Explain message that would be sent. */
+    /** Example message(s) that would be sent in production. Should reflect the actual content users will receive, including HELP/STOP disclosures. See the [Production Message Content](/guides/campaigns/opt-in-compliance#production-message-content) section for requirements. */
     productionMessageContent?: string;
     /** Use case classification for the campaign. */
     useCase?: UpsertTollFreeCampaignParams.UseCase;
@@ -75,7 +75,7 @@ export namespace UpsertTollFreeCampaignParams {
          * Help keyword settings.
          */
         export interface Help {
-            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). */
+            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). See the [Help keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages). */
             message?: string;
         }
 
@@ -83,7 +83,7 @@ export namespace UpsertTollFreeCampaignParams {
          * Opt-in keyword settings.
          */
         export interface OptIn {
-            /** Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). */
+            /** Message sent when a user opts in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). See the [Opt-In keyword requirements](/guides/campaigns/opt-in-compliance#keyword-response-messages). */
             message?: string;
             /** Keywords that trigger opt-in response. */
             keywords?: string[];
@@ -101,13 +101,13 @@ export namespace UpsertTollFreeCampaignParams {
     }
 
     /**
-     * Opt-in keyword settings.
+     * Opt-in method and workflow.
      */
     export interface OptIn {
         method?: Pinnacle.OptInMethodEnum;
-        /** Url to opt in. */
+        /** URL where the opt-in form or documentation can be found. */
         url?: string;
-        /** Explain how users find the opt-in. */
+        /** Describe your opt-in workflow. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements and examples. */
         workflowDescription?: string;
     }
 
@@ -123,7 +123,7 @@ export namespace UpsertTollFreeCampaignParams {
      * Use case classification for the campaign.
      */
     export interface UseCase {
-        /** Summary of the use case. */
+        /** Detailed summary of the use case explaining what messages will be sent and how users interact with the campaign. See the [Use Case Summary](/guides/campaigns/opt-in-compliance#use-case-summary) section for requirements and examples. */
         summary?: string;
         value?: Pinnacle.TollFreeCampaignUseCaseEnum;
     }

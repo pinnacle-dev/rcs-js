@@ -15,7 +15,7 @@ export class Campaigns {
     protected _tollFree: TollFree | undefined;
     protected _rcs: Rcs | undefined;
 
-    constructor(_options: Campaigns.Options = {}) {
+    constructor(_options: Campaigns.Options) {
         this._options = _options;
     }
 

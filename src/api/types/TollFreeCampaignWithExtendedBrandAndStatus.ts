@@ -2,7 +2,7 @@
 
 import type * as Pinnacle from "../index.js";
 
-export interface TollFreeCampaignWithExtendedBrandAndStatus extends Pinnacle.TollFreeCampaign {
+export interface TollFreeCampaignWithExtendedBrandAndStatus {
     /** Brand associated with this campaign. */
     brand: Pinnacle.ExtendedBrand;
     /**
@@ -14,4 +14,91 @@ export interface TollFreeCampaignWithExtendedBrandAndStatus extends Pinnacle.Tol
      * `VETTED`: Brand has been vetted by an external provider and has received vetting scores.
      */
     status: Pinnacle.ProfileStatusEnum;
+    /** Unique identifier for the campaign. Begins with the prefix `tf_`. */
+    campaignId: string;
+    /** Keyword response configuration. */
+    keywords?: TollFreeCampaignWithExtendedBrandAndStatus.Keywords;
+    /** Legal documentation links. */
+    links?: TollFreeCampaignWithExtendedBrandAndStatus.Links;
+    monthlyVolume?: Pinnacle.MessageVolumeEnum;
+    /** Display name of the campaign. */
+    name?: string;
+    /** Opt-in keyword settings. */
+    optIn?: TollFreeCampaignWithExtendedBrandAndStatus.OptIn;
+    /** Campaign configuration options. */
+    options?: TollFreeCampaignWithExtendedBrandAndStatus.Options;
+    /** Explain message that would be sent. */
+    productionMessageContent?: string;
+    /** Use case classification for the campaign. */
+    useCase?: TollFreeCampaignWithExtendedBrandAndStatus.UseCase;
+}
+
+export namespace TollFreeCampaignWithExtendedBrandAndStatus {
+    /**
+     * Keyword response configuration.
+     */
+    export interface Keywords {
+        /** Help keyword settings. */
+        HELP?: Keywords.Help;
+        /** Opt-in keyword settings. */
+        OPT_IN?: Keywords.OptIn;
+    }
+
+    export namespace Keywords {
+        /**
+         * Help keyword settings.
+         */
+        export interface Help {
+            /** Message sent when a user sends HELP. Must include at least one support contact method (phone, email, or website). */
+            message?: string;
+        }
+
+        /**
+         * Opt-in keyword settings.
+         */
+        export interface OptIn {
+            /** Message sent when a user opt-in. Must include brand name, confirmation of subscription, and disclosures (STOP and HELP instructions, message and data rates). */
+            message?: string;
+            /** Keywords that trigger opt-in response. */
+            keywords?: string[];
+        }
+    }
+
+    /**
+     * Legal documentation links.
+     */
+    export interface Links {
+        /** Privacy policy URL. */
+        privacyPolicy?: string;
+        /** Terms of service URL. */
+        termsOfService?: string;
+    }
+
+    /**
+     * Opt-in keyword settings.
+     */
+    export interface OptIn {
+        method?: Pinnacle.OptInMethodEnum;
+        /** Url to opt in. */
+        url?: string;
+        /** Explain how users find the opt-in. */
+        workflowDescription?: string;
+    }
+
+    /**
+     * Campaign configuration options.
+     */
+    export interface Options {
+        /** Whether the campaign is age-gated. */
+        ageGated?: boolean;
+    }
+
+    /**
+     * Use case classification for the campaign.
+     */
+    export interface UseCase {
+        /** Summary of the use case. */
+        summary?: string;
+        value?: Pinnacle.TollFreeCampaignUseCaseEnum;
+    }
 }

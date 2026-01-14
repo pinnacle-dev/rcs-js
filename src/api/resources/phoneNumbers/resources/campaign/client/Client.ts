@@ -16,7 +16,7 @@ export declare namespace Campaign {
 export class Campaign {
     protected readonly _options: Campaign.Options;
 
-    constructor(_options: Campaign.Options = {}) {
+    constructor(_options: Campaign.Options) {
         this._options = _options;
     }
 

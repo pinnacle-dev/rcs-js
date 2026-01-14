@@ -16,7 +16,7 @@ export declare namespace TollFree {
 export class TollFree {
     protected readonly _options: TollFree.Options;
 
-    constructor(_options: TollFree.Options = {}) {
+    constructor(_options: TollFree.Options) {
         this._options = _options;
     }
 
@@ -312,9 +312,17 @@ export class TollFree {
     }
 
     /**
-     * Create a new toll-free campaign or updates an existing one.<br>
+     * Create a new toll-free campaign or update an existing one.
      *
-     * Omit campaignId to create a campaign.
+     * <Note>
+     * **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+     *
+     * **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+     *
+     * All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/toll-free/submit).
+     *
+     * **See the response for example values for each field.**
+     * </Note>
      *
      * @param {Pinnacle.campaigns.UpsertTollFreeCampaignParams} request
      * @param {TollFree.RequestOptions} requestOptions - Request-specific configuration.
@@ -330,10 +338,10 @@ export class TollFree {
      *         campaignId: "tf_1234567890",
      *         keywords: {
      *             HELP: {
-     *                 message: "Email founders@trypinnacle.app for support."
+     *                 message: "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel."
      *             },
      *             OPT_IN: {
-     *                 message: "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+     *                 message: "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
      *                 keywords: ["START", "SUBSCRIBE"]
      *             }
      *         },
@@ -341,20 +349,20 @@ export class TollFree {
      *             privacyPolicy: "https://www.pinnacle.sh/privacy",
      *             termsOfService: "https://www.pinnacle.sh/terms"
      *         },
-     *         monthlyVolume: "1,000",
+     *         monthlyVolume: "10,000",
      *         name: "Pinnacle",
      *         optIn: {
-     *             method: "DIGITAL",
-     *             url: "https://www.pinnacle.sh/",
-     *             workflowDescription: "Visit https://www.pinnacle.sh/"
+     *             method: "PAPER",
+     *             url: "https://www.pinnacle.sh/opt-in",
+     *             workflowDescription: "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in"
      *         },
      *         options: {
      *             ageGated: false
      *         },
-     *         productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
+     *         productionMessageContent: "Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.",
      *         useCase: {
-     *             summary: "Alerts clients about any Pinnacle hosted workshops.",
-     *             value: "WORKSHOP_ALERTS"
+     *             summary: "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+     *             value: "CHATBOT"
      *         }
      *     })
      */

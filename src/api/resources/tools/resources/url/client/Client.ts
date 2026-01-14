@@ -16,7 +16,7 @@ export declare namespace Url {
 export class Url {
     protected readonly _options: Url.Options;
 
-    constructor(_options: Url.Options = {}) {
+    constructor(_options: Url.Options) {
         this._options = _options;
     }
 

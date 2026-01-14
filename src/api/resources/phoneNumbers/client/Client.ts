@@ -20,7 +20,7 @@ export class PhoneNumbers {
     protected _webhook: Webhook | undefined;
     protected _campaign: Campaign | undefined;
 
-    constructor(_options: PhoneNumbers.Options = {}) {
+    constructor(_options: PhoneNumbers.Options) {
         this._options = _options;
     }
 

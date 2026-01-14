@@ -26,7 +26,7 @@ export class Messages {
     protected _blast: Blast | undefined;
     protected _schedule: Schedule | undefined;
 
-    constructor(_options: Messages.Options = {}) {
+    constructor(_options: Messages.Options) {
         this._options = _options;
     }
 

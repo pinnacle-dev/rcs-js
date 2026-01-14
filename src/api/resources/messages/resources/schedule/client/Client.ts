@@ -16,7 +16,7 @@ export declare namespace Schedule {
 export class Schedule {
     protected readonly _options: Schedule.Options;
 
-    constructor(_options: Schedule.Options = {}) {
+    constructor(_options: Schedule.Options) {
         this._options = _options;
     }
 

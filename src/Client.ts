@@ -35,7 +35,7 @@ export class PinnacleClient {
     protected _status: Status | undefined;
     protected _tools: Tools | undefined;
 
-    constructor(_options: PinnacleClient.Options = {}) {
+    constructor(_options: PinnacleClient.Options) {
         this._options = {
             ..._options,
             logging: core.logging.createLogger(_options?.logging),
@@ -43,8 +43,8 @@ export class PinnacleClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "rcs-js",
-                    "X-Fern-SDK-Version": "2.0.10",
-                    "User-Agent": "rcs-js/2.0.10",
+                    "X-Fern-SDK-Version": "2.0.10-rc.1",
+                    "User-Agent": "rcs-js/2.0.10-rc.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

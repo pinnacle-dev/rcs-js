@@ -16,7 +16,7 @@ export declare namespace Mms {
 export class Mms {
     protected readonly _options: Mms.Options;
 
-    constructor(_options: Mms.Options = {}) {
+    constructor(_options: Mms.Options) {
         this._options = _options;
     }
 

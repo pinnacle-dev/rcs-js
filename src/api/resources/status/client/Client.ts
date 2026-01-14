@@ -11,7 +11,7 @@ export class Status {
     protected readonly _options: Status.Options;
     protected _get: Get | undefined;
 
-    constructor(_options: Status.Options = {}) {
+    constructor(_options: Status.Options) {
         this._options = _options;
     }
 

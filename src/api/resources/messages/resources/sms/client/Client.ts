@@ -16,7 +16,7 @@ export declare namespace Sms {
 export class Sms {
     protected readonly _options: Sms.Options;
 
-    constructor(_options: Sms.Options = {}) {
+    constructor(_options: Sms.Options) {
         this._options = _options;
     }
 

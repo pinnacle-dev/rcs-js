@@ -15,10 +15,13 @@ describe("TollFree", () => {
         const rawResponseBody = {
             campaignId: "tf_1234567890",
             keywords: {
-                HELP: { message: "Email founders@trypinnacle.app for support." },
+                HELP: {
+                    message:
+                        "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
+                },
                 OPT_IN: {
                     message:
-                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                        "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
                     keywords: ["START", "SUBSCRIBE"],
                 },
             },
@@ -26,16 +29,22 @@ describe("TollFree", () => {
                 privacyPolicy: "https://www.pinnacle.sh/privacy",
                 termsOfService: "https://www.pinnacle.sh/terms",
             },
-            monthlyVolume: "1,000",
+            monthlyVolume: "10,000",
             name: "Pinnacle",
             optIn: {
-                method: "DIGITAL",
-                url: "https://www.pinnacle.sh/",
-                workflowDescription: "Visit https://www.pinnacle.sh/",
+                method: "PAPER",
+                url: "https://www.pinnacle.sh/opt-in",
+                workflowDescription:
+                    "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in",
             },
             options: { ageGated: false },
-            productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
-            useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
+            productionMessageContent:
+                "• Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.\n• Heads up! [Friend Name] shared 3 photos. Reply VIEW to see them. Reply HELP for help or STOP to unsubscribe.\n• Hello [First Name]! I'm Pinnacle's virtual assistant. How can I help you today? Ask about order status, account updates, photo sharing, or more. Reply HELP for assistance or STOP to unsubscribe.",
+            useCase: {
+                summary:
+                    "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+                value: "CHATBOT",
+            },
             brand: "b_1234567890",
         };
         server
@@ -55,11 +64,12 @@ describe("TollFree", () => {
             campaignId: "tf_1234567890",
             keywords: {
                 HELP: {
-                    message: "Email founders@trypinnacle.app for support.",
+                    message:
+                        "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
                 },
                 OPT_IN: {
                     message:
-                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                        "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
                     keywords: ["START", "SUBSCRIBE"],
                 },
             },
@@ -67,20 +77,23 @@ describe("TollFree", () => {
                 privacyPolicy: "https://www.pinnacle.sh/privacy",
                 termsOfService: "https://www.pinnacle.sh/terms",
             },
-            monthlyVolume: "1,000",
+            monthlyVolume: "10,000",
             name: "Pinnacle",
             optIn: {
-                method: "DIGITAL",
-                url: "https://www.pinnacle.sh/",
-                workflowDescription: "Visit https://www.pinnacle.sh/",
+                method: "PAPER",
+                url: "https://www.pinnacle.sh/opt-in",
+                workflowDescription:
+                    "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in",
             },
             options: {
                 ageGated: false,
             },
-            productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
+            productionMessageContent:
+                "\u2022 Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.\n\u2022 Heads up! [Friend Name] shared 3 photos. Reply VIEW to see them. Reply HELP for help or STOP to unsubscribe.\n\u2022 Hello [First Name]! I'm Pinnacle's virtual assistant. How can I help you today? Ask about order status, account updates, photo sharing, or more. Reply HELP for assistance or STOP to unsubscribe.",
             useCase: {
-                summary: "Alerts clients about any Pinnacle hosted workshops.",
-                value: "WORKSHOP_ALERTS",
+                summary:
+                    "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+                value: "CHATBOT",
             },
             brand: "b_1234567890",
         });
@@ -148,29 +161,6 @@ describe("TollFree", () => {
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = {
-            campaignId: "tf_1234567890",
-            keywords: {
-                HELP: { message: "Email founders@trypinnacle.app for support." },
-                OPT_IN: {
-                    message:
-                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
-                    keywords: ["START", "SUBSCRIBE"],
-                },
-            },
-            links: {
-                privacyPolicy: "https://www.pinnacle.sh/privacy",
-                termsOfService: "https://www.pinnacle.sh/terms",
-            },
-            monthlyVolume: "1,000",
-            name: "Pinnacle",
-            optIn: {
-                method: "DIGITAL",
-                url: "https://www.pinnacle.sh/",
-                workflowDescription: "Visit https://www.pinnacle.sh/",
-            },
-            options: { ageGated: false },
-            productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
-            useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
             brand: {
                 address: "500 Folsom Street, San Francisco, CA 94105",
                 contact: {
@@ -195,6 +185,38 @@ describe("TollFree", () => {
                 updatedAt: "2024-12-09T10:03:54.934",
             },
             status: "VERIFIED",
+            campaignId: "tf_1234567890",
+            keywords: {
+                HELP: {
+                    message:
+                        "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
+                },
+                OPT_IN: {
+                    message:
+                        "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
+            monthlyVolume: "10,000",
+            name: "Pinnacle's Account Notifications",
+            optIn: {
+                method: "PAPER",
+                url: "https://www.pinnacle.sh/opt-in",
+                workflowDescription:
+                    "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in",
+            },
+            options: { ageGated: false },
+            productionMessageContent:
+                "• Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.\n• Heads up! [Friend Name] shared 3 photos. Reply VIEW to see them. Reply HELP for help or STOP to unsubscribe.\n• Hello [First Name]! I'm Pinnacle's virtual assistant. How can I help you today? Ask about order status, account updates, photo sharing, or more. Reply HELP for assistance or STOP to unsubscribe.",
+            useCase: {
+                summary:
+                    "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+                value: "CHATBOT",
+            },
         };
         server
             .mockEndpoint()
@@ -206,36 +228,6 @@ describe("TollFree", () => {
 
         const response = await client.campaigns.tollFree.get("tf_1234567890");
         expect(response).toEqual({
-            campaignId: "tf_1234567890",
-            keywords: {
-                HELP: {
-                    message: "Email founders@trypinnacle.app for support.",
-                },
-                OPT_IN: {
-                    message:
-                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
-                    keywords: ["START", "SUBSCRIBE"],
-                },
-            },
-            links: {
-                privacyPolicy: "https://www.pinnacle.sh/privacy",
-                termsOfService: "https://www.pinnacle.sh/terms",
-            },
-            monthlyVolume: "1,000",
-            name: "Pinnacle",
-            optIn: {
-                method: "DIGITAL",
-                url: "https://www.pinnacle.sh/",
-                workflowDescription: "Visit https://www.pinnacle.sh/",
-            },
-            options: {
-                ageGated: false,
-            },
-            productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
-            useCase: {
-                summary: "Alerts clients about any Pinnacle hosted workshops.",
-                value: "WORKSHOP_ALERTS",
-            },
             brand: {
                 address: "500 Folsom Street, San Francisco, CA 94105",
                 contact: {
@@ -260,6 +252,40 @@ describe("TollFree", () => {
                 updatedAt: "2024-12-09T10:03:54.934",
             },
             status: "VERIFIED",
+            campaignId: "tf_1234567890",
+            keywords: {
+                HELP: {
+                    message:
+                        "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
+                },
+                OPT_IN: {
+                    message:
+                        "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
+            monthlyVolume: "10,000",
+            name: "Pinnacle's Account Notifications",
+            optIn: {
+                method: "PAPER",
+                url: "https://www.pinnacle.sh/opt-in",
+                workflowDescription:
+                    "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in",
+            },
+            options: {
+                ageGated: false,
+            },
+            productionMessageContent:
+                "\u2022 Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.\n\u2022 Heads up! [Friend Name] shared 3 photos. Reply VIEW to see them. Reply HELP for help or STOP to unsubscribe.\n\u2022 Hello [First Name]! I'm Pinnacle's virtual assistant. How can I help you today? Ask about order status, account updates, photo sharing, or more. Reply HELP for assistance or STOP to unsubscribe.",
+            useCase: {
+                summary:
+                    "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+                value: "CHATBOT",
+            },
         });
     });
 
@@ -433,10 +459,13 @@ describe("TollFree", () => {
             brand: "b_1234567890",
             campaignId: "tf_1234567890",
             keywords: {
-                HELP: { message: "Email founders@trypinnacle.app for support." },
+                HELP: {
+                    message:
+                        "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
+                },
                 OPT_IN: {
                     message:
-                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                        "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
                     keywords: ["START", "SUBSCRIBE"],
                 },
             },
@@ -444,41 +473,24 @@ describe("TollFree", () => {
                 privacyPolicy: "https://www.pinnacle.sh/privacy",
                 termsOfService: "https://www.pinnacle.sh/terms",
             },
-            monthlyVolume: "1,000",
+            monthlyVolume: "10,000",
             name: "Pinnacle",
             optIn: {
-                method: "DIGITAL",
-                url: "https://www.pinnacle.sh/",
-                workflowDescription: "Visit https://www.pinnacle.sh/",
+                method: "PAPER",
+                url: "https://www.pinnacle.sh/opt-in",
+                workflowDescription:
+                    "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in",
             },
             options: { ageGated: false },
-            productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
-            useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
+            productionMessageContent:
+                "Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.",
+            useCase: {
+                summary:
+                    "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+                value: "CHATBOT",
+            },
         };
         const rawResponseBody = {
-            campaignId: "tf_1234567890",
-            keywords: {
-                HELP: { message: "Email founders@trypinnacle.app for support." },
-                OPT_IN: {
-                    message:
-                        "Welcome back to Pinnacle!<br>\n🔔 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
-                    keywords: ["START", "SUBSCRIBE"],
-                },
-            },
-            links: {
-                privacyPolicy: "https://www.pinnacle.sh/privacy",
-                termsOfService: "https://www.pinnacle.sh/terms",
-            },
-            monthlyVolume: "1,000",
-            name: "Pinnacle",
-            optIn: {
-                method: "DIGITAL",
-                url: "https://www.pinnacle.sh/",
-                workflowDescription: "Visit https://www.pinnacle.sh/",
-            },
-            options: { ageGated: false },
-            productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
-            useCase: { summary: "Alerts clients about any Pinnacle hosted workshops.", value: "WORKSHOP_ALERTS" },
             brand: {
                 address: "500 Folsom Street, San Francisco, CA 94105",
                 contact: {
@@ -503,6 +515,38 @@ describe("TollFree", () => {
                 updatedAt: "2024-12-09T10:03:54.934",
             },
             status: "VERIFIED",
+            campaignId: "tf_1234567890",
+            keywords: {
+                HELP: {
+                    message:
+                        "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
+                },
+                OPT_IN: {
+                    message:
+                        "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
+            monthlyVolume: "10,000",
+            name: "Pinnacle's Account Notifications",
+            optIn: {
+                method: "PAPER",
+                url: "https://www.pinnacle.sh/opt-in",
+                workflowDescription:
+                    "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in",
+            },
+            options: { ageGated: false },
+            productionMessageContent:
+                "• Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.\n• Heads up! [Friend Name] shared 3 photos. Reply VIEW to see them. Reply HELP for help or STOP to unsubscribe.\n• Hello [First Name]! I'm Pinnacle's virtual assistant. How can I help you today? Ask about order status, account updates, photo sharing, or more. Reply HELP for assistance or STOP to unsubscribe.",
+            useCase: {
+                summary:
+                    "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+                value: "CHATBOT",
+            },
         };
         server
             .mockEndpoint()
@@ -518,11 +562,12 @@ describe("TollFree", () => {
             campaignId: "tf_1234567890",
             keywords: {
                 HELP: {
-                    message: "Email founders@trypinnacle.app for support.",
+                    message:
+                        "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
                 },
                 OPT_IN: {
                     message:
-                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
+                        "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
                     keywords: ["START", "SUBSCRIBE"],
                 },
             },
@@ -530,53 +575,26 @@ describe("TollFree", () => {
                 privacyPolicy: "https://www.pinnacle.sh/privacy",
                 termsOfService: "https://www.pinnacle.sh/terms",
             },
-            monthlyVolume: "1,000",
+            monthlyVolume: "10,000",
             name: "Pinnacle",
             optIn: {
-                method: "DIGITAL",
-                url: "https://www.pinnacle.sh/",
-                workflowDescription: "Visit https://www.pinnacle.sh/",
+                method: "PAPER",
+                url: "https://www.pinnacle.sh/opt-in",
+                workflowDescription:
+                    "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in",
             },
             options: {
                 ageGated: false,
             },
-            productionMessageContent: "Join the Pinnacle workshop tomorrow and send your first RCS!",
+            productionMessageContent:
+                "Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.",
             useCase: {
-                summary: "Alerts clients about any Pinnacle hosted workshops.",
-                value: "WORKSHOP_ALERTS",
+                summary:
+                    "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+                value: "CHATBOT",
             },
         });
         expect(response).toEqual({
-            campaignId: "tf_1234567890",
-            keywords: {
-                HELP: {
-                    message: "Email founders@trypinnacle.app for support.",
-                },
-                OPT_IN: {
-                    message:
-                        "Welcome back to Pinnacle!<br>\n\uD83D\uDD14 You're now subscribed to Pinnacle and will continue receiving important updates and news. Feel free to contact this us at any time for help.<br>\n\nReply STOP to opt out and HELP for support. Message & rates may apply.\n",
-                    keywords: ["START", "SUBSCRIBE"],
-                },
-            },
-            links: {
-                privacyPolicy: "https://www.pinnacle.sh/privacy",
-                termsOfService: "https://www.pinnacle.sh/terms",
-            },
-            monthlyVolume: "1,000",
-            name: "Pinnacle",
-            optIn: {
-                method: "DIGITAL",
-                url: "https://www.pinnacle.sh/",
-                workflowDescription: "Visit https://www.pinnacle.sh/",
-            },
-            options: {
-                ageGated: false,
-            },
-            productionMessageContent: "Join Pinnacle's workshop tomorrow and send your first RCS!",
-            useCase: {
-                summary: "Alerts clients about any Pinnacle hosted workshops.",
-                value: "WORKSHOP_ALERTS",
-            },
             brand: {
                 address: "500 Folsom Street, San Francisco, CA 94105",
                 contact: {
@@ -601,6 +619,40 @@ describe("TollFree", () => {
                 updatedAt: "2024-12-09T10:03:54.934",
             },
             status: "VERIFIED",
+            campaignId: "tf_1234567890",
+            keywords: {
+                HELP: {
+                    message:
+                        "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
+                },
+                OPT_IN: {
+                    message:
+                        "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/",
+                    keywords: ["START", "SUBSCRIBE"],
+                },
+            },
+            links: {
+                privacyPolicy: "https://www.pinnacle.sh/privacy",
+                termsOfService: "https://www.pinnacle.sh/terms",
+            },
+            monthlyVolume: "10,000",
+            name: "Pinnacle's Account Notifications",
+            optIn: {
+                method: "PAPER",
+                url: "https://www.pinnacle.sh/opt-in",
+                workflowDescription:
+                    "End users opt-in when filling out the in-person intake forms where they will write their phone numbers and check a box indicating that they've opted in to messages. Link to paper form: https://www.pinnacle.sh/opt-in",
+            },
+            options: {
+                ageGated: false,
+            },
+            productionMessageContent:
+                "\u2022 Hi [First Name], your order #[Order ID] has shipped and will arrive [Date]. Track here: [URL]. Reply HELP for help or STOP to unsubscribe.\n\u2022 Heads up! [Friend Name] shared 3 photos. Reply VIEW to see them. Reply HELP for help or STOP to unsubscribe.\n\u2022 Hello [First Name]! I'm Pinnacle's virtual assistant. How can I help you today? Ask about order status, account updates, photo sharing, or more. Reply HELP for assistance or STOP to unsubscribe.",
+            useCase: {
+                summary:
+                    "Customers who have opted into text messages can interact with our automated SMS chatbot to receive transaction-driven notifications (order status, shipping updates, account alerts), ask support questions, share photos with friends, and manage their account details via simple, conversational text flows. All messages are transactional or interactive flows customers opt into. Users can send images (e.g., receipts) and get guided replies.",
+                value: "CHATBOT",
+            },
         });
     });
 

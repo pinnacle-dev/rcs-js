@@ -16,7 +16,7 @@ export declare namespace Webhook {
 export class Webhook {
     protected readonly _options: Webhook.Options;
 
-    constructor(_options: Webhook.Options = {}) {
+    constructor(_options: Webhook.Options) {
         this._options = _options;
     }
 

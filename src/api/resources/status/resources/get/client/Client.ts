@@ -16,7 +16,7 @@ export declare namespace Get {
 export class Get {
     protected readonly _options: Get.Options;
 
-    constructor(_options: Get.Options = {}) {
+    constructor(_options: Get.Options) {
         this._options = _options;
     }
 

@@ -313,8 +313,8 @@ describe("Brands", () => {
             isArchived: false,
             status: "VERIFIED",
             updatedAt: "2024-05-08T07:58:01.291",
-            lastTcrVettingDate: "lastTcrVettingDate",
-            tcrFeedback: [{ description: "description", displayName: "displayName", fields: ["fields"], id: "id" }],
+            lastTcrVettingDate: null,
+            tcrFeedback: null,
             vettingHistory: [
                 {
                     provider: "AEGIS",
@@ -356,15 +356,8 @@ describe("Brands", () => {
             isArchived: false,
             status: "VERIFIED",
             updatedAt: "2024-05-08T07:58:01.291",
-            lastTcrVettingDate: "lastTcrVettingDate",
-            tcrFeedback: [
-                {
-                    description: "description",
-                    displayName: "displayName",
-                    fields: ["fields"],
-                    id: "id",
-                },
-            ],
+            lastTcrVettingDate: null,
+            tcrFeedback: null,
             vettingHistory: [
                 {
                     provider: "AEGIS",

@@ -15,13 +15,13 @@ export interface AutofillDlcCampaignResponse {
     keywords?: AutofillDlcCampaignResponse.Keywords;
     /** Legal documentation links. */
     links?: AutofillDlcCampaignResponse.Links;
-    /** Describe the flow of how users will opt in to this campaign. */
+    /** Describe the flow of how users will opt in to this campaign. See the [Opt-In Methods and Workflow](/guides/campaigns/opt-in-compliance#opt-in-methods-and-workflow) section for requirements. */
     messageFlow?: string;
     /** Display name of the campaign. */
     name?: string;
     /** Campaign configuration options. */
     options?: AutofillDlcCampaignResponse.Options;
-    /** Example messages for the campaign. */
+    /** Example messages for the campaign. See the [Sample Messages](/guides/campaigns/opt-in-compliance#sample-messages) section for requirements. */
     sampleMessages?: string[];
     /** Use case for the campaign. */
     useCase?: AutofillDlcCampaignResponse.UseCase;
@@ -45,7 +45,7 @@ export namespace AutofillDlcCampaignResponse {
          * Help keyword settings.
          */
         export interface Help {
-            /** Response message for help keywords. */
+            /** Response message for help keywords. See the [Keyword Response Messages](/guides/campaigns/opt-in-compliance#keyword-response-messages) section for requirements. */
             message?: string;
             /** Keywords that trigger help response. */
             values: string[];
@@ -55,7 +55,7 @@ export namespace AutofillDlcCampaignResponse {
          * Opt-in keyword settings.
          */
         export interface OptIn {
-            /** Response message for opt-in keywords. */
+            /** Response message for opt-in keywords. See the [Keyword Response Messages](/guides/campaigns/opt-in-compliance#keyword-response-messages) section for requirements. */
             message?: string;
             /** Keywords that trigger opt-in. */
             values: string[];
@@ -65,7 +65,7 @@ export namespace AutofillDlcCampaignResponse {
          * Opt-out keyword settings.
          */
         export interface OptOut {
-            /** Response message for opt-out keywords. */
+            /** Response message for opt-out keywords. See the [Keyword Response Messages](/guides/campaigns/opt-in-compliance#keyword-response-messages) section for requirements. */
             message?: string;
             /** Keywords that trigger opt-out. */
             values: string[];

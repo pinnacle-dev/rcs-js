@@ -16,7 +16,7 @@ export declare namespace Dlc {
 export class Dlc {
     protected readonly _options: Dlc.Options;
 
-    constructor(_options: Dlc.Options = {}) {
+    constructor(_options: Dlc.Options) {
         this._options = _options;
     }
 
@@ -306,9 +306,17 @@ export class Dlc {
     }
 
     /**
-     * Create a new 10DLC campaign or updates an existing one. <br>
+     * Create a new 10DLC campaign or update an existing one.
      *
-     * Omit campaignId to create a campaign.
+     * <Note>
+     * **To create a new campaign:** Omit `campaignId` — one will be generated automatically.
+     *
+     * **Before you start:** Create a [brand](/api-reference/brands/upsert) first — you'll need its `id` for the [`brand`](#request.body.brand) field.
+     *
+     * All fields are **required** unless specified otherwise, and will be validated when [submitted](/api-reference/campaigns/10-dlc/submit).
+     *
+     * **See the response for example values for each field.**
+     * </Note>
      *
      * @param {Pinnacle.campaigns.UpsertDlcCampaignParams} request
      * @param {Dlc.RequestOptions} requestOptions - Request-specific configuration.
@@ -322,27 +330,27 @@ export class Dlc {
      *     await client.campaigns.dlc.upsert({
      *         autoRenew: true,
      *         brand: "b_1234567890",
-     *         campaignId: "dlc_1234567890",
+     *         description: "This campaign sends transactional SMS messages to customers who have opted in, including account notifications, security alerts, and customer care responses. Messages are sent when triggered by account activity such as login attempts, password changes, order updates, or support inquiries. All messages include required STOP/HELP disclosures and comply with TCPA guidelines.",
      *         keywords: {
      *             HELP: {
-     *                 message: "Reply HELP for assistance, STOP to opt-out",
-     *                 values: ["HELP", "INFO", "SUPPORT"]
+     *                 message: "Pinnacle Software Development Inc.: For assistance, visit https://pinnacle.sh/support or email founders@trypinnacle.app. Msg&data rates may apply. Reply STOP to cancel.",
+     *                 values: ["HELP", "SUPPORT", "INFO"]
      *             },
      *             OPT_IN: {
-     *                 message: "Welcome. You are now subscribed to Pinnacle.",
-     *                 values: ["JOIN", "START", "SUBSCRIBE"]
+     *                 message: "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms Privacy: https://pinnacle.sh/privacy",
+     *                 values: ["START", "YES", "SUBSCRIBE"]
      *             },
      *             OPT_OUT: {
-     *                 message: "You have been unsubscribed. Reply START to rejoin.",
-     *                 values: ["STOP", "QUIT", "UNSUBSCRIBE"]
+     *                 message: "Pinnacle Software Development Inc.: You're unsubscribed and will receive no further texts. For assistance, visit https://pinnacle.sh or call 877-389-0460. Reply START to resubscribe.",
+     *                 values: ["STOP", "CANCEL", "UNSUBSCRIBE"]
      *             }
      *         },
      *         links: {
      *             privacyPolicy: "https://www.pinnacle.sh/privacy",
      *             termsOfService: "https://www.pinnacle.sh/terms"
      *         },
-     *         messageFlow: "Customer initiates -> Automated response -> Agent follow-up if needed",
-     *         name: "Account Notifications",
+     *         messageFlow: "The user fills out a paper form during onboarding at [Address] which they learn about at our website (https://pinnacle.sh) in which they provide their phone number and sign their consent. The form includes a disclaimer: \"By signing this form and providing your phone number, you agree to receive SMS Mixed - Account Notification, Customer Care, Security Alert, Delivery Notification from Pinnacle Software Development Inc. Message frequency may vary. Standard Message and Data Rates may apply. Reply STOP to opt out. Reply HELP for help. Consent is not a condition of purchase. Your mobile information will not be sold or shared with third parties for promotional or marketing purposes.\" Once the information is entered into the system, the user receives a confirmation SMS: \"Thank you for signing up for SMS updates from Pinnacle Software Development Inc. Msg freq may vary. Std msg & data rates apply. Reply STOP to opt out, HELP for help.\" Link to paper form: https://www.pinnacle.sh/opt-in",
+     *         name: "Pinnacle's Account Notifications",
      *         options: {
      *             affiliateMarketing: false,
      *             ageGated: false,
@@ -351,10 +359,10 @@ export class Dlc {
      *             embeddedPhone: false,
      *             numberPooling: false
      *         },
-     *         sampleMessages: ["Security alert: Unusual login detected from new device."],
+     *         sampleMessages: ["Pinnacle Software Development Inc.: We're here to help. Visit https://pinnacle.sh or call 877-389-0460. Msg&data rates may apply. Reply STOP to cancel.", "Pinnacle Software Development Inc.: You're enrolled in account & security alerts. Msg&data rates may apply. Message frequency varies. Reply HELP for help, STOP to cancel. Terms: https://pinnacle.sh/terms/ Privacy: https://pinnacle.sh/privacy/", "Pinnacle Software Development Inc.: An update has been made to your account. Read it in the portal.", "Pinnacle Software Development Inc.: We received your message. A team member will reply shortly. For immediate help call 877-389-0460. Msg&data rates may apply. Reply STOP to cancel."],
      *         useCase: {
-     *             sub: ["FRAUD_ALERT"],
-     *             value: "ACCOUNT_NOTIFICATION"
+     *             sub: ["ACCOUNT_NOTIFICATION", "CUSTOMER_CARE", "SECURITY_ALERT"],
+     *             value: "MIXED"
      *         }
      *     })
      */
