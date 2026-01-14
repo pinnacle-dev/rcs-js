@@ -67,10 +67,14 @@ jobs:
           publish() {  # use latest npm to ensure OIDC support
             npx -y npm@latest publish "$@"
           }
-          if [[ ${GITHUB_REF} == *alpha* ]]; then
+          VERSION=$(node -p "require('./package.json').version")
+          if [[ "$VERSION" == *-alpha* ]]; then
             publish --access public --tag alpha
-          elif [[ ${GITHUB_REF} == *beta* ]]; then
+          elif [[ "$VERSION" == *-beta* ]]; then
             publish --access public --tag beta
+          elif [[ "$VERSION" == *-* ]]; then
+            # Any other prerelease version (rc, next, etc.)
+            publish --access public --tag next
           else
             publish --access public
           fi
