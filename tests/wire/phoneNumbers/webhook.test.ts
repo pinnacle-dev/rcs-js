@@ -47,7 +47,7 @@ describe("Webhook", () => {
     test("attach (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: "webhookId" };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -61,6 +61,7 @@ describe("Webhook", () => {
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
                 webhookId: "webhookId",
+                event: null,
             });
         }).rejects.toThrow(Pinnacle.BadRequestError);
     });
@@ -68,7 +69,7 @@ describe("Webhook", () => {
     test("attach (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: "webhookId" };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -82,6 +83,7 @@ describe("Webhook", () => {
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
                 webhookId: "webhookId",
+                event: null,
             });
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
@@ -89,7 +91,7 @@ describe("Webhook", () => {
     test("attach (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: "webhookId" };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -103,6 +105,7 @@ describe("Webhook", () => {
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
                 webhookId: "webhookId",
+                event: null,
             });
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
@@ -110,7 +113,7 @@ describe("Webhook", () => {
     test("attach (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: "webhookId" };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -124,6 +127,7 @@ describe("Webhook", () => {
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
                 webhookId: "webhookId",
+                event: null,
             });
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
@@ -131,7 +135,7 @@ describe("Webhook", () => {
     test("attach (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { webhookId: "webhookId" };
+        const rawRequestBody = { webhookId: "webhookId", event: null };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -145,6 +149,7 @@ describe("Webhook", () => {
         await expect(async () => {
             return await client.phoneNumbers.webhook.attach("phone", {
                 webhookId: "webhookId",
+                event: null,
             });
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
