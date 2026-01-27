@@ -123,6 +123,29 @@ describe("Campaign", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/attach-campaign")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.campaign.attach({
+                phones: ["phones", "phones"],
+                campaignType: "TOLL_FREE",
+                campaignId: "campaignId",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("attach (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -142,7 +165,7 @@ describe("Campaign", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("attach (5)", async () => {
+    test("attach (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
@@ -165,7 +188,7 @@ describe("Campaign", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("attach (6)", async () => {
+    test("attach (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"], campaignType: "TOLL_FREE", campaignId: "campaignId" };
@@ -284,6 +307,27 @@ describe("Campaign", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .delete("/phone-numbers/detach-campaign")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.campaign.detach({
+                phones: ["phones", "phones"],
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("detach (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phones: ["phones", "phones"] };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -301,7 +345,7 @@ describe("Campaign", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("detach (5)", async () => {
+    test("detach (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"] };
@@ -322,7 +366,7 @@ describe("Campaign", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("detach (6)", async () => {
+    test("detach (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phones: ["phones", "phones"] };

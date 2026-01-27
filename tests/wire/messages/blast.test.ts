@@ -176,6 +176,31 @@ describe("Blast", () => {
             .post("/messages/blast/sms")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.blast.sms({
+                audienceId: "audienceId",
+                senders: ["senders", "senders"],
+                message: {
+                    text: "text",
+                },
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("sms (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { audienceId: "audienceId", senders: ["senders", "senders"], message: { text: "text" } };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/blast/sms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -375,6 +400,35 @@ describe("Blast", () => {
     });
 
     test("mms (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            audienceId: "audienceId",
+            senders: ["senders", "senders"],
+            message: { mediaUrls: ["mediaUrls", "mediaUrls"] },
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/blast/mms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.blast.mms({
+                audienceId: "audienceId",
+                senders: ["senders", "senders"],
+                message: {
+                    mediaUrls: ["mediaUrls", "mediaUrls"],
+                },
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("mms (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -661,6 +715,53 @@ describe("Blast", () => {
     });
 
     test("rcs (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            audienceId: "audienceId",
+            senders: ["senders", "senders"],
+            message: {
+                quickReplies: [
+                    { type: "openUrl", payload: "payload", title: "title" },
+                    { type: "openUrl", payload: "payload", title: "title" },
+                ],
+                text: "text",
+            },
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/blast/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.blast.rcs({
+                audienceId: "audienceId",
+                senders: ["senders", "senders"],
+                message: {
+                    quickReplies: [
+                        {
+                            type: "openUrl",
+                            payload: "payload",
+                            title: "title",
+                        },
+                        {
+                            type: "openUrl",
+                            payload: "payload",
+                            title: "title",
+                        },
+                    ],
+                    text: "text",
+                },
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("rcs (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {

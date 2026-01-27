@@ -185,6 +185,30 @@ describe("Mms", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { from: "from", mediaUrls: ["mediaUrls", "mediaUrls"], text: "text", to: "to" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/mms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.mms.send({
+                from: "from",
+                mediaUrls: ["mediaUrls", "mediaUrls"],
+                text: "text",
+                to: "to",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("send (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { from: "from", mediaUrls: ["mediaUrls", "mediaUrls"], text: "text", to: "to" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -205,7 +229,7 @@ describe("Mms", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("send (7)", async () => {
+    test("send (8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { from: "from", mediaUrls: ["mediaUrls", "mediaUrls"], text: "text", to: "to" };
@@ -229,7 +253,7 @@ describe("Mms", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("send (8)", async () => {
+    test("send (9)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { from: "from", mediaUrls: ["mediaUrls", "mediaUrls"], text: "text", to: "to" };
@@ -366,6 +390,27 @@ describe("Mms", () => {
     });
 
     test("validate (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { mediaUrls: ["mediaUrls", "mediaUrls"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/validate/mms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.mms.validate({
+                mediaUrls: ["mediaUrls", "mediaUrls"],
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("validate (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { mediaUrls: ["mediaUrls", "mediaUrls"] };

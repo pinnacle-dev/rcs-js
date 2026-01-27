@@ -64,6 +64,24 @@ describe("Schedule", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .delete("/messages/schedule/id")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.schedule.cancel("id");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("cancel (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -78,7 +96,7 @@ describe("Schedule", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("cancel (5)", async () => {
+    test("cancel (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -94,5 +112,23 @@ describe("Schedule", () => {
         await expect(async () => {
             return await client.messages.schedule.cancel("id");
         }).rejects.toThrow(Pinnacle.InternalServerError);
+    });
+
+    test("cancel (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .delete("/messages/schedule/id")
+            .respondWith()
+            .statusCode(501)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.schedule.cancel("id");
+        }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
 });

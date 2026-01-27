@@ -110,6 +110,20 @@ describe("Audiences", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/audiences").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.audiences.get({
+                id: "id",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("get (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().get("/audiences").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
@@ -120,7 +134,7 @@ describe("Audiences", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("get (6)", async () => {
+    test("get (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -284,6 +298,27 @@ describe("Audiences", () => {
             .post("/audiences")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.audiences.create({
+                name: "x",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("create (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { name: "x" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/audiences")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -342,6 +377,20 @@ describe("Audiences", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().delete("/audiences").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.audiences.delete({
+                id: "id",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("delete (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server.mockEndpoint().delete("/audiences").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
 
@@ -352,7 +401,7 @@ describe("Audiences", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("delete (5)", async () => {
+    test("delete (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -444,6 +493,27 @@ describe("Audiences", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .patch("/audiences")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.audiences.update({
+                id: "id",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("update (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: "id" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -461,7 +531,7 @@ describe("Audiences", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("update (5)", async () => {
+    test("update (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id" };

@@ -210,6 +210,25 @@ describe("Rcs", () => {
             .post("/campaigns/rcs/autofill")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.rcs.autofill({});
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("autofill (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/rcs/autofill")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -457,6 +476,24 @@ describe("Rcs", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .get("/campaigns/rcs/campaignId")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.rcs.get("campaignId");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("get (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -471,7 +508,7 @@ describe("Rcs", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("get (5)", async () => {
+    test("get (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -566,6 +603,24 @@ describe("Rcs", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/rcs/submit/campaignId")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.rcs.submit("campaignId");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("submit (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -580,7 +635,7 @@ describe("Rcs", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("submit (6)", async () => {
+    test("submit (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -972,6 +1027,25 @@ describe("Rcs", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.rcs.upsert();
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("upsert (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -987,7 +1061,7 @@ describe("Rcs", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("upsert (5)", async () => {
+    test("upsert (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -1085,6 +1159,27 @@ describe("Rcs", () => {
     });
 
     test("validate (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { campaignId: "campaignId" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/rcs/validate")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.rcs.validate({
+                campaignId: "campaignId",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("validate (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { campaignId: "campaignId" };

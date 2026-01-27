@@ -28,6 +28,7 @@ export class Webhooks {
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.ForbiddenError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
@@ -83,6 +84,8 @@ export class Webhooks {
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Pinnacle.ForbiddenError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
                 case 500:
                     throw new Pinnacle.InternalServerError(
                         _response.error.body as Pinnacle.Error_,

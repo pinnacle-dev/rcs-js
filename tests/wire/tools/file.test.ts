@@ -110,6 +110,28 @@ describe("File_", () => {
             .post("/tools/files/upload")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.file.upload({
+                contentType: "contentType",
+                size: 1,
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("upload (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { contentType: "contentType", size: 1 };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/files/upload")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -225,6 +247,27 @@ describe("File_", () => {
     });
 
     test("refresh (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { urls: ["urls", "urls"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/files/refresh")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.file.refresh({
+                urls: ["urls", "urls"],
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("refresh (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { urls: ["urls", "urls"] };

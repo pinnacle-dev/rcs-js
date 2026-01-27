@@ -30,8 +30,10 @@ export class Schedule {
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.ForbiddenError}
      * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
+     * @throws {@link Pinnacle.NotImplementedError}
      *
      * @example
      *     await client.messages.schedule.cancel("id")
@@ -81,10 +83,17 @@ export class Schedule {
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Pinnacle.ForbiddenError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
                 case 404:
                     throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 501:
+                    throw new Pinnacle.NotImplementedError(
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );

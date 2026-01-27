@@ -120,6 +120,27 @@ describe("PhoneNumbers", () => {
             .post("/phone-numbers/search")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.search({
+                type: ["LOCAL", "LOCAL"],
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("search (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { type: ["LOCAL", "LOCAL"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/search")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -227,6 +248,27 @@ describe("PhoneNumbers", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { numbers: ["numbers", "numbers"] };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/buy")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.buy({
+                numbers: ["numbers", "numbers"],
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("buy (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { numbers: ["numbers", "numbers"] };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -244,7 +286,7 @@ describe("PhoneNumbers", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("buy (6)", async () => {
+    test("buy (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { numbers: ["numbers", "numbers"] };
@@ -457,6 +499,28 @@ describe("PhoneNumbers", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phone: "phone", level: "basic" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/details")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.get({
+                phone: "phone",
+                level: "basic",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("get (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { phone: "phone", level: "basic" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -475,7 +539,7 @@ describe("PhoneNumbers", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("get (7)", async () => {
+    test("get (8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { phone: "phone", level: "basic" };

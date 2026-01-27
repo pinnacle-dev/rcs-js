@@ -66,6 +66,24 @@ describe("Get", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .get("/status/brand/brandId")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.status.get.brand("brandId");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("brand (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -80,7 +98,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("brand (5)", async () => {
+    test("brand (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -98,7 +116,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("brand (6)", async () => {
+    test("brand (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -185,6 +203,24 @@ describe("Get", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .get("/status/toll-free-campaign/campaignId")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.status.get.tollFree("campaignId");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("toll free (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -199,7 +235,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("toll free (5)", async () => {
+    test("toll free (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -217,7 +253,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("toll free (6)", async () => {
+    test("toll free (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -306,6 +342,24 @@ describe("Get", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .get("/status/dlc-campaign/campaignId")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.status.get.dlc("campaignId");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("dlc (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -320,7 +374,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("dlc (5)", async () => {
+    test("dlc (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -338,7 +392,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("dlc (6)", async () => {
+    test("dlc (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -417,6 +471,24 @@ describe("Get", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .get("/status/rcs-campaign/campaignId")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.status.get.rcs("campaignId");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("rcs (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -431,7 +503,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("rcs (5)", async () => {
+    test("rcs (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -449,7 +521,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("rcs (6)", async () => {
+    test("rcs (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -528,6 +600,24 @@ describe("Get", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .get("/status/phone-number/phoneNumber")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.status.get.phoneNumber("phoneNumber");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("phone number (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -542,7 +632,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("phone number (5)", async () => {
+    test("phone number (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -560,7 +650,7 @@ describe("Get", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("phone number (6)", async () => {
+    test("phone number (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 

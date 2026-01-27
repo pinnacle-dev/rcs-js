@@ -117,6 +117,27 @@ describe("Conversations", () => {
             .post("/conversations/get")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.get({
+                id: "id",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("get (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: "id" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/get")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -266,6 +287,27 @@ describe("Conversations", () => {
             .post("/conversations/list")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.list({
+                pageIndex: 1,
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("list (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { pageIndex: 1 };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -348,6 +390,28 @@ describe("Conversations", () => {
     });
 
     test("update (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { id: "id", notes: "x" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/update")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.update({
+                id: "id",
+                notes: "x",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("update (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { id: "id", notes: "x" };
@@ -504,6 +568,24 @@ describe("Conversations", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/conversations/id/messages")
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.conversations.listMessages("id");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("listMessages (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -518,7 +600,7 @@ describe("Conversations", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("listMessages (5)", async () => {
+    test("listMessages (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 

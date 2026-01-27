@@ -89,6 +89,27 @@ describe("Url", () => {
             .post("/tools/url")
             .jsonBody(rawRequestBody)
             .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.url.create({
+                url: "url",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("create (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { url: "url" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/tools/url")
+            .jsonBody(rawRequestBody)
+            .respondWith()
             .statusCode(500)
             .jsonBody(rawResponseBody)
             .build();
@@ -181,6 +202,18 @@ describe("Url", () => {
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/tools/url/linkId").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.tools.url.get("linkId");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("get (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
         server.mockEndpoint().get("/tools/url/linkId").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
         await expect(async () => {
@@ -256,6 +289,25 @@ describe("Url", () => {
     });
 
     test("update (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .put("/tools/url/linkId")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.tools.url.update("linkId");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("update (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};

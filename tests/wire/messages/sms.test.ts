@@ -155,6 +155,29 @@ describe("Sms", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { from: "from", text: "text", to: "to" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/sms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.sms.send({
+                from: "from",
+                text: "text",
+                to: "to",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("send (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { from: "from", text: "text", to: "to" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -174,7 +197,7 @@ describe("Sms", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("send (7)", async () => {
+    test("send (8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { from: "from", text: "text", to: "to" };
@@ -197,7 +220,7 @@ describe("Sms", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("send (8)", async () => {
+    test("send (9)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { from: "from", text: "text", to: "to" };
@@ -309,6 +332,27 @@ describe("Sms", () => {
     });
 
     test("validate (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { text: "text" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/validate/sms")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.sms.validate({
+                text: "text",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("validate (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { text: "text" };

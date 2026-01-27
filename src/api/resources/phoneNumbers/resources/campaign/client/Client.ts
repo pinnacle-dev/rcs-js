@@ -28,6 +28,7 @@ export class Campaign {
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.ForbiddenError}
      * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
      * @throws {@link Pinnacle.NotImplementedError}
@@ -87,6 +88,8 @@ export class Campaign {
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Pinnacle.ForbiddenError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
                 case 404:
                     throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
@@ -135,6 +138,7 @@ export class Campaign {
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.ForbiddenError}
      * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
      * @throws {@link Pinnacle.NotImplementedError}
@@ -192,6 +196,8 @@ export class Campaign {
                         _response.error.body as Pinnacle.Error_,
                         _response.rawResponse,
                     );
+                case 403:
+                    throw new Pinnacle.ForbiddenError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
                 case 404:
                     throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:

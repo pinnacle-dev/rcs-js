@@ -244,6 +244,49 @@ describe("Rcs", () => {
             ],
             text: "text",
         };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.send({
+                from: "from",
+                to: "to",
+                quickReplies: [
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                ],
+                text: "text",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("send (7)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            from: "from",
+            to: "to",
+            quickReplies: [
+                { type: "openUrl", payload: "payload", title: "title" },
+                { type: "openUrl", payload: "payload", title: "title" },
+            ],
+            text: "text",
+        };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -275,7 +318,7 @@ describe("Rcs", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("send (7)", async () => {
+    test("send (8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -318,7 +361,7 @@ describe("Rcs", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("send (8)", async () => {
+    test("send (9)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
@@ -445,6 +488,28 @@ describe("Rcs", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { agentId: "agentId", to: "to" };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/send/typing")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.sendTyping({
+                agentId: "agentId",
+                to: "to",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("sendTyping (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { agentId: "agentId", to: "to" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -463,7 +528,7 @@ describe("Rcs", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("sendTyping (5)", async () => {
+    test("sendTyping (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { agentId: "agentId", to: "to" };
@@ -485,7 +550,7 @@ describe("Rcs", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("sendTyping (6)", async () => {
+    test("sendTyping (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { agentId: "agentId", to: "to" };
@@ -621,6 +686,45 @@ describe("Rcs", () => {
     });
 
     test("validate (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {
+            quickReplies: [
+                { type: "openUrl", payload: "payload", title: "title" },
+                { type: "openUrl", payload: "payload", title: "title" },
+            ],
+            text: "text",
+        };
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/validate/rcs")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(403)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.rcs.validate({
+                quickReplies: [
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                    {
+                        type: "openUrl",
+                        payload: "payload",
+                        title: "title",
+                    },
+                ],
+                text: "text",
+            });
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("validate (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
