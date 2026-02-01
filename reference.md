@@ -3774,6 +3774,10 @@ await client.messages.blast.rcs({
             }],
         text: "Hello from Pinnacle RCS!"
     },
+    fallback: {
+        from: "+14155164736",
+        text: "Hello from Pinnacle! Reply LEARN to learn more."
+    },
     options: {
         transcode: true,
         validate: true

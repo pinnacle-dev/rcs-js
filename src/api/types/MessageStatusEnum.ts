@@ -10,5 +10,6 @@ export const MessageStatusEnum = {
     DeliveryFailed: "DELIVERY_FAILED",
     Received: "RECEIVED",
     Read: "READ",
+    FallbackSent: "FALLBACK_SENT",
 } as const;
 export type MessageStatusEnum = (typeof MessageStatusEnum)[keyof typeof MessageStatusEnum];

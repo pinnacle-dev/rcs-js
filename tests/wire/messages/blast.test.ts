@@ -467,6 +467,7 @@ describe("Blast", () => {
                 quickReplies: [{ type: "trigger", payload: "payload", title: "title" }],
                 text: "Hello from Pinnacle RCS!",
             },
+            fallback: { from: "+14155164736", text: "Hello from Pinnacle! Reply LEARN to learn more." },
             options: { transcode: true, validate: true },
         };
         const rawResponseBody = {
@@ -499,6 +500,10 @@ describe("Blast", () => {
                 ],
                 text: "Hello from Pinnacle RCS!",
             },
+            fallback: {
+                from: "+14155164736",
+                text: "Hello from Pinnacle! Reply LEARN to learn more.",
+            },
             options: {
                 transcode: true,
                 validate: true,
@@ -524,6 +529,7 @@ describe("Blast", () => {
                 quickReplies: [{ type: "trigger", payload: "payload", title: "title" }],
                 text: "Hello from Pinnacle RCS!",
             },
+            fallback: { from: "+14155164736", text: "Hello from Pinnacle! Reply LEARN to learn more." },
             options: { transcode: true, validate: true },
         };
         const rawResponseBody = {
@@ -556,6 +562,10 @@ describe("Blast", () => {
                     },
                 ],
                 text: "Hello from Pinnacle RCS!",
+            },
+            fallback: {
+                from: "+14155164736",
+                text: "Hello from Pinnacle! Reply LEARN to learn more.",
             },
             options: {
                 transcode: true,

@@ -8,22 +8,52 @@ import type * as Pinnacle from "../index.js";
 export type MessageEventContent =
     /**
      * SMS message containing plain text only. Has type `SMS`. */
-    | Pinnacle.MessageEventSmsContent
+    | Pinnacle.MessageEventContent.Sms
     /**
      * MMS message with text and/or media files from a phone number. Has type `MMS`. */
-    | Pinnacle.MessageEventMmsContent
+    | Pinnacle.MessageEventContent.Mms
     /**
      * RCS message containing longer text content with optional quick reply buttons. Has type `RCS_TEXT`. */
-    | Pinnacle.MessageEventRcsTextContent
+    | Pinnacle.MessageEventContent.RcsText
     /**
      * RCS message containing media file with optional quick reply buttons. Has type `RCS_MEDIA`. */
-    | Pinnacle.MessageEventRcsMediaContent
+    | Pinnacle.MessageEventContent.RcsMedia
     /**
      * RCS message containing cards with titles, subtitles, and buttons. Has type `RCS_CARDS`. */
-    | Pinnacle.MessageEventRcsCardsContent
+    | Pinnacle.MessageEventContent.RcsCards
     /**
      * RCS button click data. Sent when user clicks any button. Has type `RCS_BUTTON_DATA`. */
-    | Pinnacle.MessageEventRcsButtonData
+    | Pinnacle.MessageEventContent.RcsButtonData
     /**
      * RCS location sharing data. Sent when user shares their location via a `requestUserLocation` button. Has type `RCS_LOCATION_DATA`. */
-    | Pinnacle.MessageEventRcsLocationData;
+    | Pinnacle.MessageEventContent.RcsLocationData;
+
+export namespace MessageEventContent {
+    export interface Sms extends Pinnacle.MessageEventSmsContent {
+        type: "SMS";
+    }
+
+    export interface Mms extends Pinnacle.MessageEventMmsContent {
+        type: "MMS";
+    }
+
+    export interface RcsText extends Pinnacle.MessageEventRcsTextContent {
+        type: "RCS_TEXT";
+    }
+
+    export interface RcsMedia extends Pinnacle.MessageEventRcsMediaContent {
+        type: "RCS_MEDIA";
+    }
+
+    export interface RcsCards extends Pinnacle.MessageEventRcsCardsContent {
+        type: "RCS_CARDS";
+    }
+
+    export interface RcsButtonData extends Pinnacle.MessageEventRcsButtonData {
+        type: "RCS_BUTTON_DATA";
+    }
+
+    export interface RcsLocationData extends Pinnacle.MessageEventRcsLocationData {
+        type: "RCS_LOCATION_DATA";
+    }
+}

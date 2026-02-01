@@ -6,6 +6,7 @@ export interface RichCardsMessage extends Pinnacle.RichCards {
     options?: RichCardsMessage.Options;
     /** Your RCS agent ID which must be prefixed with 'agent_'. */
     from: string;
+    fallback?: Pinnacle.FallbackMessage;
     /** Recipient's phone number in E.164 format. */
     to: string;
 }

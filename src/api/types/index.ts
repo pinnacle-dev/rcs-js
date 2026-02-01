@@ -40,6 +40,7 @@ export * from "./Error_.js";
 export * from "./ExtendedBrand.js";
 export * from "./ExtendedBrandWithVetting.js";
 export * from "./ExtendedRcsCampaign.js";
+export * from "./FallbackMessage.js";
 export * from "./GetConversationParams.js";
 export * from "./LinkClickEvent.js";
 export * from "./LocationShareAction.js";

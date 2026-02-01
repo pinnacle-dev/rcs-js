@@ -7,12 +7,61 @@ import type * as Pinnacle from "../index.js";
  *
  * This event contains information about which button was clicked, how many times it's been clicked, and any payload or metadata attached to the button. Use this data to handle user interactions with your RCS messages.
  */
-export interface MessageEventRcsButtonData extends Pinnacle.ButtonClickedData {
-    /** Message type identifier. */
-    type: "RCS_BUTTON_DATA";
+export interface MessageEventRcsButtonData {
     /**
      * Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
      * To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
      */
     id: string;
+    /** Information about the button that was clicked. */
+    button: MessageEventRcsButtonData.Button;
+    /** ID of the message this button was sent in, or null if not available. To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint. */
+    messageId: string | null;
+}
+
+export namespace MessageEventRcsButtonData {
+    /**
+     * Information about the button that was clicked.
+     */
+    export interface Button {
+        /**
+         * Type of button clicked.
+         * - `CARD` for card buttons,
+         * - `QUICK_REPLY` for quick replies.
+         * - `null` if we cannot determine the button type. This is a rare edge case and is mainly here for backward compatibility.
+         */
+        type?: Button.Type | null;
+        /** Raw button data. Contains the entire button that was clicked by the user. In rare cases where we cannot determine the exact button, this will return only the button title. */
+        raw: Button.Raw;
+        /** Extracted payload from the button's `payload` field, if provided. Provides quick access to any payload that was attached to the button. */
+        payload?: string | null;
+        /** Additional metadata attached to the button's `metadata` field, if provided. */
+        metadata?: string | null;
+        /** Number of times the button has been clicked. */
+        clicks: number;
+    }
+
+    export namespace Button {
+        /**
+         * Type of button clicked.
+         * - `CARD` for card buttons,
+         * - `QUICK_REPLY` for quick replies.
+         * - `null` if we cannot determine the button type. This is a rare edge case and is mainly here for backward compatibility.
+         */
+        export const Type = {
+            Card: "CARD",
+            QuickReply: "QUICK_REPLY",
+        } as const;
+        export type Type = (typeof Type)[keyof typeof Type];
+        /**
+         * Raw button data. Contains the entire button that was clicked by the user. In rare cases where we cannot determine the exact button, this will return only the button title.
+         */
+        export type Raw =
+            /**
+             * Full button object if we can determine the exact button. */
+            | Pinnacle.RichButton
+            /**
+             * Button title if we cannot determine the exact button. This is a rare edge case and is mainly here for backward compatibility. */
+            | string;
+    }
 }

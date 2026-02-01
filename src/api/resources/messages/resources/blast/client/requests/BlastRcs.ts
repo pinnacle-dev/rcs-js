@@ -15,6 +15,10 @@ import type * as Pinnacle from "../../../../../../index.js";
  *                 }],
  *             text: "Hello from Pinnacle RCS!"
  *         },
+ *         fallback: {
+ *             from: "+14155164736",
+ *             text: "Hello from Pinnacle! Reply LEARN to learn more."
+ *         },
  *         options: {
  *             transcode: true,
  *             validate: true
@@ -32,6 +36,10 @@ import type * as Pinnacle from "../../../../../../index.js";
  *                     title: "title"
  *                 }],
  *             text: "Hello from Pinnacle RCS!"
+ *         },
+ *         fallback: {
+ *             from: "+14155164736",
+ *             text: "Hello from Pinnacle! Reply LEARN to learn more."
  *         },
  *         options: {
  *             transcode: true,
@@ -57,6 +65,7 @@ export interface BlastRcs {
      */
     senders: string[];
     message: Pinnacle.RcsValidateContent;
+    fallback?: Pinnacle.FallbackMessage;
     /** Configure how your RCS blast is sent and tracked. */
     options?: BlastRcs.Options;
 }

@@ -6,6 +6,7 @@ export const ConversationsListMessagesRequestStatus = {
     SendFailed: "SEND_FAILED",
     Delivered: "DELIVERED",
     DeliveryFailed: "DELIVERY_FAILED",
+    FallbackSent: "FALLBACK_SENT",
     Received: "RECEIVED",
     Read: "READ",
 } as const;

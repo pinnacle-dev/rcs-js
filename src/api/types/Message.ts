@@ -22,6 +22,14 @@ export interface Message {
      * Null indicates no errors.
      */
     error: string | null;
+    /**
+     * The fallback SMS/MMS message configuration for this RCS message.
+     *
+     * Null indicates no fallback was configured for this message. Only applicable for RCS messages.
+     *
+     * The original RCS message with have status `FALLBACK_SENT` when the fallback message was sent instead.
+     */
+    fallback?: Pinnacle.FallbackMessage | null;
     /** Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. */
     id: string;
     method: Pinnacle.MessageMethodEnum;

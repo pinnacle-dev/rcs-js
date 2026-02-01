@@ -4,8 +4,6 @@
  * SMS message containing plain text only.
  */
 export interface MessageEventSmsContent {
-    /** Message type identifier. */
-    type: "SMS";
     /**
      * Unique identifier of the message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
      * To get the message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.

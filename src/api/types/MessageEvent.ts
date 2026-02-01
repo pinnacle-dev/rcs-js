@@ -23,6 +23,14 @@ export interface MessageEvent {
      */
     deliveredAt?: string | null;
     message: Pinnacle.MessageEventContent;
+    /**
+     * Details of the fallback SMS/MMS message that was sent instead of the original RCS message.
+     *
+     * This field is only present when the message `status` is `FALLBACK_SENT`, indicating the original RCS message could not be delivered and a fallback message was sent instead.
+     *
+     * Use this information to track which fallback messages were sent and their content.
+     */
+    fallbackMessage?: MessageEvent.FallbackMessage | null;
 }
 
 export namespace MessageEvent {
@@ -47,4 +55,38 @@ export namespace MessageEvent {
         Outbound: "OUTBOUND",
     } as const;
     export type Direction = (typeof Direction)[keyof typeof Direction];
+
+    /**
+     * Details of the fallback SMS/MMS message that was sent instead of the original RCS message.
+     *
+     * This field is only present when the message `status` is `FALLBACK_SENT`, indicating the original RCS message could not be delivered and a fallback message was sent instead.
+     *
+     * Use this information to track which fallback messages were sent and their content.
+     */
+    export interface FallbackMessage {
+        /**
+         * Unique identifier of the fallback message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
+         * To get the full message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
+         */
+        id: string;
+        /** Type of the fallback message sent. */
+        type: FallbackMessage.Type;
+        /** Phone number the fallback message was sent from in E.164 format. */
+        from: string;
+        /** Recipient's phone number in E.164 format. */
+        to: string;
+        /** Text content of the fallback message. */
+        text?: string;
+        /** Media URLs included in the fallback MMS message. Empty array for SMS fallbacks. */
+        mediaUrls?: string[];
+    }
+
+    export namespace FallbackMessage {
+        /** Type of the fallback message sent. */
+        export const Type = {
+            Sms: "SMS",
+            Mms: "MMS",
+        } as const;
+        export type Type = (typeof Type)[keyof typeof Type];
+    }
 }

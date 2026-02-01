@@ -5,6 +5,7 @@ import type * as Pinnacle from "../index.js";
 export interface BaseRichMessage {
     /** Your RCS agent ID which must be prefixed with 'agent_'. */
     from: string;
+    fallback?: Pinnacle.FallbackMessage;
     /** Configure how your RCS message is sent and tracked. */
     options?: Pinnacle.SendRichMessageOptions;
     /** Recipient's phone number in E.164 format. */
