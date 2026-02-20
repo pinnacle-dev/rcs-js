@@ -118,6 +118,8 @@ export * from "./SendRichMessageOptions.js";
 export * from "./SendTypingIndicatorResponse.js";
 export * from "./SentMmsDetails.js";
 export * from "./SentRichMessage.js";
+export * from "./SentRichMessageFallbackMms.js";
+export * from "./SentRichMessageFallbackSms.js";
 export * from "./SentSmsDetails.js";
 export * from "./ShortenedUrl.js";
 export * from "./ShortenedUrlWithClickData.js";

@@ -2,4 +2,8 @@
 
 import type * as Pinnacle from "../../../../../index.js";
 
-export type SendRichMessageResponse = Pinnacle.SentRichMessage | Pinnacle.ScheduledMessage;
+export type SendRichMessageResponse =
+    | Pinnacle.SentRichMessage
+    | Pinnacle.ScheduledMessage
+    | Pinnacle.SentRichMessageFallbackSms
+    | Pinnacle.SentRichMessageFallbackMms;
