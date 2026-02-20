@@ -2,3 +2,4 @@
 src/wrapper
 src/index.ts
 tests/tsconfig.json
+.github/workflows/ci.yml
