@@ -68,7 +68,8 @@
     "sideEffects": false,
     "pnpm": {
         "overrides": {
-            "ajv": ">=8.18.0"
+            "ajv": ">=8.18.0",
+            "rollup": ">=4.59.0"
         }
     }
 }
