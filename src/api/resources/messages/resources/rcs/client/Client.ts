@@ -170,10 +170,7 @@ export class Rcs {
      * @example
      *     await client.messages.rcs.sendTyping({
      *         agentId: "agent_pinnacle",
-     *         to: "+14154746461",
-     *         options: {
-     *             test_mode: false
-     *         }
+     *         to: "+14154746461"
      *     })
      */
     public sendTyping(

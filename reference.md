@@ -1527,7 +1527,73 @@ await client.phoneNumbers.get({
 </dl>
 </details>
 
-## RCS
+## Rcs
+<details><summary><code>client.rcs.<a href="/src/api/resources/rcs/client/Client.ts">getAgent</a>(agentId) -> Pinnacle.RcsAgentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve details of an RCS agent by its ID.
+
+Returns the agent's configuration including display name, description, logo, hero image,
+contact information, and other settings.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.rcs.getAgent("agent_abc123def456");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string` — The RCS agent ID (must be prefixed with `agent_`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Rcs.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.rcs.<a href="/src/api/resources/rcs/client/Client.ts">getCapabilities</a>({ ...params }) -> Pinnacle.RcsCapabilitiesResult</code></summary>
 <dl>
 <dd>
@@ -1596,96 +1662,6 @@ await client.rcs.getCapabilities({
 </dl>
 </details>
 
-<details><summary><code>client.rcs.<a href="/src/api/resources/rcs/client/Client.ts">whitelist</a>({ ...params }) -> Pinnacle.RcsWhitelistResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Whitelist a phone number for testing with your test RCS agent.
-
-## Overview
-During development and testing, RCS agents can only send messages to whitelisted phone numbers.
-Use this endpoint to whitelist specific phone numbers to send and receive messages from the test agent.
-
-## Verification Process
-After whitelisting a number, you'll need to complete verification:
-
-1. Check the test device for message from "RBM Tester Management"
-2. Click the "Make me a tester" button
-3. Enter the separate 4-digit verification SMS code in the Pinnacle dashboard at:
-   ```
-   https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
-   ```
-
- > **⚠️ Important: Re-whitelisting Numbers**
->
-> If you whitelist a number that's already whitelisted, you'll receive a new message from "RBM Tester Management". **You must click the "Make me a tester" button again to continue sending and receiving messages.**
-
-> **Important Notes**
->
-> - **Verification required:** Messages cannot be sent nor received until you have clicked the "Make me a tester" button on the test device.
-> - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number.
-> - **Network limitations:** Whitelisting may be temporarily unavailable for some carriers but are usually restored shortly.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.rcs.whitelist({
-    agentId: "agent_XXXXXXXXXXXX",
-    phoneNumber: "+12345678901"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.RcsWhitelistRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Rcs.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.rcs.<a href="/src/api/resources/rcs/client/Client.ts">getLink</a>({ ...params }) -> Pinnacle.RcsLinkResult</code></summary>
 <dl>
 <dd>
@@ -1698,7 +1674,7 @@ await client.rcs.whitelist({
 <dl>
 <dd>
 
-Generate a link for initiating an RCS conversation with your agent. 
+Generate a link for initiating an RCS conversation with your agent.
 
 Users can click these links to start conversations with your RCS agent directly
 from websites, emails, or other applications.
@@ -1718,7 +1694,6 @@ from websites, emails, or other applications.
 ```typescript
 await client.rcs.getLink({
     agentId: "agent_XXXXXXXXXXXX",
-    testMode: false,
     phoneNumber: "+12345678901",
     body: "Hello, I need help with my order"
 });
@@ -3471,10 +3446,7 @@ This endpoint allows RCS agents to display a typing indicator to recipients. The
 ```typescript
 await client.messages.rcs.sendTyping({
     agentId: "agent_pinnacle",
-    to: "+14154746461",
-    options: {
-        test_mode: false
-    }
+    to: "+14154746461"
 });
 
 ```
@@ -4166,6 +4138,406 @@ await client.phoneNumbers.campaign.detach({
 <dd>
 
 **requestOptions:** `Campaign.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Rcs Test
+<details><summary><code>client.rcs.test.<a href="/src/api/resources/rcs/resources/test/client/Client.ts">createAgent</a>({ ...params }) -> Pinnacle.TestAgentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new RCS test agent for development and testing.
+
+## Overview
+
+Test agents let you build and test full RCS functionality — rich cards, carousels, buttons,
+quick replies, and media messages — without going through the full carrier review process.
+Messages from test agents can only be sent to [whitelisted phone numbers](/api-reference/rcs-agents/test/whitelist-number).
+
+## Limits
+
+- **Maximum 5 test agents per account.**
+
+## Image Requirements
+
+| Image | Format | Max Size |
+|-------|--------|----------|
+| Logo  | JPEG, PNG | 50 KB |
+| Hero  | JPEG, PNG | 200 KB |
+
+## After Creation
+
+Once your test agent is created, you'll need to:
+
+1. **Whitelist test phone numbers** using [`POST /rcs/test/agents/{agentId}/whitelist`](/api-reference/rcs-agents/test/whitelist-number).
+2. **Accept the tester invite** on each whitelisted device.
+3. **Send messages** using [`POST /messages/send/rcs`](/api-reference/messages/send-rcs) with the returned agent ID as the `from` field.
+
+> **2-Minute Cooldown**
+>
+> After creating a test agent, there is a mandatory 2-minute cooldown before you can whitelist phone numbers.
+> This is a requirement imposed by Google's RBM platform.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.rcs.test.createAgent({
+    displayName: "Acme Support",
+    description: "Get help with your Acme orders and account",
+    logoUrl: "https://example.com/logo.png",
+    heroUrl: "https://example.com/hero.png",
+    phoneNumbers: [{
+            number: "+14155550123",
+            label: "Support"
+        }],
+    emails: [{
+            address: "support@example.com",
+            label: "Support"
+        }],
+    websites: [{
+            url: "https://example.com",
+            label: "Website"
+        }],
+    privacyUrl: "https://example.com/privacy",
+    termsUrl: "https://example.com/terms",
+    color: "#FF6B00",
+    isConversational: true,
+    agentUseCase: "MULTI_USE"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.rcs.CreateTestAgentRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Test.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.rcs.test.<a href="/src/api/resources/rcs/resources/test/client/Client.ts">updateAgent</a>(agentId, { ...params }) -> Pinnacle.TestAgentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update an existing RCS test agent's configuration.
+
+All fields are optional — only include the fields you want to update.
+
+## Image Requirements
+
+If updating images, the same requirements apply as when creating an agent:
+
+| Image | Format | Max Size |
+|-------|--------|----------|
+| Logo  | JPEG, PNG | 50 KB |
+| Hero  | JPEG, PNG | 200 KB |
+
+> **2-Minute Cooldown**
+>
+> After updating a test agent, there is a mandatory 2-minute cooldown before you can whitelist phone numbers.
+> This is a requirement imposed by Google's RBM platform.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.rcs.test.updateAgent("agent_abc123def456", {
+    displayName: "Acme Premium Support"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string` — The RCS agent ID (must be prefixed with `agent_`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.rcs.UpdateTestAgentRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Test.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.rcs.test.<a href="/src/api/resources/rcs/resources/test/client/Client.ts">whitelistNumber</a>(agentId, { ...params }) -> Pinnacle.TestAgentWhitelistResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Whitelist a phone number for testing with a specific test agent.
+
+During development and testing, RCS agents can only send messages to whitelisted phone numbers.
+Use this endpoint to whitelist specific phone numbers so you can send and receive messages from the test agent.
+
+## Verification Process
+
+After whitelisting, the recipient must accept the tester invite:
+
+1. The recipient's device will receive a message from "RBM Tester Management".
+2. The recipient must tap "Make me a tester" to accept.
+3. Once accepted, the status transitions from `PENDING` to `ACCEPTED`.
+
+## Verification
+
+<div style="display: flex; gap: 16px;">
+  <div style="flex: 1; text-align: center;">
+    <strong>Accepting the invite</strong><br/>
+    <img src="https://pncl.to/f769cAvCbEx-MmezZjR6dz6KVkr5ZO" alt="Accepting the tester invite" style="max-width: 100%;" />
+  </div>
+  <div style="flex: 1; text-align: center;">
+    <strong>Declining the invite</strong><br/>
+    <img src="https://pncl.to/VRere3tEKfx4n0HNaxK-vwl7pbLHTJ" alt="Declining the tester invite" style="max-width: 100%;" />
+  </div>
+</div>
+
+## Cooldown
+
+There is a **2-minute cooldown** after creating or updating a test agent before you can whitelist numbers.
+Attempting to whitelist during the cooldown returns a `500` error with the remaining wait time.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.rcs.test.whitelistNumber("agent_abc123def456", {
+    phoneNumber: "+12345678901"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string` — The RCS agent ID (must be prefixed with `agent_`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.rcs.TestAgentWhitelistRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Test.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.rcs.test.<a href="/src/api/resources/rcs/resources/test/client/Client.ts">getWhitelistStatus</a>(agentId, { ...params }) -> Pinnacle.TestAgentWhitelistResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Check the current whitelist status of a phone number for a specific test agent.
+
+Use this endpoint to poll the status of a previously whitelisted number and determine
+whether the recipient has accepted or rejected the tester invite.
+
+## Status Values
+
+- **`PENDING`** — The tester invite was sent but the recipient has not yet responded. Ask the recipient to check their messages and accept the invite.
+- **`ACCEPTED`** — The recipient accepted the invite. Messages can be exchanged.
+- **`REJECTED`** — The recipient rejected the invite or the invite could not be delivered since the carrier does not support test agents. If the user rejected the invite, they can accept it again by tapping "Make me a tester" in the same message from "RBM Tester Management".
+
+<div style="display: flex; gap: 16px;">
+  <div style="flex: 1; text-align: center;">
+    <strong>Accepting the invite</strong><br/>
+    <img src="https://pncl.to/f769cAvCbEx-MmezZjR6dz6KVkr5ZO" alt="Accepting the tester invite" style="max-width: 100%;" />
+  </div>
+  <div style="flex: 1; text-align: center;">
+    <strong>Declining the invite</strong><br/>
+    <img src="https://pncl.to/VRere3tEKfx4n0HNaxK-vwl7pbLHTJ" alt="Declining the tester invite" style="max-width: 100%;" />
+  </div>
+</div>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.rcs.test.getWhitelistStatus("agent_abc123def456", {
+    phoneNumber: "+12345678901"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**agentId:** `string` — The RCS agent ID (must be prefixed with `agent_`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.rcs.TestGetWhitelistStatusRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Test.RequestOptions` 
     
 </dd>
 </dl>

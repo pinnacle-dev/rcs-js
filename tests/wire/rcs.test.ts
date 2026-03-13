@@ -5,6 +5,141 @@ import { PinnacleClient } from "../../src/Client";
 import { mockServerPool } from "../mock-server/MockServerPool";
 
 describe("Rcs", () => {
+    test("getAgent (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            id: "agent_abc123def456",
+            type: "TEST",
+            serviceId: "acme-support_agent",
+            carrierLaunches: { ATT: "NOT_LAUNCHED", TMOBILE: "LAUNCHED", VERIZON: "PENDING", OTHERS: "NOT_LAUNCHED" },
+            details: {
+                name: "Acme Support",
+                description: "Get help with your Acme orders and account",
+                iconUrl: "https://example.com/logo.png",
+                heroUrl: "https://example.com/hero.png",
+                color: "#FF6B00",
+                phones: [{ phone: "+14155550123", label: "Support" }],
+                emails: [{ email: "support@example.com", label: "Support" }],
+                websites: [{ url: "https://example.com", label: "Website" }],
+                privacyUrl: "https://example.com/privacy",
+                termsUrl: "https://example.com/terms",
+                isConversational: true,
+                agentUseCase: "MULTI_USE",
+            },
+        };
+        server
+            .mockEndpoint()
+            .get("/rcs/agent_abc123def456")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.rcs.getAgent("agent_abc123def456");
+        expect(response).toEqual({
+            id: "agent_abc123def456",
+            type: "TEST",
+            serviceId: "acme-support_agent",
+            carrierLaunches: {
+                ATT: "NOT_LAUNCHED",
+                TMOBILE: "LAUNCHED",
+                VERIZON: "PENDING",
+                OTHERS: "NOT_LAUNCHED",
+            },
+            details: {
+                name: "Acme Support",
+                description: "Get help with your Acme orders and account",
+                iconUrl: "https://example.com/logo.png",
+                heroUrl: "https://example.com/hero.png",
+                color: "#FF6B00",
+                phones: [
+                    {
+                        phone: "+14155550123",
+                        label: "Support",
+                    },
+                ],
+                emails: [
+                    {
+                        email: "support@example.com",
+                        label: "Support",
+                    },
+                ],
+                websites: [
+                    {
+                        url: "https://example.com",
+                        label: "Website",
+                    },
+                ],
+                privacyUrl: "https://example.com/privacy",
+                termsUrl: "https://example.com/terms",
+                isConversational: true,
+                agentUseCase: "MULTI_USE",
+            },
+        });
+    });
+
+    test("getAgent (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/rcs/agentId").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.rcs.getAgent("agentId");
+        }).rejects.toThrow(Pinnacle.BadRequestError);
+    });
+
+    test("getAgent (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/rcs/agentId").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.rcs.getAgent("agentId");
+        }).rejects.toThrow(Pinnacle.UnauthorizedError);
+    });
+
+    test("getAgent (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/rcs/agentId").respondWith().statusCode(403).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.rcs.getAgent("agentId");
+        }).rejects.toThrow(Pinnacle.ForbiddenError);
+    });
+
+    test("getAgent (5)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { key: "value" };
+        server.mockEndpoint().get("/rcs/agentId").respondWith().statusCode(404).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.rcs.getAgent("agentId");
+        }).rejects.toThrow(Pinnacle.NotFoundError);
+    });
+
+    test("getAgent (6)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { error: "error" };
+        server.mockEndpoint().get("/rcs/agentId").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
+
+        await expect(async () => {
+            return await client.rcs.getAgent("agentId");
+        }).rejects.toThrow(Pinnacle.InternalServerError);
+    });
+
     test("getCapabilities (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
@@ -159,167 +294,11 @@ describe("Rcs", () => {
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
 
-    test("whitelist (1)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { agentId: "agent_XXXXXXXXXXXX", phoneNumber: "+12345678901" };
-        const rawResponseBody = { success: true };
-        server
-            .mockEndpoint()
-            .post("/rcs/whitelist")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.rcs.whitelist({
-            agentId: "agent_XXXXXXXXXXXX",
-            phoneNumber: "+12345678901",
-        });
-        expect(response).toEqual({
-            success: true,
-        });
-    });
-
-    test("whitelist (2)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { agentId: "agentId", phoneNumber: "phoneNumber" };
-        const rawResponseBody = { key: "value" };
-        server
-            .mockEndpoint()
-            .post("/rcs/whitelist")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(400)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.rcs.whitelist({
-                agentId: "agentId",
-                phoneNumber: "phoneNumber",
-            });
-        }).rejects.toThrow(Pinnacle.BadRequestError);
-    });
-
-    test("whitelist (3)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { agentId: "agentId", phoneNumber: "phoneNumber" };
-        const rawResponseBody = { error: "error" };
-        server
-            .mockEndpoint()
-            .post("/rcs/whitelist")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(401)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.rcs.whitelist({
-                agentId: "agentId",
-                phoneNumber: "phoneNumber",
-            });
-        }).rejects.toThrow(Pinnacle.UnauthorizedError);
-    });
-
-    test("whitelist (4)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { agentId: "agentId", phoneNumber: "phoneNumber" };
-        const rawResponseBody = { error: "error" };
-        server
-            .mockEndpoint()
-            .post("/rcs/whitelist")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(403)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.rcs.whitelist({
-                agentId: "agentId",
-                phoneNumber: "phoneNumber",
-            });
-        }).rejects.toThrow(Pinnacle.ForbiddenError);
-    });
-
-    test("whitelist (5)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { agentId: "agentId", phoneNumber: "phoneNumber" };
-        const rawResponseBody = { key: "value" };
-        server
-            .mockEndpoint()
-            .post("/rcs/whitelist")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(404)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.rcs.whitelist({
-                agentId: "agentId",
-                phoneNumber: "phoneNumber",
-            });
-        }).rejects.toThrow(Pinnacle.NotFoundError);
-    });
-
-    test("whitelist (6)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { agentId: "agentId", phoneNumber: "phoneNumber" };
-        const rawResponseBody = { error: "error" };
-        server
-            .mockEndpoint()
-            .post("/rcs/whitelist")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(500)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.rcs.whitelist({
-                agentId: "agentId",
-                phoneNumber: "phoneNumber",
-            });
-        }).rejects.toThrow(Pinnacle.InternalServerError);
-    });
-
-    test("whitelist (7)", async () => {
-        const server = mockServerPool.createServer();
-        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { agentId: "agentId", phoneNumber: "phoneNumber" };
-        const rawResponseBody = { error: "error" };
-        server
-            .mockEndpoint()
-            .post("/rcs/whitelist")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(501)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        await expect(async () => {
-            return await client.rcs.whitelist({
-                agentId: "agentId",
-                phoneNumber: "phoneNumber",
-            });
-        }).rejects.toThrow(Pinnacle.NotImplementedError);
-    });
-
     test("getLink (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {
             agentId: "agent_XXXXXXXXXXXX",
-            testMode: false,
             phoneNumber: "+12345678901",
             body: "Hello, I need help with my order",
         };
@@ -338,7 +317,6 @@ describe("Rcs", () => {
 
         const response = await client.rcs.getLink({
             agentId: "agent_XXXXXXXXXXXX",
-            testMode: false,
             phoneNumber: "+12345678901",
             body: "Hello, I need help with my order",
         });

@@ -6,6 +6,7 @@ import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
 import * as Pinnacle from "../../../index.js";
+import { Test } from "../resources/test/client/Client.js";
 
 export declare namespace Rcs {
     export interface Options extends BaseClientOptions {}
@@ -15,9 +16,112 @@ export declare namespace Rcs {
 
 export class Rcs {
     protected readonly _options: Rcs.Options;
+    protected _test: Test | undefined;
 
     constructor(_options: Rcs.Options) {
         this._options = _options;
+    }
+
+    public get test(): Test {
+        return (this._test ??= new Test(this._options));
+    }
+
+    /**
+     * Retrieve details of an RCS agent by its ID.
+     *
+     * Returns the agent's configuration including display name, description, logo, hero image,
+     * contact information, and other settings.
+     *
+     * @param {string} agentId - The RCS agent ID (must be prefixed with `agent_`).
+     * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Pinnacle.BadRequestError}
+     * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.ForbiddenError}
+     * @throws {@link Pinnacle.NotFoundError}
+     * @throws {@link Pinnacle.InternalServerError}
+     *
+     * @example
+     *     await client.rcs.getAgent("agent_abc123def456")
+     */
+    public getAgent(
+        agentId: string,
+        requestOptions?: Rcs.RequestOptions,
+    ): core.HttpResponsePromise<Pinnacle.RcsAgentResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getAgent(agentId, requestOptions));
+    }
+
+    private async __getAgent(
+        agentId: string,
+        requestOptions?: Rcs.RequestOptions,
+    ): Promise<core.WithRawResponse<Pinnacle.RcsAgentResponse>> {
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.PinnacleEnvironment.Default,
+                `rcs/${core.url.encodePathParam(agentId)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryParameters: requestOptions?.queryParams,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Pinnacle.RcsAgentResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new Pinnacle.UnauthorizedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 403:
+                    throw new Pinnacle.ForbiddenError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
+                case 404:
+                    throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
+                case 500:
+                    throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.PinnacleError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.PinnacleError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling GET /rcs/{agentId}.");
+            case "unknown":
+                throw new errors.PinnacleError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
     }
 
     /**
@@ -127,137 +231,6 @@ export class Rcs {
     }
 
     /**
-     * Whitelist a phone number for testing with your test RCS agent.
-     *
-     * ## Overview
-     * During development and testing, RCS agents can only send messages to whitelisted phone numbers.
-     * Use this endpoint to whitelist specific phone numbers to send and receive messages from the test agent.
-     *
-     * ## Verification Process
-     * After whitelisting a number, you'll need to complete verification:
-     *
-     * 1. Check the test device for message from "RBM Tester Management"
-     * 2. Click the "Make me a tester" button
-     * 3. Enter the separate 4-digit verification SMS code in the Pinnacle dashboard at:
-     *    ```
-     *    https://app.pinnacle.sh/dashboard/brands/{brandId}?campaignId={campaignId}&campaignType=RCS
-     *    ```
-     *
-     *  > **⚠️ Important: Re-whitelisting Numbers**
-     * >
-     * > If you whitelist a number that's already whitelisted, you'll receive a new message from "RBM Tester Management". **You must click the "Make me a tester" button again to continue sending and receiving messages.**
-     *
-     * > **Important Notes**
-     * >
-     * > - **Verification required:** Messages cannot be sent nor received until you have clicked the "Make me a tester" button on the test device.
-     * > - **Testing only:** This is only required for test agents. Production agents can message any RCS-enabled number.
-     * > - **Network limitations:** Whitelisting may be temporarily unavailable for some carriers but are usually restored shortly.
-     *
-     * @param {Pinnacle.RcsWhitelistRequest} request
-     * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Pinnacle.BadRequestError}
-     * @throws {@link Pinnacle.UnauthorizedError}
-     * @throws {@link Pinnacle.ForbiddenError}
-     * @throws {@link Pinnacle.NotFoundError}
-     * @throws {@link Pinnacle.InternalServerError}
-     * @throws {@link Pinnacle.NotImplementedError}
-     *
-     * @example
-     *     await client.rcs.whitelist({
-     *         agentId: "agent_XXXXXXXXXXXX",
-     *         phoneNumber: "+12345678901"
-     *     })
-     */
-    public whitelist(
-        request: Pinnacle.RcsWhitelistRequest,
-        requestOptions?: Rcs.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.RcsWhitelistResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__whitelist(request, requestOptions));
-    }
-
-    private async __whitelist(
-        request: Pinnacle.RcsWhitelistRequest,
-        requestOptions?: Rcs.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.RcsWhitelistResponse>> {
-        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
-            this._options?.headers,
-            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
-            requestOptions?.headers,
-        );
-        const _response = await core.fetcher({
-            url: core.url.join(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.PinnacleEnvironment.Default,
-                "rcs/whitelist",
-            ),
-            method: "POST",
-            headers: _headers,
-            contentType: "application/json",
-            queryParameters: requestOptions?.queryParams,
-            requestType: "json",
-            body: request,
-            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
-            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-            fetchFn: this._options?.fetch,
-            logging: this._options.logging,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Pinnacle.RcsWhitelistResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 400:
-                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
-                case 401:
-                    throw new Pinnacle.UnauthorizedError(
-                        _response.error.body as Pinnacle.Error_,
-                        _response.rawResponse,
-                    );
-                case 403:
-                    throw new Pinnacle.ForbiddenError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
-                case 404:
-                    throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
-                case 500:
-                    throw new Pinnacle.InternalServerError(
-                        _response.error.body as Pinnacle.Error_,
-                        _response.rawResponse,
-                    );
-                case 501:
-                    throw new Pinnacle.NotImplementedError(
-                        _response.error.body as Pinnacle.Error_,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.PinnacleError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.PinnacleError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /rcs/whitelist.");
-            case "unknown":
-                throw new errors.PinnacleError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
      * Generate a link for initiating an RCS conversation with your agent.
      *
      * Users can click these links to start conversations with your RCS agent directly
@@ -276,7 +249,6 @@ export class Rcs {
      * @example
      *     await client.rcs.getLink({
      *         agentId: "agent_XXXXXXXXXXXX",
-     *         testMode: false,
      *         phoneNumber: "+12345678901",
      *         body: "Hello, I need help with my order"
      *     })

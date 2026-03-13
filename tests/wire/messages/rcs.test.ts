@@ -513,7 +513,7 @@ describe("Rcs", () => {
     test("sendTyping (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { agentId: "agent_pinnacle", to: "+14154746461", options: { test_mode: false } };
+        const rawRequestBody = { agentId: "agent_pinnacle", to: "+14154746461" };
         const rawResponseBody = {
             success: true,
             agentId: "agent_pinnacle",
@@ -533,9 +533,6 @@ describe("Rcs", () => {
         const response = await client.messages.rcs.sendTyping({
             agentId: "agent_pinnacle",
             to: "+14154746461",
-            options: {
-                test_mode: false,
-            },
         });
         expect(response).toEqual({
             success: true,

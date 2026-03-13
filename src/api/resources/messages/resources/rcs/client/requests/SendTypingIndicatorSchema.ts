@@ -4,10 +4,7 @@
  * @example
  *     {
  *         agentId: "agent_pinnacle",
- *         to: "+14154746461",
- *         options: {
- *             test_mode: false
- *         }
+ *         to: "+14154746461"
  *     }
  */
 export interface SendTypingIndicatorSchema {
@@ -23,16 +20,4 @@ export interface SendTypingIndicatorSchema {
      * Must include country code with a leading plus sign (e.g., `+14155551234`).
      */
     to: string;
-    /** Configure how your typing indicator is sent. */
-    options?: SendTypingIndicatorSchema.Options;
-}
-
-export namespace SendTypingIndicatorSchema {
-    /**
-     * Configure how your typing indicator is sent.
-     */
-    export interface Options {
-        /** Send via the test agent to whitelisted test devices. Useful for development and debugging. */
-        test_mode?: boolean;
-    }
 }
