@@ -871,4 +871,123 @@ describe("Brands", () => {
             return await client.brands.vet("brandId", {});
         }).rejects.toThrow(Pinnacle.NotImplementedError);
     });
+
+    test("list (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            data: [
+                {
+                    address: "address",
+                    dba: "dba",
+                    description: "Leading provider of innovative solutions",
+                    ein: "ein",
+                    email: "email",
+                    name: "Acme Corp",
+                    sector: "AGRICULTURE",
+                    type: "GOVERNMENT",
+                    entityType: "LLC",
+                    website: "https://acme.com",
+                    createdAt: "2025-01-15T10:30:00Z",
+                    id: "brand_abc123",
+                    isArchived: false,
+                    status: "VERIFIED",
+                    updatedAt: "2025-02-20T14:00:00Z",
+                },
+            ],
+            hasMore: false,
+            count: 1,
+        };
+        server
+            .mockEndpoint()
+            .post("/brands/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.brands.list();
+        expect(response).toEqual({
+            data: [
+                {
+                    address: "address",
+                    dba: "dba",
+                    description: "Leading provider of innovative solutions",
+                    ein: "ein",
+                    email: "email",
+                    name: "Acme Corp",
+                    sector: "AGRICULTURE",
+                    type: "GOVERNMENT",
+                    entityType: "LLC",
+                    website: "https://acme.com",
+                    createdAt: "2025-01-15T10:30:00Z",
+                    id: "brand_abc123",
+                    isArchived: false,
+                    status: "VERIFIED",
+                    updatedAt: "2025-02-20T14:00:00Z",
+                },
+            ],
+            hasMore: false,
+            count: 1,
+        });
+    });
+
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/brands/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.brands.list();
+        }).rejects.toThrow(Pinnacle.BadRequestError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/brands/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.brands.list();
+        }).rejects.toThrow(Pinnacle.UnauthorizedError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/brands/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.brands.list();
+        }).rejects.toThrow(Pinnacle.InternalServerError);
+    });
 });

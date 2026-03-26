@@ -560,4 +560,121 @@ describe("PhoneNumbers", () => {
             });
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
+
+    test("list (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            data: [
+                {
+                    number: "+12125551234",
+                    sms: true,
+                    mms: true,
+                    voice: true,
+                    isSandbox: false,
+                    createdAt: "2025-01-15T10:30:00Z",
+                },
+                {
+                    number: "+18005551234",
+                    sms: true,
+                    mms: false,
+                    voice: true,
+                    isSandbox: false,
+                    createdAt: "2025-01-10T08:00:00Z",
+                },
+            ],
+            hasMore: false,
+            count: 2,
+        };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.phoneNumbers.list();
+        expect(response).toEqual({
+            data: [
+                {
+                    number: "+12125551234",
+                    sms: true,
+                    mms: true,
+                    voice: true,
+                    isSandbox: false,
+                    createdAt: "2025-01-15T10:30:00Z",
+                },
+                {
+                    number: "+18005551234",
+                    sms: true,
+                    mms: false,
+                    voice: true,
+                    isSandbox: false,
+                    createdAt: "2025-01-10T08:00:00Z",
+                },
+            ],
+            hasMore: false,
+            count: 2,
+        });
+    });
+
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.list();
+        }).rejects.toThrow(Pinnacle.BadRequestError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.list();
+        }).rejects.toThrow(Pinnacle.UnauthorizedError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/phone-numbers/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.phoneNumbers.list();
+        }).rejects.toThrow(Pinnacle.InternalServerError);
+    });
 });

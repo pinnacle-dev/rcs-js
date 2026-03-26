@@ -12,4 +12,6 @@ export interface RcsCapabilitiesQuery {
      * **Limit:** 1 min
      */
     phoneNumbers: string[];
+    /** Optional RCS agent ID (prefixed with 'agent_') to check capabilities of a number from a specific agent. */
+    agentId?: string;
 }

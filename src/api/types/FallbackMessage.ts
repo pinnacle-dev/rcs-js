@@ -3,16 +3,17 @@
 /**
  * SMS/MMS fallback message to send if the RCS message fails to deliver.
  *
- * When a recipient's device doesn't support RCS or the RCS message cannot be delivered, this fallback message will be sent as SMS or MMS instead. The fallback is sent from the specified phone number.
+ * When a recipient's device doesn't support RCS, this fallback message will be sent as SMS or MMS instead. The fallback is sent from the specified phone number.
  *
  * > **Note:** At least one of `text` or `mediaUrls` must be provided. Fallback messages require a verified `from` phone number with SMS/MMS sending capabilities.
- * > **Note:** You will not be charged for the fallback message, only the original RCS message will be charged.
+ *
+ * > **Billing:** You will be charged the standard SMS or MMS rate for the fallback message. The original RCS message will not be charged if the fallback is sent instead.
  */
 export interface FallbackMessage {
     /**
      * Phone number to send the fallback message from in E.164 format.
      *
-     * Must be a verified phone number with SMS/MMS sending capabilities. Sandbox numbers cannot be used for fallbacks. The phone number must be connected an active toll-free or 10DLC campaign.
+     * Must be a verified phone number with SMS/MMS sending capabilities. Sandbox numbers cannot be used for fallbacks. The phone number must be connected to an active toll-free or 10DLC campaign.
      */
     from: string;
     /**
@@ -20,7 +21,7 @@ export interface FallbackMessage {
      *
      * At least one of `text` or `mediaUrls` must be provided.
      *
-     * > **Note:** If text exceeds 3072 characters, the fallback will be sent as MMS instead of SMS.
+     * If `mediaUrls` is empty and the text fits within SMS segment limits, the fallback will be sent as SMS. Otherwise, it will be sent as MMS. You will only be billed for the message sent.
      */
     text?: string;
     /**
@@ -28,7 +29,7 @@ export interface FallbackMessage {
      *
      * See [supported media types](https://app.pinnacle.sh/supported-file-types?type=MMS).
      *
-     * If provided, the fallback will be sent as MMS. Otherwise, it will be sent as SMS (unless text exceeds 3072 characters). At least one of `text` or `mediaUrls` must be provided.
+     * If provided, the fallback will be sent as MMS. Otherwise, it will be sent as SMS (if text fits within segment limits). At least one of `text` or `mediaUrls` must be provided.
      */
     mediaUrls?: string[];
 }

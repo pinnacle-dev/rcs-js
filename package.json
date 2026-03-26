@@ -1,6 +1,6 @@
 {
     "name": "rcs-js",
-    "version": "2.0.13-rc.4",
+    "version": "2.0.14",
     "private": false,
     "repository": "github:pinnacle-dev/rcs-js",
     "type": "commonjs",
@@ -65,11 +65,5 @@
     "engines": {
         "node": ">=18.0.0"
     },
-    "sideEffects": false,
-    "pnpm": {
-        "overrides": {
-            "ajv": ">=8.18.0",
-            "rollup": ">=4.59.0"
-        }
-    }
+    "sideEffects": false
 }

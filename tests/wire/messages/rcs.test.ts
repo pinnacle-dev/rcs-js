@@ -114,12 +114,11 @@ describe("Rcs", () => {
         };
         const rawResponseBody = {
             messageId: "msg_1234567890",
-            segments: { count: 1.1, encoding: "gsm7" },
+            segments: 1,
             totalCost: 0.01,
             sender: "+16501234567",
             recipient: "+14154746461",
             status: "queued",
-            fallbackSent: true,
         };
         server
             .mockEndpoint()
@@ -144,15 +143,11 @@ describe("Rcs", () => {
         });
         expect(response).toEqual({
             messageId: "msg_1234567890",
-            segments: {
-                count: 1.1,
-                encoding: "gsm7",
-            },
+            segments: 1,
             totalCost: 0.01,
             sender: "+16501234567",
             recipient: "+14154746461",
             status: "queued",
-            fallbackSent: true,
         });
     });
 
@@ -167,12 +162,11 @@ describe("Rcs", () => {
         };
         const rawResponseBody = {
             messageId: "msg_1234567890",
-            segments: { count: 1.1, encoding: "gsm7" },
+            segments: 1,
             totalCost: 0.02,
             sender: "+16501234567",
             recipient: "+14154746461",
             status: "queued",
-            fallbackSent: true,
         };
         server
             .mockEndpoint()
@@ -197,15 +191,11 @@ describe("Rcs", () => {
         });
         expect(response).toEqual({
             messageId: "msg_1234567890",
-            segments: {
-                count: 1.1,
-                encoding: "gsm7",
-            },
+            segments: 1,
             totalCost: 0.02,
             sender: "+16501234567",
             recipient: "+14154746461",
             status: "queued",
-            fallbackSent: true,
         });
     });
 

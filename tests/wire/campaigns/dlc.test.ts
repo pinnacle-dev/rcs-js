@@ -1017,4 +1017,125 @@ describe("Dlc", () => {
             });
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
+
+    test("list (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            data: [
+                {
+                    campaignId: "dlc_abc123",
+                    name: "Customer Notifications",
+                    status: "VERIFIED",
+                    brandId: "brand_abc123",
+                    useCase: "CUSTOMER_CARE",
+                    createdAt: "2025-01-15T10:30:00Z",
+                    updatedAt: "2025-02-20T14:00:00Z",
+                },
+                {
+                    campaignId: "dlc_def456",
+                    name: "Marketing Alerts",
+                    status: "IN REVIEW",
+                    brandId: "brand_abc123",
+                    useCase: "MARKETING",
+                    createdAt: "2025-02-01T08:00:00Z",
+                    updatedAt: "2025-02-01T08:00:00Z",
+                },
+            ],
+            hasMore: false,
+            count: 2,
+        };
+        server
+            .mockEndpoint()
+            .post("/campaigns/dlc/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.campaigns.dlc.list();
+        expect(response).toEqual({
+            data: [
+                {
+                    campaignId: "dlc_abc123",
+                    name: "Customer Notifications",
+                    status: "VERIFIED",
+                    brandId: "brand_abc123",
+                    useCase: "CUSTOMER_CARE",
+                    createdAt: "2025-01-15T10:30:00Z",
+                    updatedAt: "2025-02-20T14:00:00Z",
+                },
+                {
+                    campaignId: "dlc_def456",
+                    name: "Marketing Alerts",
+                    status: "IN REVIEW",
+                    brandId: "brand_abc123",
+                    useCase: "MARKETING",
+                    createdAt: "2025-02-01T08:00:00Z",
+                    updatedAt: "2025-02-01T08:00:00Z",
+                },
+            ],
+            hasMore: false,
+            count: 2,
+        });
+    });
+
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/dlc/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.dlc.list();
+        }).rejects.toThrow(Pinnacle.BadRequestError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/dlc/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.dlc.list();
+        }).rejects.toThrow(Pinnacle.UnauthorizedError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/campaigns/dlc/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.campaigns.dlc.list();
+        }).rejects.toThrow(Pinnacle.InternalServerError);
+    });
 });

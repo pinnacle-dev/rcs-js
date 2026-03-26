@@ -14,11 +14,6 @@ describe("Messages", () => {
             cost: 10,
             deliveredAt: null,
             error: '{"message": "Error: Timeout occurred"}',
-            fallback: {
-                from: "+14155164736",
-                text: "Your RCS message could not be delivered. Here's the fallback: Check out our website!",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_1234567890",
             method: "API",
             numSegments: 1,
@@ -44,11 +39,6 @@ describe("Messages", () => {
             cost: 10,
             deliveredAt: null,
             error: '{"message": "Error: Timeout occurred"}',
-            fallback: {
-                from: "+14155164736",
-                text: "Your RCS message could not be delivered. Here's the fallback: Check out our website!",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_1234567890",
             method: "API",
             numSegments: 1,
@@ -72,11 +62,6 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: null,
             error: '{"message": "Error: Timeout occurred"}',
-            fallback: {
-                from: "+14155164736",
-                text: "Your RCS message could not be delivered. Here's the fallback: Check out our website!",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_1234567890",
             method: "SDK",
             numSegments: 1,
@@ -103,11 +88,6 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: null,
             error: '{"message": "Error: Timeout occurred"}',
-            fallback: {
-                from: "+14155164736",
-                text: "Your RCS message could not be delivered. Here's the fallback: Check out our website!",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_1234567890",
             method: "SDK",
             numSegments: 1,
@@ -162,11 +142,6 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",
             error: '{"message": "Error: Timeout occurred"}',
-            fallback: {
-                from: "+14155164736",
-                text: "Your RCS message could not be delivered. Here's the fallback: Check out our website!",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_1234567890",
             method: "OTHER",
             numSegments: 1,
@@ -240,11 +215,6 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",
             error: '{"message": "Error: Timeout occurred"}',
-            fallback: {
-                from: "+14155164736",
-                text: "Your RCS message could not be delivered. Here's the fallback: Check out our website!",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_1234567890",
             method: "OTHER",
             numSegments: 1,
@@ -265,11 +235,6 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",
             error: '{"value":[]}',
-            fallback: {
-                from: "+14155164736",
-                text: "Your RCS message could not be delivered. Here's the fallback: Check out our website!",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_1234567890",
             method: "OTHER",
             numSegments: 1,
@@ -300,11 +265,6 @@ describe("Messages", () => {
             cost: 30,
             deliveredAt: "2025-08-05T18:51:00.591",
             error: '{"value":[]}',
-            fallback: {
-                from: "+14155164736",
-                text: "Your RCS message could not be delivered. Here's the fallback: Check out our website!",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_1234567890",
             method: "OTHER",
             numSegments: 1,
@@ -325,17 +285,12 @@ describe("Messages", () => {
                 quickReplies: [{ type: "openUrl", payload: "payload", title: "title" }],
                 text: "Check out our latest offers!",
             },
-            cost: 30,
+            cost: 0,
             deliveredAt: null,
             error: null,
-            fallback: {
-                from: "+14155164736",
-                text: "Check out our latest offers! Visit: example.com",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_rcs123456",
             method: "API",
-            numSegments: 1,
+            numSegments: 0,
             receiver: "+1415654321",
             sender: "agent_pinnacle",
             sentAt: "2025-08-05T18:50:55.912",
@@ -362,17 +317,12 @@ describe("Messages", () => {
                 ],
                 text: "Check out our latest offers!",
             },
-            cost: 30,
+            cost: 0,
             deliveredAt: null,
             error: null,
-            fallback: {
-                from: "+14155164736",
-                text: "Check out our latest offers! Visit: example.com",
-                mediaUrls: ["mediaUrls"],
-            },
             id: "msg_rcs123456",
             method: "API",
-            numSegments: 1,
+            numSegments: 0,
             receiver: "+1415654321",
             sender: "agent_pinnacle",
             sentAt: "2025-08-05T18:50:55.912",
@@ -620,5 +570,130 @@ describe("Messages", () => {
                 reaction: null,
             });
         }).rejects.toThrow(Pinnacle.NotImplementedError);
+    });
+
+    test("list (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            data: [
+                {
+                    id: "msg_abc123",
+                    status: "DELIVERED",
+                    direction: "OUTBOUND",
+                    type: "SMS",
+                    method: "API",
+                    numSegments: 1,
+                    cost: 0.0079,
+                    from: "+12125551234",
+                    to: "+14155556789",
+                    content: { text: "Your order has shipped!" },
+                    error: null,
+                    isTest: false,
+                    blastId: null,
+                    sentAt: "2025-01-15T10:30:01Z",
+                    deliveredAt: "2025-01-15T10:30:03Z",
+                    createdAt: "2025-01-15T10:30:00Z",
+                    updatedAt: "2025-01-15T10:30:03Z",
+                },
+            ],
+            hasMore: true,
+            count: 156,
+        };
+        server
+            .mockEndpoint()
+            .post("/messages/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.messages.list();
+        expect(response).toEqual({
+            data: [
+                {
+                    id: "msg_abc123",
+                    status: "DELIVERED",
+                    direction: "OUTBOUND",
+                    type: "SMS",
+                    method: "API",
+                    numSegments: 1,
+                    cost: 0.0079,
+                    from: "+12125551234",
+                    to: "+14155556789",
+                    content: {
+                        text: "Your order has shipped!",
+                    },
+                    error: null,
+                    isTest: false,
+                    blastId: null,
+                    sentAt: "2025-01-15T10:30:01Z",
+                    deliveredAt: "2025-01-15T10:30:03Z",
+                    createdAt: "2025-01-15T10:30:00Z",
+                    updatedAt: "2025-01-15T10:30:03Z",
+                },
+            ],
+            hasMore: true,
+            count: 156,
+        });
+    });
+
+    test("list (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .post("/messages/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.list();
+        }).rejects.toThrow(Pinnacle.BadRequestError);
+    });
+
+    test("list (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.list();
+        }).rejects.toThrow(Pinnacle.UnauthorizedError);
+    });
+
+    test("list (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = { error: "error" };
+        server
+            .mockEndpoint()
+            .post("/messages/list")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.messages.list();
+        }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 });

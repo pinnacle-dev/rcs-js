@@ -3,9 +3,11 @@
 import type * as Pinnacle from "../index.js";
 
 /**
- * Returned in rare scenarios when the fallback phone number is not connected to the same provider as the RCS agent. The API automatically checks if the recipient supports RCS. If not, the fallback MMS content is sent instead. When you receive this response, you will not receive a `FALLBACK_SENT` webhook event since the fallback was handled at send time.
+ * Returned when a fallback is configured and the recipient does not support RCS. The API checks RCS capabilities at send time. If the recipient's device doesn't support RCS, the fallback MMS is sent instead. You will also receive a `FALLBACK_SENT` webhook event for the original RCS message.
  */
 export interface SentRichMessageFallbackMms extends Pinnacle.SentMmsDetails {
-    /** Indicates that the fallback MMS was sent automatically because the recipient does not support RCS and the fallback provider differs from the RCS provider. */
+    /** Indicates that the fallback MMS was sent because the recipient does not support RCS. */
     fallbackSent: boolean;
+    /** Unique identifier of the original RCS message that triggered this fallback. Always begins with the prefix `msg_`. This is the RCS message that could not be delivered — the `messageIds` field on this response refers to the actual MMS message(s) that were sent as the fallback. */
+    originalMessageId: string;
 }

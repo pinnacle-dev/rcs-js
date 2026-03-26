@@ -15,8 +15,11 @@ export interface MessageEvent {
     direction: MessageEvent.Direction;
     /** Number of segments for this message. */
     segments: number;
-    /** Timestamp when the message was sent in ISO 8601 format. */
-    sentAt: string;
+    /**
+     * Timestamp when the message was sent in ISO 8601 format.
+     * Null if the message has not been sent yet.
+     */
+    sentAt: string | null;
     /**
      * Timestamp when the message was delivered in ISO 8601 format.
      * Null if not yet delivered or for inbound messages.
@@ -24,11 +27,17 @@ export interface MessageEvent {
     deliveredAt?: string | null;
     message: Pinnacle.MessageEventContent;
     /**
-     * Details of the fallback SMS/MMS message that was sent instead of the original RCS message.
+     * The unique identifier of the original RCS message that this fallback SMS/MMS was sent on behalf of. Always begins with the prefix `msg_`.
      *
-     * This field is only present when the message `status` is `FALLBACK_SENT`, indicating the original RCS message could not be delivered and a fallback message was sent instead.
+     * Only present on webhook events for fallback SMS/MMS messages. Use this to link the fallback back to the RCS message that could not be delivered. The `message.id` field on this event refers to the actual SMS/MMS that was sent — `originalMessageId` refers to the RCS message it replaced.
      *
-     * Use this information to track which fallback messages were sent and their content.
+     * Null when the message is not a fallback.
+     */
+    originalMessageId?: string | null;
+    /**
+     * Details of the fallback SMS/MMS message(s) that were actually sent to the recipient instead of the original RCS message.
+     *
+     * Only present when the message `status` is `FALLBACK_SENT`. The `message.id` on this event refers to the original RCS message that could not be delivered. The `fallbackMessage.ids` contain the identifiers of the actual SMS/MMS messages that were sent.
      */
     fallbackMessage?: MessageEvent.FallbackMessage | null;
 }
@@ -57,19 +66,17 @@ export namespace MessageEvent {
     export type Direction = (typeof Direction)[keyof typeof Direction];
 
     /**
-     * Details of the fallback SMS/MMS message that was sent instead of the original RCS message.
+     * Details of the fallback SMS/MMS message(s) that were actually sent to the recipient instead of the original RCS message.
      *
-     * This field is only present when the message `status` is `FALLBACK_SENT`, indicating the original RCS message could not be delivered and a fallback message was sent instead.
-     *
-     * Use this information to track which fallback messages were sent and their content.
+     * Only present when the message `status` is `FALLBACK_SENT`. The `message.id` on this event refers to the original RCS message that could not be delivered. The `fallbackMessage.ids` contain the identifiers of the actual SMS/MMS messages that were sent.
      */
     export interface FallbackMessage {
         /**
-         * Unique identifier of the fallback message. This identifier is a string that always begins with the prefix `msg_`, for example: `msg_1234567890`. <br><br>
-         * To get the full message details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
+         * Unique identifiers of the actual SMS/MMS message(s) that were sent as the fallback. Each identifier always begins with the prefix `msg_`. Multiple IDs indicate the fallback was split into multiple SMS/MMS messages. <br><br>
+         * These are the messages that were actually delivered to the recipient. To get their full details, use the [GET /messages/{id}](/api-reference/messages/get) endpoint.
          */
-        id: string;
-        /** Type of the fallback message sent. */
+        ids: string[];
+        /** Delivery protocol of the fallback message that was sent. */
         type: FallbackMessage.Type;
         /** Phone number the fallback message was sent from in E.164 format. */
         from: string;
@@ -82,7 +89,7 @@ export namespace MessageEvent {
     }
 
     export namespace FallbackMessage {
-        /** Type of the fallback message sent. */
+        /** Delivery protocol of the fallback message that was sent. */
         export const Type = {
             Sms: "SMS",
             Mms: "MMS",

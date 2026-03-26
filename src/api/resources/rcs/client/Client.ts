@@ -6,7 +6,9 @@ import * as core from "../../../../core/index.js";
 import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
 import * as Pinnacle from "../../../index.js";
+import { Agents } from "../resources/agents/client/Client.js";
 import { Test } from "../resources/test/client/Client.js";
+import { WhitelistedNumbers } from "../resources/whitelistedNumbers/client/Client.js";
 
 export declare namespace Rcs {
     export interface Options extends BaseClientOptions {}
@@ -16,10 +18,20 @@ export declare namespace Rcs {
 
 export class Rcs {
     protected readonly _options: Rcs.Options;
+    protected _agents: Agents | undefined;
+    protected _whitelistedNumbers: WhitelistedNumbers | undefined;
     protected _test: Test | undefined;
 
     constructor(_options: Rcs.Options) {
         this._options = _options;
+    }
+
+    public get agents(): Agents {
+        return (this._agents ??= new Agents(this._options));
+    }
+
+    public get whitelistedNumbers(): WhitelistedNumbers {
+        return (this._whitelistedNumbers ??= new WhitelistedNumbers(this._options));
     }
 
     public get test(): Test {

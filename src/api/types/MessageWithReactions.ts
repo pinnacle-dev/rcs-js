@@ -3,20 +3,20 @@
 import type * as Pinnacle from "../index.js";
 
 /**
- * Message with additional conversation-specific fields including direction and reaction.
+ * Message with additional conversation-specific fields including direction and reactions.
  */
-export interface MessageWithReaction extends Pinnacle.Message {
+export interface MessageWithReactions extends Pinnacle.Message {
     /** Direction of the message flow. */
-    direction: MessageWithReaction.Direction;
+    direction: MessageWithReactions.Direction;
     /**
-     * Unicode emoji reaction attached to this message. <br>
+     * Array of unicode emoji reactions attached to this message. <br>
      *
-     * Null indicates no reaction has been added.
+     * Empty array indicates no reactions have been added.
      */
-    reaction: string | null;
+    reactions: string[];
 }
 
-export namespace MessageWithReaction {
+export namespace MessageWithReactions {
     /** Direction of the message flow. */
     export const Direction = {
         Inbound: "INBOUND",

@@ -7,9 +7,11 @@ import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
 import * as Pinnacle from "../../../index.js";
 import { Blast } from "../resources/blast/client/Client.js";
+import { Blasts } from "../resources/blasts/client/Client.js";
 import { Mms } from "../resources/mms/client/Client.js";
 import { Rcs } from "../resources/rcs/client/Client.js";
 import { Schedule } from "../resources/schedule/client/Client.js";
+import { Schedules } from "../resources/schedules/client/Client.js";
 import { Sms } from "../resources/sms/client/Client.js";
 
 export declare namespace Messages {
@@ -25,6 +27,8 @@ export class Messages {
     protected _rcs: Rcs | undefined;
     protected _blast: Blast | undefined;
     protected _schedule: Schedule | undefined;
+    protected _schedules: Schedules | undefined;
+    protected _blasts: Blasts | undefined;
 
     constructor(_options: Messages.Options) {
         this._options = _options;
@@ -48,6 +52,14 @@ export class Messages {
 
     public get schedule(): Schedule {
         return (this._schedule ??= new Schedule(this._options));
+    }
+
+    public get schedules(): Schedules {
+        return (this._schedules ??= new Schedules(this._options));
+    }
+
+    public get blasts(): Blasts {
+        return (this._blasts ??= new Blasts(this._options));
     }
 
     /**
@@ -250,6 +262,98 @@ export class Messages {
                 });
             case "timeout":
                 throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/react.");
+            case "unknown":
+                throw new errors.PinnacleError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * List all messages with optional filtering and pagination. Results are sorted by creation date, newest first.
+     *
+     * @param {Pinnacle.ListMessagesParams} request
+     * @param {Messages.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Pinnacle.BadRequestError}
+     * @throws {@link Pinnacle.UnauthorizedError}
+     * @throws {@link Pinnacle.InternalServerError}
+     *
+     * @example
+     *     await client.messages.list()
+     */
+    public list(
+        request: Pinnacle.ListMessagesParams = {},
+        requestOptions?: Messages.RequestOptions,
+    ): core.HttpResponsePromise<Pinnacle.ListMessagesResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__list(request, requestOptions));
+    }
+
+    private async __list(
+        request: Pinnacle.ListMessagesParams = {},
+        requestOptions?: Messages.RequestOptions,
+    ): Promise<core.WithRawResponse<Pinnacle.ListMessagesResponse>> {
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            this._options?.headers,
+            mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.PinnacleEnvironment.Default,
+                "messages/list",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryParameters: requestOptions?.queryParams,
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Pinnacle.ListMessagesResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                case 401:
+                    throw new Pinnacle.UnauthorizedError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new Pinnacle.InternalServerError(
+                        _response.error.body as Pinnacle.Error_,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.PinnacleError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.PinnacleError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.PinnacleTimeoutError("Timeout exceeded when calling POST /messages/list.");
             case "unknown":
                 throw new errors.PinnacleError({
                     message: _response.error.errorMessage,

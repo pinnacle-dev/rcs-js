@@ -7,7 +7,7 @@ import type * as Pinnacle from "../index.js";
  */
 export interface MessageList {
     /** Array of messages in the conversation. */
-    messages: Pinnacle.MessageWithReaction[];
+    messages: Pinnacle.MessageWithReactions[];
     /** Indicates if more messages are available beyond the current page. */
     hasMore: boolean;
     /** Total number of messages in the conversation. */
