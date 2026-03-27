@@ -28,16 +28,13 @@ import type * as Pinnacle from "../../../../../../index.js";
  *         campaignId: "rcs_1234567890",
  *         expectedAgentResponses: ["Here are the things I can help you with.", "I can assist you with booking an appointment, or you may choose to book manually.", "Here are the available times to connect with a representative tomorrow.", "Your appointment has been scheduled."],
  *         links: {
- *             privacyPolicy: "https://www.trypinnacle.app/privacy",
- *             termsOfService: "https://www.trypinnacle.app/terms"
+ *             privacyPolicy: "\u201Chttps://www.trypinnacle.app/privacy\u201D",
+ *             termsOfService: "\u201Chttps://www.trypinnacle.app/terms\u201D"
  *         },
- *         useCase: {
- *             behavior: "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an \u201Conboarding guide\u201D for new customers and a \u201Cbest-practices coach\u201D for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2\u20136 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
- *             value: "OTHER"
- *         },
- *         optInTermsAndConditions: "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
- *         messagingType: "MULTI_USE",
- *         carrierDescription: "Demonstrate the power of RCS to medium and large companies already sending massive SMS/MMS volumes through our platform. These clients send conversational messages in industries such as commerce, appointments, and customer support.",
+ *         useCaseDescription: "Pinnacle is a developer-focused RCS assistant that helps teams design, test, and optimize rich messaging experiences across SMS, MMS, and RCS. The agent acts as both an \u201Conboarding guide\u201D for new customers and a \u201Cbest-practices coach\u201D for existing teams exploring higher-value RCS workflows like rich cards, carousels, and suggested actions.<br>\nThe agent delivers a mix of operational updates and educational content (2\u20136 messages/month). Content includes important platform notices (e.g., deliverability or throughput changes), implementation tips with sample RCS templates, and personalized recommendations on how to upgrade existing SMS campaigns into richer, higher-converting RCS conversations.\n",
+ *         messagingType: "OTP",
+ *         ctaMedia: "\u201Chttps://www.pinnacle.sh/send\u201D",
+ *         optInMethod: "We ensure consent through an explicit opt-in process that follows 10DLC best practices.Users must agree to receive messages from Pinnacle before the agent sends them any messages.<br>\nUsers agree to these messages by signing an opt-in paper form that they can be found online at https://www.pinnacle.sh/opt-in. We only send messages once users have filled out the form and submitted it to us via email or through the dashboard.\n",
  *         keywords: {
  *             HELP: {
  *                 message: "Email founders@trypinnacle.app for support.",
@@ -56,9 +53,6 @@ import type * as Pinnacle from "../../../../../../index.js";
  *             monthlyWebsite: 10000,
  *             monthlyRcsEstimate: 10000
  *         },
- *         agentTriggers: "The agent sends the first message when the user subscribes to Pinnacle. Messages are based on user actions such as pressing suggestion buttons. External triggers such as reminders can be setup by users in advance for a later time.",
- *         interactionDescription: "The agent's primary interaction will be customer service \u2014 helping users with questions, troubleshooting issues, and providing quick assistance through chat. Other interactions include appointment management and sending notifications to the user.",
- *         isConversational: true,
  *         ctaLanguage: "By checking this box and submitting this form, you consent to receive transactional text messages for support, appointment, and reminder messages from Pinnacle Software Development Inc. Reply STOP to opt out. Reply HELP for help. Standard message and data rates may apply. Message frequency may vary. View our Terms and Conditions at https://www.pinnacle.sh/terms. View our Privacy Policy at https://www.pinnacle.sh/privacy.",
  *         demoTrigger: "Text \"START\" to trigger the flow."
  *     }
@@ -77,21 +71,15 @@ export interface UpsertRcsCampaignParams {
     expectedAgentResponses?: string[];
     /** Legal documentation links. */
     links?: UpsertRcsCampaignParams.Links;
-    /** Use case classification for the campaign. */
-    useCase?: UpsertRcsCampaignParams.UseCase;
-    /** Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements. */
-    optInTermsAndConditions?: string;
+    /** Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements. */
+    useCaseDescription?: string;
     messagingType?: Pinnacle.RcsMessagingTypeEnum;
-    /** Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements. */
-    carrierDescription?: string;
+    /** URL to the opt-in form or a URL to a screenshot of the opt-in CTA. */
+    ctaMedia?: string;
+    /** Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Method](/guides/campaigns/rcs-compliance#opt-in-method) section for requirements. */
+    optInMethod?: string;
     keywords?: UpsertRcsCampaignParams.Keywords;
     traffic?: UpsertRcsCampaignParams.Traffic;
-    /** Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements. */
-    agentTriggers?: string;
-    /** Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements. */
-    interactionDescription?: string;
-    /** Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user. */
-    isConversational?: boolean;
     /** Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements. */
     ctaLanguage?: string;
     /** Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user. See the [Demo Trigger](/guides/campaigns/rcs-compliance#demo-trigger) section for requirements. */
@@ -185,15 +173,6 @@ export namespace UpsertRcsCampaignParams {
         privacyPolicy?: string;
         /** Terms of service URL. */
         termsOfService?: string;
-    }
-
-    /**
-     * Use case classification for the campaign.
-     */
-    export interface UseCase {
-        /** Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements. */
-        behavior?: string;
-        value?: Pinnacle.RcsCampaignUseCaseEnum;
     }
 
     export interface Keywords {

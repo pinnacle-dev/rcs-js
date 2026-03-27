@@ -9,8 +9,6 @@ export interface RcsCampaignSummary {
     status: RcsCampaignSummary.Status;
     /** Brand ID associated with this campaign. */
     brandId?: string;
-    /** Primary use case for this campaign. */
-    useCase?: string;
     /** RCS agent ID associated with this campaign. */
     agentId?: string;
     /** ISO 8601 timestamp of when the campaign was created. */

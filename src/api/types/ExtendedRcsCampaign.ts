@@ -16,21 +16,15 @@ export interface ExtendedRcsCampaign {
     /** Legal documentation links. */
     links?: ExtendedRcsCampaign.Links;
     status: Pinnacle.ProfileStatusEnum;
-    /** Use case classification for the campaign. */
-    useCase?: ExtendedRcsCampaign.UseCase;
-    /** Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Terms and Conditions](/guides/campaigns/rcs-compliance#opt-in-terms-and-conditions) section for requirements. */
-    optInTermsAndConditions?: string;
+    /** Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements. */
+    useCaseDescription?: string;
     messagingType?: Pinnacle.RcsMessagingTypeEnum;
-    /** Description of the agent's purpose, shown to carriers for approval. See the [Carrier Description](/guides/campaigns/rcs-compliance#carrier-description) section for requirements. */
-    carrierDescription?: string;
+    /** URL to the opt-in form or a URL to a screenshot of the opt-in CTA. */
+    ctaMedia?: string;
+    /** Details on how opt-in is acquired. If it is done through a website or app, provide the link. See the [Opt-In Method](/guides/campaigns/rcs-compliance#opt-in-method) section for requirements. */
+    optInMethod?: string;
     keywords?: ExtendedRcsCampaign.Keywords;
     traffic?: ExtendedRcsCampaign.Traffic;
-    /** Explanation of how the agent is triggered. This includes how the first message is delivered, whether messages follow a schedule or triggered by user actions, and any external triggers. See the [Agent Triggers](/guides/campaigns/rcs-compliance#agent-triggers) section for requirements. */
-    agentTriggers?: string;
-    /** Description of all agent interactions, including primary and secondary use cases. See the [Interaction Description](/guides/campaigns/rcs-compliance#interaction-description) section for requirements. */
-    interactionDescription?: string;
-    /** Whether the agent supports conversational flows or respond to P2A messages from the users. Set to false for one-way messages from agent to user. */
-    isConversational?: boolean;
     /** Required text that appears next to the opt-in checkbox for your opt-in form. This checkbox has to be unchecked by default. See the [CTA Language](/guides/campaigns/rcs-compliance#cta-language-opt-in-disclosure) section for requirements. */
     ctaLanguage?: string;
     /** Instructions on how an external reviewer can trigger messages and an example flow from the agent. This is usually an inbound text message to the agent that will start a flow of messages between the agent and the user. See the [Demo Trigger](/guides/campaigns/rcs-compliance#demo-trigger) section for requirements. */
@@ -103,15 +97,6 @@ export namespace ExtendedRcsCampaign {
         privacyPolicy?: string;
         /** Terms of service URL. */
         termsOfService?: string;
-    }
-
-    /**
-     * Use case classification for the campaign.
-     */
-    export interface UseCase {
-        /** Detailed summary of what the brand is and how this agent will be used. See the [Use Case Behavior](/guides/campaigns/rcs-compliance#use-case-behavior) section for requirements. */
-        behavior?: string;
-        value?: Pinnacle.RcsCampaignUseCaseEnum;
     }
 
     export interface Keywords {

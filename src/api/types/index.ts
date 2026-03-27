@@ -119,7 +119,6 @@ export * from "./RcsButtonTrigger.js";
 export * from "./RcsCampaign.js";
 export * from "./RcsCampaignStatus.js";
 export * from "./RcsCampaignSummary.js";
-export * from "./RcsCampaignUseCaseEnum.js";
 export * from "./RcsCapabilitiesResult.js";
 export * from "./RcsCapability.js";
 export * from "./RcsCardsContent.js";
