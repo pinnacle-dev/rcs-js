@@ -2176,6 +2176,143 @@ await client.webhooks.list();
 </dl>
 </details>
 
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">attach</a>({ ...params }) -> Pinnacle.AttachWebhookResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Attach a webhook to one or more senders (phone numbers or RCS agent IDs) to receive real-time event notifications. <br>
+
+You can attach an existing webhook by providing its ID, or create a new webhook by specifying a name and URL. Supports bulk operations with up to 50 senders per request. <br>
+
+Subscriptions are additive — attaching new senders does not remove existing ones. Re-attaching the same sender updates the event type filter without creating duplicates.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.webhooks.attach({
+    senders: ["+14155551234", "agent_abc123"]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.AttachWebhookParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Webhooks.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.webhooks.<a href="/src/api/resources/webhooks/client/Client.ts">detach</a>({ ...params }) -> Pinnacle.DetachWebhookResult</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Detach a webhook from one or more senders (phone numbers or RCS agent IDs) to stop receiving event notifications. <br>
+
+The webhook itself is not deleted and remains available for use with other senders. Works regardless of webhook status. Supports bulk operations with up to 50 senders per request.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.webhooks.detach({
+    webhookId: "webhookId",
+    senders: ["+14155551234", "agent_abc123"]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.DetachWebhookParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Webhooks.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Audiences Contacts
 <details><summary><code>client.audiences.contacts.<a href="/src/api/resources/audiences/resources/contacts/client/Client.ts">remove</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
 <dl>
@@ -4534,166 +4671,6 @@ await client.messages.blasts.list();
 <dd>
 
 **requestOptions:** `Blasts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## PhoneNumbers Webhook
-<details><summary><code>client.phoneNumbers.webhook.<a href="/src/api/resources/phoneNumbers/resources/webhook/client/Client.ts">attach</a>(phone, { ...params }) -> Pinnacle.ConfiguredWebhook</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Connect a webhook to your phone number to receive real-time notifications for incoming messages, delivery status updates, and other communication events.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.phoneNumbers.webhook.attach("%2B14155551234", {
-    webhookId: "wh_1234567890",
-    event: "MESSAGE.STATUS"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**phone:** `string` 
-
-The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
-
-Must be a phone number that you own and have already [purchased](./buy) through the API. A phone number can have multiple webhooks attached to it.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.AttachWebhookParams` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Webhook.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.phoneNumbers.webhook.<a href="/src/api/resources/phoneNumbers/resources/webhook/client/Client.ts">detach</a>(phone, webhookId) -> Pinnacle.DetachedWebhookInfo</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Disconnect a webhook from your phone number to stop receiving event notifications for that specific number. <br>
-
-The webhook configuration itself remains intact and available for use with other phone numbers.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.phoneNumbers.webhook.detach("+14155551234", "wh_1234567890");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**phone:** `string` 
-
-The phone number you want to attach the webhook to in E.164 format. Make sure it is url encoded (i.e. replace the leading + with %2B). <br>
-
-Must be a phone number that you own and currently has the specified webhook attached.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**webhookId:** `string` 
-
-The unique identifier of the webhook you want to detach from the phone number. <br>
-
-This must be a valid webhook ID that is currently attached to the specified phone number. This identifier is a string that always begins with the prefix `wh_`, for example: `wh_1234567890`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Webhook.RequestOptions` 
     
 </dd>
 </dl>

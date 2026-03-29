@@ -7,7 +7,6 @@ import * as environments from "../../../../environments.js";
 import * as errors from "../../../../errors/index.js";
 import * as Pinnacle from "../../../index.js";
 import { Campaign } from "../resources/campaign/client/Client.js";
-import { Webhook } from "../resources/webhook/client/Client.js";
 
 export declare namespace PhoneNumbers {
     export interface Options extends BaseClientOptions {}
@@ -17,15 +16,10 @@ export declare namespace PhoneNumbers {
 
 export class PhoneNumbers {
     protected readonly _options: PhoneNumbers.Options;
-    protected _webhook: Webhook | undefined;
     protected _campaign: Campaign | undefined;
 
     constructor(_options: PhoneNumbers.Options) {
         this._options = _options;
-    }
-
-    public get webhook(): Webhook {
-        return (this._webhook ??= new Webhook(this._options));
     }
 
     public get campaign(): Campaign {
