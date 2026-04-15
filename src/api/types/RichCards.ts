@@ -32,7 +32,7 @@ export namespace RichCards {
              * While buttons resemble quick replies, they remain on screen after being clicked and are card-specific. <br><br>
              * **Limit:** 4 max
              */
-            buttons: Pinnacle.RichButton[];
+            buttons?: Pinnacle.RichButton[];
             /** Media file URLs to send. */
             media?: string;
             /** Secondary text displayed below the title for additional context. */
