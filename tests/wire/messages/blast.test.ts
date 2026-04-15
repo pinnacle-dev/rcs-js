@@ -586,17 +586,7 @@ describe("Blast", () => {
     test("rcs (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            audienceId: "audienceId",
-            senders: ["senders", "senders"],
-            message: {
-                quickReplies: [
-                    { type: "openUrl", payload: "payload", title: "title" },
-                    { type: "openUrl", payload: "payload", title: "title" },
-                ],
-                text: "text",
-            },
-        };
+        const rawRequestBody = { audienceId: "audienceId", senders: ["senders", "senders"], message: { text: "text" } };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -612,18 +602,6 @@ describe("Blast", () => {
                 audienceId: "audienceId",
                 senders: ["senders", "senders"],
                 message: {
-                    quickReplies: [
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                    ],
                     text: "text",
                 },
             });
@@ -633,17 +611,7 @@ describe("Blast", () => {
     test("rcs (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            audienceId: "audienceId",
-            senders: ["senders", "senders"],
-            message: {
-                quickReplies: [
-                    { type: "openUrl", payload: "payload", title: "title" },
-                    { type: "openUrl", payload: "payload", title: "title" },
-                ],
-                text: "text",
-            },
-        };
+        const rawRequestBody = { audienceId: "audienceId", senders: ["senders", "senders"], message: { text: "text" } };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -659,18 +627,6 @@ describe("Blast", () => {
                 audienceId: "audienceId",
                 senders: ["senders", "senders"],
                 message: {
-                    quickReplies: [
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                    ],
                     text: "text",
                 },
             });
@@ -680,17 +636,7 @@ describe("Blast", () => {
     test("rcs (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            audienceId: "audienceId",
-            senders: ["senders", "senders"],
-            message: {
-                quickReplies: [
-                    { type: "openUrl", payload: "payload", title: "title" },
-                    { type: "openUrl", payload: "payload", title: "title" },
-                ],
-                text: "text",
-            },
-        };
+        const rawRequestBody = { audienceId: "audienceId", senders: ["senders", "senders"], message: { text: "text" } };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -706,18 +652,6 @@ describe("Blast", () => {
                 audienceId: "audienceId",
                 senders: ["senders", "senders"],
                 message: {
-                    quickReplies: [
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                    ],
                     text: "text",
                 },
             });
@@ -727,17 +661,7 @@ describe("Blast", () => {
     test("rcs (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            audienceId: "audienceId",
-            senders: ["senders", "senders"],
-            message: {
-                quickReplies: [
-                    { type: "openUrl", payload: "payload", title: "title" },
-                    { type: "openUrl", payload: "payload", title: "title" },
-                ],
-                text: "text",
-            },
-        };
+        const rawRequestBody = { audienceId: "audienceId", senders: ["senders", "senders"], message: { text: "text" } };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -753,18 +677,6 @@ describe("Blast", () => {
                 audienceId: "audienceId",
                 senders: ["senders", "senders"],
                 message: {
-                    quickReplies: [
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                    ],
                     text: "text",
                 },
             });
@@ -774,17 +686,7 @@ describe("Blast", () => {
     test("rcs (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            audienceId: "audienceId",
-            senders: ["senders", "senders"],
-            message: {
-                quickReplies: [
-                    { type: "openUrl", payload: "payload", title: "title" },
-                    { type: "openUrl", payload: "payload", title: "title" },
-                ],
-                text: "text",
-            },
-        };
+        const rawRequestBody = { audienceId: "audienceId", senders: ["senders", "senders"], message: { text: "text" } };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -800,18 +702,6 @@ describe("Blast", () => {
                 audienceId: "audienceId",
                 senders: ["senders", "senders"],
                 message: {
-                    quickReplies: [
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                        {
-                            type: "openUrl",
-                            payload: "payload",
-                            title: "title",
-                        },
-                    ],
                     text: "text",
                 },
             });

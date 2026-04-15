@@ -144,7 +144,7 @@ export * from "./ScheduledBlastDetails.js";
 export * from "./ScheduledMessage.js";
 export * from "./ScheduledMessageSummary.js";
 export * from "./Sender.js";
-export * from "./SendRichMessageOptions.js";
+export * from "./SendRichMessageOptions4.js";
 export * from "./SendTypingIndicatorResponse.js";
 export * from "./SentMmsDetails.js";
 export * from "./SentRichMessage.js";

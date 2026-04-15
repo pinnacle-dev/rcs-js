@@ -4,5 +4,5 @@ import type * as Pinnacle from "../index.js";
 
 export interface VcardContent extends Pinnacle.Vcard {
     /** ISO 8601 timestamp of last vCard update. */
-    revision?: string;
+    revision: string;
 }

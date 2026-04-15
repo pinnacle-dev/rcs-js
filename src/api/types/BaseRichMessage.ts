@@ -7,7 +7,25 @@ export interface BaseRichMessage {
     from: string;
     fallback?: Pinnacle.FallbackMessage;
     /** Configure how your RCS message is sent and tracked. */
-    options?: Pinnacle.SendRichMessageOptions;
+    options?: BaseRichMessage.Options;
     /** Recipient's phone number in E.164 format. */
     to: string;
+}
+
+export namespace BaseRichMessage {
+    /**
+     * Configure how your RCS message is sent and tracked.
+     */
+    export interface Options {
+        schedule?: Pinnacle.MessageSchedule;
+        tracking?: Pinnacle.Tracking;
+        /** Media files and card media will be transcoded to a supported RCS format. This adds a small delay to sending the message. Ignored for rich text messages. */
+        transcode?: boolean;
+        /**
+         * Validate your message for any unsupported files. <br>
+         *
+         * If failed, errors will be thrown and the message will not send.
+         */
+        validate?: boolean;
+    }
 }

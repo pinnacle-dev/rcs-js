@@ -8,12 +8,7 @@ describe("Rcs", () => {
     test("send (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            quickReplies: [{ type: "openUrl", payload: "payload", title: "title" }],
-            text: "text",
-            from: "from",
-            to: "to",
-        };
+        const rawRequestBody = { text: "text", from: "from", to: "to" };
         const rawResponseBody = {
             messageId: "messageId",
             segments: 1,
@@ -32,13 +27,6 @@ describe("Rcs", () => {
             .build();
 
         const response = await client.messages.rcs.send({
-            quickReplies: [
-                {
-                    type: "openUrl",
-                    payload: "payload",
-                    title: "title",
-                },
-            ],
             text: "text",
             from: "from",
             to: "to",
@@ -56,12 +44,7 @@ describe("Rcs", () => {
     test("send (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            quickReplies: [{ type: "openUrl", payload: "payload", title: "title" }],
-            text: "text",
-            from: "from",
-            to: "to",
-        };
+        const rawRequestBody = { text: "text", from: "from", to: "to" };
         const rawResponseBody = {
             scheduleId: "msg_sched_1234567890",
             config: {
@@ -81,13 +64,6 @@ describe("Rcs", () => {
             .build();
 
         const response = await client.messages.rcs.send({
-            quickReplies: [
-                {
-                    type: "openUrl",
-                    payload: "payload",
-                    title: "title",
-                },
-            ],
             text: "text",
             from: "from",
             to: "to",
@@ -106,19 +82,16 @@ describe("Rcs", () => {
     test("send (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            quickReplies: [{ type: "openUrl", payload: "payload", title: "title" }],
-            text: "text",
-            from: "from",
-            to: "to",
-        };
+        const rawRequestBody = { text: "text", from: "from", to: "to" };
         const rawResponseBody = {
             messageId: "msg_1234567890",
-            segments: 1,
+            segments: { count: 1.1, encoding: "gsm7" },
             totalCost: 0.01,
             sender: "+16501234567",
             recipient: "+14154746461",
             status: "queued",
+            fallbackSent: true,
+            originalMessageId: "originalMessageId",
         };
         server
             .mockEndpoint()
@@ -130,43 +103,38 @@ describe("Rcs", () => {
             .build();
 
         const response = await client.messages.rcs.send({
-            quickReplies: [
-                {
-                    type: "openUrl",
-                    payload: "payload",
-                    title: "title",
-                },
-            ],
             text: "text",
             from: "from",
             to: "to",
         });
         expect(response).toEqual({
             messageId: "msg_1234567890",
-            segments: 1,
+            segments: {
+                count: 1.1,
+                encoding: "gsm7",
+            },
             totalCost: 0.01,
             sender: "+16501234567",
             recipient: "+14154746461",
             status: "queued",
+            fallbackSent: true,
+            originalMessageId: "originalMessageId",
         });
     });
 
     test("send (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            quickReplies: [{ type: "openUrl", payload: "payload", title: "title" }],
-            text: "text",
-            from: "from",
-            to: "to",
-        };
+        const rawRequestBody = { text: "text", from: "from", to: "to" };
         const rawResponseBody = {
             messageId: "msg_1234567890",
-            segments: 1,
+            segments: { count: 1.1, encoding: "gsm7" },
             totalCost: 0.02,
             sender: "+16501234567",
             recipient: "+14154746461",
             status: "queued",
+            fallbackSent: true,
+            originalMessageId: "originalMessageId",
         };
         server
             .mockEndpoint()
@@ -178,39 +146,29 @@ describe("Rcs", () => {
             .build();
 
         const response = await client.messages.rcs.send({
-            quickReplies: [
-                {
-                    type: "openUrl",
-                    payload: "payload",
-                    title: "title",
-                },
-            ],
             text: "text",
             from: "from",
             to: "to",
         });
         expect(response).toEqual({
             messageId: "msg_1234567890",
-            segments: 1,
+            segments: {
+                count: 1.1,
+                encoding: "gsm7",
+            },
             totalCost: 0.02,
             sender: "+16501234567",
             recipient: "+14154746461",
             status: "queued",
+            fallbackSent: true,
+            originalMessageId: "originalMessageId",
         });
     });
 
     test("send (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            to: "to",
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { from: "from", to: "to", text: "text" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -225,18 +183,6 @@ describe("Rcs", () => {
             return await client.messages.rcs.send({
                 from: "from",
                 to: "to",
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.BadRequestError);
@@ -245,15 +191,7 @@ describe("Rcs", () => {
     test("send (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            to: "to",
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { from: "from", to: "to", text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -268,18 +206,6 @@ describe("Rcs", () => {
             return await client.messages.rcs.send({
                 from: "from",
                 to: "to",
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
@@ -288,15 +214,7 @@ describe("Rcs", () => {
     test("send (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            to: "to",
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { from: "from", to: "to", text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -311,18 +229,6 @@ describe("Rcs", () => {
             return await client.messages.rcs.send({
                 from: "from",
                 to: "to",
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.PaymentRequiredError);
@@ -331,15 +237,7 @@ describe("Rcs", () => {
     test("send (8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            to: "to",
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { from: "from", to: "to", text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -354,18 +252,6 @@ describe("Rcs", () => {
             return await client.messages.rcs.send({
                 from: "from",
                 to: "to",
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.ForbiddenError);
@@ -374,15 +260,7 @@ describe("Rcs", () => {
     test("send (9)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            to: "to",
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { from: "from", to: "to", text: "text" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -397,18 +275,6 @@ describe("Rcs", () => {
             return await client.messages.rcs.send({
                 from: "from",
                 to: "to",
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.NotFoundError);
@@ -417,15 +283,7 @@ describe("Rcs", () => {
     test("send (10)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            to: "to",
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { from: "from", to: "to", text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -440,18 +298,6 @@ describe("Rcs", () => {
             return await client.messages.rcs.send({
                 from: "from",
                 to: "to",
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.InternalServerError);
@@ -460,15 +306,7 @@ describe("Rcs", () => {
     test("send (11)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            from: "from",
-            to: "to",
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { from: "from", to: "to", text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -483,18 +321,6 @@ describe("Rcs", () => {
             return await client.messages.rcs.send({
                 from: "from",
                 to: "to",
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.NotImplementedError);
@@ -668,10 +494,7 @@ describe("Rcs", () => {
     test("validate (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            quickReplies: [{ type: "openUrl", payload: "payload", title: "title" }],
-            text: "text",
-        };
+        const rawRequestBody = { text: "text" };
         const rawResponseBody = { total: 0.035, unit: 0.035, segments: 1, unsupportedFiles: ["unsupportedFiles"] };
         server
             .mockEndpoint()
@@ -683,13 +506,6 @@ describe("Rcs", () => {
             .build();
 
         const response = await client.messages.rcs.validate({
-            quickReplies: [
-                {
-                    type: "openUrl",
-                    payload: "payload",
-                    title: "title",
-                },
-            ],
             text: "text",
         });
         expect(response).toEqual({
@@ -703,13 +519,7 @@ describe("Rcs", () => {
     test("validate (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { text: "text" };
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
@@ -722,18 +532,6 @@ describe("Rcs", () => {
 
         await expect(async () => {
             return await client.messages.rcs.validate({
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.BadRequestError);
@@ -742,13 +540,7 @@ describe("Rcs", () => {
     test("validate (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -761,18 +553,6 @@ describe("Rcs", () => {
 
         await expect(async () => {
             return await client.messages.rcs.validate({
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
@@ -781,13 +561,7 @@ describe("Rcs", () => {
     test("validate (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -800,18 +574,6 @@ describe("Rcs", () => {
 
         await expect(async () => {
             return await client.messages.rcs.validate({
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.ForbiddenError);
@@ -820,13 +582,7 @@ describe("Rcs", () => {
     test("validate (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {
-            quickReplies: [
-                { type: "openUrl", payload: "payload", title: "title" },
-                { type: "openUrl", payload: "payload", title: "title" },
-            ],
-            text: "text",
-        };
+        const rawRequestBody = { text: "text" };
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -839,18 +595,6 @@ describe("Rcs", () => {
 
         await expect(async () => {
             return await client.messages.rcs.validate({
-                quickReplies: [
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                    {
-                        type: "openUrl",
-                        payload: "payload",
-                        title: "title",
-                    },
-                ],
                 text: "text",
             });
         }).rejects.toThrow(Pinnacle.InternalServerError);

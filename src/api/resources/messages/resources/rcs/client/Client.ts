@@ -38,11 +38,6 @@ export class Rcs {
      *
      * @example
      *     await client.messages.rcs.send({
-     *         quickReplies: [{
-     *                 type: "openUrl",
-     *                 payload: "payload",
-     *                 title: "title"
-     *             }],
      *         text: "text",
      *         from: "from",
      *         to: "to"
@@ -274,11 +269,6 @@ export class Rcs {
      *
      * @example
      *     await client.messages.rcs.validate({
-     *         quickReplies: [{
-     *                 type: "openUrl",
-     *                 payload: "payload",
-     *                 title: "title"
-     *             }],
      *         text: "text"
      *     })
      */

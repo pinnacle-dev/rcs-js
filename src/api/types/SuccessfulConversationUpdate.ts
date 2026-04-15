@@ -5,5 +5,5 @@
  */
 export interface SuccessfulConversationUpdate {
     /** Indicates the operation was successful. */
-    success: boolean;
+    success: true;
 }

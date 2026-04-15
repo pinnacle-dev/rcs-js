@@ -4061,11 +4061,6 @@ Requires an active RCS agent and recipient devices that support RCS Business Mes
 
 ```typescript
 await client.messages.rcs.send({
-    quickReplies: [{
-            type: "openUrl",
-            payload: "payload",
-            title: "title"
-        }],
     text: "text",
     from: "from",
     to: "to"
@@ -4209,11 +4204,6 @@ Validate RCS message content without sending it.
 
 ```typescript
 await client.messages.rcs.validate({
-    quickReplies: [{
-            type: "openUrl",
-            payload: "payload",
-            title: "title"
-        }],
     text: "text"
 });
 

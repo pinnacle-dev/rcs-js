@@ -17,7 +17,7 @@ export interface RichCards {
      * List of interactive quick reply buttons in the message. <br><br>
      * **Limit:** 10 max
      */
-    quickReplies: Pinnacle.RichButton[];
+    quickReplies?: Pinnacle.RichButton[];
 }
 
 export namespace RichCards {

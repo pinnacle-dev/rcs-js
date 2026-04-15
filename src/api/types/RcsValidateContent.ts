@@ -12,7 +12,7 @@ export type RcsValidateContent =
      * See [supported media types](https://app.pinnacle.sh/supported-file-types?type=RCS-MEDIA). */
     | {
           media: string;
-          quickReplies: Pinnacle.RichButton[];
+          quickReplies?: Pinnacle.RichButton[] | undefined;
       }
     /**
      * Message containing cards, each with its own title, subtitle, and/or buttons. Quick replies can also be added. <br>

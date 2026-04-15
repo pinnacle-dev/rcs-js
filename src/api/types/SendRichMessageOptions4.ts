@@ -5,7 +5,7 @@ import type * as Pinnacle from "../index.js";
 /**
  * Configure how your RCS message is sent and tracked.
  */
-export interface SendRichMessageOptions {
+export interface SendRichMessageOptions4 {
     schedule?: Pinnacle.MessageSchedule;
     tracking?: Pinnacle.Tracking;
     /** Media files and card media will be transcoded to a supported RCS format. This adds a small delay to sending the message. Ignored for rich text messages. */

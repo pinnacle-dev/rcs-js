@@ -3,6 +3,7 @@
 import type * as Pinnacle from "../index.js";
 
 export interface RichCardsMessage extends Pinnacle.RichCards {
+    /** Configure how your RCS message is sent and tracked. */
     options?: RichCardsMessage.Options;
     /** Your RCS agent ID which must be prefixed with 'agent_'. */
     from: string;
@@ -12,7 +13,20 @@ export interface RichCardsMessage extends Pinnacle.RichCards {
 }
 
 export namespace RichCardsMessage {
-    export interface Options extends Pinnacle.SendRichMessageOptions {
+    /**
+     * Configure how your RCS message is sent and tracked.
+     */
+    export interface Options {
+        schedule?: Pinnacle.MessageSchedule;
+        tracking?: Pinnacle.Tracking;
+        /** Media files and card media will be transcoded to a supported RCS format. This adds a small delay to sending the message. Ignored for rich text messages. */
+        transcode?: boolean;
+        /**
+         * Validate your message for any unsupported files. <br>
+         *
+         * If failed, errors will be thrown and the message will not send.
+         */
+        validate?: boolean;
         /**
          * Configure standalone card layout options for enhanced visual presentation.
          *

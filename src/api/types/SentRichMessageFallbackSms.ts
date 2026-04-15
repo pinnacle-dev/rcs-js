@@ -7,7 +7,7 @@ import type * as Pinnacle from "../index.js";
  */
 export interface SentRichMessageFallbackSms extends Pinnacle.SentSmsDetails {
     /** Indicates that the fallback SMS was sent because the recipient does not support RCS. */
-    fallbackSent: boolean;
+    fallbackSent: true;
     /** Unique identifier of the original RCS message that triggered this fallback. Always begins with the prefix `msg_`. This is the RCS message that could not be delivered — the `messageId` field on this response refers to the actual SMS that was sent as the fallback. */
     originalMessageId: string;
 }

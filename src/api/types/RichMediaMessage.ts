@@ -13,5 +13,5 @@ export interface RichMediaMessage extends Pinnacle.BaseRichMessage {
      * List of interactive quick reply buttons in the message. <br>
      * `≤10`
      */
-    quickReplies: Pinnacle.RichButton[];
+    quickReplies?: Pinnacle.RichButton[];
 }
