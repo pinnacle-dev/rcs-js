@@ -11,7 +11,11 @@ import type * as Pinnacle from "../../../../index.js";
 export interface AttachWebhookParams {
     /** Array of senders to attach the webhook to. Can be phone numbers in E.164 format or RCS agent IDs. */
     senders: string[];
-    /** Existing webhook ID (starts with `wh_`). Provide this OR `name` + `url` to create a new webhook. The webhook must be in ENABLED status. Disabled webhooks can be re-enabled from the [dashboard](https://app.pinnacle.sh/dashboard/development/webhooks). */
+    /**
+     * Existing webhook ID (starts with `wh_`). Provide this OR `name` + `url` to create a new webhook. The webhook must be in ENABLED status. Disabled webhooks can be re-enabled from the [dashboard](https://app.pinnacle.sh/dashboard/development/webhooks).
+     *
+     * Supplying `headers` alongside `webhookId` **overwrites** the stored headers on the webhook. Omit `headers` to leave them unchanged.
+     */
     webhookId?: string;
     /** Name for a new webhook (required if no `webhookId`). */
     name?: string;
@@ -23,4 +27,14 @@ export interface AttachWebhookParams {
      * `USER.TYPING` is only supported for RCS agent senders, not phone numbers.
      */
     event?: Pinnacle.WebhookEventEnum | null;
+    /**
+     * Optional custom HTTP headers (key-value map) to include when dispatching webhook events to the endpoint.
+     *
+     * Header names must start with a letter or digit and contain only letters, digits, `-`, or `_` (matching the pattern `^[A-Za-z0-9][A-Za-z0-9_-]*$`). Names are case-insensitive per [RFC 9110](https://datatracker.ietf.org/doc/html/rfc9110#name-field-names) and are normalized to uppercase before storage and sending.
+     *
+     * When provided with an existing `webhookId`, these headers **overwrite** any headers currently stored on that webhook. Omit to leave existing headers unchanged.
+     *
+     * The reserved `PINNACLE-SIGNING-SECRET` header is silently ignored and cannot be overridden.
+     */
+    headers?: Record<string, string | null> | null;
 }

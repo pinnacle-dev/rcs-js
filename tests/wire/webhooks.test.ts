@@ -22,6 +22,7 @@ describe("Webhooks", () => {
                     endpoint: "https://www.pinnacle.sh/examples/check-payment",
                     id: "wh_1234567890",
                     name: "Payment Notification Webhook",
+                    headers: { "X-API-KEY": "sk_live_..." },
                 },
                 {
                     endpoint: "https://www.pinnacle.sh/examples/talk-to-my-friends",
@@ -53,6 +54,9 @@ describe("Webhooks", () => {
                     endpoint: "https://www.pinnacle.sh/examples/check-payment",
                     id: "wh_1234567890",
                     name: "Payment Notification Webhook",
+                    headers: {
+                        "X-API-KEY": "sk_live_...",
+                    },
                 },
                 {
                     endpoint: "https://www.pinnacle.sh/examples/talk-to-my-friends",
@@ -160,6 +164,7 @@ describe("Webhooks", () => {
                     status: "ENABLED",
                     createdAt: "2025-01-15T10:30:00Z",
                     updatedAt: "2025-01-15T10:30:00Z",
+                    headers: { "X-API-KEY": "sk_live_...", "X-TENANT-ID": "tenant_42" },
                 },
                 {
                     id: "wh_def456",
@@ -192,6 +197,10 @@ describe("Webhooks", () => {
                     status: "ENABLED",
                     createdAt: "2025-01-15T10:30:00Z",
                     updatedAt: "2025-01-15T10:30:00Z",
+                    headers: {
+                        "X-API-KEY": "sk_live_...",
+                        "X-TENANT-ID": "tenant_42",
+                    },
                 },
                 {
                     id: "wh_def456",
@@ -274,6 +283,7 @@ describe("Webhooks", () => {
                 name: "SMS Delivery Tracker",
                 url: "https://api.myapp.com/webhooks/sms-delivery",
                 secret: "pss_1a2b3c4d5e6f7g8h9i0j",
+                headers: { "X-API-KEY": "sk_live_...", "X-TENANT-ID": "tenant_42" },
             },
             event: "MESSAGE.STATUS",
             senders: ["+14155551234", "agent_abc123"],
@@ -297,6 +307,10 @@ describe("Webhooks", () => {
                 name: "SMS Delivery Tracker",
                 url: "https://api.myapp.com/webhooks/sms-delivery",
                 secret: "pss_1a2b3c4d5e6f7g8h9i0j",
+                headers: {
+                    "X-API-KEY": "sk_live_...",
+                    "X-TENANT-ID": "tenant_42",
+                },
             },
             event: "MESSAGE.STATUS",
             senders: ["+14155551234", "agent_abc123"],

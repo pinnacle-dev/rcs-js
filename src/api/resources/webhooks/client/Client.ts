@@ -214,7 +214,9 @@ export class Webhooks {
      *
      * You can attach an existing webhook by providing its ID, or create a new webhook by specifying a name and URL. Supports bulk operations with up to 50 senders per request. <br>
      *
-     * Subscriptions are additive — attaching new senders does not remove existing ones. Re-attaching the same sender updates the event type filter without creating duplicates.
+     * Subscriptions are additive — attaching new senders does not remove existing ones. Re-attaching the same sender updates the event type filter without creating duplicates. <br>
+     *
+     * **Custom headers** may be provided in either case via the optional `headers` field. When attaching a new webhook, the headers are stored on the webhook and sent on every delivery. When attaching an existing `webhookId`, supplying `headers` **overwrites** the stored headers on that webhook — omit the field to leave them unchanged, or pass an empty object `{}` to clear them. The reserved `PINNACLE-SIGNING-SECRET` header is always set by Pinnacle and cannot be overridden.
      *
      * @param {Pinnacle.AttachWebhookParams} request
      * @param {Webhooks.RequestOptions} requestOptions - Request-specific configuration.
