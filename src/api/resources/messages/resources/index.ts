@@ -12,6 +12,7 @@ export * from "./rcs/types/index.js";
 export * as schedule from "./schedule/index.js";
 export * from "./schedules/client/requests/index.js";
 export * as schedules from "./schedules/index.js";
+export * as simulate from "./simulate/index.js";
 export * from "./sms/client/requests/index.js";
 export * as sms from "./sms/index.js";
 export * from "./sms/types/index.js";
