@@ -2315,6 +2315,409 @@ await client.webhooks.detach({
 </dl>
 </details>
 
+## Forms
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">get</a>(id) -> Pinnacle.Form</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a form by id. Includes submission count, last submission timestamp, and archive state.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.get("form_Oy2n7iUoi9CJwUU6");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+
+The unique identifier of the form you want to retrieve.
+<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`. It's returned on every form response (`Form.id`) and by [`POST /forms/send`](/api-reference/forms/send-form) (`response.form.id`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">update</a>(id, { ...params }) -> Pinnacle.Form</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partial update. Only keys present in the body are applied. Archived forms (non-null `archived_at`) cannot be updated — restore the form by setting `archived_at: null` in a PATCH first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.update("form_Oy2n7iUoi9CJwUU6", {
+    name: "Contact request (v2)",
+    can_update: true,
+    expires_at: "2026-12-31T23:59:59Z"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+
+The unique identifier of the form you want to update.
+<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.UpdateFormParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListFormsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Paginated list of forms on your team, sorted by creation date (newest first). Includes archived forms.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.list({
+    pageIndex: 0,
+    pageSize: 20
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ListFormsParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">create</a>({ ...params }) -> Pinnacle.Form</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a hosted form without sending it. <br>
+
+Returns the form object including its public URL — `https://forms.pinnacle.sh/{form_id}`. <br>
+
+To also deliver the URL to a recipient over SMS or RCS in a single call, use [`POST /forms/send`](/api-reference/forms/send-form).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.create({
+    name: "Contact request",
+    description: "We'll follow up over SMS or RCS.",
+    fields: [{
+            type: "text",
+            key: "full_name",
+            label: "Full name",
+            required: true,
+            placeholder: "Ada Lovelace",
+            min_length: 2,
+            max_length: 60
+        }, {
+            type: "email",
+            key: "email",
+            label: "Email",
+            required: true,
+            placeholder: "you@example.com"
+        }, {
+            type: "phone",
+            key: "phone",
+            label: "Phone",
+            required: true,
+            placeholder: "(555) 555-1212"
+        }, {
+            type: "select",
+            key: "plan",
+            label: "Plan",
+            required: true,
+            options: [{
+                    value: "basic",
+                    label: "Basic"
+                }, {
+                    value: "pro",
+                    label: "Pro"
+                }, {
+                    value: "enterprise",
+                    label: "Enterprise"
+                }]
+        }],
+    can_update: false
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.CreateFormRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.FormsSendResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a form to a recipient over SMS or RCS, or mint a standalone submission URL.
+
+Pass `form` as either an existing form id (`form_*`) or an inline `{ fields, ... }` definition to mint a new form for this send.
+
+The delivery channel is inferred from `from`:
+- `from: "agent_*"` → RCS (with optional SMS `fallback`)
+- `from: "+E.164"` → SMS
+
+When `to` is provided, Pinnacle dispatches a message whose body contains the submission URL and the recipient is recorded on the response: `submission.to` echoes the same E.164 number and `message_id` is the id of the outbound SMS/RCS. 
+
+When `to` is omitted, no message is sent — `submission.to` and `message_id` are both `null` — which is useful for embedding the URL in your own outreach.
+
+On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Messages and User Events](/guides/messages/receiving).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.send({
+    from: "agent_iM9wQcyBBjYn",
+    to: "+14155551234",
+    form: "form_Oy2n7iUoi9CJwUU6",
+    fallback: {
+        from: "+14155550000"
+    },
+    options: {
+        webview_mode: "FULL"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SendFormParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Audiences Contacts
 <details><summary><code>client.audiences.contacts.<a href="/src/api/resources/audiences/resources/contacts/client/Client.ts">remove</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
 <dl>
@@ -3760,6 +4163,84 @@ await client.campaigns.rcs.list();
 </dl>
 </details>
 
+## Forms Submissions
+<details><summary><code>client.forms.submissions.<a href="/src/api/resources/forms/resources/submissions/client/Client.ts">list</a>(id, { ...params }) -> Pinnacle.ListFormSubmissionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Paginated list of completed submissions for a form, newest first. Each row includes the submitted `data` keyed by field `key`, the sender/recipient, IP, user-agent, and timestamps.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.submissions.list("form_Oy2n7iUoi9CJwUU6", {
+    pageIndex: 0,
+    pageSize: 20
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+
+The unique identifier of the form whose submissions you want to list.
+<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.forms.ListFormSubmissionsParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Submissions.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Messages Sms
 <details><summary><code>client.messages.sms.<a href="/src/api/resources/messages/resources/sms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.SmsSendResponse</code></summary>
 <dl>
@@ -4663,76 +5144,6 @@ await client.messages.blasts.list();
 <dd>
 
 **requestOptions:** `Blasts.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Messages Simulate
-<details><summary><code>client.messages.simulate.<a href="/src/api/resources/messages/resources/simulate/client/Client.ts">user</a>({ ...params }) -> Pinnacle.SimulateUserResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Simulate inbound messages and button presses from a user.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.messages.simulate.user({
-    from: "+14155551234",
-    to: "+14155555678",
-    message: {
-        text: "Hello from the test user!"
-    }
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.SimulateUserParams` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Simulate.RequestOptions` 
     
 </dd>
 </dl>

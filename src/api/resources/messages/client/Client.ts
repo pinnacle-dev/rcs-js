@@ -12,7 +12,6 @@ import { Mms } from "../resources/mms/client/Client.js";
 import { Rcs } from "../resources/rcs/client/Client.js";
 import { Schedule } from "../resources/schedule/client/Client.js";
 import { Schedules } from "../resources/schedules/client/Client.js";
-import { Simulate } from "../resources/simulate/client/Client.js";
 import { Sms } from "../resources/sms/client/Client.js";
 
 export declare namespace Messages {
@@ -30,7 +29,6 @@ export class Messages {
     protected _schedule: Schedule | undefined;
     protected _schedules: Schedules | undefined;
     protected _blasts: Blasts | undefined;
-    protected _simulate: Simulate | undefined;
 
     constructor(_options: Messages.Options) {
         this._options = _options;
@@ -62,10 +60,6 @@ export class Messages {
 
     public get blasts(): Blasts {
         return (this._blasts ??= new Blasts(this._options));
-    }
-
-    public get simulate(): Simulate {
-        return (this._simulate ??= new Simulate(this._options));
     }
 
     /**

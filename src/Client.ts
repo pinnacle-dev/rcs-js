@@ -5,6 +5,7 @@ import { Brands } from "./api/resources/brands/client/Client.js";
 import { Campaigns } from "./api/resources/campaigns/client/Client.js";
 import { Contacts } from "./api/resources/contacts/client/Client.js";
 import { Conversations } from "./api/resources/conversations/client/Client.js";
+import { Forms } from "./api/resources/forms/client/Client.js";
 import { Messages } from "./api/resources/messages/client/Client.js";
 import { PhoneNumbers } from "./api/resources/phoneNumbers/client/Client.js";
 import { Rcs } from "./api/resources/rcs/client/Client.js";
@@ -31,6 +32,7 @@ export class PinnacleClient {
     protected _phoneNumbers: PhoneNumbers | undefined;
     protected _rcs: Rcs | undefined;
     protected _webhooks: Webhooks | undefined;
+    protected _forms: Forms | undefined;
     protected _campaigns: Campaigns | undefined;
     protected _status: Status | undefined;
     protected _tools: Tools | undefined;
@@ -43,8 +45,8 @@ export class PinnacleClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "rcs-js",
-                    "X-Fern-SDK-Version": "2.0.19",
-                    "User-Agent": "rcs-js/2.0.19",
+                    "X-Fern-SDK-Version": "2.0.19-rc.1",
+                    "User-Agent": "rcs-js/2.0.19-rc.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -83,6 +85,10 @@ export class PinnacleClient {
 
     public get webhooks(): Webhooks {
         return (this._webhooks ??= new Webhooks(this._options));
+    }
+
+    public get forms(): Forms {
+        return (this._forms ??= new Forms(this._options));
     }
 
     public get campaigns(): Campaigns {
