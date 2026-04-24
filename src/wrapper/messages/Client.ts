@@ -14,7 +14,7 @@ export class EnhancedMessages extends Messages {
     public async process(
         req: Request | ExpressLikeRequest,
         secret?: string,
-    ): Promise<Pinnacle.MessageEvent | Pinnacle.UserEvent> {
+    ): Promise<Pinnacle.MessageEvent | Pinnacle.UserEvent | Pinnacle.FormSubmissionEvent> {
         const signingSecret = secret || process.env.PINNACLE_SIGNING_SECRET;
 
         let headerSecret: string | undefined;
@@ -49,6 +49,9 @@ export class EnhancedMessages extends Messages {
             throw new UnauthorizedError({ error: "Invalid webhook signature" });
         }
 
-        return body as Pinnacle.MessageEvent | Pinnacle.UserEvent;
+        return body as
+            | Pinnacle.MessageEvent
+            | Pinnacle.UserEvent
+            | Pinnacle.FormSubmissionEvent;
     }
 }
