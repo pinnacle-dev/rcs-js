@@ -24,7 +24,7 @@ export interface AttachWebhookParams {
     /**
      * Event type filter for the subscription. Set to `null` to receive all events. <br>
      *
-     * `USER.TYPING` is only supported for RCS agent senders, not phone numbers.
+     * `USER.TYPING` and `CAMPAIGN.STATUS` are only supported for RCS agent senders, not phone numbers — attempting to attach either of these events to a phone number returns `400 Bad Request`.
      */
     event?: Pinnacle.WebhookEventEnum | null;
     /**

@@ -7,7 +7,13 @@ export interface AgentSummary {
     agentType: AgentSummary.AgentType;
     /** Service ID associated with the agent. */
     serviceId?: string | null;
-    /** Per-carrier launch status for the agent. */
+    /**
+     * Raw per-carrier launch + verification state for the agent. Each
+     * value is tri-state — `null` means "no launch requested" or "not
+     * sent yet"; `false` means "pending" / "sent"; `true` means
+     * "launched" / "verified". Use the [GET /rcs/{agentId}](/api-reference/rcs-agents/get)
+     * endpoint for the resolved enum representation.
+     */
     carrierLaunches?: AgentSummary.CarrierLaunches | null;
     /** Agent configuration details. */
     config?: AgentSummary.Config | null;
@@ -26,7 +32,11 @@ export namespace AgentSummary {
     export type AgentType = (typeof AgentType)[keyof typeof AgentType];
 
     /**
-     * Per-carrier launch status for the agent.
+     * Raw per-carrier launch + verification state for the agent. Each
+     * value is tri-state — `null` means "no launch requested" or "not
+     * sent yet"; `false` means "pending" / "sent"; `true` means
+     * "launched" / "verified". Use the [GET /rcs/{agentId}](/api-reference/rcs-agents/get)
+     * endpoint for the resolved enum representation.
      */
     export interface CarrierLaunches {
         /** Launch status for AT&T. null = not requested, false = pending, true = launched. */
@@ -37,6 +47,10 @@ export namespace AgentSummary {
         TMOBILE?: boolean | null;
         /** Launch status for Verizon. null = not requested, false = pending, true = launched. */
         VERIZON?: boolean | null;
+        /** AEGIS verification status. null = not sent, false = sent, true = verified. */
+        AEGIS?: boolean | null;
+        /** Google verification status. null = not sent, false = sent, true = verified. */
+        GOOGLE?: boolean | null;
     }
 
     /**

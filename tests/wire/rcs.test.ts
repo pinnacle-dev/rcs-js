@@ -13,7 +13,15 @@ describe("Rcs", () => {
             id: "agent_abc123def456",
             type: "TEST",
             serviceId: "acme-support_agent",
-            carrierLaunches: { ATT: "NOT_LAUNCHED", TMOBILE: "LAUNCHED", VERIZON: "PENDING", OTHERS: "NOT_LAUNCHED" },
+            carrierLaunches: {
+                carriers: {
+                    ATT: "NOT_LAUNCHED",
+                    TMOBILE: "NOT_LAUNCHED",
+                    VERIZON: "NOT_LAUNCHED",
+                    OTHERS: "NOT_LAUNCHED",
+                },
+                verification: { AEGIS: "NOT_SENT", GOOGLE: "NOT_SENT" },
+            },
             details: {
                 name: "Acme Support",
                 description: "Get help with your Acme orders and account",
@@ -43,10 +51,16 @@ describe("Rcs", () => {
             type: "TEST",
             serviceId: "acme-support_agent",
             carrierLaunches: {
-                ATT: "NOT_LAUNCHED",
-                TMOBILE: "LAUNCHED",
-                VERIZON: "PENDING",
-                OTHERS: "NOT_LAUNCHED",
+                carriers: {
+                    ATT: "NOT_LAUNCHED",
+                    TMOBILE: "NOT_LAUNCHED",
+                    VERIZON: "NOT_LAUNCHED",
+                    OTHERS: "NOT_LAUNCHED",
+                },
+                verification: {
+                    AEGIS: "NOT_SENT",
+                    GOOGLE: "NOT_SENT",
+                },
             },
             details: {
                 name: "Acme Support",

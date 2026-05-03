@@ -5155,6 +5155,76 @@ await client.messages.blasts.list();
 </dl>
 </details>
 
+## Messages Simulate
+<details><summary><code>client.messages.simulate.<a href="/src/api/resources/messages/resources/simulate/client/Client.ts">user</a>({ ...params }) -> Pinnacle.SimulateUserResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Simulate inbound messages and button presses from a user.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.messages.simulate.user({
+    from: "+14155551234",
+    to: "+14155555678",
+    message: {
+        text: "Hello from the test user!"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SimulateUserParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Simulate.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## PhoneNumbers Campaign
 <details><summary><code>client.phoneNumbers.campaign.<a href="/src/api/resources/phoneNumbers/resources/campaign/client/Client.ts">attach</a>({ ...params }) -> Pinnacle.AttachedPhoneNumberResult</code></summary>
 <dl>

@@ -10,5 +10,6 @@ export const WebhookEventEnum = {
     MessageReceived: "MESSAGE.RECEIVED",
     UserTyping: "USER.TYPING",
     FormSubmission: "FORM.SUBMISSION",
+    CampaignStatus: "CAMPAIGN.STATUS",
 } as const;
 export type WebhookEventEnum = (typeof WebhookEventEnum)[keyof typeof WebhookEventEnum];

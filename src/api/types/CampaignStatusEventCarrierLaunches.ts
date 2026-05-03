@@ -3,18 +3,18 @@
 import type * as Pinnacle from "../index.js";
 
 /**
- * Per-carrier launch status grouped by category. `carriers` covers
- * AT&T / T-Mobile / Verizon / other carriers; `verification` covers
- * the AEGIS and Google verification flows.
+ * Resolved per-key launch status for the campaign's agent. Carrier
+ * statuses live under `carriers` and verifier statuses under
+ * `verification`.
  */
-export interface CarrierLaunches {
+export interface CampaignStatusEventCarrierLaunches {
     /**
      * Per-carrier launch status. Each carrier moves through
      * `NOT_LAUNCHED` → `PENDING` → `LAUNCHED` as Pinnacle submits the
      * agent for review and the carrier accepts it. The agent is only
      * deliverable on a carrier once that carrier reports `LAUNCHED`.
      */
-    carriers: CarrierLaunches.Carriers;
+    carriers: CampaignStatusEventCarrierLaunches.Carriers;
     /**
      * External verifier status. AEGIS (the U.S. carrier vetting
      * authority used by AT&T, T-Mobile, and Verizon) and Google each
@@ -22,10 +22,10 @@ export interface CarrierLaunches {
      * verifier moves through `NOT_SENT` → `SENT` → `VERIFIED` once
      * the brand replies and the verifier confirms ownership.
      */
-    verification: CarrierLaunches.Verification;
+    verification: CampaignStatusEventCarrierLaunches.Verification;
 }
 
-export namespace CarrierLaunches {
+export namespace CampaignStatusEventCarrierLaunches {
     /**
      * Per-carrier launch status. Each carrier moves through
      * `NOT_LAUNCHED` → `PENDING` → `LAUNCHED` as Pinnacle submits the
@@ -33,13 +33,9 @@ export namespace CarrierLaunches {
      * deliverable on a carrier once that carrier reports `LAUNCHED`.
      */
     export interface Carriers {
-        /** AT&T launch status. */
         ATT: Pinnacle.CarrierLaunchStatus;
-        /** T-Mobile launch status. */
         TMOBILE: Pinnacle.CarrierLaunchStatus;
-        /** Verizon launch status. */
         VERIZON: Pinnacle.CarrierLaunchStatus;
-        /** Other carriers launch status. */
         OTHERS: Pinnacle.CarrierLaunchStatus;
     }
 
@@ -51,9 +47,7 @@ export namespace CarrierLaunches {
      * the brand replies and the verifier confirms ownership.
      */
     export interface Verification {
-        /** AEGIS verification status. */
         AEGIS: Pinnacle.VerificationStatus;
-        /** Google verification status. */
         GOOGLE: Pinnacle.VerificationStatus;
     }
 }
