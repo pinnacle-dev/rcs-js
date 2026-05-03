@@ -14,7 +14,12 @@ export class EnhancedMessages extends Messages {
     public async process(
         req: Request | ExpressLikeRequest,
         secret?: string,
-    ): Promise<Pinnacle.MessageEvent | Pinnacle.UserEvent | Pinnacle.FormSubmissionEvent> {
+    ): Promise<
+        | Pinnacle.MessageEvent
+        | Pinnacle.UserEvent
+        | Pinnacle.FormSubmissionEvent
+        | Pinnacle.CampaignStatusEvent
+    > {
         const signingSecret = secret || process.env.PINNACLE_SIGNING_SECRET;
 
         let headerSecret: string | undefined;
@@ -52,6 +57,7 @@ export class EnhancedMessages extends Messages {
         return body as
             | Pinnacle.MessageEvent
             | Pinnacle.UserEvent
-            | Pinnacle.FormSubmissionEvent;
+            | Pinnacle.FormSubmissionEvent
+            | Pinnacle.CampaignStatusEvent;
     }
 }
