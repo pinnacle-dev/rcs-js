@@ -6,8 +6,8 @@ import type * as Pinnacle from "../index.js";
  * Represents an incoming message or message status update received via webhook.
  */
 export interface MessageEvent {
-    /** Type of webhook event. MESSAGE.STATUS for message status updates or MESSAGE.RECEIVED for inbound messages. */
-    type: Pinnacle.WebhookEventEnum;
+    /** Type of webhook event. `MESSAGE.STATUS` for message status updates, `MESSAGE.RECEIVED` for inbound messages. */
+    type: MessageEvent.Type;
     /** Conversation metadata containing the conversation ID, sender, and recipient information. */
     conversation: MessageEvent.Conversation;
     status: Pinnacle.MessageStatusEnum;
@@ -43,6 +43,13 @@ export interface MessageEvent {
 }
 
 export namespace MessageEvent {
+    /** Type of webhook event. `MESSAGE.STATUS` for message status updates, `MESSAGE.RECEIVED` for inbound messages. */
+    export const Type = {
+        MessageStatus: "MESSAGE.STATUS",
+        MessageReceived: "MESSAGE.RECEIVED",
+    } as const;
+    export type Type = (typeof Type)[keyof typeof Type];
+
     /**
      * Conversation metadata containing the conversation ID, sender, and recipient information.
      */
