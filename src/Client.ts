@@ -2,11 +2,13 @@
 
 import { Audiences } from "./api/resources/audiences/client/Client.js";
 import { Brands } from "./api/resources/brands/client/Client.js";
+import { Calls } from "./api/resources/calls/client/Client.js";
 import { Campaigns } from "./api/resources/campaigns/client/Client.js";
 import { Contacts } from "./api/resources/contacts/client/Client.js";
 import { Conversations } from "./api/resources/conversations/client/Client.js";
 import { Forms } from "./api/resources/forms/client/Client.js";
 import { Messages } from "./api/resources/messages/client/Client.js";
+import { Network } from "./api/resources/network/client/Client.js";
 import { PhoneNumbers } from "./api/resources/phoneNumbers/client/Client.js";
 import { Rcs } from "./api/resources/rcs/client/Client.js";
 import { Status } from "./api/resources/status/client/Client.js";
@@ -32,8 +34,10 @@ export class PinnacleClient {
     protected _phoneNumbers: PhoneNumbers | undefined;
     protected _rcs: Rcs | undefined;
     protected _webhooks: Webhooks | undefined;
+    protected _calls: Calls | undefined;
     protected _forms: Forms | undefined;
     protected _campaigns: Campaigns | undefined;
+    protected _network: Network | undefined;
     protected _status: Status | undefined;
     protected _tools: Tools | undefined;
 
@@ -45,8 +49,8 @@ export class PinnacleClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "rcs-js",
-                    "X-Fern-SDK-Version": "2.0.20",
-                    "User-Agent": "rcs-js/2.0.20",
+                    "X-Fern-SDK-Version": "2.0.23",
+                    "User-Agent": "rcs-js/2.0.23",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -87,12 +91,20 @@ export class PinnacleClient {
         return (this._webhooks ??= new Webhooks(this._options));
     }
 
+    public get calls(): Calls {
+        return (this._calls ??= new Calls(this._options));
+    }
+
     public get forms(): Forms {
         return (this._forms ??= new Forms(this._options));
     }
 
     public get campaigns(): Campaigns {
         return (this._campaigns ??= new Campaigns(this._options));
+    }
+
+    public get network(): Network {
+        return (this._network ??= new Network(this._options));
     }
 
     public get status(): Status {
