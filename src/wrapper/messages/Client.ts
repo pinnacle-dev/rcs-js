@@ -19,6 +19,7 @@ export class EnhancedMessages extends Messages {
         | Pinnacle.UserEvent
         | Pinnacle.FormSubmissionEvent
         | Pinnacle.CampaignStatusEvent
+        | Pinnacle.CallStatusEvent
     > {
         const signingSecret = secret || process.env.PINNACLE_SIGNING_SECRET;
 
@@ -58,6 +59,7 @@ export class EnhancedMessages extends Messages {
             | Pinnacle.MessageEvent
             | Pinnacle.UserEvent
             | Pinnacle.FormSubmissionEvent
-            | Pinnacle.CampaignStatusEvent;
+            | Pinnacle.CampaignStatusEvent
+            | Pinnacle.CallStatusEvent;
     }
 }
