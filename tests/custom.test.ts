@@ -160,6 +160,96 @@ describe("voice socket custom types", () => {
         expect(FakeSocket.last?.protocols).toBe("voice.v1");
     });
 
+    it("uses the default WebSocket constructor when no socket is passed", () => {
+        FakeSocket.instances = [];
+        const previous = globalThis.WebSocket;
+        globalThis.WebSocket = FakeSocket as unknown as typeof WebSocket;
+        try {
+            const client = new PinnacleClient({ token: "test" });
+            const socket = client.voice.connectStream("wss://voice.example.test/stream", {
+                protocols: "voice.v1",
+            });
+            socket.sendMedia({ track: VoiceMediaTrack.Outbound, payload: "base64-pcm" });
+        } finally {
+            globalThis.WebSocket = previous;
+        }
+
+        expect(FakeSocket.instances[0]?.url).toBe("wss://voice.example.test/stream");
+        expect(FakeSocket.instances[0]?.protocols).toBe("voice.v1");
+        expect(FakeSocket.instances[0]?.sent.map((payload) => JSON.parse(payload))).toEqual([
+            { event: "media", media: { track: "outbound", payload: "base64-pcm" } },
+        ]);
+    });
+
+    it("creates calls and connects voice streams with one helper", async () => {
+        FakeSocket.instances = [];
+        const seenRequests: Array<{ url: string; body: unknown }> = [];
+        const client = new PinnacleClient({
+            token: "test",
+            baseUrl: "https://api.example.test",
+            fetch: async (input, init) => {
+                const url = String(input);
+                const body = init?.body === undefined ? undefined : JSON.parse(String(init.body));
+                seenRequests.push({ url, body });
+                if (url === "https://api.example.test/calls") {
+                    return new Response(
+                        JSON.stringify({
+                            id: "call_123",
+                            state: "INITIATED",
+                            direction: "OUTBOUND",
+                            to: "+14155551234",
+                            from: "+14155559876",
+                            created_at: "2026-06-24T00:00:00.000Z",
+                            started_at: null,
+                            answered_at: null,
+                            ended_at: null,
+                            metadata: { customer_id: "cus_123" },
+                            recording_state: null,
+                            hangup_cause: null,
+                            record: true,
+                        }),
+                        { status: 200, headers: { "content-type": "application/json" } },
+                    );
+                }
+                return new Response(
+                    JSON.stringify({
+                        token: "token-1",
+                        stream_url: "wss://voice.example.test/token-1",
+                    }),
+                    { status: 200, headers: { "content-type": "application/json" } },
+                );
+            },
+        });
+
+        const connection = await client.voice.createAndConnect({
+            from: "+14155559876",
+            to: "+14155551234",
+            record: true,
+            metadata: { customer_id: "cus_123" },
+            socket: FakeSocket,
+            token: { commands_enabled: true, stream_id: "agent", record: true },
+        });
+
+        expect(connection.callId).toBe("call_123");
+        expect(connection.call.id).toBe("call_123");
+        expect(FakeSocket.instances[0]?.url).toBe("wss://voice.example.test/token-1");
+        expect(seenRequests).toEqual([
+            {
+                url: "https://api.example.test/calls",
+                body: {
+                    from: "+14155559876",
+                    to: "+14155551234",
+                    record: true,
+                    metadata: { customer_id: "cus_123" },
+                },
+            },
+            {
+                url: "https://api.example.test/calls/call_123/stream-token",
+                body: { commands_enabled: true, stream_id: "agent", record: true },
+            },
+        ]);
+    });
+
     it("serializes command and media helpers exactly as the gateway expects", () => {
         const socket = new VoiceSocket(new FakeSocket("wss://voice.example.test/stream"));
 
@@ -231,6 +321,11 @@ describe("voice socket custom types", () => {
         );
 
         fake.emitMessage({
+            event: "connected",
+            stream_sid: "stream_123",
+            sequence_number: 0,
+        });
+        fake.emitMessage({
             event: "event",
             type: "call.answered",
             stream_sid: "stream_123",
@@ -251,7 +346,7 @@ describe("voice socket custom types", () => {
         });
 
         await expect(ack).resolves.toMatchObject({ command_id: "cmd_wait", status: "ok" });
-        expect(frames).toHaveLength(3);
+        expect(frames).toHaveLength(4);
         expect(events).toHaveLength(1);
         expect(media).toHaveLength(1);
     });
@@ -300,7 +395,7 @@ describe("voice socket custom types", () => {
         expect(FakeSocket.instances[1]?.url).toBe("wss://voice.example.test/fixed");
     });
 
-    it("refreshes stream tokens when reconnecting call streams", async () => {
+    it("refreshes stream tokens by default when reconnecting call streams", async () => {
         FakeSocket.instances = [];
         const streamUrls = ["wss://voice.example.test/token-1", "wss://voice.example.test/token-2"];
         let tokenRequests = 0;
@@ -322,7 +417,37 @@ describe("voice socket custom types", () => {
         const socket = await client.voice.connect({
             callId: "call_123",
             socket: FakeSocket,
-            reconnect: { enabled: true, initialDelayMs: 1, maxAttempts: 2 },
+        });
+        const reconnected = new Promise((resolve) => socket.on("reconnected", resolve));
+
+        FakeSocket.instances[0]?.close();
+        await reconnected;
+
+        expect(tokenRequests).toBe(2);
+        expect(FakeSocket.instances.map((ws) => ws.url)).toEqual(streamUrls);
+    });
+
+    it("keeps reconnect enabled when callers pass partial reconnect options", async () => {
+        FakeSocket.instances = [];
+        const streamUrls = ["wss://voice.example.test/token-1", "wss://voice.example.test/token-2"];
+        let tokenRequests = 0;
+        const client = new PinnacleClient({
+            token: "test",
+            baseUrl: "https://api.example.test",
+            fetch: async () => {
+                const stream_url = streamUrls[tokenRequests];
+                tokenRequests += 1;
+                return new Response(JSON.stringify({ token: `token-${tokenRequests}`, stream_url }), {
+                    status: 200,
+                    headers: { "content-type": "application/json" },
+                });
+            },
+        });
+
+        const socket = await client.voice.connect({
+            callId: "call_123",
+            socket: FakeSocket,
+            reconnect: { initialDelayMs: 1, maxAttempts: 2 },
         });
         const reconnected = new Promise((resolve) => socket.on("reconnected", resolve));
 

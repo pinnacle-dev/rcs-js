@@ -1,6 +1,6 @@
 {
     "name": "rcs-js",
-    "version": "2.0.22-rc.1",
+    "version": "2.0.23-rc.1",
     "private": false,
     "repository": "github:pinnacle-dev/rcs-js",
     "type": "commonjs",
@@ -43,17 +43,18 @@
         "test:wire": "vitest --project wire"
     },
     "dependencies": {
-        "mime-types": "^3.0.1"
+        "mime-types": "^3.0.1",
+        "ws": "^8.21.0"
     },
     "devDependencies": {
-        "webpack": "^5.104.1",
-        "ts-loader": "^9.5.1",
-        "vitest": "^3.2.4",
-        "msw": "2.11.2",
-        "@types/node": "^18.19.70",
-        "typescript": "~5.7.2",
         "@biomejs/biome": "2.3.1",
-        "@types/mime-types": "^3.0.1"
+        "@types/mime-types": "^3.0.1",
+        "@types/node": "^18.19.70",
+        "msw": "2.11.2",
+        "ts-loader": "^9.5.1",
+        "typescript": "~5.7.2",
+        "vitest": "^3.2.4",
+        "webpack": "^5.104.1"
     },
     "browser": {
         "fs": false,

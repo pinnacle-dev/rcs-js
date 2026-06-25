@@ -175,14 +175,14 @@ export class Calls {
     public create(
         request: Pinnacle.CreateCallParams,
         requestOptions?: Calls.RequestOptions,
-    ): core.HttpResponsePromise<Pinnacle.Call> {
+    ): core.HttpResponsePromise<Pinnacle.CreatedCall> {
         return core.HttpResponsePromise.fromPromise(this.__create(request, requestOptions));
     }
 
     private async __create(
         request: Pinnacle.CreateCallParams,
         requestOptions?: Calls.RequestOptions,
-    ): Promise<core.WithRawResponse<Pinnacle.Call>> {
+    ): Promise<core.WithRawResponse<Pinnacle.CreatedCall>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({ ...(await this._getCustomAuthorizationHeaders()) }),
@@ -208,7 +208,7 @@ export class Calls {
             logging: this._options.logging,
         });
         if (_response.ok) {
-            return { data: _response.body as Pinnacle.Call, rawResponse: _response.rawResponse };
+            return { data: _response.body as Pinnacle.CreatedCall, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -776,6 +776,7 @@ export class Calls {
      * @param {Pinnacle.CallsDownloadRecordingRequest} request
      * @param {Calls.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
      * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.GoneError}
@@ -833,6 +834,8 @@ export class Calls {
 
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
+                case 400:
+                    throw new Pinnacle.BadRequestError(_response.error.body as unknown, _response.rawResponse);
                 case 401:
                     throw new Pinnacle.UnauthorizedError(
                         _response.error.body as Pinnacle.Error_,

@@ -5,6 +5,8 @@ export { PinnacleClient } from "./wrapper/PinnacleClient.js";
 export type {
     VoiceConnectOptions,
     VoiceConnectStreamOptions,
+    VoiceConnection,
+    VoiceCreateAndConnectOptions,
 } from "./wrapper/voice/Client.js";
 export { EnhancedVoice } from "./wrapper/voice/Client.js";
 export * from "./wrapper/voice/types.js";

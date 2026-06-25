@@ -24,7 +24,6 @@ describe("Calls", () => {
                     metadata: { key: "value" },
                     recording_state: "PENDING",
                     hangup_cause: "hangup_cause",
-                    record: true,
                 },
             ],
             next_cursor: "next_cursor",
@@ -49,7 +48,6 @@ describe("Calls", () => {
                     },
                     recording_state: "PENDING",
                     hangup_cause: "hangup_cause",
-                    record: true,
                 },
             ],
             next_cursor: "next_cursor",
@@ -314,7 +312,6 @@ describe("Calls", () => {
             metadata: { key: "value" },
             recording_state: "PENDING",
             hangup_cause: "hangup_cause",
-            record: true,
         };
         server
             .mockEndpoint()
@@ -340,7 +337,6 @@ describe("Calls", () => {
             },
             recording_state: "PENDING",
             hangup_cause: "hangup_cause",
-            record: true,
         });
     });
 
@@ -397,7 +393,6 @@ describe("Calls", () => {
             metadata: { key: "value" },
             recording_state: "PENDING",
             hangup_cause: "hangup_cause",
-            record: true,
         };
         server
             .mockEndpoint()
@@ -423,7 +418,6 @@ describe("Calls", () => {
             },
             recording_state: "PENDING",
             hangup_cause: "hangup_cause",
-            record: true,
         });
     });
 
@@ -504,7 +498,6 @@ describe("Calls", () => {
             metadata: { key: "value" },
             recording_state: "PENDING",
             hangup_cause: "hangup_cause",
-            record: true,
         };
         server
             .mockEndpoint()
@@ -535,7 +528,6 @@ describe("Calls", () => {
             },
             recording_state: "PENDING",
             hangup_cause: "hangup_cause",
-            record: true,
         });
     });
 
@@ -936,6 +928,24 @@ describe("Calls", () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
+        const rawResponseBody = { key: "value" };
+        server
+            .mockEndpoint()
+            .get("/calls/id/recording")
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.calls.downloadRecording("id");
+        }).rejects.toThrow(Pinnacle.BadRequestError);
+    });
+
+    test("downloadRecording (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
+
         const rawResponseBody = { error: "error" };
         server
             .mockEndpoint()
@@ -950,7 +960,7 @@ describe("Calls", () => {
         }).rejects.toThrow(Pinnacle.UnauthorizedError);
     });
 
-    test("downloadRecording (3)", async () => {
+    test("downloadRecording (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -968,7 +978,7 @@ describe("Calls", () => {
         }).rejects.toThrow(Pinnacle.NotFoundError);
     });
 
-    test("downloadRecording (4)", async () => {
+    test("downloadRecording (5)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -986,7 +996,7 @@ describe("Calls", () => {
         }).rejects.toThrow(Pinnacle.GoneError);
     });
 
-    test("downloadRecording (5)", async () => {
+    test("downloadRecording (6)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -1004,7 +1014,7 @@ describe("Calls", () => {
         }).rejects.toThrow(Pinnacle.UnprocessableEntityError);
     });
 
-    test("downloadRecording (6)", async () => {
+    test("downloadRecording (7)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -1022,7 +1032,7 @@ describe("Calls", () => {
         }).rejects.toThrow(Pinnacle.TooEarlyError);
     });
 
-    test("downloadRecording (7)", async () => {
+    test("downloadRecording (8)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -1040,7 +1050,7 @@ describe("Calls", () => {
         }).rejects.toThrow(Pinnacle.InternalServerError);
     });
 
-    test("downloadRecording (8)", async () => {
+    test("downloadRecording (9)", async () => {
         const server = mockServerPool.createServer();
         const client = new PinnacleClient({ apiKey: "test", environment: server.baseUrl });
 

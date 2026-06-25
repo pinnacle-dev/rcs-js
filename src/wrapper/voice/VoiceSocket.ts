@@ -14,6 +14,7 @@ import {
     type VoiceInputGetCommandParams,
     type VoiceServerFrame,
 } from "./types.js";
+import type * as Pinnacle from "../../api/index.js";
 
 export interface VoiceSocketLike {
     readonly readyState: number;
@@ -77,6 +78,9 @@ export interface VoiceAckOptions {
 }
 
 export class VoiceSocket {
+    public call: Pinnacle.CreatedCall | undefined;
+    public callId: string | undefined;
+
     private socket_: VoiceSocketLike;
     private readonly createSocket: VoiceSocketFactory | undefined;
     private readonly reconnect: Required<VoiceReconnectOptions>;
@@ -380,8 +384,12 @@ export class VoiceSocket {
                 this.emit("ack", frame);
             } else if (frame.event === "event") {
                 this.emit("event", frame);
-            } else {
+            } else if (frame.event === "media") {
                 this.emit("media", frame);
+            } else if (frame.event === "connected") {
+                return;
+            } else {
+                throw new Error("Voice socket received an unknown frame event.");
             }
         } catch (error) {
             this.emit("error", error);

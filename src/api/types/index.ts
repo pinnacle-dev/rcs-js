@@ -49,6 +49,7 @@ export * from "./Contact.js";
 export * from "./ContactId.js";
 export * from "./Conversation.js";
 export * from "./ConversationList.js";
+export * from "./CreatedCall.js";
 export * from "./CreateFormRequest.js";
 export * from "./CreateUrlOptions.js";
 export * from "./DateField.js";

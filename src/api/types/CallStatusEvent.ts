@@ -7,7 +7,7 @@ import type * as Pinnacle from "../index.js";
  */
 export interface CallStatusEvent {
     type: "CALL.STATUS";
-    /** Phone number that delivered this webhook subscription event. */
+    /** Team-owned phone number that matched the webhook subscription. For inbound calls this is the `call.to` number; for outbound calls this is the `call.from` number. */
     sender: string;
     call: CallStatusEvent.Call;
 }
@@ -20,7 +20,26 @@ export namespace CallStatusEvent {
         from: string;
         /** Callee phone number in E.164 format. */
         to: string;
+        /**
+         * Direction of the call relative to your Pinnacle team.
+         *
+         * - `INBOUND`: The call originated from an external caller and was received by one of your Pinnacle voice-enabled phone numbers.
+         * - `OUTBOUND`: The call was created from Pinnacle and dialed out from one of your voice-enabled phone numbers.
+         */
         direction: Pinnacle.CallDirection;
+        /**
+         * Current voice call lifecycle state. This uses the same values as the Call `state` field.
+         *
+         * - `INITIATED`: Pinnacle accepted the call request and is setting up the call with the voice provider.
+         * - `RINGING`: The call is ringing and has not been answered yet.
+         * - `ANSWERED`: The call has been answered and is active.
+         * - `BRIDGED`: The call is connected to another call leg, such as after a transfer or bridge command.
+         * - `ENDED`: The call ended normally.
+         * - `FAILED`: The call could not be established or could not continue because of a provider or system failure.
+         * - `NO_ANSWER`: The call rang until timeout without being answered.
+         * - `BUSY`: The destination was busy.
+         * - `CANCELED`: The call was canceled before normal completion.
+         */
         status: Pinnacle.CallState;
     }
 }

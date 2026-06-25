@@ -2,7 +2,7 @@
 
 import type * as Pinnacle from "../index.js";
 
-export interface Call {
+export interface CreatedCall {
     id: string;
     state: Pinnacle.CallState;
     direction: Pinnacle.CallDirection;
@@ -16,4 +16,6 @@ export interface Call {
     /** If no recording has been captured or enabled for the call, then `null`. */
     recording_state: Pinnacle.RecordingState | null;
     hangup_cause: string | null;
+    /** Echoes the requested create-time recording option. This field is only returned by `POST /calls`. */
+    record: boolean;
 }

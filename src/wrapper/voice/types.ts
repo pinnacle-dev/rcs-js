@@ -221,6 +221,12 @@ export interface VoiceCommandAckFrame {
     [key: string]: unknown;
 }
 
+export interface VoiceConnectedFrame {
+    event: "connected";
+    stream_sid: string;
+    sequence_number?: number;
+}
+
 export interface VoiceServerEventFrame {
     event: "event";
     type: string;
@@ -238,4 +244,4 @@ export interface VoiceServerMediaFrame {
     media: VoiceClientMedia;
 }
 
-export type VoiceServerFrame = VoiceCommandAckFrame | VoiceServerEventFrame | VoiceServerMediaFrame;
+export type VoiceServerFrame = VoiceConnectedFrame | VoiceCommandAckFrame | VoiceServerEventFrame | VoiceServerMediaFrame;
