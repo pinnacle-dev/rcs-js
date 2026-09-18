@@ -9,6 +9,8 @@ export * as contacts from "./contacts/index.js";
 export * from "./conversations/client/requests/index.js";
 export * as conversations from "./conversations/index.js";
 export * from "./conversations/types/index.js";
+export * from "./faxes/client/requests/index.js";
+export * as faxes from "./faxes/index.js";
 export * from "./forms/client/requests/index.js";
 export * as forms from "./forms/index.js";
 export * from "./forms/types/index.js";
