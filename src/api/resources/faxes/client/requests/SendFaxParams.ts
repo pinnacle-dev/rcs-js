@@ -5,15 +5,14 @@ import type * as Pinnacle from "../../../../index.js";
 /**
  * @example
  *     {
- *         "Idempotency-Key": "Idempotency-Key",
  *         from: "from",
  *         to: "to",
  *         mediaUrl: "mediaUrl"
  *     }
  */
 export interface SendFaxParams {
-    /** Unique key for one logical send. Use 1–128 ASCII letters, numbers, periods, underscores, or hyphens. Reuse it only with the identical `from`, `to`, `mediaUrl`, and effective `quality`; any change returns 409. */
-    "Idempotency-Key": string;
+    /** Optional unique key for one logical send. Without it, every request creates a new fax. Use 1–128 ASCII letters, numbers, periods, underscores, or hyphens. Reuse it only with the identical `from`, `to`, `mediaUrl`, and effective `quality`; any change returns 409. */
+    "Idempotency-Key"?: string;
     /** Fax-enabled, non-sandbox number owned by your HIPAA team, in E.164 format (`+` followed by 10–15 digits; the first digit cannot be zero). The number must remain enabled and configured through preparation. Fax sending is unavailable to development-mode teams. */
     from: string;
     /** Recipient fax number in E.164 format (`+` followed by 10–15 digits; the first digit cannot be zero). */

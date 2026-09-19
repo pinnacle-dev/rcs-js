@@ -142,7 +142,6 @@ describe("Faxes", () => {
         server
             .mockEndpoint()
             .post("/fax")
-            .header("Idempotency-Key", "Idempotency-Key")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
@@ -150,7 +149,6 @@ describe("Faxes", () => {
             .build();
 
         const response = await client.faxes.send({
-            "Idempotency-Key": "Idempotency-Key",
             from: "from",
             to: "to",
             mediaUrl: "mediaUrl",
@@ -182,7 +180,6 @@ describe("Faxes", () => {
         server
             .mockEndpoint()
             .post("/fax")
-            .header("Idempotency-Key", "idempotencyKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(400)
@@ -191,7 +188,6 @@ describe("Faxes", () => {
 
         await expect(async () => {
             return await client.faxes.send({
-                "Idempotency-Key": "idempotencyKey",
                 from: "pomegranate",
                 to: "pomegranate",
                 mediaUrl: "nectarine",
@@ -207,7 +203,6 @@ describe("Faxes", () => {
         server
             .mockEndpoint()
             .post("/fax")
-            .header("Idempotency-Key", "idempotencyKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(401)
@@ -216,7 +211,6 @@ describe("Faxes", () => {
 
         await expect(async () => {
             return await client.faxes.send({
-                "Idempotency-Key": "idempotencyKey",
                 from: "pomegranate",
                 to: "pomegranate",
                 mediaUrl: "nectarine",
@@ -232,7 +226,6 @@ describe("Faxes", () => {
         server
             .mockEndpoint()
             .post("/fax")
-            .header("Idempotency-Key", "idempotencyKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(403)
@@ -241,7 +234,6 @@ describe("Faxes", () => {
 
         await expect(async () => {
             return await client.faxes.send({
-                "Idempotency-Key": "idempotencyKey",
                 from: "pomegranate",
                 to: "pomegranate",
                 mediaUrl: "nectarine",
@@ -257,7 +249,6 @@ describe("Faxes", () => {
         server
             .mockEndpoint()
             .post("/fax")
-            .header("Idempotency-Key", "idempotencyKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(404)
@@ -266,7 +257,6 @@ describe("Faxes", () => {
 
         await expect(async () => {
             return await client.faxes.send({
-                "Idempotency-Key": "idempotencyKey",
                 from: "pomegranate",
                 to: "pomegranate",
                 mediaUrl: "nectarine",
@@ -282,7 +272,6 @@ describe("Faxes", () => {
         server
             .mockEndpoint()
             .post("/fax")
-            .header("Idempotency-Key", "idempotencyKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(409)
@@ -291,7 +280,6 @@ describe("Faxes", () => {
 
         await expect(async () => {
             return await client.faxes.send({
-                "Idempotency-Key": "idempotencyKey",
                 from: "pomegranate",
                 to: "pomegranate",
                 mediaUrl: "nectarine",
@@ -307,7 +295,6 @@ describe("Faxes", () => {
         server
             .mockEndpoint()
             .post("/fax")
-            .header("Idempotency-Key", "idempotencyKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(500)
@@ -316,7 +303,6 @@ describe("Faxes", () => {
 
         await expect(async () => {
             return await client.faxes.send({
-                "Idempotency-Key": "idempotencyKey",
                 from: "pomegranate",
                 to: "pomegranate",
                 mediaUrl: "nectarine",
@@ -332,7 +318,6 @@ describe("Faxes", () => {
         server
             .mockEndpoint()
             .post("/fax")
-            .header("Idempotency-Key", "idempotencyKey")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(503)
@@ -341,7 +326,6 @@ describe("Faxes", () => {
 
         await expect(async () => {
             return await client.faxes.send({
-                "Idempotency-Key": "idempotencyKey",
                 from: "pomegranate",
                 to: "pomegranate",
                 mediaUrl: "nectarine",

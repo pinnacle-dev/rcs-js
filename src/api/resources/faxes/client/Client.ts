@@ -159,7 +159,7 @@ export class Faxes {
      *
      * **Delivery uncertainty:** Pinnacle does not automatically retry a fax after transmission may have started, which prevents duplicate delivery and charges. If transmission cannot be confirmed, status becomes `SUBMISSION_UNKNOWN` while Pinnacle reconciles the fax.
      *
-     * **Idempotency:** reuse the same `Idempotency-Key` and identical body after a client timeout. The key is scoped to your team and covers `from`, `to`, `mediaUrl`, and `quality`. Reusing it with an identical body returns the existing logical fax; changing any of those fields returns 409 and never sends another fax.
+     * **Idempotency:** `Idempotency-Key` is optional. Without it, each request creates a new fax, including retries. For retry-safe sending, generate a UUID for each intended fax and retain it until the outcome is known. After a client timeout, retry with the same key and identical body. The key is scoped to your team and covers `from`, `to`, `mediaUrl`, and `quality`. Reusing it with an identical body returns the existing fax; changing any of those fields returns 409.
      *
      * @param {Pinnacle.SendFaxParams} request
      * @param {Faxes.RequestOptions} requestOptions - Request-specific configuration.
@@ -174,7 +174,6 @@ export class Faxes {
      *
      * @example
      *     await client.faxes.send({
-     *         "Idempotency-Key": "Idempotency-Key",
      *         from: "from",
      *         to: "to",
      *         mediaUrl: "mediaUrl"
@@ -195,7 +194,7 @@ export class Faxes {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
             this._options?.headers,
             mergeOnlyDefinedHeaders({
-                "Idempotency-Key": idempotencyKey,
+                "Idempotency-Key": idempotencyKey != null ? idempotencyKey : undefined,
                 ...(await this._getCustomAuthorizationHeaders()),
             }),
             requestOptions?.headers,
