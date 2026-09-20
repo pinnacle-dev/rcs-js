@@ -40,7 +40,8 @@ export namespace RichCards {
              * **Default:** `MEDIUM` <br>
              * **Valid for:** Carousel cards and vertical standalone cards. <br>
              * **Not valid for:** Horizontal standalone cards. <br>
-             * **Requires:** The card must include a `media` field.
+             * **Requires:** The card must include a `media` field. <br>
+             * **Platform:** Media height selection applies only on Android. For iOS, assume `MEDIUM`.
              */
             mediaHeight?: Item.MediaHeight;
             /** Secondary text displayed below the title for additional context. */
@@ -55,7 +56,8 @@ export namespace RichCards {
              * **Default:** `MEDIUM` <br>
              * **Valid for:** Carousel cards and vertical standalone cards. <br>
              * **Not valid for:** Horizontal standalone cards. <br>
-             * **Requires:** The card must include a `media` field.
+             * **Requires:** The card must include a `media` field. <br>
+             * **Platform:** Media height selection applies only on Android. For iOS, assume `MEDIUM`.
              */
             export const MediaHeight = {
                 Short: "SHORT",
