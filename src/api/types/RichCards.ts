@@ -35,10 +35,34 @@ export namespace RichCards {
             buttons?: Pinnacle.RichButton[];
             /** Media file URLs to send. */
             media?: string;
+            /**
+             * Height of the card media. <br><br>
+             * **Default:** `MEDIUM` <br>
+             * **Valid for:** Carousel cards and vertical standalone cards. <br>
+             * **Not valid for:** Horizontal standalone cards. <br>
+             * **Requires:** The card must include a `media` field.
+             */
+            mediaHeight?: Item.MediaHeight;
             /** Secondary text displayed below the title for additional context. */
             subtitle?: string;
             /** Title displayed on the card. */
             title: string;
+        }
+
+        export namespace Item {
+            /**
+             * Height of the card media. <br><br>
+             * **Default:** `MEDIUM` <br>
+             * **Valid for:** Carousel cards and vertical standalone cards. <br>
+             * **Not valid for:** Horizontal standalone cards. <br>
+             * **Requires:** The card must include a `media` field.
+             */
+            export const MediaHeight = {
+                Short: "SHORT",
+                Medium: "MEDIUM",
+                Tall: "TALL",
+            } as const;
+            export type MediaHeight = (typeof MediaHeight)[keyof typeof MediaHeight];
         }
     }
 }

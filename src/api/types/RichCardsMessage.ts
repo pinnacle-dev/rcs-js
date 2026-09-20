@@ -36,6 +36,13 @@ export namespace RichCardsMessage {
          * > GIFs and videos are not supported and will be rendered as vertical cards.
          */
         standalone_card?: Options.StandaloneCard;
+        /**
+         * Width of each card in a carousel. <br><br>
+         * **Default:** `MEDIUM` <br>
+         * **Valid for:** Multi-card messages (2 to 10 cards). <br>
+         * **Not valid for:** Single-card messages. Setting it with one card fails validation.
+         */
+        cardWidth?: Options.CardWidth;
     }
 
     export namespace Options {
@@ -68,5 +75,17 @@ export namespace RichCardsMessage {
             } as const;
             export type ImageAlignment = (typeof ImageAlignment)[keyof typeof ImageAlignment];
         }
+
+        /**
+         * Width of each card in a carousel. <br><br>
+         * **Default:** `MEDIUM` <br>
+         * **Valid for:** Multi-card messages (2 to 10 cards). <br>
+         * **Not valid for:** Single-card messages. Setting it with one card fails validation.
+         */
+        export const CardWidth = {
+            Small: "SMALL",
+            Medium: "MEDIUM",
+        } as const;
+        export type CardWidth = (typeof CardWidth)[keyof typeof CardWidth];
     }
 }
