@@ -1,6 +1,11 @@
 name: ci
 
-on: [push, pull_request, workflow_dispatch]
+on:
+  push:
+    branches: [master]
+    tags: ['*']
+  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
