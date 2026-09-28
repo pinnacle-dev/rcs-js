@@ -113,5 +113,5 @@ jobs:
 
           Native build, unit, wire, and clean-package consumer tests passed before this pull request was opened.
           EOF
-          gh pr create --head "$branch" --base master --title "Regenerate SDK ${SDK_VERSION}" --body-file "$RUNNER_TEMP/sdk-pr.md"
-          gh workflow run ci.yml --ref "$branch"
+          gh pr create --repo "$GITHUB_REPOSITORY" --head "$branch" --base master --title "Regenerate SDK ${SDK_VERSION}" --body-file "$RUNNER_TEMP/sdk-pr.md"
+          gh workflow run ci.yml --repo "$GITHUB_REPOSITORY" --ref "$branch"
