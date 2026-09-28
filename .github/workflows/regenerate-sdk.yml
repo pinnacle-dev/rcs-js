@@ -1,0 +1,117 @@
+name: Regenerate SDK
+
+on:
+  workflow_dispatch:
+    inputs:
+      docs_commit:
+        description: Exact 40-character pinnacle-dev/docs commit
+        required: true
+      version:
+        description: New semantic package version
+        required: true
+
+concurrency:
+  group: regenerate-sdk
+  cancel-in-progress: false
+
+permissions:
+  actions: write
+  contents: write
+  packages: read
+  pull-requests: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    steps:
+      - name: Validate immutable inputs
+        env:
+          DOCS_COMMIT: ${{ inputs.docs_commit }}
+          SDK_VERSION: ${{ inputs.version }}
+        run: |
+          [[ "$DOCS_COMMIT" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$SDK_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?$ ]]
+      - name: Check out the private generator
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: pinnacle-dev/docs
+          ref: ${{ inputs.docs_commit }}
+          path: docs
+          ssh-key: ${{ secrets.PINNACLE_DOCS_DEPLOY_KEY }}
+          persist-credentials: true
+      - name: Verify generator commit
+        env:
+          DOCS_COMMIT: ${{ inputs.docs_commit }}
+        run: |
+          test "$(git -C docs rev-parse HEAD)" = "$DOCS_COMMIT"
+          git -C docs fetch origin main --depth=1
+          test "$(git -C docs rev-parse HEAD)" = "$(git -C docs rev-parse FETCH_HEAD)"
+      - name: Check out the SDK
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: docs/sdks/typescript
+          fetch-depth: 0
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+        with:
+          version: 10.14.0
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 24.7.0
+          cache: pnpm
+          cache-dependency-path: docs/pnpm-lock.yaml
+      - run: pnpm --dir docs install --frozen-lockfile
+      - name: Authenticate to private generator images
+        run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate without Fern credentials
+        run: pnpm --dir docs run sdk:generate -- typescript
+        env:
+          SDK_VERSION: ${{ inputs.version }}
+      - name: Apply generated sources
+        working-directory: docs
+        run: scripts/apply-generated-sdk.sh typescript
+      - name: Test generated SDK
+        working-directory: docs/sdks/typescript
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
+          pnpm exec vitest --project unit --run
+          pnpm exec vitest --project wire --run
+      - name: Verify clean consumer install
+        working-directory: docs/sdks/typescript
+        run: |
+          mkdir -p "$RUNNER_TEMP/package" "$RUNNER_TEMP/consumer"
+          pnpm pack --pack-destination "$RUNNER_TEMP/package"
+          npm install --prefix "$RUNNER_TEMP/consumer" "$RUNNER_TEMP"/package/*.tgz
+          node -e 'const sdk = require(process.argv[1]); if (typeof sdk.PinnacleClient !== "function") process.exit(1)' "$RUNNER_TEMP/consumer/node_modules/rcs-js"
+      - name: Open reviewed update pull request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SDK_VERSION: ${{ inputs.version }}
+          DOCS_COMMIT: ${{ inputs.docs_commit }}
+        run: |
+          target=docs/sdks/typescript
+          branch="sdk-generation/${SDK_VERSION}-${GITHUB_RUN_ID}"
+          git -C "$target" config user.name "pinnacle-sdk-bot"
+          git -C "$target" config user.email "sdk-bot@pinnacle.sh"
+          git -C "$target" switch -c "$branch"
+          git -C "$target" add --all
+          if git -C "$target" diff --cached --quiet; then
+            echo "Generated output is unchanged."
+            exit 0
+          fi
+          git -C "$target" commit -m "Regenerate SDK ${SDK_VERSION}"
+          git -C "$target" push --set-upstream origin "$branch"
+          cat > "$RUNNER_TEMP/sdk-pr.md" <<EOF
+          ## Generated update
+
+          - Version: \`${SDK_VERSION}\`
+          - Private generator commit: \`${DOCS_COMMIT}\`
+          - Workflow: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+
+          Native build, unit, wire, and clean-package consumer tests passed before this pull request was opened.
+          EOF
+          gh pr create --head "$branch" --base master --title "Regenerate SDK ${SDK_VERSION}" --body-file "$RUNNER_TEMP/sdk-pr.md"
+          gh workflow run ci.yml --ref "$branch"
