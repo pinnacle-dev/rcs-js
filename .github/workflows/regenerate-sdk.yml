@@ -68,6 +68,8 @@ jobs:
         run: printf '%s' "$GHCR_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pull and verify generator provenance
+        run: node docs/scripts/generator-images.mjs --pull typescript
       - name: Generate without Fern credentials
         run: pnpm --dir docs run sdk:generate -- typescript
         env:
