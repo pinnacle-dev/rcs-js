@@ -78,6 +78,10 @@ jobs:
       - name: Apply generated sources
         working-directory: docs
         run: scripts/apply-generated-sdk.sh typescript
+      - name: Verify maintained files were preserved
+        working-directory: docs/sdks/typescript
+        run: |
+          git diff --exit-code -- .fernignore .github/workflows/ci.yml .github/workflows/regenerate-sdk.yml CONTRIBUTING.md README.md src/index.ts src/wrapper
       - name: Test generated SDK
         working-directory: docs/sdks/typescript
         run: |
