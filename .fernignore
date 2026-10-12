@@ -3,3 +3,6 @@ src/wrapper
 src/index.ts
 tests/tsconfig.json
 .github/workflows/ci.yml
+.fern/replay.lock
+.fern/replay.yml
+.gitattributes

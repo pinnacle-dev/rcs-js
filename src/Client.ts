@@ -2,12 +2,15 @@
 
 import { Audiences } from "./api/resources/audiences/client/Client.js";
 import { Brands } from "./api/resources/brands/client/Client.js";
+import { Calls } from "./api/resources/calls/client/Client.js";
 import { Campaigns } from "./api/resources/campaigns/client/Client.js";
+import { Conferences } from "./api/resources/conferences/client/Client.js";
 import { Contacts } from "./api/resources/contacts/client/Client.js";
 import { Conversations } from "./api/resources/conversations/client/Client.js";
 import { Faxes } from "./api/resources/faxes/client/Client.js";
 import { Forms } from "./api/resources/forms/client/Client.js";
 import { Messages } from "./api/resources/messages/client/Client.js";
+import { Network } from "./api/resources/network/client/Client.js";
 import { PhoneNumbers } from "./api/resources/phoneNumbers/client/Client.js";
 import { Rcs } from "./api/resources/rcs/client/Client.js";
 import { Status } from "./api/resources/status/client/Client.js";
@@ -25,17 +28,20 @@ export declare namespace PinnacleClient {
 
 export class PinnacleClient {
     protected readonly _options: PinnacleClient.Options;
-    protected _brands: Brands | undefined;
     protected _audiences: Audiences | undefined;
+    protected _brands: Brands | undefined;
+    protected _calls: Calls | undefined;
+    protected _conferences: Conferences | undefined;
     protected _contacts: Contacts | undefined;
     protected _conversations: Conversations | undefined;
+    protected _faxes: Faxes | undefined;
+    protected _forms: Forms | undefined;
     protected _messages: Messages | undefined;
     protected _phoneNumbers: PhoneNumbers | undefined;
     protected _rcs: Rcs | undefined;
     protected _webhooks: Webhooks | undefined;
-    protected _faxes: Faxes | undefined;
-    protected _forms: Forms | undefined;
     protected _campaigns: Campaigns | undefined;
+    protected _network: Network | undefined;
     protected _status: Status | undefined;
     protected _tools: Tools | undefined;
 
@@ -47,8 +53,8 @@ export class PinnacleClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "rcs-js",
-                    "X-Fern-SDK-Version": "2.0.25",
-                    "User-Agent": "rcs-js/2.0.25",
+                    "X-Fern-SDK-Version": "2.0.26-rc.1",
+                    "User-Agent": "rcs-js/2.0.26-rc.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -57,12 +63,20 @@ export class PinnacleClient {
         };
     }
 
+    public get audiences(): Audiences {
+        return (this._audiences ??= new Audiences(this._options));
+    }
+
     public get brands(): Brands {
         return (this._brands ??= new Brands(this._options));
     }
 
-    public get audiences(): Audiences {
-        return (this._audiences ??= new Audiences(this._options));
+    public get calls(): Calls {
+        return (this._calls ??= new Calls(this._options));
+    }
+
+    public get conferences(): Conferences {
+        return (this._conferences ??= new Conferences(this._options));
     }
 
     public get contacts(): Contacts {
@@ -71,6 +85,14 @@ export class PinnacleClient {
 
     public get conversations(): Conversations {
         return (this._conversations ??= new Conversations(this._options));
+    }
+
+    public get faxes(): Faxes {
+        return (this._faxes ??= new Faxes(this._options));
+    }
+
+    public get forms(): Forms {
+        return (this._forms ??= new Forms(this._options));
     }
 
     public get messages(): Messages {
@@ -89,16 +111,12 @@ export class PinnacleClient {
         return (this._webhooks ??= new Webhooks(this._options));
     }
 
-    public get faxes(): Faxes {
-        return (this._faxes ??= new Faxes(this._options));
-    }
-
-    public get forms(): Forms {
-        return (this._forms ??= new Forms(this._options));
-    }
-
     public get campaigns(): Campaigns {
         return (this._campaigns ??= new Campaigns(this._options));
+    }
+
+    public get network(): Network {
+        return (this._network ??= new Network(this._options));
     }
 
     public get status(): Status {

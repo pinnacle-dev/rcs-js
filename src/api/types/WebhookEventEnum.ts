@@ -11,6 +11,7 @@ export const WebhookEventEnum = {
     UserTyping: "USER.TYPING",
     FormSubmission: "FORM.SUBMISSION",
     CampaignStatus: "CAMPAIGN.STATUS",
+    CallStatus: "CALL.STATUS",
     FaxStatus: "FAX.STATUS",
     FaxReceived: "FAX.RECEIVED",
 } as const;
