@@ -1,4 +1,335 @@
 # Reference
+## Audiences
+<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">get</a>({ ...params }) -> Pinnacle.AudiencesGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve an audience by ID with optional pagination.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.get({
+    id: "aud_abc123"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.AudiencesGetRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Audiences.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">create</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a new audience with optional initial contacts. Phone numbers that don't exist will be auto-created as contacts.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.create({
+    name: "Marketing Campaign Q1",
+    description: "Contacts for Q1 marketing push"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.CreateAudienceParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Audiences.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">delete</a>({ ...params }) -> Pinnacle.DeleteAudienceResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Permanently delete an audience and all its contact associations.
+
+Note: This will NOT delete the contacts themselves, only the audience and its memberships.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.delete({
+    id: "aud_abc123"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.AudiencesDeleteRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Audiences.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">update</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update audience metadata. This endpoint does NOT modify contacts.
+
+To add or remove contacts, use the [Add Contacts](/api-reference/audiences/add-contacts) or [Remove Contacts](/api-reference/audiences/remove-contacts) endpoints.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.update({
+    id: "aud_abc123",
+    name: "Updated Audience Name",
+    description: "New description"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.UpdateAudienceParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Audiences.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListAudiencesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List all audiences with optional filtering and pagination. Results are sorted by creation date, newest first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.audiences.list();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ListAudiencesParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Audiences.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Brands
 <details><summary><code>client.brands.<a href="/src/api/resources/brands/client/Client.ts">autofill</a>({ ...params }) -> Pinnacle.OptionalBrandInfo</code></summary>
 <dl>
@@ -498,8 +829,8 @@ await client.brands.list();
 </dl>
 </details>
 
-## Audiences
-<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">get</a>({ ...params }) -> Pinnacle.AudiencesGetResponse</code></summary>
+## Calls
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListCallsResponse</code></summary>
 <dl>
 <dd>
 
@@ -511,7 +842,7 @@ await client.brands.list();
 <dl>
 <dd>
 
-Retrieve an audience by ID with optional pagination.
+List voice calls for your team. Results are sorted newest first.
 </dd>
 </dl>
 </dd>
@@ -526,8 +857,90 @@ Retrieve an audience by ID with optional pagination.
 <dd>
 
 ```typescript
-await client.audiences.get({
-    id: "aud_abc123"
+await client.calls.list();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.CallsListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">create</a>({ ...params }) -> Pinnacle.CreatedCall</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start an outbound voice call from a voice-enabled phone number owned by
+your team.
+
+**Retrying safely.** Send an `Idempotency-Key` header and the call is
+placed at most once, however many times the request is repeated. This
+matters more here than on most endpoints: a retry without one dials the
+recipient a second time.
+
+- Same key, same request: returns the original call with `200` instead
+  of `201`, and no new call is placed.
+- Same key, different request: `422`. The key is bound to the request
+  it was first used with, so returning the unrelated original call
+  would be worse than refusing.
+- Same key while the first attempt is still in flight: `409`. Retry
+  once it settles.
+
+Keys are scoped to your team and expire after 24 hours. Two requests
+count as the same when `to`, `from`, `record` and `metadata` match;
+metadata key order is not significant.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.create({
+    to: "to",
+    from: "from"
 });
 
 ```
@@ -544,7 +957,7 @@ await client.audiences.get({
 <dl>
 <dd>
 
-**request:** `Pinnacle.AudiencesGetRequest` 
+**request:** `Pinnacle.CreateCallParams` 
     
 </dd>
 </dl>
@@ -552,7 +965,7 @@ await client.audiences.get({
 <dl>
 <dd>
 
-**requestOptions:** `Audiences.RequestOptions` 
+**requestOptions:** `Calls.RequestOptions` 
     
 </dd>
 </dl>
@@ -564,7 +977,7 @@ await client.audiences.get({
 </dl>
 </details>
 
-<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">create</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">get</a>(id) -> Pinnacle.Call</code></summary>
 <dl>
 <dd>
 
@@ -576,7 +989,7 @@ await client.audiences.get({
 <dl>
 <dd>
 
-Create a new audience with optional initial contacts. Phone numbers that don't exist will be auto-created as contacts.
+Retrieve one voice call by its Pinnacle call ID.
 </dd>
 </dl>
 </dd>
@@ -591,9 +1004,136 @@ Create a new audience with optional initial contacts. Phone numbers that don't e
 <dd>
 
 ```typescript
-await client.audiences.create({
-    name: "Marketing Campaign Q1",
-    description: "Contacts for Q1 marketing push"
+await client.calls.get("call_7cQe4F8xT1yB2mN9pK3L");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">cancel</a>(id) -> Pinnacle.Call</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+End a live call. Terminal calls are returned unchanged.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.cancel("call_7cQe4F8xT1yB2mN9pK3L");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">update</a>(id, { ...params }) -> Pinnacle.Call</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Replace a call's metadata. For live calls, future call events carry the updated metadata.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.update("call_7cQe4F8xT1yB2mN9pK3L", {
+    metadata: {
+        "key": "value"
+    }
 });
 
 ```
@@ -610,7 +1150,7 @@ await client.audiences.create({
 <dl>
 <dd>
 
-**request:** `Pinnacle.CreateAudienceParams` 
+**id:** `string` — Pinnacle call ID.
     
 </dd>
 </dl>
@@ -618,7 +1158,15 @@ await client.audiences.create({
 <dl>
 <dd>
 
-**requestOptions:** `Audiences.RequestOptions` 
+**request:** `Pinnacle.UpdateCallParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions` 
     
 </dd>
 </dl>
@@ -630,7 +1178,7 @@ await client.audiences.create({
 </dl>
 </details>
 
-<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">delete</a>({ ...params }) -> Pinnacle.DeleteAudienceResponse</code></summary>
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">listEvents</a>(id, { ...params }) -> Pinnacle.ListCallEventsResponse</code></summary>
 <dl>
 <dd>
 
@@ -642,9 +1190,7 @@ await client.audiences.create({
 <dl>
 <dd>
 
-Permanently delete an audience and all its contact associations.
-
-Note: This will NOT delete the contacts themselves, only the audience and its memberships.
+List the event timeline for a call.
 </dd>
 </dl>
 </dd>
@@ -659,8 +1205,360 @@ Note: This will NOT delete the contacts themselves, only the audience and its me
 <dd>
 
 ```typescript
-await client.audiences.delete({
-    id: "aud_abc123"
+await client.calls.listEvents("call_7cQe4F8xT1yB2mN9pK3L");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.CallsListEventsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">createStreamToken</a>(id, { ...params }) -> Pinnacle.CallStreamToken</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Mint a short-lived WebSocket token for a call. Use the returned `stream_url` to connect to Pinnacle's bidirectional voice stream.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.createStreamToken("call_7cQe4F8xT1yB2mN9pK3L");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.CreateStreamTokenParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">downloadRecording</a>(id, { ...params }) -> Pinnacle.RecordingDownload</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Return a short-lived signed URL for the call recording.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.downloadRecording("call_7cQe4F8xT1yB2mN9pK3L");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.CallsDownloadRecordingRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calls.<a href="/src/api/resources/calls/client/Client.ts">deleteRecording</a>(id) -> void</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete the canonical recording and queued fragments for a terminal call.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calls.deleteRecording("call_7cQe4F8xT1yB2mN9pK3L");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Pinnacle call ID.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Calls.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Conferences
+<details><summary><code>client.conferences.<a href="/src/api/resources/conferences/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListConferencesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Your team's conferences, newest first, each with its participants.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conferences.list();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ConferencesListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Conferences.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conferences.<a href="/src/api/resources/conferences/client/Client.ts">create</a>({ ...params }) -> Pinnacle.Conference</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a conference: a room that calls can be added to. Each participant is an ordinary call.
+
+You can add participants in the same request. Existing calls are added first, so the conference is live before dialed participants answer. With no participants the conference is `waiting` until the first one joins.
+
+Send an `Idempotency-Key` to make dialed participants safe to retry: each one is dialed at most once.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conferences.create({
+    label: "escalation-4412",
+    participants: [{
+            call_id: "call_7cQe4F8xT1yB2mN9pK3L",
+            label: "caller"
+        }, {
+            to: "+14155551234",
+            from: "+14155559876",
+            label: "specialist"
+        }]
 });
 
 ```
@@ -677,7 +1575,7 @@ await client.audiences.delete({
 <dl>
 <dd>
 
-**request:** `Pinnacle.AudiencesDeleteRequest` 
+**request:** `Pinnacle.CreateConferenceParams` 
     
 </dd>
 </dl>
@@ -685,7 +1583,7 @@ await client.audiences.delete({
 <dl>
 <dd>
 
-**requestOptions:** `Audiences.RequestOptions` 
+**requestOptions:** `Conferences.RequestOptions` 
     
 </dd>
 </dl>
@@ -697,25 +1595,9 @@ await client.audiences.delete({
 </dl>
 </details>
 
-<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">update</a>({ ...params }) -> Pinnacle.AudienceCountOnly</code></summary>
+<details><summary><code>client.conferences.<a href="/src/api/resources/conferences/client/Client.ts">get</a>(id) -> Pinnacle.Conference</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Update audience metadata. This endpoint does NOT modify contacts.
-
-To add or remove contacts, use the [Add Contacts](/api-reference/audiences/add-contacts) or [Remove Contacts](/api-reference/audiences/remove-contacts) endpoints.
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -726,11 +1608,7 @@ To add or remove contacts, use the [Add Contacts](/api-reference/audiences/add-c
 <dd>
 
 ```typescript
-await client.audiences.update({
-    id: "aud_abc123",
-    name: "Updated Audience Name",
-    description: "New description"
-});
+await client.conferences.get("conf_Hk2mX9pQ4rT7vB1nL8sW");
 
 ```
 </dd>
@@ -746,7 +1624,7 @@ await client.audiences.update({
 <dl>
 <dd>
 
-**request:** `Pinnacle.UpdateAudienceParams` 
+**id:** `string` 
     
 </dd>
 </dl>
@@ -754,7 +1632,7 @@ await client.audiences.update({
 <dl>
 <dd>
 
-**requestOptions:** `Audiences.RequestOptions` 
+**requestOptions:** `Conferences.RequestOptions` 
     
 </dd>
 </dl>
@@ -766,7 +1644,7 @@ await client.audiences.update({
 </dl>
 </details>
 
-<details><summary><code>client.audiences.<a href="/src/api/resources/audiences/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListAudiencesResponse</code></summary>
+<details><summary><code>client.conferences.<a href="/src/api/resources/conferences/client/Client.ts">end</a>(id) -> Pinnacle.Conference</code></summary>
 <dl>
 <dd>
 
@@ -778,7 +1656,7 @@ await client.audiences.update({
 <dl>
 <dd>
 
-List all audiences with optional filtering and pagination. Results are sorted by creation date, newest first.
+End the conference and hang up every participant, including anyone still being dialed.
 </dd>
 </dl>
 </dd>
@@ -793,7 +1671,7 @@ List all audiences with optional filtering and pagination. Results are sorted by
 <dd>
 
 ```typescript
-await client.audiences.list();
+await client.conferences.end("conf_Hk2mX9pQ4rT7vB1nL8sW");
 
 ```
 </dd>
@@ -809,7 +1687,7 @@ await client.audiences.list();
 <dl>
 <dd>
 
-**request:** `Pinnacle.ListAudiencesParams` 
+**id:** `string` 
     
 </dd>
 </dl>
@@ -817,7 +1695,78 @@ await client.audiences.list();
 <dl>
 <dd>
 
-**requestOptions:** `Audiences.RequestOptions` 
+**requestOptions:** `Conferences.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conferences.<a href="/src/api/resources/conferences/client/Client.ts">update</a>(id, { ...params }) -> Pinnacle.Conference</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Change the label, metadata, or hold audio. Only the fields you send change.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conferences.update("conf_Hk2mX9pQ4rT7vB1nL8sW");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.UpdateConferenceParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Conferences.RequestOptions` 
     
 </dd>
 </dl>
@@ -1355,6 +2304,704 @@ await client.conversations.listMessages("id");
 <dd>
 
 **requestOptions:** `Conversations.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Faxes
+<details><summary><code>client.faxes.<a href="/src/api/resources/faxes/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListFaxesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List your team's fax history, newest first.
+
+**HIPAA only:** this endpoint exists only in Pinnacle's HIPAA cell and is unavailable at `https://api.pinnacle.sh`.
+
+Results contain complete faxes only. Use `nextOffset` until it is null. The maximum page size is 100 records and the maximum offset is 100,000.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.faxes.list();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.FaxesListRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Faxes.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.faxes.<a href="/src/api/resources/faxes/client/Client.ts">send</a>({ ...params }) -> Pinnacle.Fax</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send one PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, or TXT document from a configured fax number.
+
+**HIPAA only:** this endpoint exists only in Pinnacle's HIPAA cell. Complete HIPAA onboarding and use the connection details provided by Pinnacle. It is not available at `https://api.pinnacle.sh`.
+
+**Availability:** `from` must be an enabled fax number owned by your team. Fax sending is unavailable for development-mode teams and sandbox numbers. Each request accepts exactly one document; cover pages and per-request webhook URLs are not supported.
+
+**Source URL:** `mediaUrl` must be a publicly reachable HTTPS URL on port 443. Signed query parameters are supported. URLs with credentials, redirects, private or local network addresses, and non-200 responses are rejected. Downloads must complete within 30 seconds.
+
+**Document limits:** the document must contain 1–3,500 pages and be no larger than 50 MB. Documents over 350 pages are split automatically and remain one fax in the API. File extensions and response headers do not override file validation.
+
+**Document safety:** encrypted files, macros, ActiveX controls, embedded objects, symbolic links, unsafe archive paths, and malformed documents are rejected.
+
+**Quality:** `HIGH` is the default and recommended choice for most documents. Use `NORMAL` when speed matters more than detail, `VERY_HIGH` for small text and fine lines, `ULTRA_LIGHT` for image-heavy documents, or `ULTRA_DARK` for text-heavy documents.
+
+**Asynchronous processing:** the request returns 202 after preparation is queued. Downloading, validation, conversion, splitting, and archival happen afterward. A 202 response does not mean the document is valid or delivered. Watch `FAX.STATUS` webhooks or retrieve the fax for the final result. The initial status is `PREPARING`, `reservedCost` is zero, and `hasMedia` is false.
+
+**Multipart delivery:** the original `id` identifies the complete fax across list, detail, cancellation, billing, media, and webhooks. Parts are sent in order. If a part fails, later parts are not sent. The fax becomes `FAILED`, and `partialContent` is true if any earlier pages were transmitted.
+
+**Pricing:** sent and received faxes cost $0.025 per transmitted page. Quality does not change the rate. Pinnacle reserves the estimated cost after preparation, charges only for transmitted pages, and returns unused reserved credits. If your balance is too low, the fax becomes `FAILED` with `failureReason: INSUFFICIENT_CREDITS`.
+
+**Delivery uncertainty:** Pinnacle does not automatically retry a fax after transmission may have started, which prevents duplicate delivery and charges. If transmission cannot be confirmed, status becomes `SUBMISSION_UNKNOWN` while Pinnacle reconciles the fax.
+
+**Idempotency:** `Idempotency-Key` is optional. Without it, each request creates a new fax, including retries. For retry-safe sending, generate a UUID for each intended fax and retain it until the outcome is known. After a client timeout, retry with the same key and identical body. The key is scoped to your team and covers `from`, `to`, `mediaUrl`, and `quality`. Reusing it with an identical body returns the existing fax; changing any of those fields returns 409.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.faxes.send({
+    from: "from",
+    to: "to",
+    mediaUrl: "mediaUrl"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SendFaxParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Faxes.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.faxes.<a href="/src/api/resources/faxes/client/Client.ts">get</a>(id) -> Pinnacle.FaxDetail</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a fax and a one-hour signed document URL when its media is available.
+
+**HIPAA only:** this endpoint exists only in Pinnacle's HIPAA cell and is unavailable at `https://api.pinnacle.sh`.
+
+Only faxes owned by your team are accessible. Unknown IDs and records removed by your team's HIPAA retention policy return 404. `mediaUrl` is null until archival completes and expires one hour after retrieval; request the fax again for a new URL.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.faxes.get("id");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Fax ID returned by send, list, or a fax webhook.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Faxes.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.faxes.<a href="/src/api/resources/faxes/client/Client.ts">cancel</a>(id) -> Pinnacle.Fax</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Cancel an outbound fax before transmission starts.
+
+Cancellation stops queued preparation and every unsent part, releases the credit reservation, and changes the status to `CANCELLED`. Repeating a successful cancellation returns the same fax.
+
+Cancellation is unavailable for inbound faxes, completed faxes, and `SUBMISSION_UNKNOWN` faxes. Pinnacle returns 409 once transmission may have started, even when later parts remain unsent.
+
+**HIPAA only:** this endpoint exists only in Pinnacle's HIPAA cell and is unavailable at `https://api.pinnacle.sh`.
+
+Only a fax ID owned by your team is accepted. Unknown IDs return 404.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.faxes.cancel("id");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` — Fax ID returned by send, list, or a fax webhook.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Faxes.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Forms
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">get</a>(id) -> Pinnacle.Form</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve a form by id. Includes submission count, last submission timestamp, and archive state.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.get("form_Oy2n7iUoi9CJwUU6");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+
+The unique identifier of the form you want to retrieve.
+<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`. It's returned on every form response (`Form.id`) and by [`POST /forms/send`](/api-reference/forms/send-form) (`response.form.id`).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">update</a>(id, { ...params }) -> Pinnacle.Form</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Partial update. Only keys present in the body are applied. Archived forms (non-null `archived_at`) cannot be updated — restore the form by setting `archived_at: null` in a PATCH first.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.update("form_Oy2n7iUoi9CJwUU6", {
+    name: "Contact request (v2)",
+    can_update: true,
+    expires_at: "2026-12-31T23:59:59Z"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+
+The unique identifier of the form you want to update.
+<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.UpdateFormParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListFormsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Paginated list of forms on your team, sorted by creation date (newest first). Includes archived forms.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.list({
+    pageIndex: 0,
+    pageSize: 20
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.ListFormsParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">create</a>({ ...params }) -> Pinnacle.Form</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a hosted form without sending it. <br>
+
+Returns the form object including its public URL — `https://forms.pinnacle.sh/{form_id}`. <br>
+
+To also deliver the URL to a recipient over SMS or RCS in a single call, use [`POST /forms/send`](/api-reference/forms/send-form).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.create({
+    name: "Contact request",
+    description: "We'll follow up over SMS or RCS.",
+    fields: [{
+            type: "text",
+            key: "full_name",
+            label: "Full name",
+            required: true,
+            placeholder: "Ada Lovelace",
+            min_length: 2,
+            max_length: 60
+        }, {
+            type: "email",
+            key: "email",
+            label: "Email",
+            required: true,
+            placeholder: "you@example.com"
+        }, {
+            type: "phone",
+            key: "phone",
+            label: "Phone",
+            required: true,
+            placeholder: "(555) 555-1212"
+        }, {
+            type: "select",
+            key: "plan",
+            label: "Plan",
+            required: true,
+            options: [{
+                    value: "basic",
+                    label: "Basic"
+                }, {
+                    value: "pro",
+                    label: "Pro"
+                }, {
+                    value: "enterprise",
+                    label: "Enterprise"
+                }]
+        }],
+    can_update: false
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.CreateFormRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.FormsSendResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Send a form to a recipient over SMS or RCS, or mint a standalone submission URL.
+
+Pass `form` as either an existing form id (`form_*`) or an inline `{ fields, ... }` definition to mint a new form for this send.
+
+The delivery channel is inferred from `from`:
+- `from: "agent_*"` → RCS (with optional SMS `fallback`)
+- `from: "+E.164"` → SMS
+
+When `to` is provided, Pinnacle dispatches a message whose body contains the submission URL and the recipient is recorded on the response: `submission.to` echoes the same E.164 number and `message_id` is the id of the outbound SMS/RCS. 
+
+When `to` is omitted, no message is sent — `submission.to` and `message_id` are both `null` — which is useful for embedding the URL in your own outreach.
+
+On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Message, Call, and User Events](/guides/messages/receiving).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.forms.send({
+    from: "agent_iM9wQcyBBjYn",
+    to: "+14155551234",
+    form: "form_Oy2n7iUoi9CJwUU6",
+    fallback: {
+        from: "+14155550000"
+    },
+    options: {
+        webview_mode: "FULL"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.SendFormParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Forms.RequestOptions` 
     
 </dd>
 </dl>
@@ -2304,704 +3951,6 @@ await client.webhooks.detach({
 <dd>
 
 **requestOptions:** `Webhooks.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Faxes
-<details><summary><code>client.faxes.<a href="/src/api/resources/faxes/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListFaxesResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-List your team's fax history, newest first.
-
-**HIPAA only:** this endpoint exists only in Pinnacle's HIPAA cell and is unavailable at `https://api.pinnacle.sh`.
-
-Results contain complete faxes only. Use `nextOffset` until it is null. The maximum page size is 100 records and the maximum offset is 100,000.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.faxes.list();
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.FaxesListRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Faxes.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.faxes.<a href="/src/api/resources/faxes/client/Client.ts">send</a>({ ...params }) -> Pinnacle.Fax</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Send one PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, or TXT document from a configured fax number.
-
-**HIPAA only:** this endpoint exists only in Pinnacle's HIPAA cell. Complete HIPAA onboarding and use the connection details provided by Pinnacle. It is not available at `https://api.pinnacle.sh`.
-
-**Availability:** `from` must be an enabled fax number owned by your team. Fax sending is unavailable for development-mode teams and sandbox numbers. Each request accepts exactly one document; cover pages and per-request webhook URLs are not supported.
-
-**Source URL:** `mediaUrl` must be a publicly reachable HTTPS URL on port 443. Signed query parameters are supported. URLs with credentials, redirects, private or local network addresses, and non-200 responses are rejected. Downloads must complete within 30 seconds.
-
-**Document limits:** the document must contain 1–3,500 pages and be no larger than 50 MB. Documents over 350 pages are split automatically and remain one fax in the API. File extensions and response headers do not override file validation.
-
-**Document safety:** encrypted files, macros, ActiveX controls, embedded objects, symbolic links, unsafe archive paths, and malformed documents are rejected.
-
-**Quality:** `HIGH` is the default and recommended choice for most documents. Use `NORMAL` when speed matters more than detail, `VERY_HIGH` for small text and fine lines, `ULTRA_LIGHT` for image-heavy documents, or `ULTRA_DARK` for text-heavy documents.
-
-**Asynchronous processing:** the request returns 202 after preparation is queued. Downloading, validation, conversion, splitting, and archival happen afterward. A 202 response does not mean the document is valid or delivered. Watch `FAX.STATUS` webhooks or retrieve the fax for the final result. The initial status is `PREPARING`, `reservedCost` is zero, and `hasMedia` is false.
-
-**Multipart delivery:** the original `id` identifies the complete fax across list, detail, cancellation, billing, media, and webhooks. Parts are sent in order. If a part fails, later parts are not sent. The fax becomes `FAILED`, and `partialContent` is true if any earlier pages were transmitted.
-
-**Pricing:** sent and received faxes cost $0.025 per transmitted page. Quality does not change the rate. Pinnacle reserves the estimated cost after preparation, charges only for transmitted pages, and returns unused reserved credits. If your balance is too low, the fax becomes `FAILED` with `failureReason: INSUFFICIENT_CREDITS`.
-
-**Delivery uncertainty:** Pinnacle does not automatically retry a fax after transmission may have started, which prevents duplicate delivery and charges. If transmission cannot be confirmed, status becomes `SUBMISSION_UNKNOWN` while Pinnacle reconciles the fax.
-
-**Idempotency:** `Idempotency-Key` is optional. Without it, each request creates a new fax, including retries. For retry-safe sending, generate a UUID for each intended fax and retain it until the outcome is known. After a client timeout, retry with the same key and identical body. The key is scoped to your team and covers `from`, `to`, `mediaUrl`, and `quality`. Reusing it with an identical body returns the existing fax; changing any of those fields returns 409.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.faxes.send({
-    from: "from",
-    to: "to",
-    mediaUrl: "mediaUrl"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.SendFaxParams` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Faxes.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.faxes.<a href="/src/api/resources/faxes/client/Client.ts">get</a>(id) -> Pinnacle.FaxDetail</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve a fax and a one-hour signed document URL when its media is available.
-
-**HIPAA only:** this endpoint exists only in Pinnacle's HIPAA cell and is unavailable at `https://api.pinnacle.sh`.
-
-Only faxes owned by your team are accessible. Unknown IDs and records removed by your team's HIPAA retention policy return 404. `mediaUrl` is null until archival completes and expires one hour after retrieval; request the fax again for a new URL.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.faxes.get("id");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Fax ID returned by send, list, or a fax webhook.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Faxes.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.faxes.<a href="/src/api/resources/faxes/client/Client.ts">cancel</a>(id) -> Pinnacle.Fax</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Cancel an outbound fax before transmission starts.
-
-Cancellation stops queued preparation and every unsent part, releases the credit reservation, and changes the status to `CANCELLED`. Repeating a successful cancellation returns the same fax.
-
-Cancellation is unavailable for inbound faxes, completed faxes, and `SUBMISSION_UNKNOWN` faxes. Pinnacle returns 409 once transmission may have started, even when later parts remain unsent.
-
-**HIPAA only:** this endpoint exists only in Pinnacle's HIPAA cell and is unavailable at `https://api.pinnacle.sh`.
-
-Only a fax ID owned by your team is accepted. Unknown IDs return 404.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.faxes.cancel("id");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` — Fax ID returned by send, list, or a fax webhook.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Faxes.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-## Forms
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">get</a>(id) -> Pinnacle.Form</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieve a form by id. Includes submission count, last submission timestamp, and archive state.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.forms.get("form_Oy2n7iUoi9CJwUU6");
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` 
-
-The unique identifier of the form you want to retrieve.
-<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`. It's returned on every form response (`Form.id`) and by [`POST /forms/send`](/api-reference/forms/send-form) (`response.form.id`).
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">update</a>(id, { ...params }) -> Pinnacle.Form</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Partial update. Only keys present in the body are applied. Archived forms (non-null `archived_at`) cannot be updated — restore the form by setting `archived_at: null` in a PATCH first.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.forms.update("form_Oy2n7iUoi9CJwUU6", {
-    name: "Contact request (v2)",
-    can_update: true,
-    expires_at: "2026-12-31T23:59:59Z"
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**id:** `string` 
-
-The unique identifier of the form you want to update.
-<br><br> This identifier is a string that always begins with the prefix `form_`, for example: `form_Oy2n7iUoi9CJwUU6`.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.UpdateFormParams` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListFormsResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Paginated list of forms on your team, sorted by creation date (newest first). Includes archived forms.
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.forms.list({
-    pageIndex: 0,
-    pageSize: 20
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.ListFormsParams` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">create</a>({ ...params }) -> Pinnacle.Form</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Create a hosted form without sending it. <br>
-
-Returns the form object including its public URL — `https://forms.pinnacle.sh/{form_id}`. <br>
-
-To also deliver the URL to a recipient over SMS or RCS in a single call, use [`POST /forms/send`](/api-reference/forms/send-form).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.forms.create({
-    name: "Contact request",
-    description: "We'll follow up over SMS or RCS.",
-    fields: [{
-            type: "text",
-            key: "full_name",
-            label: "Full name",
-            required: true,
-            placeholder: "Ada Lovelace",
-            min_length: 2,
-            max_length: 60
-        }, {
-            type: "email",
-            key: "email",
-            label: "Email",
-            required: true,
-            placeholder: "you@example.com"
-        }, {
-            type: "phone",
-            key: "phone",
-            label: "Phone",
-            required: true,
-            placeholder: "(555) 555-1212"
-        }, {
-            type: "select",
-            key: "plan",
-            label: "Plan",
-            required: true,
-            options: [{
-                    value: "basic",
-                    label: "Basic"
-                }, {
-                    value: "pro",
-                    label: "Pro"
-                }, {
-                    value: "enterprise",
-                    label: "Enterprise"
-                }]
-        }],
-    can_update: false
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.CreateFormRequest` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Forms.RequestOptions` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.forms.<a href="/src/api/resources/forms/client/Client.ts">send</a>({ ...params }) -> Pinnacle.FormsSendResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Send a form to a recipient over SMS or RCS, or mint a standalone submission URL.
-
-Pass `form` as either an existing form id (`form_*`) or an inline `{ fields, ... }` definition to mint a new form for this send.
-
-The delivery channel is inferred from `from`:
-- `from: "agent_*"` → RCS (with optional SMS `fallback`)
-- `from: "+E.164"` → SMS
-
-When `to` is provided, Pinnacle dispatches a message whose body contains the submission URL and the recipient is recorded on the response: `submission.to` echoes the same E.164 number and `message_id` is the id of the outbound SMS/RCS. 
-
-When `to` is omitted, no message is sent — `submission.to` and `message_id` are both `null` — which is useful for embedding the URL in your own outreach.
-
-On completion, a `FORM.SUBMISSION` webhook event is delivered to webhooks subscribed to the sender. See [Receiving Messages and User Events](/guides/messages/receiving).
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.forms.send({
-    from: "agent_iM9wQcyBBjYn",
-    to: "+14155551234",
-    form: "form_Oy2n7iUoi9CJwUU6",
-    fallback: {
-        from: "+14155550000"
-    },
-    options: {
-        webview_mode: "FULL"
-    }
-});
-
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Pinnacle.SendFormParams` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Forms.RequestOptions` 
     
 </dd>
 </dl>
@@ -4458,6 +5407,367 @@ await client.campaigns.rcs.list();
 </dl>
 </details>
 
+## Conferences Participants
+<details><summary><code>client.conferences.participants.<a href="/src/api/resources/conferences/resources/participants/client/Client.ts">list</a>(id) -> Pinnacle.ListParticipantsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Everyone who has been in the conference, including people who left or never connected.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conferences.participants.list("conf_Hk2mX9pQ4rT7vB1nL8sW");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Participants.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conferences.participants.<a href="/src/api/resources/conferences/resources/participants/client/Client.ts">add</a>(id, { ...params }) -> Pinnacle.ConferenceParticipant</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add someone: dial a new number (`to` + `from`) or pull in a call you already have (`call_id`).
+
+A dialed participant is returned with status `dialing` and joins when they answer; you'll get `participant.joined` (or `participant.failed` if they don't answer). With `announce`, they hear it alone before joining.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conferences.participants.add("conf_Hk2mX9pQ4rT7vB1nL8sW", {
+    body: {
+        to: "+14155551234",
+        from: "+14155559876",
+        label: "supervisor",
+        muted: true,
+        announce: {
+            text: "You're joining a billing call. You're muted."
+        }
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.conferences.ParticipantsAddRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Participants.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conferences.participants.<a href="/src/api/resources/conferences/resources/participants/client/Client.ts">get</a>(id, participant) -> Pinnacle.ConferenceParticipant</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conferences.participants.get("conf_Hk2mX9pQ4rT7vB1nL8sW", "supervisor");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**participant:** `string` — The participant's `call_id` or label.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Participants.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conferences.participants.<a href="/src/api/resources/conferences/resources/participants/client/Client.ts">remove</a>(id, participant) -> Pinnacle.ConferenceParticipant</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Hang up this participant's call. Everyone else stays in the conference.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conferences.participants.remove("conf_Hk2mX9pQ4rT7vB1nL8sW", "supervisor");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**participant:** `string` — The participant's `call_id` or label.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Participants.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.conferences.participants.<a href="/src/api/resources/conferences/resources/participants/client/Client.ts">update</a>(id, participant, { ...params }) -> Pinnacle.ConferenceParticipant</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Mute, hold, or whisper. Only the fields you send change, and only real changes are applied.
+
+- `muted: true`: nobody hears them; they still hear everyone.
+- `on_hold: true`: they hear hold audio; nobody hears them.
+- `whisper_to: ["specialist"]`: only the specialist hears them. `null` goes back to everyone.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.conferences.participants.update("conf_Hk2mX9pQ4rT7vB1nL8sW", "supervisor", {
+    muted: false,
+    whisper_to: ["specialist"]
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**participant:** `string` — The participant's `call_id` or label.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.conferences.UpdateConferenceParticipantParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Participants.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Forms Submissions
 <details><summary><code>client.forms.submissions.<a href="/src/api/resources/forms/resources/submissions/client/Client.ts">list</a>(id, { ...params }) -> Pinnacle.ListFormSubmissionsResponse</code></summary>
 <dl>
@@ -5509,6 +6819,451 @@ await client.messages.simulate.user({
 <dd>
 
 **requestOptions:** `Simulate.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Network SimSwap
+<details><summary><code>client.network.simSwap.<a href="/src/api/resources/network/resources/simSwap/client/Client.ts">check</a>({ ...params }) -> Pinnacle.SimSwapResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Check whether a phone number's SIM was changed during a recent lookback window. Use this to flag account takeover risk before sign-in, password reset, payment, or other sensitive actions.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.network.simSwap.check({
+    phoneNumber: "+14155550123",
+    periodHours: 240
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.network.SimSwapRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SimSwap.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Network SubscriberMatch
+<details><summary><code>client.network.subscriberMatch.<a href="/src/api/resources/network/resources/subscriberMatch/client/Client.ts">check</a>({ ...params }) -> Pinnacle.SubscriberMatchResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Compare user-provided identity details against the carrier's subscriber record. Results return match strength per attribute, so you can use partial signals without receiving carrier PII.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.network.subscriberMatch.check({
+    phoneNumber: "+14155550123",
+    attributes: {
+        givenName: "Jane",
+        familyName: "Doe",
+        streetName: "Market Street",
+        streetNumber: "123",
+        postalCode: "94105",
+        locality: "San Francisco",
+        region: "CA",
+        country: "US",
+        birthdate: "1990-01-31"
+    }
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.network.SubscriberMatchRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SubscriberMatch.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Network SilentAuth
+<details><summary><code>client.network.silentAuth.<a href="/src/api/resources/network/resources/silentAuth/client/Client.ts">start</a>({ ...params }) -> Pinnacle.SilentAuthResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start a Silent Authentication session to verify that the user controls the device attached to a phone number. Omit `format` to receive a `browserUrl` for the hosted browser/WebView flow, or set `format: "json"` to receive a `jsonUrl` for a native mobile app or custom client-side flow. The device check must run from the user's cellular device, not your server.
+
+The returned URL expires 60 seconds after creation. Open or fetch it immediately and use `expiresAt` to detect when a new Silent Auth session is required.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.network.silentAuth.start({
+    phoneNumber: "+14155550123",
+    clientRef: "user_123"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.network.SilentAuthRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SilentAuth.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.network.silentAuth.<a href="/src/api/resources/network/resources/silentAuth/client/Client.ts">check</a>(requestId, { ...params }) -> Pinnacle.SilentAuthCheckResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Complete a Silent Authentication request by exchanging the code returned from the JSON flow. Call this from your server after the user's mobile app fetches `jsonUrl`.
+
+This endpoint returns a terminal verification result. To inspect pending lifecycle states such as `started` or `challenge-issued`, use [Get Network Request](/api-reference/network/get-network-request).
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.network.silentAuth.check("nar_1234567890ABCDEF", {
+    code: "abc123"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestId:** `Pinnacle.NetworkRequestId` — Silent Authentication request ID returned by `POST /network/silent-auth`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.network.SilentAuthCheckRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SilentAuth.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Network Requests
+<details><summary><code>client.network.requests.<a href="/src/api/resources/network/resources/requests/client/Client.ts">list</a>({ ...params }) -> Pinnacle.ListNetworkRequestsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List Network API request records for your team, sorted newest first. Use filters to audit recent checks by type, status, or your own `clientRef`.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.network.requests.list({
+    pageIndex: 0,
+    pageSize: 20,
+    type: "silent-auth",
+    status: "completed",
+    clientRef: "user_123"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Pinnacle.network.ListNetworkRequestsParams` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Requests.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.network.requests.<a href="/src/api/resources/network/resources/requests/client/Client.ts">get</a>(requestId) -> Pinnacle.NetworkRequestSummary</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve one Network API request by ID. The response includes lifecycle timestamps, request status, your `clientRef`, and result fields from the original check.
+
+<Note>
+  Limited availability. Contact [founders@pinnacle.sh](mailto:founders@pinnacle.sh) to request access.
+</Note>
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.network.requests.get("nar_1234567890ABCDEF");
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestId:** `Pinnacle.NetworkRequestId` — Network API request ID returned by a Network API endpoint.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Requests.RequestOptions` 
     
 </dd>
 </dl>

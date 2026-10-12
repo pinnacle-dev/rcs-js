@@ -23,13 +23,9 @@ Instantiate and use the client with the following:
 import { PinnacleClient } from "rcs-js";
 
 const client = new PinnacleClient({ apiKey: "YOUR_API_KEY" });
-await client.brands.autofill({
-    additional_info: "A developer-friendly, compliant API for SMS, MMS, and RCS, built to scale real conversations.",
-    name: "Pinnacle",
-    options: {
-        forceReload: true
-    },
-    website: "https://www.pinnacle.sh"
+await client.audiences.create({
+    name: "Mixed Audience",
+    contacts: ["+12125551234", "co_abc123", "+13105551234"]
 });
 ```
 
@@ -41,7 +37,7 @@ following namespace:
 ```typescript
 import { Pinnacle } from "rcs-js";
 
-const request: Pinnacle.AutofillBrandParams = {
+const request: Pinnacle.AudiencesGetRequest = {
     ...
 };
 ```
@@ -55,7 +51,7 @@ will be thrown.
 import { PinnacleError } from "rcs-js";
 
 try {
-    await client.brands.autofill(...);
+    await client.audiences.create(...);
 } catch (err) {
     if (err instanceof PinnacleError) {
         console.log(err.statusCode);
@@ -73,7 +69,7 @@ try {
 If you would like to send additional headers as part of the request, use the `headers` request option.
 
 ```typescript
-const response = await client.brands.autofill(..., {
+const response = await client.audiences.create(..., {
     headers: {
         'X-Custom-Header': 'custom value'
     }
@@ -85,7 +81,7 @@ const response = await client.brands.autofill(..., {
 If you would like to send additional query string parameters as part of the request, use the `queryParams` request option.
 
 ```typescript
-const response = await client.brands.autofill(..., {
+const response = await client.audiences.create(..., {
     queryParams: {
         'customQueryParamKey': 'custom query param value'
     }
@@ -107,7 +103,7 @@ A request is deemed retryable when any of the following HTTP status codes is ret
 Use the `maxRetries` request option to configure this behavior.
 
 ```typescript
-const response = await client.brands.autofill(..., {
+const response = await client.audiences.create(..., {
     maxRetries: 0 // override maxRetries at the request level
 });
 ```
@@ -117,7 +113,7 @@ const response = await client.brands.autofill(..., {
 The SDK defaults to a 60 second timeout. Use the `timeoutInSeconds` option to configure this behavior.
 
 ```typescript
-const response = await client.brands.autofill(..., {
+const response = await client.audiences.create(..., {
     timeoutInSeconds: 30 // override timeout to 30s
 });
 ```
@@ -128,7 +124,7 @@ The SDK allows users to abort requests at any point by passing in an abort signa
 
 ```typescript
 const controller = new AbortController();
-const response = await client.brands.autofill(..., {
+const response = await client.audiences.create(..., {
     abortSignal: controller.signal
 });
 controller.abort(); // aborts the request
@@ -140,7 +136,7 @@ The SDK provides access to raw response data, including headers, through the `.w
 The `.withRawResponse()` method returns a promise that results to an object with a `data` and a `rawResponse` property.
 
 ```typescript
-const { data, rawResponse } = await client.brands.autofill(...).withRawResponse();
+const { data, rawResponse } = await client.audiences.create(...).withRawResponse();
 
 console.log(data);
 console.log(rawResponse.headers['X-My-Header']);
