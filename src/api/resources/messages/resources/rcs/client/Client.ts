@@ -257,7 +257,10 @@ export class Rcs {
     }
 
     /**
-     * Validate RCS message content without sending it.
+     * Validate RCS content without sending or charging. Supply your business sender
+     * and direction for a team-specific pricing estimate. Sender always identifies the
+     * business side, including for inbound messages. Without sender, segmentation still
+     * works and the response uses generic legacy pricing. No client-provided rate is accepted.
      *
      * @param {Pinnacle.RcsValidateContent} request
      * @param {Rcs.RequestOptions} requestOptions - Request-specific configuration.
@@ -265,11 +268,14 @@ export class Rcs {
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
      * @throws {@link Pinnacle.ForbiddenError}
+     * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
      *     await client.messages.rcs.validate({
-     *         text: "text"
+     *         text: "Hello from Pinnacle",
+     *         sender: "agent_example",
+     *         direction: "OUTBOUND"
      *     })
      */
     public validate(
@@ -322,6 +328,8 @@ export class Rcs {
                     );
                 case 403:
                     throw new Pinnacle.ForbiddenError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
+                case 404:
+                    throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new Pinnacle.InternalServerError(
                         _response.error.body as Pinnacle.Error_,

@@ -286,6 +286,7 @@ export * from "./UserButtonPressTrigger.js";
 export * from "./UserEvent.js";
 export * from "./ValidateCampaignParams.js";
 export * from "./ValidationErrorDetails.js";
+export * from "./ValidationPricingContext.js";
 export * from "./ValidationResults.js";
 export * from "./VCardData.js";
 export * from "./Vcard.js";

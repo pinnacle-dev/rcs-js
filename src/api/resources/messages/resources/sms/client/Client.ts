@@ -135,30 +135,36 @@ export class Sms {
     }
 
     /**
-     * Validate SMS message content without sending it.
+     * Validate SMS content without sending or charging. Supply your business sender
+     * and direction for a team-specific pricing estimate. Sender always identifies the
+     * business side, including for inbound messages. Without sender, segmentation still
+     * works and the response uses generic legacy pricing. No client-provided rate is accepted.
      *
-     * @param {Pinnacle.SmsContent} request
+     * @param {Pinnacle.messages.SmsValidateContent} request
      * @param {Sms.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Pinnacle.BadRequestError}
      * @throws {@link Pinnacle.UnauthorizedError}
      * @throws {@link Pinnacle.ForbiddenError}
+     * @throws {@link Pinnacle.NotFoundError}
      * @throws {@link Pinnacle.InternalServerError}
      *
      * @example
      *     await client.messages.sms.validate({
-     *         text: "Hello from Pinnacle"
+     *         text: "Hello from Pinnacle",
+     *         sender: "+14155550123",
+     *         direction: "OUTBOUND"
      *     })
      */
     public validate(
-        request: Pinnacle.SmsContent,
+        request: Pinnacle.messages.SmsValidateContent,
         requestOptions?: Sms.RequestOptions,
     ): core.HttpResponsePromise<Pinnacle.SmsValidationResult> {
         return core.HttpResponsePromise.fromPromise(this.__validate(request, requestOptions));
     }
 
     private async __validate(
-        request: Pinnacle.SmsContent,
+        request: Pinnacle.messages.SmsValidateContent,
         requestOptions?: Sms.RequestOptions,
     ): Promise<core.WithRawResponse<Pinnacle.SmsValidationResult>> {
         const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
@@ -200,6 +206,8 @@ export class Sms {
                     );
                 case 403:
                     throw new Pinnacle.ForbiddenError(_response.error.body as Pinnacle.Error_, _response.rawResponse);
+                case 404:
+                    throw new Pinnacle.NotFoundError(_response.error.body as unknown, _response.rawResponse);
                 case 500:
                     throw new Pinnacle.InternalServerError(
                         _response.error.body as Pinnacle.Error_,
