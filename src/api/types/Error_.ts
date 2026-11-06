@@ -4,6 +4,8 @@
  * Standard error response returned when a request cannot be processed successfully.
  */
 export interface Error_ {
+    /** Machine-readable reason, such as RECIPIENT_OPTED_OUT when messaging is suppressed. */
+    code?: string;
     /** Human-readable description of the error that occurred, corresponding to the HTTP status code. */
     error: string;
 }

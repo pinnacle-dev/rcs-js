@@ -30,3 +30,7 @@ export * as status from "./status/index.js";
 export * as tools from "./tools/index.js";
 export * from "./webhooks/client/requests/index.js";
 export * as webhooks from "./webhooks/index.js";
+
+export * from "./keywords/client/requests/index.js";
+export * as keywords from "./keywords/index.js";
+export * from "./keywords/types/index.js";

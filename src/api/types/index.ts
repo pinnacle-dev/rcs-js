@@ -305,3 +305,14 @@ export * from "./Webhooks.js";
 export * from "./WhisperTo.js";
 export * from "./WhitelistedNumberSummary.js";
 export * from "./ZodError.js";
+
+export * from "./DeleteKeywordConfigurationResponse.js";
+export * from "./EffectiveKeywordConfiguration.js";
+export * from "./KeywordCategories.js";
+export * from "./KeywordCategory.js";
+export * from "./KeywordConfiguration.js";
+export * from "./KeywordConfigurationList.js";
+export * from "./KeywordEvent.js";
+export * from "./KeywordEventList.js";
+export * from "./MessagingSubscription.js";
+export * from "./MessagingSubscriptionList.js";
