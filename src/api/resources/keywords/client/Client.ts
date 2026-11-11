@@ -139,7 +139,7 @@ export class Keywords {
     }
 
     /**
-     * Create campaign defaults or a sender override. All three categories are required. Reserved opt-out, opt-in, and help keywords remain recognized. Carrier-managed replies may take precedence over the configured response.
+     * Create campaign defaults or a sender override. All three categories are required. Opt-in keywords are user-defined; no opt-in keywords are added automatically. Reserved opt-out and help keywords remain recognized. Carrier-managed replies may take precedence over the configured response.
      *
      * @param {Pinnacle.CreateKeywordConfiguration} request
      * @param {Keywords.RequestOptions} requestOptions - Request-specific configuration.
