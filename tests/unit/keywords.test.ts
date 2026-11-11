@@ -40,3 +40,13 @@ describe("keyword management", () => {
         await expect(client.messages.sms.send({ from: "+12025550101", to: "+12025550102", text: "Hello" })).rejects.toMatchObject({ statusCode: 403, body: { code: "RECIPIENT_OPTED_OUT" } });
     });
 });
+
+it("preserves keyword attachments in configuration requests", async () => {
+    const fetch = vi.fn(async () => Response.json({ id: "kwcfg_test" }));
+    const client = new PinnacleClient({ apiKey: "test-key", fetch });
+    await client.keywords.create({ campaignType: "10DLC", campaignId: "dc_1", categories: {
+        ...categories, HELP: { ...categories.HELP, mediaUrls: ["https://example.com/help.jpg"] },
+    } });
+    const [, options] = fetch.mock.calls[0] as unknown as [string, RequestInit];
+    expect(JSON.parse(String(options.body)).categories.HELP.mediaUrls).toEqual(["https://example.com/help.jpg"]);
+});

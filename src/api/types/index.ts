@@ -313,6 +313,7 @@ export * from "./KeywordCategory.js";
 export * from "./KeywordConfiguration.js";
 export * from "./KeywordConfigurationList.js";
 export * from "./KeywordEvent.js";
+export * from "./KeywordReceivedEvent.js";
 export * from "./KeywordEventList.js";
 export * from "./MessagingSubscription.js";
 export * from "./MessagingSubscriptionList.js";

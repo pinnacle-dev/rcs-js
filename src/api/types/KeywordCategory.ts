@@ -3,4 +3,5 @@
 export interface KeywordCategory {
     keywords: string[];
     response: string;
+    mediaUrls?: string[];
 }

@@ -8,6 +8,7 @@
 export const WebhookEventEnum = {
     MessageStatus: "MESSAGE.STATUS",
     MessageReceived: "MESSAGE.RECEIVED",
+    KeywordReceived: "KEYWORD.RECEIVED",
     UserTyping: "USER.TYPING",
     FormSubmission: "FORM.SUBMISSION",
     CampaignStatus: "CAMPAIGN.STATUS",

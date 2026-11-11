@@ -6,15 +6,13 @@ export interface KeywordEvent {
     campaignId: string;
     recipient: string;
     sender: string;
-    providerId: number;
-    providerMessageId: string;
     category: KeywordEvent.Category;
     keyword: string;
     occurredAt: string;
     createdAt: string;
     response: string;
-    responseOwner: KeywordEvent.ResponseOwner;
-    replyMessageId: number | null;
+    responseMediaUrls: string[];
+    replyMessageId: string | null;
 }
 
 export namespace KeywordEvent {
@@ -30,9 +28,4 @@ export namespace KeywordEvent {
         Help: "HELP",
     } as const;
     export type Category = (typeof Category)[keyof typeof Category];
-    export const ResponseOwner = {
-        Pinnacle: "PINNACLE",
-        Provider: "PROVIDER",
-    } as const;
-    export type ResponseOwner = (typeof ResponseOwner)[keyof typeof ResponseOwner];
 }

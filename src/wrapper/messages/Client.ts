@@ -15,6 +15,7 @@ export class EnhancedMessages extends Messages {
         req: Request | ExpressLikeRequest,
         secret?: string,
     ): Promise<
+        | Pinnacle.KeywordReceivedEvent
         | Pinnacle.MessageEvent
         | Pinnacle.UserEvent
         | Pinnacle.FormSubmissionEvent
@@ -55,7 +56,8 @@ export class EnhancedMessages extends Messages {
         }
 
         return body as
-            | Pinnacle.MessageEvent
+            | Pinnacle.KeywordReceivedEvent
+        | Pinnacle.MessageEvent
             | Pinnacle.UserEvent
             | Pinnacle.FormSubmissionEvent
             | Pinnacle.CampaignStatusEvent;
